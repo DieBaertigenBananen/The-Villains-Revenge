@@ -66,12 +66,11 @@ namespace TheVillainsRevenge
                 foreach (Block block in karte.blocks)
                 {
                     //Eigene Collision , wenn Kollision nicht gleich 0 ,eine Seite also kollidiert
-                        cl = spieler.cbox.Intersect(block.cbox, 1);
-                        cr = spieler.cbox.Intersect(block.cbox, 2);
-                        ct = spieler.cbox.Intersect(block.cbox, 3);
-                        cb = spieler.cbox.Intersect(block.cbox, 4);
+                    cl = spieler.cbox.Intersect(block.cbox, 1);
+                    cr = spieler.cbox.Intersect(block.cbox, 2);
+                    ct = spieler.cbox.Intersect(block.cbox, 3);
+                    cb = spieler.cbox.Intersect(block.cbox, 4);
                 }
-                //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
                 KeyboardState currentKeyboardState = Keyboard.GetState();
                     if (currentKeyboardState.IsKeyDown(Keys.Right) == true&&!cr) //Wenn Rechte Pfeiltaste
                     {

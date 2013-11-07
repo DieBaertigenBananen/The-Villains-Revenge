@@ -10,6 +10,7 @@ namespace TheVillainsRevenge
 {
     class Player
     {
+        //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         Vector2 pos; //Position
         Vector2 lastpos; //Position vor vorherigem Update
         Texture2D playerTexture; //Textur

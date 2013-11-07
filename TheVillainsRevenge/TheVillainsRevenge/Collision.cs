@@ -20,6 +20,7 @@ namespace TheVillainsRevenge
             width = nWidth;
             height = nHeight;
         }
+
         public bool Intersect(Collision box,int seite)
         {
             bool nseite = false;
@@ -93,5 +94,20 @@ namespace TheVillainsRevenge
 
             return nseite;
         }
+
+                //bool cr = false;
+                //bool cl = false;
+                //bool ct = false;
+                //bool cb = false;
+                ////Gehe die Blöcke der Karte durch
+                //foreach (Block block in karte.blocks)
+                //{
+                //    //Eigene Collision , wenn Kollision nicht gleich 0 ,eine Seite also kollidiert
+                //    cl = spieler.cbox.Intersect(block.cbox, 1);
+                //    cr = spieler.cbox.Intersect(block.cbox, 2);
+                //    ct = spieler.cbox.Intersect(block.cbox, 3);
+                //    cb = spieler.cbox.Intersect(block.cbox, 4);
+                //}
+
     }
 }
