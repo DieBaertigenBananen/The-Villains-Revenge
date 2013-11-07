@@ -61,19 +61,28 @@ namespace TheVillainsRevenge
                 KeyboardState currentKeyboardState = Keyboard.GetState();
                     if (currentKeyboardState.IsKeyDown(Keys.Right) == true) //Wenn Rechte Pfeiltaste
                     {
-                        spieler.Move(1, karte.blocks); //Bewege Rechts
+                        spieler.Move(spieler.speed, 0, karte.blocks); //Bewege Rechts
                     }
                     else if (currentKeyboardState.IsKeyDown(Keys.Left) == true)//Wenn Linke Pfeiltaste
                     {
-                        spieler.Move(2, karte.blocks);//Bewege Links
+                        spieler.Move(-spieler.speed, 0, karte.blocks);//Bewege Links
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.Up) == true)//Wenn Oben Pfeiltaste
                     {
-                        spieler.Move(3, karte.blocks);//Bewege Oben
+                        spieler.Move(0, -spieler.speed, karte.blocks);//Bewege Oben
                     }
                     else if (currentKeyboardState.IsKeyDown(Keys.Down) == true)//Wenn Unten Pfeiltaste
                     {
-                        spieler.Move(4, karte.blocks);//Bewege Unten
+                        spieler.Move(0, spieler.speed, karte.blocks);//Bewege Unten
+                    }
+
+                    if (currentKeyboardState.IsKeyDown(Keys.A) == true) //Wenn Rechte Pfeiltaste
+                    {
+                        spieler.speed++;
+                    }
+                    else if (currentKeyboardState.IsKeyDown(Keys.Y) == true)//Wenn Linke Pfeiltaste
+                    {
+                        spieler.speed--;
                     }
             }
             base.Update(gameTime);
@@ -97,6 +106,7 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black);
             spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width+spieler.cbox.X), new Vector2(600, 50), Color.Black);
             spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black);
+            spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(500, 90), Color.Black);
             spriteBatch.End();
             //Beende malen
             base.Draw(gameTime);
