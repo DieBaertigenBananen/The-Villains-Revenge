@@ -43,21 +43,21 @@ namespace TheVillainsRevenge
             cbox.X = (int)pos.X;
             cbox.Y = (int)pos.Y;
         }
-
+        
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
             Rectangle cboxnew = this.cbox;
             Vector2 move = new Vector2(0, 0);
             int icoll;
             bool stop;
-            //Kleinere Koordinate als Iteration nehmen
-            if (x > y)
+            //Größere Koordinate als Iteration nehmen
+            if (Math.Abs(x) > Math.Abs(y))
             {
-                icoll = y;
+                icoll = Math.Abs(x);
             }
             else
             {
-                icoll = x;
+                icoll = Math.Abs(y);
             }
             //Iteration
             for (int i = 1; i <= icoll; i++)
