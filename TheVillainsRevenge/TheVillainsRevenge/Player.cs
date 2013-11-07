@@ -34,6 +34,37 @@ namespace TheVillainsRevenge
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
             spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 64, 64), Color.White);
         }
+        public void Update()
+        {
+            //Lade Keyboard-Daten
+            KeyboardState currentKeyboardState = Keyboard.GetState();
+            if (currentKeyboardState.IsKeyDown(Keys.Right) == true) //Wenn Rechte Pfeiltaste
+            {
+                spieler.Move(spieler.speed, 0, karte.blocks); //Bewege Rechts
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.Left) == true)//Wenn Linke Pfeiltaste
+            {
+                spieler.Move(-spieler.speed, 0, karte.blocks);//Bewege Links
+            }
+            if (currentKeyboardState.IsKeyDown(Keys.Up) == true)//Wenn Oben Pfeiltaste
+            {
+                spieler.Move(0, -spieler.speed, karte.blocks);//Bewege Oben
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.Down) == true)//Wenn Unten Pfeiltaste
+            {
+                spieler.Move(0, spieler.speed, karte.blocks);//Bewege Unten
+            }
+
+            if (currentKeyboardState.IsKeyDown(Keys.A) == true) //Wenn Rechte Pfeiltaste
+            {
+                spieler.speed++;
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.Y) == true)//Wenn Linke Pfeiltaste
+            {
+                spieler.speed--;
+            }    
+        }
+
         public void Move(int deltax, int deltay, List<Block> list) //Falls Input, bewegt den Spieler
         {
             Vector2 domove = new Vector2(0, 0);
