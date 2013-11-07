@@ -95,13 +95,6 @@ namespace TheVillainsRevenge
             spriteBatch.Begin();
             spieler.Draw(spriteBatch); //Führe Spielermalen aus
             karte.Draw(spriteBatch);
-            foreach (Block block in karte.blocks)
-            {
-                spriteBatch.DrawString(font, "X: " + block.cbox.X, new Vector2(500, 10), Color.Black);
-                spriteBatch.DrawString(font, "Y: " + block.cbox.Y, new Vector2(500, 30), Color.Black);
-                spriteBatch.DrawString(font, "W: " + (block.cbox.Width + block.cbox.X), new Vector2(600, 10), Color.Black);
-                spriteBatch.DrawString(font, "H: " + (block.cbox.Height + block.cbox.Y), new Vector2(600, 30), Color.Black);
-            }
             spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black);
             spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black);
             spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width+spieler.cbox.X), new Vector2(600, 50), Color.Black);

@@ -31,7 +31,9 @@ namespace TheVillainsRevenge
         public void Generate()
         {
             //generiere Das Level (erzeuge neue Objekte in der List)
-            blocks.Add(new Block(new Vector2(128,128)));
+            blocks.Add(new Block(new Vector2(128, 300)));
+            blocks.Add(new Block(new Vector2(192, 300)));
+            blocks.Add(new Block(new Vector2(500, 300)));
         }
     }
 }
