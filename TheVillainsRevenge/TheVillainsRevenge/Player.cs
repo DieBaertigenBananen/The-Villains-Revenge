@@ -36,30 +36,57 @@ namespace TheVillainsRevenge
         }
         public void Move(int deltax, int deltay, List<Block> list) //Falls Input, bewegt den Spieler
         {
-            if (!Collision(deltax, deltay, list))
-                {
-                    pos.X += deltax;
-                    pos.Y += deltay;
-                }
+            Vector2 domove = new Vector2(0, 0);
+            domove = CollisionCheckedVector(deltax, deltay, list);
+            pos.X += domove.X;
+            pos.Y += domove.Y;
             cbox.X = (int)pos.X;
             cbox.Y = (int)pos.Y;
         }
 
-        public bool Collision(int x, int y, List<Block> list)
+        Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
             Rectangle cboxnew = this.cbox;
-            cboxnew.X += x;
-            cboxnew.Y += y;
-            bool check = false;
-            //Gehe die Blöcke der Liste durch
-            foreach (Block block in list)
+            Vector2 move = new Vector2(0, 0);
+            int icoll;
+            bool stop;
+            //Kleinere Koordinate als Iteration nehmen
+            if (x > y)
             {
-                if (cboxnew.Intersects(block.cbox))
+                icoll = y;
+            }
+            else
+            {
+                icoll = x;
+            }
+            //Iteration
+            for (int i = 1; i <= icoll; i++)
+            {
+                stop = false;
+                //Box für nächsten Iterationsschritt berechnen
+                cboxnew.X += (x / icoll) * i;
+                cboxnew.Y += (y / icoll) * i;
+                //Gehe die Blöcke der Liste durch
+                foreach (Block block in list)
                 {
-                    check = true;
+                    //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                    if (cboxnew.Intersects(block.cbox))
+                    {
+                        stop = true;
+                        break;
+                    }
+                }
+                if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
+                {
+                    break;
+                }
+                else //Kollisionsfreien Fortschritt speichern
+                {
+                    move.X = x;
+                    move.Y = y;
                 }
             }
-            return check;
+            return move;
         }
     }
 }
