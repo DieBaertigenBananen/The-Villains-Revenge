@@ -14,14 +14,14 @@ namespace TheVillainsRevenge
         Vector2 pos; //Position
         Vector2 lastpos; //Position vor vorherigem Update
         Texture2D playerTexture; //Textur
-        public Collision cbox; //Collisionsbox
+        public Rectangle cbox; //Collisionsbox
 
         public Player() //Konstruktor, setzt Anfangsposition
         {
             pos.X = 0;
             pos.Y = 0;
             lastpos = pos;
-            cbox = new Collision(pos, 64, 64);
+            cbox = new Rectangle(pos, 64, 64);
 
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
@@ -33,27 +33,56 @@ namespace TheVillainsRevenge
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
             spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 64, 64), Color.White);
         }
-        public void Move(int richtung) //Falls Input, bewegt den Spieler
+        public void Move(int richtung, List<Block> list) //Falls Input, bewegt den Spieler
         {
             //Testweise in alle Richtungen um Kollision zu testen
             if (richtung == 1) // rechts
             {
-                pos.X++;
+                if (Collision(1,0, list))
+                {
+                    pos.X++;
+                }
             }
             else if (richtung == 2) //links
             {
-                pos.X--;
+                if (Collision(-1, 0, list))
+                {
+                    pos.X--;
+                }
             }
             if (richtung == 3) //oben
             {
-                pos.Y--;
+                if (Collision(0,-1, list))
+                {
+                    pos.Y--;
+                }
             }
             else if (richtung == 4) //unten
             {
-                pos.Y++;
+                if (Collision(0,1, list))
+                {
+                    pos.Y++;
+                }
             }
-            cbox.pos.X = (int)pos.X;
-            cbox.pos.Y = (int)pos.Y;
+            cbox.X = (int)pos.X;
+            cbox.Y = (int)pos.Y;
+        }
+
+        public bool Collision(int x, int y, List<Block> list)
+        {
+            Rectangle cboxnew = this.cbox;
+            cboxnew.X = cboxnew.X + x;
+            cboxnew.Y = cboxnew.Y + y;
+            bool check = false;
+            //Gehe die Blöcke der Liste durch
+            foreach (Block block in list)
+            {
+                if (this.cbox.Intersects(block.cbox))
+                {
+                    check = true;
+                }
+            }
+            return check;
         }
     }
 }

@@ -58,35 +58,22 @@ namespace TheVillainsRevenge
             else //Falls kein Escape
             {
                 //Lade Keyboard-Daten
-                bool cr = false;
-                bool cl = false;
-                bool ct = false;
-                bool cb = false;
-                //Gehe die Blöcke der Karte durch
-                foreach (Block block in karte.blocks)
-                {
-                    //Eigene Collision , wenn Kollision nicht gleich 0 ,eine Seite also kollidiert
-                    cl = spieler.cbox.Intersect(block.cbox, 1);
-                    cr = spieler.cbox.Intersect(block.cbox, 2);
-                    ct = spieler.cbox.Intersect(block.cbox, 3);
-                    cb = spieler.cbox.Intersect(block.cbox, 4);
-                }
                 KeyboardState currentKeyboardState = Keyboard.GetState();
                     if (currentKeyboardState.IsKeyDown(Keys.Right) == true&&!cr) //Wenn Rechte Pfeiltaste
                     {
-                        spieler.Move(1); //Bewege Rechts
+                        spieler.Move(1, karte.blocks); //Bewege Rechts
                     }
                     else if (currentKeyboardState.IsKeyDown(Keys.Left) == true && !cl)//Wenn Linke Pfeiltaste
                     {
-                        spieler.Move(2);//Bewege Links
+                        spieler.Move(2, karte.blocks);//Bewege Links
                     }
                     if (currentKeyboardState.IsKeyDown(Keys.Up) == true && !ct)//Wenn Oben Pfeiltaste
                     {
-                        spieler.Move(3);//Bewege Oben
+                        spieler.Move(3, karte.blocks);//Bewege Oben
                     }
                     else if (currentKeyboardState.IsKeyDown(Keys.Down) == true && !cb)//Wenn Unten Pfeiltaste
                     {
-                        spieler.Move(4);//Bewege Unten
+                        spieler.Move(4, karte.blocks);//Bewege Unten
                     }
             }
             base.Update(gameTime);

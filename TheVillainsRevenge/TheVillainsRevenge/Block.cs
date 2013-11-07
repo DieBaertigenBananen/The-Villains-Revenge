@@ -11,12 +11,12 @@ namespace TheVillainsRevenge
     class Block
     {
         public Vector2 pos; //Position
-        public Collision cbox; //Collisionsbox
+        public Rectangle cbox; //Collisionsbox
         public Block(Vector2 npos)
         {
             //Setze Position und Collisionsbox
             pos = npos;
-            cbox = new Collision(pos, 64, 64);
+            cbox = new Rectangle(pos, 64, 64);
         }
     }
 }
