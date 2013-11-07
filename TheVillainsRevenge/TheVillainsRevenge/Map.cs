@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheVillainsRevenge
 {
-    class Map
+     class Map
     {
         //Lade Textur
         Texture2D mapTexture;

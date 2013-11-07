@@ -58,7 +58,7 @@ namespace TheVillainsRevenge
             else //Falls kein Escape
             {
                 //Steuerung
-                spieler.Update();
+                spieler.Update(karte);
             }
             base.Update(gameTime);
         }

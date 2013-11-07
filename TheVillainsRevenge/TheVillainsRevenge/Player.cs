@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace TheVillainsRevenge
 {
@@ -34,41 +35,41 @@ namespace TheVillainsRevenge
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
             spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 64, 64), Color.White);
         }
-        public void Update()
+        public void Update(Map map)
         {
             //Lade Keyboard-Daten
             KeyboardState currentKeyboardState = Keyboard.GetState();
             if (currentKeyboardState.IsKeyDown(Keys.Right) == true) //Wenn Rechte Pfeiltaste
             {
-                spieler.Move(spieler.speed, 0, karte.blocks); //Bewege Rechts
+                Move(speed, 0, map); //Bewege Rechts
             }
             else if (currentKeyboardState.IsKeyDown(Keys.Left) == true)//Wenn Linke Pfeiltaste
             {
-                spieler.Move(-spieler.speed, 0, karte.blocks);//Bewege Links
+                Move(-speed, 0, map);//Bewege Links
             }
             if (currentKeyboardState.IsKeyDown(Keys.Up) == true)//Wenn Oben Pfeiltaste
             {
-                spieler.Move(0, -spieler.speed, karte.blocks);//Bewege Oben
+                Move(0, -speed, map);//Bewege Oben
             }
             else if (currentKeyboardState.IsKeyDown(Keys.Down) == true)//Wenn Unten Pfeiltaste
             {
-                spieler.Move(0, spieler.speed, karte.blocks);//Bewege Unten
+                Move(0, speed, map);//Bewege Unten
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.A) == true) //Wenn Rechte Pfeiltaste
             {
-                spieler.speed++;
+                speed++;
             }
             else if (currentKeyboardState.IsKeyDown(Keys.Y) == true)//Wenn Linke Pfeiltaste
             {
-                spieler.speed--;
+                speed--;
             }    
         }
 
-        public void Move(int deltax, int deltay, List<Block> list) //Falls Input, bewegt den Spieler
+        public void Move(int deltax, int deltay, Map map) //Falls Input, bewegt den Spieler
         {
             Vector2 domove = new Vector2(0, 0);
-            domove = CollisionCheckedVector(deltax, deltay, list);
+            domove = CollisionCheckedVector(deltax, deltay, map.blocks);
             pos.X += domove.X;
             pos.Y += domove.Y;
             cbox.X = (int)pos.X;
