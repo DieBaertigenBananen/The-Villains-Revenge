@@ -64,8 +64,8 @@ namespace TheVillainsRevenge
             {
                 stop = false;
                 //Box für nächsten Iterationsschritt berechnen
-                cboxnew.X += (x / icoll) * i;
-                cboxnew.Y += (y / icoll) * i;
+                cboxnew.X += ((x / icoll) * i);
+                cboxnew.Y += ((y / icoll) * i);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
@@ -82,8 +82,8 @@ namespace TheVillainsRevenge
                 }
                 else //Kollisionsfreien Fortschritt speichern
                 {
-                    move.X = x;
-                    move.Y = y;
+                    move.X = cboxnew.X - cbox.X;
+                    move.Y = cboxnew.Y - cbox.Y;
                 }
             }
             return move;
