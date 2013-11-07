@@ -21,7 +21,7 @@ namespace TheVillainsRevenge
             pos.X = 0;
             pos.Y = 0;
             lastpos = pos;
-            cbox = new Rectangle(pos, 64, 64);
+            Rectangle cbox = new Rectangle((int)pos.X, (int)pos.Y, 64, 64);
 
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen

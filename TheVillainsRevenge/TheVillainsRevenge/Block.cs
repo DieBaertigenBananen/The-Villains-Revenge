@@ -16,7 +16,7 @@ namespace TheVillainsRevenge
         {
             //Setze Position und Collisionsbox
             pos = npos;
-            cbox = new Rectangle(pos, 64, 64);
+            Rectangle cbox = new Rectangle((int)pos.X, (int)pos.Y, 64, 64);
         }
     }
 }

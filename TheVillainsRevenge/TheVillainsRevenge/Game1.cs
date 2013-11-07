@@ -59,19 +59,19 @@ namespace TheVillainsRevenge
             {
                 //Lade Keyboard-Daten
                 KeyboardState currentKeyboardState = Keyboard.GetState();
-                    if (currentKeyboardState.IsKeyDown(Keys.Right) == true&&!cr) //Wenn Rechte Pfeiltaste
+                    if (currentKeyboardState.IsKeyDown(Keys.Right) == true) //Wenn Rechte Pfeiltaste
                     {
                         spieler.Move(1, karte.blocks); //Bewege Rechts
                     }
-                    else if (currentKeyboardState.IsKeyDown(Keys.Left) == true && !cl)//Wenn Linke Pfeiltaste
+                    else if (currentKeyboardState.IsKeyDown(Keys.Left) == true)//Wenn Linke Pfeiltaste
                     {
                         spieler.Move(2, karte.blocks);//Bewege Links
                     }
-                    if (currentKeyboardState.IsKeyDown(Keys.Up) == true && !ct)//Wenn Oben Pfeiltaste
+                    if (currentKeyboardState.IsKeyDown(Keys.Up) == true)//Wenn Oben Pfeiltaste
                     {
                         spieler.Move(3, karte.blocks);//Bewege Oben
                     }
-                    else if (currentKeyboardState.IsKeyDown(Keys.Down) == true && !cb)//Wenn Unten Pfeiltaste
+                    else if (currentKeyboardState.IsKeyDown(Keys.Down) == true)//Wenn Unten Pfeiltaste
                     {
                         spieler.Move(4, karte.blocks);//Bewege Unten
                     }
@@ -88,15 +88,15 @@ namespace TheVillainsRevenge
             karte.Draw(spriteBatch);
             foreach (Block block in karte.blocks)
             {
-                spriteBatch.DrawString(font, "X: " + block.cbox.pos.X, new Vector2(500, 10), Color.Black);
-                spriteBatch.DrawString(font, "Y: " + block.cbox.pos.Y, new Vector2(500, 30), Color.Black);
-                spriteBatch.DrawString(font, "W: " + (block.cbox.width + block.cbox.pos.X), new Vector2(600, 10), Color.Black);
-                spriteBatch.DrawString(font, "H: " + (block.cbox.height + block.cbox.pos.Y), new Vector2(600, 30), Color.Black);
+                spriteBatch.DrawString(font, "X: " + block.cbox.X, new Vector2(500, 10), Color.Black);
+                spriteBatch.DrawString(font, "Y: " + block.cbox.Y, new Vector2(500, 30), Color.Black);
+                spriteBatch.DrawString(font, "W: " + (block.cbox.Width + block.cbox.X), new Vector2(600, 10), Color.Black);
+                spriteBatch.DrawString(font, "H: " + (block.cbox.Height + block.cbox.Y), new Vector2(600, 30), Color.Black);
             }
-            spriteBatch.DrawString(font, "X: " + spieler.cbox.pos.X, new Vector2(500, 50), Color.Black);
-            spriteBatch.DrawString(font, "Y: " + spieler.cbox.pos.Y, new Vector2(500, 70), Color.Black);
-            spriteBatch.DrawString(font, "W: " + (spieler.cbox.width+spieler.cbox.pos.X), new Vector2(600, 50), Color.Black);
-            spriteBatch.DrawString(font, "H: " + (spieler.cbox.height + spieler.cbox.pos.Y), new Vector2(600, 70), Color.Black);
+            spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black);
+            spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black);
+            spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width+spieler.cbox.X), new Vector2(600, 50), Color.Black);
+            spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black);
             spriteBatch.End();
             //Beende malen
             base.Draw(gameTime);
