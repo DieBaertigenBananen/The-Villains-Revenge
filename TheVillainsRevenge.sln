@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C# Express 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheVillainsRevenge", "TheVillainsRevenge\TheVillainsRevenge\TheVillainsRevenge.csproj", "{C8062EAF-5BAA-46B0-99B3-41C6AEEEE3B4}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "TheVillainsRevengeContent", "TheVillainsRevenge\TheVillainsRevengeContent\TheVillainsRevengeContent.contentproj", "{5D33E636-7F32-485A-900B-C97B7DBFB7E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8062EAF-5BAA-46B0-99B3-41C6AEEEE3B4}.Debug|x86.ActiveCfg = Debug|x86
+		{C8062EAF-5BAA-46B0-99B3-41C6AEEEE3B4}.Debug|x86.Build.0 = Debug|x86
+		{C8062EAF-5BAA-46B0-99B3-41C6AEEEE3B4}.Release|x86.ActiveCfg = Release|x86
+		{C8062EAF-5BAA-46B0-99B3-41C6AEEEE3B4}.Release|x86.Build.0 = Release|x86
+		{5D33E636-7F32-485A-900B-C97B7DBFB7E9}.Debug|x86.ActiveCfg = Debug|x86
+		{5D33E636-7F32-485A-900B-C97B7DBFB7E9}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
