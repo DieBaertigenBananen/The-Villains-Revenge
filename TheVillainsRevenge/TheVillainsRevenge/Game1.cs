@@ -26,19 +26,19 @@ namespace TheVillainsRevenge
         Player spieler = new Player();
         Map karte = new Map();
         Vector2 camp;
-        Vector2 cams;
+        public static Vector2 cams; // public static von überall zugreifbar mit Game1.cams
         bool check;
 
         public Game1()
         {
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             camp.X = 0;
             camp.Y = 0;
             check = false;
-            cams.X = 840;
-            cams.Y = 500;
+            cams.X = 1920;
+            cams.Y = 1080;
             graphics.PreferredBackBufferHeight = (int)cams.Y;
             graphics.PreferredBackBufferWidth = (int)cams.X;
             Content.RootDirectory = "Content";
@@ -63,7 +63,7 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed||Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 this.Exit();
             }
@@ -74,8 +74,8 @@ namespace TheVillainsRevenge
                 {
                     if (!check)
                     {
-                        graphics.PreferredBackBufferHeight = 600;
-                        graphics.PreferredBackBufferWidth = 1008;
+                        graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                        graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                         check = true;
                     }
                     else
@@ -103,18 +103,18 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            Vector3 screenScalingFactor = new Vector3((float)(graphics.PreferredBackBufferWidth / cams.X), (float)(graphics.PreferredBackBufferHeight / cams.Y), 1);
+            GraphicsDevice.Clear(Color.Black);
+            Vector3 screenScalingFactor = new Vector3((float)(1), (float)(1), 1);
             Matrix trans = Matrix.CreateScale(screenScalingFactor) * Matrix.CreateTranslation(camp.X, camp.Y, 0);
             //Beginne malen10	    
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null,trans);
             spieler.Draw(spriteBatch); //Führe Spielermalen aus
             karte.Draw(spriteBatch);
-            spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black);
-            spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black);
-            spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width+spieler.cbox.X), new Vector2(600, 50), Color.Black);
-            spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black);
-            spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(500, 90), Color.Black);
+            spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black,0f,Vector2.Zero,1.0f,SpriteEffects.None,0.0f);
+            spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width + spieler.cbox.X), new Vector2(600, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(500, 90), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.End();
             //Beende malen
             base.Draw(gameTime);
