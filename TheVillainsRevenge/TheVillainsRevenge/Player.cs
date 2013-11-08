@@ -20,7 +20,7 @@ namespace TheVillainsRevenge
         public bool jump = false;
         public bool fall = false;
         public double falltimer;
-        int jumptimer;
+        double jumptimer;
 
         public Player() //Konstruktor, setzt Anfangsposition
         {
@@ -94,8 +94,7 @@ namespace TheVillainsRevenge
             }  
 
             //Gravitation
-            Vector2 falling = CollisionCheckedVector(0, -1, map.blocks);
-            if (falling.Y < 0)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
             {
                 if (!fall)
                 {
@@ -109,7 +108,7 @@ namespace TheVillainsRevenge
             {
                 fall = false;
             }
-  
+
             //Sprung
             //if (isJumping)
             //{
@@ -156,8 +155,8 @@ namespace TheVillainsRevenge
             {
                 stop = false;
                 //Box für nächsten Iterationsschritt berechnen
-                cboxnew.X += ((x / icoll) * i);
-                cboxnew.Y += ((y / icoll) * i);
+                cboxnew.X = this.cbox.X + ((x / icoll)*i);
+                cboxnew.Y = this.cbox.Y + ((y / icoll)*i);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
