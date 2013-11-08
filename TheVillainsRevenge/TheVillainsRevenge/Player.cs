@@ -39,28 +39,52 @@ namespace TheVillainsRevenge
         {
             //Lade Keyboard-Daten
             KeyboardState currentKeyboardState = Keyboard.GetState();
-            if (currentKeyboardState.IsKeyDown(Keys.Right) == true || currentKeyboardState.IsKeyDown(Keys.D) == true) //Wenn Rechte Pfeiltaste
+            if (
+                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0f
+                ||
+                currentKeyboardState.IsKeyDown(Keys.Right) == true 
+                || 
+                currentKeyboardState.IsKeyDown(Keys.D) == true
+                ) //Wenn Rechte Pfeiltaste
             {
                 Move(speed, 0, map); //Bewege Rechts
             }
-            else if (currentKeyboardState.IsKeyDown(Keys.Left) == true || currentKeyboardState.IsKeyDown(Keys.A) == true)//Wenn Linke Pfeiltaste
+            else if (
+                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
+                ||
+                currentKeyboardState.IsKeyDown(Keys.Left) == true 
+                || 
+                currentKeyboardState.IsKeyDown(Keys.A) == true
+                ) //Wenn Rechte Pfeiltaste
             {
                 Move(-speed, 0, map);//Bewege Links
             }
-            if (currentKeyboardState.IsKeyDown(Keys.Up) == true || currentKeyboardState.IsKeyDown(Keys.W) == true)//Wenn Oben Pfeiltaste
+            else if (
+                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
+                ||
+                currentKeyboardState.IsKeyDown(Keys.Up) == true
+                ||
+                currentKeyboardState.IsKeyDown(Keys.W) == true
+                ) //Wenn Rechte Pfeiltaste
             {
                 Move(0, -speed, map);//Bewege Oben
             }
-            else if (currentKeyboardState.IsKeyDown(Keys.Down) == true || currentKeyboardState.IsKeyDown(Keys.S) == true)//Wenn Unten Pfeiltaste
+            else if (
+                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0f
+                ||
+                currentKeyboardState.IsKeyDown(Keys.Down) == true
+                ||
+                currentKeyboardState.IsKeyDown(Keys.S) == true
+                ) //Wenn Rechte Pfeiltaste
             {
                 Move(0, speed, map);//Bewege Unten
             }
 
-            if (currentKeyboardState.IsKeyDown(Keys.LeftShift) == true) //Wenn Rechte Pfeiltaste
+            if (currentKeyboardState.IsKeyDown(Keys.LeftShift) == true || GamePad.GetState(PlayerIndex.One).Triggers.Right == 1.0f) //Wenn Rechte Pfeiltaste
             {
                 speed++;
             }
-            else if (currentKeyboardState.IsKeyDown(Keys.LeftControl) == true)//Wenn Linke Pfeiltaste
+            else if (currentKeyboardState.IsKeyDown(Keys.LeftControl) == true || GamePad.GetState(PlayerIndex.One).Triggers.Left == 1.0f)//Wenn Linke Pfeiltaste
             {
                 speed--;
             }    
