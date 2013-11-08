@@ -16,7 +16,7 @@ namespace TheVillainsRevenge
         Vector2 lastpos; //Position vor vorherigem Update
         Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
-        public int speed = 1;
+        public int speed = 6; //Bewegungsgeschwindigkeit in m/s _/60
         public bool jump = false;
         public bool fall = false;
         public double falltimer;
@@ -65,7 +65,7 @@ namespace TheVillainsRevenge
             {
                 Move(-speed, 0, map);//Bewege Links
             }
-            else if (
+            if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
                 ||
                 currentKeyboardState.IsKeyDown(Keys.Space) == true
