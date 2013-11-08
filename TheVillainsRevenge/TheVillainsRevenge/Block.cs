@@ -11,8 +11,8 @@ namespace TheVillainsRevenge
     class Block
     {
         public Vector2 pos; //Position
-        public Rectangle cbox = new Rectangle(); //Collisionsbox
-        Rectangle cuttexture = new Rectangle();
+        public Rectangle cbox = new Rectangle(0,0,48,48); //Collisionsbox
+        public Rectangle cuttexture = new Rectangle(0,0,48,48);
         public Block(Vector2 npos, string type)
         {
             //Setze Position und Collisionsbox
@@ -23,19 +23,20 @@ namespace TheVillainsRevenge
             switch (type)
             {
                 case "ground":
-                    cbox.Height = 48;
-                    cbox.Width = 48;
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
                     break;
                 case "solid":
-
+                    cuttexture.X = 48;
+                    cuttexture.Y = 0;
                     break;
                 case "water":
-
+                    cuttexture.X = 2 * 48;
+                    cuttexture.Y = 0;
                     break;
                 case "ladder":
-
+                    cuttexture.X = 3 * 48;
+                    cuttexture.Y = 0;
                     break;
             }
 

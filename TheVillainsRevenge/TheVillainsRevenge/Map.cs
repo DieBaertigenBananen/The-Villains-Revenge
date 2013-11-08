@@ -26,7 +26,7 @@ namespace TheVillainsRevenge
             foreach (Block block in blocks)
             {
                 //Zeichne die Blöcke anhand der Daten der Blöcke
-                spriteBatch.Draw(mapTexture, block.pos, new Rectangle(0, 0, 48, 48), Color.White);
+                spriteBatch.Draw(mapTexture, block.pos, block.cuttexture, Color.White);
             }
         }
 
@@ -34,10 +34,21 @@ namespace TheVillainsRevenge
         {
             //generiere Das Level (erzeuge neue Objekte in der List)
             //Iteration
-            for (int i = 0; i <= 22; i++)
+            for (int i = 0; i <= 5; i++)
             {
-                if(i != 10&&i != 11&&i != 12)
-                    blocks.Add(new Block(new Vector2(i*48, 500-48), "ground"));
+                blocks.Add(new Block(new Vector2(i*48, 500-48), "ground"));
+            }
+            for (int i = 0; i <= 5; i++)
+            {
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, 500 - 48), "solid"));
+            }
+            for (int i = 0; i <= 3; i++)
+            {
+                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, 500 - 4 * 48), "water"));
+            }
+            for (int i = 0; i <= 5; i++)
+            {
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, 500 - 7 * 48), "ladder"));
             }
         }
     }
