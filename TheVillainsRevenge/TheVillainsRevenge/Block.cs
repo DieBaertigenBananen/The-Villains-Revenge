@@ -23,8 +23,8 @@ namespace TheVillainsRevenge
             switch (type)
             {
                 case "ground":
-                    cbox.Height = 64;
-                    cbox.Width = 64;
+                    cbox.Height = 48;
+                    cbox.Width = 48;
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
                     break;

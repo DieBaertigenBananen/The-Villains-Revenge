@@ -23,7 +23,7 @@ namespace TheVillainsRevenge
             pos.X = 0;
             pos.Y = 0;
             lastpos = pos;
-            cbox = new Rectangle((int)pos.X, (int)pos.Y, 64, 64);
+            cbox = new Rectangle((int)pos.X, (int)pos.Y, 128, 128);
 
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
@@ -33,7 +33,7 @@ namespace TheVillainsRevenge
         public void Draw(SpriteBatch spriteBatch)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 64, 64), Color.White);
+            spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 128, 128), Color.White);
         }
         public void Update(Map map)
         {
