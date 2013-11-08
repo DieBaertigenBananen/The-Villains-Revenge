@@ -75,7 +75,7 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.White);
             //Beginne malen10	    
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Matrix.CreateTranslation(cam.X,cam.Y, 0));
             spieler.Draw(spriteBatch); //Führe Spielermalen aus

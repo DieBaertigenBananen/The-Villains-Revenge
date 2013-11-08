@@ -55,7 +55,7 @@ namespace TheVillainsRevenge
             {
                 Move(speed, 0, map); //Bewege Rechts
             }
-            else if (
+            if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
                 ||
                 currentKeyboardState.IsKeyDown(Keys.Left) == true 
@@ -81,7 +81,7 @@ namespace TheVillainsRevenge
             {
                 speed++;
             }
-            else if (currentKeyboardState.IsKeyDown(Keys.LeftControl) == true || GamePad.GetState(PlayerIndex.One).Triggers.Left == 1.0f)//Wenn Linke Pfeiltaste
+            if (currentKeyboardState.IsKeyDown(Keys.LeftControl) == true || GamePad.GetState(PlayerIndex.One).Triggers.Left == 1.0f)//Wenn Linke Pfeiltaste
             {
                 speed--;
             }  
