@@ -68,7 +68,7 @@ namespace TheVillainsRevenge
                // cam.X--;
 
 
-                spieler.Update(karte);
+                spieler.Update(gameTime, karte);
             }
             base.Update(gameTime);
         }
@@ -85,6 +85,8 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width+spieler.cbox.X), new Vector2(600, 50), Color.Black);
             spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black);
             spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(500, 90), Color.Black);
+            spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(500, 110), Color.Black);
+            spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(500, 130), Color.Black);
             spriteBatch.End();
             //Beende malen
             base.Draw(gameTime);

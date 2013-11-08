@@ -17,6 +17,10 @@ namespace TheVillainsRevenge
         Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
         public int speed = 1;
+        public bool jump = false;
+        public bool fall = false;
+        public double falltimer;
+        int jumptimer;
 
         public Player() //Konstruktor, setzt Anfangsposition
         {
@@ -35,7 +39,7 @@ namespace TheVillainsRevenge
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
             spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 128, 128), Color.White);
         }
-        public void Update(Map map)
+        public void Update(GameTime gameTime, Map map)
         {
             //Lade Keyboard-Daten
             KeyboardState currentKeyboardState = Keyboard.GetState();
@@ -87,7 +91,39 @@ namespace TheVillainsRevenge
             else if (currentKeyboardState.IsKeyDown(Keys.LeftControl) == true || GamePad.GetState(PlayerIndex.One).Triggers.Left == 1.0f)//Wenn Linke Pfeiltaste
             {
                 speed--;
-            }    
+            }  
+
+            //Gravitation
+            Vector2 falling = CollisionCheckedVector(0, -1, map.blocks);
+            if (falling.Y < 0)
+            {
+                if (!fall)
+                {
+                    fall = true;
+                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                }
+                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer)/1000);
+                Move(0, (int)((9.81 * t)), map); //v(t)=-g*t
+            }
+            else
+            {
+                fall = false;
+            }
+  
+            //Sprung
+            //if (isJumping)
+            //{
+
+            //    Figur.Y -= jumpHoehe / 6 - jumpPhase;
+
+            //    jumpPhase++;
+
+
+
+            //    if (Figur.Y >= y0)
+            //        isJumping = false;
+
+            //} 
         }
 
         public void Move(int deltax, int deltay, Map map) //Falls Input, bewegt den Spieler
