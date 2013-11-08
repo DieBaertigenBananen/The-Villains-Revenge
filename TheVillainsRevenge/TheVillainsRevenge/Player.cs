@@ -39,7 +39,7 @@ namespace TheVillainsRevenge
         public void Draw(SpriteBatch spriteBatch)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 128, 128), Color.White);
+            spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 128, 128), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0f);
         }
         public void Update(GameTime gameTime, Map map)
         {

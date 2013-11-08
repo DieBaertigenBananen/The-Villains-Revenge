@@ -25,19 +25,24 @@ namespace TheVillainsRevenge
         SpriteFont font;
         Player spieler = new Player();
         Map karte = new Map();
-        Vector2 cam;
+        Vector2 camp;
+        public static Vector2 cams; // public static von überall zugreifbar mit Game1.cams
+        bool check;
 
         public Game1()
         {
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 500;
-            graphics.PreferredBackBufferWidth = 800;
+            graphics.IsFullScreen = true;
+            camp.X = 0;
+            camp.Y = 0;
+            check = false;
+            cams.X = 1920;
+            cams.Y = 1080;
+            graphics.PreferredBackBufferHeight = (int)cams.Y;
+            graphics.PreferredBackBufferWidth = (int)cams.X;
             Content.RootDirectory = "Content";
             karte.Generate();
-            cam.X = 0;
-            cam.Y = 0;
         }
 
         protected override void Initialize()
@@ -58,14 +63,37 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 this.Exit();
             }
             else //Falls kein Escape
             {
                 //Steuerung
-               // cam.X--;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
+                {
+                    if (!check)
+                    {
+                        graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                        graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                        check = true;
+                    }
+                    else
+                    {
+                        graphics.PreferredBackBufferHeight =(int) cams.Y;
+                        graphics.PreferredBackBufferWidth = (int) cams.X;
+                        check = false;
+                    }
+                    graphics.ApplyChanges();
+                }
+                if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed)
+                {
+                    camp.X--;
+                }
+                else if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed)
+                {
+                    camp.X++;
+                }
 
 
                 spieler.Update(gameTime, karte);
@@ -75,11 +103,18 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+<<<<<<< HEAD
             GraphicsDevice.Clear(Color.White);
+=======
+            GraphicsDevice.Clear(Color.Black);
+            Vector3 screenScalingFactor = new Vector3((float)(1), (float)(1), 1);
+            Matrix trans = Matrix.CreateScale(screenScalingFactor) * Matrix.CreateTranslation(camp.X, camp.Y, 0);
+>>>>>>> origin/Camera
             //Beginne malen10	    
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Matrix.CreateTranslation(cam.X,cam.Y, 0));
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null,trans);
             spieler.Draw(spriteBatch); //Führe Spielermalen aus
             karte.Draw(spriteBatch);
+<<<<<<< HEAD
             spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black);
             spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black);
             spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width+spieler.cbox.X), new Vector2(600, 50), Color.Black);
@@ -89,6 +124,13 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(500, 130), Color.Black);
             spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(500, 150), Color.Black);
             spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(500, 170), Color.Black);
+=======
+            spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black,0f,Vector2.Zero,1.0f,SpriteEffects.None,0.0f);
+            spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width + spieler.cbox.X), new Vector2(600, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(500, 90), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+>>>>>>> origin/Camera
             spriteBatch.End();
             //Beende malen
             base.Draw(gameTime);
