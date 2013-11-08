@@ -19,6 +19,7 @@ namespace TheVillainsRevenge
             //Lade Textur, einmal ausgeführt
             mapTexture = Content.Load<Texture2D>("sprites/tiles");
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             //Gehe alle Blöcke durch
@@ -28,6 +29,7 @@ namespace TheVillainsRevenge
                 spriteBatch.Draw(mapTexture, block.pos, new Rectangle(0, 0, 64, 64), Color.White);
             }
         }
+
         public void Generate()
         {
             //generiere Das Level (erzeuge neue Objekte in der List)

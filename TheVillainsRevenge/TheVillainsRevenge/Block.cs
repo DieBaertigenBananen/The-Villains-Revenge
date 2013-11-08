@@ -11,12 +11,34 @@ namespace TheVillainsRevenge
     class Block
     {
         public Vector2 pos; //Position
-        public Rectangle cbox; //Collisionsbox
-        public Block(Vector2 npos)
+        public Rectangle cbox = new Rectangle(); //Collisionsbox
+        Rectangle cuttexture = new Rectangle();
+        public Block(Vector2 npos, string type)
         {
             //Setze Position und Collisionsbox
             pos = npos;
-            cbox = new Rectangle((int)pos.X, (int)pos.Y, 64, 64);
+            cbox.X = (int) pos.X;
+            cbox.Y = (int) pos.Y;
+            //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
+            switch (type)
+            {
+                case "ground":
+                    cbox.Height = 64;
+                    cbox.Width = 64;
+                    cuttexture.X = 0;
+                    cuttexture.Y = 0;
+                    break;
+                case "solid":
+
+                    break;
+                case "water":
+
+                    break;
+                case "ladder":
+
+                    break;
+            }
+
         }
     }
 }
