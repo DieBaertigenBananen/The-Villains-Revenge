@@ -23,22 +23,18 @@ namespace TheVillainsRevenge
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
-        Player spieler = new Player();
+        Player spieler = new Player(10, 10);
         Map karte = new Map();
-        Vector2 camp;
-        public static Vector2 cams; // public static von überall zugreifbar mit Game1.cams
-        bool check;
+        Camera camera = new Camera();
+
+        public static Vector2 cams = new Vector2(1920, 1080); // public static von überall zugreifbar mit Game1.cams
 
         public Game1()
         {
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
-            camp.X = 0;
-            camp.Y = 0;
-            check = false;
-            cams.X = 1920;
-            cams.Y = 1080;
+            graphics.IsFullScreen = false;
+            this.Window.AllowUserResizing = true;
             graphics.PreferredBackBufferHeight = (int)cams.Y;
             graphics.PreferredBackBufferWidth = (int)cams.X;
             Content.RootDirectory = "Content";
@@ -69,36 +65,35 @@ namespace TheVillainsRevenge
             }
             else //Falls kein Escape
             {
-                //Steuerung
-                if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed)
-                {
-                    if (!check)
-                    {
-                        graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                        graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                        check = true;
-                    }
-                    else
-                    {
-                        graphics.PreferredBackBufferHeight =(int) cams.Y;
-                        graphics.PreferredBackBufferWidth = (int) cams.X;
-                        check = false;
-                    }
-                    graphics.ApplyChanges();
-                }
-                //Lade Keyboard-Daten
-                KeyboardState currentKeyboardState = Keyboard.GetState();
-                if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed ||  currentKeyboardState.IsKeyDown(Keys.D2) == true)
-                {
-                    camp.X--;
-                }
-                else if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed || currentKeyboardState.IsKeyDown(Keys.D1) == true)
-                {
-                    camp.X++;
-                }
-
-
                 spieler.Update(gameTime, karte);
+                camera.Update(gameTime, graphics);
+                //Kamera an Spieler anpassen
+                camera.camp.X = spieler.pos.X - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*0.4); //Scrolling seitlich
+                if (camera.camp.X < 0) //Linker Maprand
+                {
+                    camera.camp.X = 0;
+                }
+                else if (camera.camp.X > cams.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width) //Rechter Maprand
+                {
+                    camera.camp.X = cams.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                }
+                if (camera.camp.Y + (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.2) > spieler.pos.Y) //Scrolling nach oben
+                {
+                    camera.camp.Y = spieler.pos.Y - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.2);
+                }
+                else if (camera.camp.Y + (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.8) < spieler.pos.Y) //Scrolling nach unten
+                {
+                    camera.camp.Y = spieler.pos.Y - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.8);
+                }
+                if (camera.camp.Y < 0) //Oberer Maprand
+                {
+                    camera.camp.Y = 0;
+                }
+                else if (camera.camp.Y > cams.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height) //Unterer Maprand
+                {
+                    camera.camp.Y = cams.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                }
+
             }
             base.Update(gameTime);
         }
@@ -107,8 +102,8 @@ namespace TheVillainsRevenge
         {
             GraphicsDevice.Clear(Color.White);
             Vector3 screenScalingFactor = new Vector3((float)(1), (float)(1), 1);
-            Matrix trans = Matrix.CreateScale(screenScalingFactor) * Matrix.CreateTranslation(camp.X, camp.Y, 0);
-            //Beginne malen10	    
+            Matrix trans = Matrix.CreateScale(screenScalingFactor) * Matrix.CreateTranslation(-camera.camp.X, -camera.camp.Y, 0);
+            //Beginne malen10
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null,trans);
             spieler.Draw(spriteBatch); //Führe Spielermalen aus
             karte.Draw(spriteBatch);

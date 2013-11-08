@@ -12,7 +12,7 @@ namespace TheVillainsRevenge
     class Player
     {
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
-        Vector2 pos; //Position
+        public Vector2 pos; //Position
         Vector2 lastpos; //Position vor vorherigem Update
         Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
@@ -24,10 +24,10 @@ namespace TheVillainsRevenge
         public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
 
-        public Player() //Konstruktor, setzt Anfangsposition
+        public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
-            pos.X = 0;
-            pos.Y = 0;
+            pos.X = x;
+            pos.Y = y;
             lastpos = pos;
             cbox = new Rectangle((int)pos.X, (int)pos.Y, 128, 128);
 

@@ -49,7 +49,7 @@ namespace TheVillainsRevenge
             {
                 blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, Game1.cams.Y - 4 * 48), "platform_grass"));
             }
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i <= 50; i++)
             {
                 blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.cams.Y - 7 * 48), "ground_grass_30"));
             }
