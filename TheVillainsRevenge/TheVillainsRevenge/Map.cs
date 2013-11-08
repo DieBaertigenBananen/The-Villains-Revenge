@@ -37,7 +37,7 @@ namespace TheVillainsRevenge
             for (int i = 0; i <= 22; i++)
             {
                 if(i != 10&&i != 11&&i != 12)
-                    blocks.Add(new Block(new Vector2(i*48, 433), "ground"));
+                    blocks.Add(new Block(new Vector2(i*48, 500-48), "ground"));
             }
         }
     }

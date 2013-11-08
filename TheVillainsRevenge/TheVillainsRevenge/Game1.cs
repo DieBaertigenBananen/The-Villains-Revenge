@@ -25,12 +25,19 @@ namespace TheVillainsRevenge
         SpriteFont font;
         Player spieler = new Player();
         Map karte = new Map();
+        Vector2 cam;
 
         public Game1()
         {
+
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 500;
+            graphics.PreferredBackBufferWidth = 800;
             Content.RootDirectory = "Content";
             karte.Generate();
+            cam.X = 0;
+            cam.Y = 0;
         }
 
         protected override void Initialize()
@@ -58,6 +65,7 @@ namespace TheVillainsRevenge
             else //Falls kein Escape
             {
                 //Steuerung
+                cam.X--;
                 spieler.Update(karte);
             }
             base.Update(gameTime);
@@ -66,8 +74,8 @@ namespace TheVillainsRevenge
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //Beginne malen
-            spriteBatch.Begin();
+            //Beginne malen10	    
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, Matrix.CreateTranslation(cam.X,cam.Y, 0));
             spieler.Draw(spriteBatch); //Führe Spielermalen aus
             karte.Draw(spriteBatch);
             spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black);
