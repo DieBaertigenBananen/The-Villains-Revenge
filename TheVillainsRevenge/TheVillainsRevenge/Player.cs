@@ -20,7 +20,9 @@ namespace TheVillainsRevenge
         public bool jump = false;
         public bool fall = false;
         public double falltimer;
-        double jumptimer;
+        public double jumptimer;
+        public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
+        public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
 
         public Player() //Konstruktor, setzt Anfangsposition
         {
@@ -66,22 +68,13 @@ namespace TheVillainsRevenge
             else if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
                 ||
-                currentKeyboardState.IsKeyDown(Keys.Up) == true
-                ||
-                currentKeyboardState.IsKeyDown(Keys.W) == true
-                ) //Wenn Rechte Pfeiltaste
+                currentKeyboardState.IsKeyDown(Keys.Space) == true
+                )
             {
-                Move(0, -speed, map);//Bewege Oben
-            }
-            else if (
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0f
-                ||
-                currentKeyboardState.IsKeyDown(Keys.Down) == true
-                ||
-                currentKeyboardState.IsKeyDown(Keys.S) == true
-                ) //Wenn Rechte Pfeiltaste
-            {
-                Move(0, speed, map);//Bewege Unten
+                if (!jump && !fall)
+                {
+                    Jump(gameTime, map); //Springen! Deine Mudda springt bei Doodle Jump nach unten.
+                }
             }
 
             if (currentKeyboardState.IsKeyDown(Keys.LeftShift) == true || GamePad.GetState(PlayerIndex.One).Triggers.Right == 1.0f) //Wenn Rechte Pfeiltaste
@@ -94,7 +87,7 @@ namespace TheVillainsRevenge
             }  
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
             {
                 if (!fall)
                 {
@@ -102,27 +95,46 @@ namespace TheVillainsRevenge
                     falltimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
                 float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer)/1000);
-                Move(0, (int)((9.81 * t)), map); //v(t)=-g*t
+                Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
             }
             else
             {
                 fall = false;
             }
 
-            //Sprung
-            //if (isJumping)
-            //{
+            //Sprung fortführen
+            if (jump)
+            {
+                Jump(gameTime, map);
+            }
+        }
 
-            //    Figur.Y -= jumpHoehe / 6 - jumpPhase;
-
-            //    jumpPhase++;
-
-
-
-            //    if (Figur.Y >= y0)
-            //        isJumping = false;
-
-            //} 
+        public void Jump(GameTime gameTime, Map map)
+        {
+            if (CollisionCheckedVector(0, -1, map.blocks).Y < 0)
+            {
+                if (!jump)
+                {
+                    jump = true;
+                    jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
+                }
+                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - jumptimer) / 1000);
+                int deltay = (int)(-jumppower + (gravitation * t));
+                if (deltay > 0)
+                {
+                    jump = false;
+                    fall = true;
+                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                }
+                else
+                {
+                    Move(0, deltay, map); //v(t)=-g*t
+                }
+            }
+            else
+            {
+                jump = false;
+            }
         }
 
         public void Move(int deltax, int deltay, Map map) //Falls Input, bewegt den Spieler
