@@ -22,21 +22,53 @@ namespace TheVillainsRevenge
             //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
             switch (type)
             {
-                case "ground":
+                case "underground_earth":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
                     break;
-                case "solid":
+                case "ground_grass":
                     cuttexture.X = 48;
                     cuttexture.Y = 0;
                     break;
-                case "water":
+                case "platform_grass":
                     cuttexture.X = 2 * 48;
                     cuttexture.Y = 0;
                     break;
-                case "ladder":
+                case "ground_grass_30":
                     cuttexture.X = 3 * 48;
                     cuttexture.Y = 0;
+                    break;
+                case "ground_grass_15":
+                    cuttexture.X = 4 * 48;
+                    cuttexture.Y = 0;
+                    break;
+                case "water":
+                    cuttexture.X = 5 * 48;
+                    cuttexture.Y = 0;
+                    break;
+                case "underground_rock":
+                    cuttexture.X = 0;
+                    cuttexture.Y = 48;
+                    break;
+                case "ground_rock":
+                    cuttexture.X = 48;
+                    cuttexture.Y = 48;
+                    break;
+                case "platform_rock":
+                    cuttexture.X = 2 * 48;
+                    cuttexture.Y = 48;
+                    break;
+                case "ground_rock_30":
+                    cuttexture.X = 3 * 48;
+                    cuttexture.Y = 48;
+                    break;
+                case "ground_rock_15":
+                    cuttexture.X = 4 * 48;
+                    cuttexture.Y = 48;
+                    break;
+                case "lava":
+                    cuttexture.X = 5 * 48;
+                    cuttexture.Y = 48;
                     break;
             }
 

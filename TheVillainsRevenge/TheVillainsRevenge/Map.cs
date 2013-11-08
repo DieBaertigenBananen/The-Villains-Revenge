@@ -36,19 +36,19 @@ namespace TheVillainsRevenge
             //Iteration
             for (int i = 0; i <= 5; i++)
             {
-                blocks.Add(new Block(new Vector2(i*48, 500-48), "ground"));
+                blocks.Add(new Block(new Vector2(i*48, 500-48), "ground_earth"));
             }
             for (int i = 0; i <= 5; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, 500 - 48), "solid"));
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, 500 - 48), "ground_grass"));
             }
             for (int i = 0; i <= 3; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, 500 - 4 * 48), "water"));
+                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, 500 - 4 * 48), "platform_grass"));
             }
             for (int i = 0; i <= 5; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, 500 - 7 * 48), "ladder"));
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, 500 - 7 * 48), "ground_grass_30"));
             }
         }
     }
