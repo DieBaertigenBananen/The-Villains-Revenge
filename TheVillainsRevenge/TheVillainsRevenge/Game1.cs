@@ -86,11 +86,13 @@ namespace TheVillainsRevenge
                     }
                     graphics.ApplyChanges();
                 }
-                if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed)
+                //Lade Keyboard-Daten
+                KeyboardState currentKeyboardState = Keyboard.GetState();
+                if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed ||  currentKeyboardState.IsKeyDown(Keys.D2) == true)
                 {
                     camp.X--;
                 }
-                else if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed)
+                else if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed || currentKeyboardState.IsKeyDown(Keys.D1) == true)
                 {
                     camp.X++;
                 }
@@ -103,34 +105,22 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
-<<<<<<< HEAD
             GraphicsDevice.Clear(Color.White);
-=======
-            GraphicsDevice.Clear(Color.Black);
             Vector3 screenScalingFactor = new Vector3((float)(1), (float)(1), 1);
             Matrix trans = Matrix.CreateScale(screenScalingFactor) * Matrix.CreateTranslation(camp.X, camp.Y, 0);
->>>>>>> origin/Camera
             //Beginne malen10	    
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null,trans);
             spieler.Draw(spriteBatch); //Führe Spielermalen aus
             karte.Draw(spriteBatch);
-<<<<<<< HEAD
-            spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black);
-            spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black);
-            spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width+spieler.cbox.X), new Vector2(600, 50), Color.Black);
-            spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black);
-            spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(500, 90), Color.Black);
-            spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(500, 110), Color.Black);
-            spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(500, 130), Color.Black);
-            spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(500, 150), Color.Black);
-            spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(500, 170), Color.Black);
-=======
-            spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black,0f,Vector2.Zero,1.0f,SpriteEffects.None,0.0f);
+            spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width + spieler.cbox.X), new Vector2(600, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(500, 90), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
->>>>>>> origin/Camera
+            spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(500, 110), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(500, 130), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(500, 150), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(500, 170), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.End();
             //Beende malen
             base.Draw(gameTime);
