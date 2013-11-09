@@ -29,7 +29,7 @@ namespace TheVillainsRevenge
             foreach (Block block in blocks)
             {
                 //Zeichne die Blöcke anhand der Daten der Blöcke
-                spriteBatch.Draw(mapTexture, block.pos, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
+                spriteBatch.Draw(mapTexture, block.pos, new Rectangle(0, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
             }
         }
 
@@ -37,21 +37,10 @@ namespace TheVillainsRevenge
         {
             //generiere Das Level (erzeuge neue Objekte in der List)
             //Iteration
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i <= 22; i++)
             {
-                blocks.Add(new Block(new Vector2(i*48, Game1.cams.Y-48), "ground_earth"));
-            }
-            for (int i = 0; i <= 5; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.cams.Y - 48), "ground_grass"));
-            }
-            for (int i = 0; i <= 3; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, Game1.cams.Y - 4 * 48), "platform_grass"));
-            }
-            for (int i = 0; i <= 50; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.cams.Y - 7 * 48), "ground_grass_30"));
+                if(i != 10&&i != 11&&i != 12)
+                    blocks.Add(new Block(new Vector2(i * 48, (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 16 * 9 )- 48), "ground"));
             }
         }
     }
