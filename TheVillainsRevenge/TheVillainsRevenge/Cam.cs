@@ -13,18 +13,30 @@ namespace TheVillainsRevenge
         public Vector2 screenresolution;
         public Vector3 scaling;
         public Matrix cammatrix;
+        public bool full;
+        private int w, h;
         public Cam(Vector2 resolution)
         {
             screenresolution = resolution;
             position = new Vector2(0, 0);
         }
-        public void changeresolution(GraphicsDeviceManager graphics,int width,int height)
+        public void changeresolution(GraphicsDeviceManager graphics,int width,int height,bool fullscreen)
         {
-            graphics.PreferredBackBufferHeight = height;
-            graphics.PreferredBackBufferWidth = width;
-            scaling.Y = (float)graphics.PreferredBackBufferHeight / screenresolution.Y;
-            scaling.X = (float)graphics.PreferredBackBufferWidth / screenresolution.X;
-            graphics.ApplyChanges();
+            if (w != width || h != height)
+            {
+                w = width;
+                h = height;
+                graphics.PreferredBackBufferHeight = height;
+                graphics.PreferredBackBufferWidth = width;
+                scaling.Y = (float)graphics.PreferredBackBufferHeight / screenresolution.Y;
+                scaling.X = (float)graphics.PreferredBackBufferWidth / screenresolution.X;
+                if (full != fullscreen)
+                {
+                    full = fullscreen;
+                    graphics.IsFullScreen = full;
+                }
+                graphics.ApplyChanges();
+            }
         }
         public void update()
         {

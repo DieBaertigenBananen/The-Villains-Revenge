@@ -32,9 +32,8 @@ namespace TheVillainsRevenge
         {
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = false;
             this.Window.AllowUserResizing = true;
-            cam.changeresolution(graphics, 1024, 576);
+            cam.changeresolution(graphics, 960, 576, false);
             Content.RootDirectory = "Content";
             karte.Generate();
         }
@@ -72,7 +71,7 @@ namespace TheVillainsRevenge
                 {
                     cam.position.X++;
                 }
-                cam.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height);
+                cam.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height,cam.full);
                 cam.update();
 
 
@@ -97,9 +96,9 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "H: " + (spieler.cbox.Height + spieler.cbox.Y), new Vector2(600, 70), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(500, 90), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Cam.X: " + (cam.position.X), new Vector2(500, 110), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-            spriteBatch.DrawString(font, "Cam.Y: " + (cam.position.Y), new Vector2(600, 110), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Cam.Y: " + (cam.position.Y), new Vector2(650, 110), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Res W: " + (Window.ClientBounds.Width), new Vector2(500, 130), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-            spriteBatch.DrawString(font, "Res H: " + (Window.ClientBounds.Height), new Vector2(600, 130), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Res H: " + (Window.ClientBounds.Height), new Vector2(650, 130), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.End();
             //Beende malen
             base.Draw(gameTime);

@@ -21,7 +21,7 @@ namespace TheVillainsRevenge
         public Player() //Konstruktor, setzt Anfangsposition
         {
             pos.X = 0;
-            pos.Y = 0;
+            pos.Y = 904;
             lastpos = pos;
             cbox = new Rectangle((int)pos.X, (int)pos.Y, 128, 128);
 

@@ -38,21 +38,9 @@ namespace TheVillainsRevenge
         {
             //generiere Das Level (erzeuge neue Objekte in der List)
             //Iteration
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i <= 20; i++)
             {
-                blocks.Add(new Block(new Vector2(i*48, size.Y-48), "ground_earth"));
-            }
-            for (int i = 0; i <= 5; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, size.Y - 48), "ground_grass"));
-            }
-            for (int i = 0; i <= 3; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, size.Y - 4 * 48), "platform_grass"));
-            }
-            for (int i = 0; i <= 50; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, size.Y - 7 * 48), "ground_grass_30"));
+                blocks.Add(new Block(new Vector2(i*48, Game1.resolution.Y-48), "block"));
             }
         }
     }
