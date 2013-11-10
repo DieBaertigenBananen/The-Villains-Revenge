@@ -72,6 +72,9 @@ namespace TheVillainsRevenge
                     cam.position.X++;
                 }
                 cam.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height,cam.full);
+                GraphicsDevice.Viewport = new Viewport(0,
+                      ((int)Window.ClientBounds.Height -
+                    ((int)Window.ClientBounds.Width / 16 * 9)) / 2, (int)Window.ClientBounds.Width, (int)Window.ClientBounds.Width / 16 * 9);
                 cam.update();
 
 
@@ -82,9 +85,6 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Viewport = new Viewport(0,
-            //      ((int)(cams.Y) -
-            //    ((int)(cams.X) / 16 * 9)) / 2, (int)cams.X, (int)(cams.X) / 16 * 9);
 
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, cam.cammatrix);
