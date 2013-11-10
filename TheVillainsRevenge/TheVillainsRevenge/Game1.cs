@@ -72,10 +72,10 @@ namespace TheVillainsRevenge
                     cam.position.X++;
                 }
                 cam.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height,cam.full);
-                GraphicsDevice.Viewport = new Viewport(0,
+                /*GraphicsDevice.Viewport = new Viewport(0,
                       ((int)Window.ClientBounds.Height -
                     ((int)Window.ClientBounds.Width / 16 * 9)) / 2, (int)Window.ClientBounds.Width, (int)Window.ClientBounds.Width / 16 * 9);
-                cam.update();
+*/                cam.update();
 
 
                 spieler.Update(karte);
