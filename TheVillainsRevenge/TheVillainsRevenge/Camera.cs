@@ -10,101 +10,45 @@ namespace TheVillainsRevenge
 {
     class Camera
     {
-        public Vector2 position;
-        public Vector2 resolution;
-        public Vector3 scaling;
-        public Matrix cammatrix;
-        public bool full;
-        private int w, h;
-        public Viewport viewport;
-        public Camera(Vector2 res)
+        public Rectangle viewport;
+        public Matrix viewportTransform;
+        public Camera()
         {
-            resolution = res;
-            position = new Vector2(0, 0);
-            viewport = new Viewport(0, 0, 0, 0);
-        }
-        public void changeresolution(GraphicsDeviceManager graphics,int width,int height)
-        {
-            if (w != width || h != height)
-            {
-                //Breite, Höhe des Fensters
-                w = width;
-                h = height;
-                //Viewport anpassen
-                int viewportwidth = (int)height / 9 * 16;
-                int viewportheight = (int)width / 16 * 9;
-                int viewportdeltax = ((int)viewportwidth -  width) / 2;
-                int viewportdeltay = ((int)viewportheight - height) / 2;
-                if (viewportdeltax < viewportdeltay)
-                {
-                    //Balken oben/unten
-                    viewportwidth = (int)width;
-                    viewportdeltax = 0;
-                }
-                else
-                {
-                    //Balken links/rechts
-                    viewportheight = (int)height;
-                    viewportdeltay = 0;
-                }
-                viewport.X = viewportdeltax;
-                viewport.Y = viewportdeltay;
-                viewport.Width = viewportwidth;
-                viewport.Height = viewportheight;
-
-                //Render/Scaling anpassen
-                graphics.PreferredBackBufferHeight = height;
-                graphics.PreferredBackBufferWidth = width;
-                scaling.X = (float)viewportwidth / resolution.X;
-                scaling.Y = (float)viewportheight / resolution.Y;
-                graphics.ApplyChanges();
-            }
-        }
-        public void togglefullscreen(GraphicsDeviceManager graphics, bool fullscreen)
-        {
-            if (full != fullscreen)
-            {
-                full = fullscreen;
-                graphics.IsFullScreen = full;
-            }
-            graphics.ApplyChanges();
+            viewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
         }
 
-        public void Update(Player spieler, Map karte)
+        public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
         {
             //Kamera an Spieler anpassen
             int walkingspace = 200;
             int topspace = 200;
             int bottomspace = 100;
 
-            position.X = spieler.pos.X - walkingspace; //Scrolling seitlich
-            if (position.X < 0) //Linker Maprand
+            viewport.X = (int)spieler.pos.X - walkingspace; //Scrolling seitlich
+            if (viewport.X < 0) //Linker Maprand
             {
-                position.X = 0;
+                viewport.X = 0;
             }
-            else if (position.X > karte.size.X - resolution.X) //Rechter Maprand
+            else if (viewport.X > karte.size.X - viewport.Width) //Rechter Maprand
             {
-                position.X = karte.size.X - resolution.X;
+                viewport.X = (int)karte.size.X - viewport.Width;
             }
-            if (position.Y + topspace > spieler.pos.Y) //Scrolling nach oben
+            if (viewport.Y + topspace > spieler.pos.Y) //Scrolling nach oben
             {
-                position.Y = spieler.pos.Y - topspace;
+                viewport.Y = (int)spieler.pos.Y - topspace;
             }
-            else if (position.Y + resolution.Y - bottomspace < spieler.pos.Y) //Scrolling nach unten
+            else if (viewport.Y + viewport.Height - bottomspace < spieler.pos.Y) //Scrolling nach unten
             {
-                position.Y = spieler.pos.Y - (int)(resolution.Y - bottomspace);
+                viewport.Y = (int)spieler.pos.Y - (viewport.Height - bottomspace);
             }
-            if (position.Y < 0) //Oberer Maprand
+            if (viewport.Y < 0) //Oberer Maprand
             {
-                position.Y = 0;
+                viewport.Y = 0;
             }
-            else if (position.Y > karte.size.Y - resolution.Y) //Unterer Maprand
+            else if (viewport.Y > karte.size.Y - viewport.Height) //Unterer Maprand
             {
-                position.Y = karte.size.Y - resolution.Y;
+                viewport.Y = (int)karte.size.Y - viewport.Height;
             }
-
-            cammatrix = Matrix.CreateScale(scaling) * Matrix.CreateTranslation(-position.X, -position.Y, 1);
-
         }
 
     }
