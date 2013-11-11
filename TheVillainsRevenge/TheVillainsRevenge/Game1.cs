@@ -26,13 +26,13 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         Player spieler = new Player(10, 10);
         Map karte = new Map();
-        Cam cam = new Cam(resolution);
+        Camera camera = new Camera(resolution);
         public Game1()
         {
 
             graphics = new GraphicsDeviceManager(this);
             this.Window.AllowUserResizing = true;
-            cam.changeresolution(graphics, 960, 576, false);
+            camera.changeresolution(graphics, 960, 576, false);
             Content.RootDirectory = "Content";
             karte.Generate();
         }
@@ -62,36 +62,36 @@ namespace TheVillainsRevenge
             else //Falls kein Escape
             {
                 spieler.Update(gameTime, karte);
-                cam.position.X = spieler.pos.X - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*0.4); //Scrolling seitlich
-                if (cam.position.X < 0) //Linker Maprand
+                camera.position.X = spieler.pos.X - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*0.4); //Scrolling seitlich
+                if (camera.position.X < 0) //Linker Maprand
                 {
-                    cam.position.X = 0;
+                    camera.position.X = 0;
                 }
-                else if (cam.position.X > resolution.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width) //Rechter Maprand
+                else if (camera.position.X > resolution.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width) //Rechter Maprand
                 {
-                    cam.position.X = resolution.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                    camera.position.X = resolution.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                 }
-                if (cam.position.Y + (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.2) > spieler.pos.Y) //Scrolling nach oben
+                if (camera.position.Y + (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.2) > spieler.pos.Y) //Scrolling nach oben
                 {
-                    cam.position.Y = spieler.pos.Y - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.2);
+                    camera.position.Y = spieler.pos.Y - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.2);
                 }
-                else if (cam.position.Y + (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.8) < spieler.pos.Y) //Scrolling nach unten
+                else if (camera.position.Y + (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.8) < spieler.pos.Y) //Scrolling nach unten
                 {
-                    cam.position.Y = spieler.pos.Y - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.8);
+                    camera.position.Y = spieler.pos.Y - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.8);
                 }
-                if (cam.position.Y < 0) //Oberer Maprand
+                if (camera.position.Y < 0) //Oberer Maprand
                 {
-                    cam.position.Y = 0;
+                    camera.position.Y = 0;
                 }
-                else if (cam.position.Y > resolution.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height) //Unterer Maprand
+                else if (camera.position.Y > resolution.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height) //Unterer Maprand
                 {
-                    cam.position.Y = resolution.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    camera.position.Y = resolution.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
                 }
-                cam.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height,cam.full);
+                camera.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height,camera.full);
                 /*GraphicsDevice.Viewport = new Viewport(0,
                       ((int)Window.ClientBounds.Height -
                     ((int)Window.ClientBounds.Width / 16 * 9)) / 2, (int)Window.ClientBounds.Width, (int)Window.ClientBounds.Width / 16 * 9);
-                */cam.update();
+                */camera.Update();
 
             }
             base.Update(gameTime);
@@ -100,7 +100,7 @@ namespace TheVillainsRevenge
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, cam.cammatrix);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.cammatrix);
             spieler.Draw(spriteBatch); //Führe Spielermalen aus
             karte.Draw(spriteBatch);
             spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);

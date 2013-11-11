@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheVillainsRevenge
 {
-    class Cam
+    class Camera
     {
         public Vector2 position;
         public Vector2 screenresolution;
@@ -16,7 +16,7 @@ namespace TheVillainsRevenge
         public Matrix cammatrix;
         public bool full;
         private int w, h;
-        public Cam(Vector2 resolution)
+        public Camera(Vector2 resolution)
         {
             screenresolution = resolution;
             position = new Vector2(0, 0);
@@ -29,9 +29,9 @@ namespace TheVillainsRevenge
                 h = height;
                 graphics.PreferredBackBufferHeight = height;
                 graphics.PreferredBackBufferWidth = width;
-                scaling.Y = (float)graphics.PreferredBackBufferHeight / screenresolution.Y;
                 //scaling.Y = (float)(graphics.PreferredBackBufferWidth / 16 * 9) / screenresolution.Y;
                 scaling.X = (float)graphics.PreferredBackBufferWidth / screenresolution.X;
+                scaling.Y = (float)graphics.PreferredBackBufferHeight / screenresolution.Y;
                 if (full != fullscreen)
                 {
                     full = fullscreen;
@@ -40,7 +40,7 @@ namespace TheVillainsRevenge
                 graphics.ApplyChanges();
             }
         }
-        public void update()
+        public void Update()
         {
             cammatrix = Matrix.CreateScale(scaling) * Matrix.CreateTranslation(position.X, position.Y, 0);
 
