@@ -42,7 +42,7 @@ namespace TheVillainsRevenge
         }
         public void Update()
         {
-            cammatrix = Matrix.CreateScale(scaling) * Matrix.CreateTranslation(position.X, position.Y, 0);
+            cammatrix = Matrix.CreateScale(scaling) * Matrix.CreateTranslation(-position.X, -position.Y, 0);
 
         }
 

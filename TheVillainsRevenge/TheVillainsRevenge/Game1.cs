@@ -24,7 +24,7 @@ namespace TheVillainsRevenge
         SpriteBatch spriteBatch;
         SpriteFont font;
         public static Vector2 resolution = new Vector2(1920, 1080);
-        Player spieler = new Player(10, 10);
+        Player spieler = new Player(10, 0);
         Map karte = new Map();
         Camera camera = new Camera(resolution);
         public Game1()
@@ -63,30 +63,37 @@ namespace TheVillainsRevenge
             {
                 spieler.Update(gameTime, karte);
                 camera.position.X = spieler.pos.X - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*0.4); //Scrolling seitlich
+                //Kamera an Spieler anpassen
+                int walkingspace = 200;
+                int topspace = 200;
+                int bottomspace = 100;
+
+                camera.position.X = spieler.pos.X - walkingspace; //Scrolling seitlich
                 if (camera.position.X < 0) //Linker Maprand
                 {
                     camera.position.X = 0;
                 }
-                else if (camera.position.X > resolution.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width) //Rechter Maprand
+                else if (camera.position.X > karte.size.X - camera.screenresolution.X) //Rechter Maprand
                 {
-                    camera.position.X = resolution.X - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                    camera.position.X = karte.size.X - camera.screenresolution.X;
                 }
-                if (camera.position.Y + (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.2) > spieler.pos.Y) //Scrolling nach oben
+                if (camera.position.Y + topspace > spieler.pos.Y) //Scrolling nach oben
                 {
-                    camera.position.Y = spieler.pos.Y - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.2);
+                    camera.position.Y = spieler.pos.Y - topspace;
                 }
-                else if (camera.position.Y + (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.8) < spieler.pos.Y) //Scrolling nach unten
+                else if (camera.position.Y + camera.screenresolution.Y - bottomspace < spieler.pos.Y) //Scrolling nach unten
                 {
-                    camera.position.Y = spieler.pos.Y - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height * 0.8);
+                    camera.position.Y = spieler.pos.Y - (int)(camera.screenresolution.Y - bottomspace);
                 }
                 if (camera.position.Y < 0) //Oberer Maprand
                 {
                     camera.position.Y = 0;
                 }
-                else if (camera.position.Y > resolution.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height) //Unterer Maprand
+                else if (camera.position.Y > karte.size.Y - camera.screenresolution.Y) //Unterer Maprand
                 {
-                    camera.position.Y = resolution.Y - GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    camera.position.Y = karte.size.Y - camera.screenresolution.Y;
                 }
+
                 camera.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height,camera.full);
                 /*GraphicsDevice.Viewport = new Viewport(0,
                       ((int)Window.ClientBounds.Height -
@@ -112,6 +119,8 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(500, 130), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(500, 150), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(500, 170), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Player: " + (spieler.pos.X + " " + spieler.pos.Y), new Vector2(500, 190), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Camera: " + (camera.position.X + " " + camera.position.Y), new Vector2(500, 210), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.End();
             //Beende malen
             base.Draw(gameTime);
