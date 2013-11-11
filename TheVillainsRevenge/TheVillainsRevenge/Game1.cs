@@ -62,44 +62,13 @@ namespace TheVillainsRevenge
             else //Falls kein Escape
             {
                 spieler.Update(gameTime, karte);
-                camera.position.X = spieler.pos.X - (int)(GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width*0.4); //Scrolling seitlich
-                //Kamera an Spieler anpassen
-                int walkingspace = 200;
-                int topspace = 200;
-                int bottomspace = 100;
 
-                camera.position.X = spieler.pos.X - walkingspace; //Scrolling seitlich
-                if (camera.position.X < 0) //Linker Maprand
-                {
-                    camera.position.X = 0;
-                }
-                else if (camera.position.X > karte.size.X - camera.screenresolution.X) //Rechter Maprand
-                {
-                    camera.position.X = karte.size.X - camera.screenresolution.X;
-                }
-                if (camera.position.Y + topspace > spieler.pos.Y) //Scrolling nach oben
-                {
-                    camera.position.Y = spieler.pos.Y - topspace;
-                }
-                else if (camera.position.Y + camera.screenresolution.Y - bottomspace < spieler.pos.Y) //Scrolling nach unten
-                {
-                    camera.position.Y = spieler.pos.Y - (int)(camera.screenresolution.Y - bottomspace);
-                }
-                if (camera.position.Y < 0) //Oberer Maprand
-                {
-                    camera.position.Y = 0;
-                }
-                else if (camera.position.Y > karte.size.Y - camera.screenresolution.Y) //Unterer Maprand
-                {
-                    camera.position.Y = karte.size.Y - camera.screenresolution.Y;
-                }
-
-                camera.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height,camera.full);
+                camera.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height, camera.full);
                 /*GraphicsDevice.Viewport = new Viewport(0,
                       ((int)Window.ClientBounds.Height -
                     ((int)Window.ClientBounds.Width / 16 * 9)) / 2, (int)Window.ClientBounds.Width, (int)Window.ClientBounds.Width / 16 * 9);
-                */camera.Update();
-
+                */
+                camera.Update(spieler, karte);
             }
             base.Update(gameTime);
         }

@@ -40,8 +40,39 @@ namespace TheVillainsRevenge
                 graphics.ApplyChanges();
             }
         }
-        public void Update()
+        public void Update(Player spieler, Map karte)
         {
+            //Kamera an Spieler anpassen
+            int walkingspace = 200;
+            int topspace = 200;
+            int bottomspace = 100;
+
+            position.X = spieler.pos.X - walkingspace; //Scrolling seitlich
+            if (position.X < 0) //Linker Maprand
+            {
+                position.X = 0;
+            }
+            else if (position.X > karte.size.X - screenresolution.X) //Rechter Maprand
+            {
+                position.X = karte.size.X - screenresolution.X;
+            }
+            if (position.Y + topspace > spieler.pos.Y) //Scrolling nach oben
+            {
+                position.Y = spieler.pos.Y - topspace;
+            }
+            else if (position.Y + screenresolution.Y - bottomspace < spieler.pos.Y) //Scrolling nach unten
+            {
+                position.Y = spieler.pos.Y - (int)(screenresolution.Y - bottomspace);
+            }
+            if (position.Y < 0) //Oberer Maprand
+            {
+                position.Y = 0;
+            }
+            else if (position.Y > karte.size.Y - screenresolution.Y) //Unterer Maprand
+            {
+                position.Y = karte.size.Y - screenresolution.Y;
+            }
+
             cammatrix = Matrix.CreateScale(scaling) * Matrix.CreateTranslation(-position.X, -position.Y, 0);
 
         }
