@@ -55,6 +55,14 @@ namespace TheVillainsRevenge
             {
                 blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, size.Y - 7 * 48), "ground_grass_30"));
             }
+            for (int i = 0; i <= 3; i++)
+            {
+                blocks.Add(new Block(new Vector2(i * 48 + 12 * 48, size.Y - 10 * 48), "platform_grass"));
+            }
+            for (int i = 0; i <= 5; i++)
+            {
+                blocks.Add(new Block(new Vector2(i * 48 + 17 * 48, size.Y - 14* 48), "ground_earth"));
+            }
         }
     }
 }

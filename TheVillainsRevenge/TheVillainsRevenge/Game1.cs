@@ -29,7 +29,7 @@ namespace TheVillainsRevenge
         Camera camera = new Camera();
         Rectangle viewport = new Rectangle();
         Matrix viewportTransform;
-        Matrix screenScale;
+        Matrix screenTransform;
         RenderTarget2D renderTarget;
         bool stretch;
         public Game1()
@@ -38,7 +38,7 @@ namespace TheVillainsRevenge
             this.Window.AllowUserResizing = true;
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 800 / 16 * 9;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             stretch = true;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
@@ -73,45 +73,35 @@ namespace TheVillainsRevenge
                 spieler.Update(gameTime, karte);
 
                 camera.Update(graphics, spieler, karte);
-
-
-                //Kamera an Fenster anpassen
-                //Breite, Höhe des Fensters
-                //Viewport anpassen
-                int width = GraphicsDevice.PresentationParameters.BackBufferWidth;
-                int height = GraphicsDevice.PresentationParameters.BackBufferHeight;
-                viewport.Width = (int)(height / resolution.Y * resolution.X);
-                viewport.Height = (int)(width / resolution.X * resolution.Y);
-                if (!stretch) //Viewport-Offset auf Screen
-                {
-                    viewport.X = ((int)viewport.Width - width) / 2;
-                    viewport.Y = ((int)viewport.Height - height) / 2;
-                }
-                else //Viewport screenfüllend
+                
+                if (stretch) //Viewport screenfüllend
                 {
                     viewport.X = 0;
                     viewport.Y = 0;
+                    viewport.Width = GraphicsDevice.PresentationParameters.BackBufferWidth;
+                    viewport.Height = GraphicsDevice.PresentationParameters.BackBufferHeight;
                 }
-                if (viewport.X < viewport.Y)
+                else //Viewport mit Offset auf Screen
                 {
-                    //Balken oben/unten
-                    viewport.Width = (int)width;
-                    screenScale = viewport.Width / resolution.X;
-                    viewport.X = 0;
+                    if (viewport.X < viewport.Y) //Balken oben/unten
+                    {
+                        viewport.Width = (int)GraphicsDevice.PresentationParameters.BackBufferWidth;
+                        viewport.Height = (int)(GraphicsDevice.PresentationParameters.BackBufferWidth / resolution.X * resolution.Y);
+                    }
+                    else //Balken links/rechts
+                    { 
+                        viewport.Height = (int)GraphicsDevice.PresentationParameters.BackBufferHeight;
+                        viewport.Width = (int)(GraphicsDevice.PresentationParameters.BackBufferHeight / resolution.Y * resolution.X);
+                    }
+                    viewport.X = (GraphicsDevice.PresentationParameters.BackBufferWidth - (int)viewport.Width) / 2;
+                    viewport.Y = (GraphicsDevice.PresentationParameters.BackBufferHeight - (int)viewport.Height) / 2;
+                    //= viewport.Width / resolution.X;
+                    //= viewport.Height / resolution.Y;
                 }
-                else
-                {
-                    //Balken links/rechts
-                    viewport.Height = (int)height;
-                    screenScale = viewport.Height / resolution.Y;
-                    viewport.Y = 0;
-                }
+                Matrix screenScale = Matrix.CreateScale((float)viewport.Width / resolution.X, (float)viewport.Height / resolution.Y, 1);
+                screenTransform = screenScale * Matrix.CreateTranslation(viewport.X, viewport.Y, 0);
 
-                //Render/Scaling anpassen
-                Vector2 scaling = new Vector2();
-                scaling.X = (float)viewport.Width / resolution.X;
-                scaling.Y = (float)viewport.Height / resolution.Y;
-                graphics.ApplyChanges();
+                //graphics.ApplyChanges();
 
                 viewportTransform = Matrix.CreateTranslation(-camera.viewport.X, -camera.viewport.Y, 0);
                 //screenScale = 1.0f;
@@ -142,10 +132,9 @@ namespace TheVillainsRevenge
 
             //Draw Texture to Screen
             GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.White);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, Matrix.CreateScale(screenScale));
-            //spriteBatch.Draw(renderTarget, new Vector2(viewport.X/2, viewport.Y/2), Color.White);
-            spriteBatch.Draw(renderTarget, new Vector2(0,0), Color.White);
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, screenTransform);
+            spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

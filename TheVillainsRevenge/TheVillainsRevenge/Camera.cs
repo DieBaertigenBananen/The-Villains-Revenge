@@ -20,9 +20,10 @@ namespace TheVillainsRevenge
         public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
         {
             //Kamera an Spieler anpassen
-            int walkingspace = 200;
-            int topspace = 200;
-            int bottomspace = 100;
+            int walkingspace = 600;
+            int bottomspace = 700;
+            int topspace = (int)Game1.resolution.Y - bottomspace;
+            
 
             viewport.X = (int)spieler.pos.X - walkingspace; //Scrolling seitlich
             if (viewport.X < 0) //Linker Maprand
