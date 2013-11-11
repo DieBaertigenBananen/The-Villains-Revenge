@@ -26,13 +26,8 @@ namespace TheVillainsRevenge
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
-<<<<<<< HEAD
-            pos.X = 0;
-            pos.Y = 904;
-=======
             pos.X = x;
             pos.Y = y;
->>>>>>> parent of 532732f... Cam Test
             lastpos = pos;
             cbox = new Rectangle((int)pos.X, (int)pos.Y, 128, 128);
 
