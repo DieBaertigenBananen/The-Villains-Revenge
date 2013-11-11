@@ -38,8 +38,8 @@ namespace TheVillainsRevenge
             this.Window.AllowUserResizing = true;
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 800 / 16 * 9;
-            graphics.IsFullScreen = true;
-            stretch = true;
+            graphics.IsFullScreen = false;
+            stretch = false;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
