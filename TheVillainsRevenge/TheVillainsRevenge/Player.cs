@@ -34,12 +34,12 @@ namespace TheVillainsRevenge
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
         {
-            playerTexture = Content.Load<Texture2D>("sprites/player"); 
+            playerTexture = Content.Load<Texture2D>("sprites/player");
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 128, 128), Color.White,0,Vector2.Zero,1,SpriteEffects.None,0f);
+            spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
         }
         public void Update(GameTime gameTime, Map map)
         {
@@ -48,8 +48,8 @@ namespace TheVillainsRevenge
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0f
                 ||
-                currentKeyboardState.IsKeyDown(Keys.Right) == true 
-                || 
+                currentKeyboardState.IsKeyDown(Keys.Right) == true
+                ||
                 currentKeyboardState.IsKeyDown(Keys.D) == true
                 ) //Wenn Rechte Pfeiltaste
             {
@@ -58,8 +58,8 @@ namespace TheVillainsRevenge
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
                 ||
-                currentKeyboardState.IsKeyDown(Keys.Left) == true 
-                || 
+                currentKeyboardState.IsKeyDown(Keys.Left) == true
+                ||
                 currentKeyboardState.IsKeyDown(Keys.A) == true
                 ) //Wenn Rechte Pfeiltaste
             {
@@ -84,7 +84,7 @@ namespace TheVillainsRevenge
             if (currentKeyboardState.IsKeyDown(Keys.LeftControl) == true || GamePad.GetState(PlayerIndex.One).Triggers.Left == 1.0f)//Wenn Linke Pfeiltaste
             {
                 speed--;
-            }  
+            }
 
             //Gravitation
             if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
@@ -94,7 +94,7 @@ namespace TheVillainsRevenge
                     fall = true;
                     falltimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer)/1000);
+                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
                 Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
             }
             else
@@ -146,7 +146,7 @@ namespace TheVillainsRevenge
             cbox.X = (int)pos.X;
             cbox.Y = (int)pos.Y;
         }
-        
+
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
             Rectangle cboxnew = this.cbox;
@@ -167,8 +167,8 @@ namespace TheVillainsRevenge
             {
                 stop = false;
                 //Box für nächsten Iterationsschritt berechnen
-                cboxnew.X = this.cbox.X + ((x / icoll)*i);
-                cboxnew.Y = this.cbox.Y + ((y / icoll)*i);
+                cboxnew.X = this.cbox.X + ((x / icoll) * i);
+                cboxnew.Y = this.cbox.Y + ((y / icoll) * i);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {

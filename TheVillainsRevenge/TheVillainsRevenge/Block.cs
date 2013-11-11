@@ -22,12 +22,6 @@ namespace TheVillainsRevenge
             //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
             switch (type)
             {
-<<<<<<< HEAD
-                case "block":
-                    cuttexture.X = 0;
-                    cuttexture.Y = 0;
-                    break;
-=======
                 case "underground_earth":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
@@ -76,7 +70,6 @@ namespace TheVillainsRevenge
                     cuttexture.X = 5 * 48;
                     cuttexture.Y = 48;
                     break;
->>>>>>> parent of 532732f... Cam Test
             }
 
         }

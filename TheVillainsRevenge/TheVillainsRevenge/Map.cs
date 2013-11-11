@@ -38,27 +38,21 @@ namespace TheVillainsRevenge
         {
             //generiere Das Level (erzeuge neue Objekte in der List)
             //Iteration
-<<<<<<< HEAD
-            for (int i = 0; i <= 20; i++)
-            {
-                blocks.Add(new Block(new Vector2(i*48, Game1.resolution.Y-48), "block"));
-=======
             for (int i = 0; i <= 5; i++)
             {
-                blocks.Add(new Block(new Vector2(i*48, Game1.cams.Y-48), "ground_earth"));
+                blocks.Add(new Block(new Vector2(i*48, Game1.resolution.Y-48), "ground_earth"));
             }
             for (int i = 0; i <= 5; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.cams.Y - 48), "ground_grass"));
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.resolution.Y - 48), "ground_grass"));
             }
             for (int i = 0; i <= 3; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, Game1.cams.Y - 4 * 48), "platform_grass"));
+                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, Game1.resolution.Y - 4 * 48), "platform_grass"));
             }
             for (int i = 0; i <= 50; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.cams.Y - 7 * 48), "ground_grass_30"));
->>>>>>> parent of 532732f... Cam Test
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.resolution.Y - 7 * 48), "ground_grass_30"));
             }
         }
     }
