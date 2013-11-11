@@ -29,7 +29,8 @@ namespace TheVillainsRevenge
                 h = height;
                 graphics.PreferredBackBufferHeight = height;
                 graphics.PreferredBackBufferWidth = width;
-                scaling.Y = (float)(graphics.PreferredBackBufferWidth / 16 * 9) / screenresolution.Y;
+                scaling.Y = (float)graphics.PreferredBackBufferHeight / screenresolution.Y;
+                //scaling.Y = (float)(graphics.PreferredBackBufferWidth / 16 * 9) / screenresolution.Y;
                 scaling.X = (float)graphics.PreferredBackBufferWidth / screenresolution.X;
                 if (full != fullscreen)
                 {
