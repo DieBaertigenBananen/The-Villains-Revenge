@@ -32,7 +32,7 @@ namespace TheVillainsRevenge
 
             graphics = new GraphicsDeviceManager(this);
             this.Window.AllowUserResizing = true;
-            camera.changeresolution(graphics, 960, 576, false);
+            camera.changeresolution(graphics, 960, 576);
             Content.RootDirectory = "Content";
             karte.Generate();
         }
@@ -63,11 +63,8 @@ namespace TheVillainsRevenge
             {
                 spieler.Update(gameTime, karte);
 
-                camera.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height, camera.full);
-                /*GraphicsDevice.Viewport = new Viewport(0,
-                      ((int)Window.ClientBounds.Height -
-                    ((int)Window.ClientBounds.Width / 16 * 9)) / 2, (int)Window.ClientBounds.Width, (int)Window.ClientBounds.Width / 16 * 9);
-                */
+                camera.changeresolution(graphics, Window.ClientBounds.Width, Window.ClientBounds.Height);
+                camera.togglefullscreen(graphics, false);
                 camera.Update(spieler, karte);
             }
             base.Update(gameTime);
@@ -75,6 +72,7 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Viewport = camera.viewport;
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.cammatrix);
             spieler.Draw(spriteBatch); //Führe Spielermalen aus

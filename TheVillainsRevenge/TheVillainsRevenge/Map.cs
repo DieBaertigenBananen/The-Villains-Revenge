@@ -13,7 +13,7 @@ namespace TheVillainsRevenge
         //Lade Textur
         Texture2D mapTexture;
         Texture2D background;
-        public Vector2 size = new Vector2(1920 * 2, 1080 * 2);
+        public Vector2 size;
         //Erstelle Blocks als List
         public List<Block> blocks = new List<Block>();
         public void Load(ContentManager Content)
@@ -21,6 +21,7 @@ namespace TheVillainsRevenge
             //Lade Textur, einmal ausgeführt
             mapTexture = Content.Load<Texture2D>("sprites/tiles");
             background = Content.Load<Texture2D>("sprites/background");
+            size = new Vector2(background.Width, background.Height);
         }
 
         public void Draw(SpriteBatch spriteBatch)
