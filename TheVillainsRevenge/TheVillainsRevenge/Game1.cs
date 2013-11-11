@@ -20,22 +20,20 @@ namespace TheVillainsRevenge
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        SpriteFont font;
-        public static Vector2 resolution = new Vector2(1920, 1080);
+        GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
+        SpriteBatch spriteBatch = new SpriteBatch(GraphicsDevice);
+        SpriteFont font = this.Content.Load<SpriteFont>("fonts/schrift");
+        RenderTarget2D renderTarget;
         Player spieler = new Player(10, 0);
         Map karte = new Map();
-        RenderTarget2D renderTarget; //the RenderTarget2D that we will draw to
         Camera camera = new Camera(resolution);
         public Game1()
         {
-
-            graphics = new GraphicsDeviceManager(this);
             this.Window.AllowUserResizing = true;
+            renderTarget = new RenderTarget2D(graphics.GraphicsDevice,1920,1080); //the RenderTarget2D that we will draw to
             camera.changeresolution(graphics, 960, 576);
-            Content.RootDirectory = "Content";
             karte.Generate();
+            Content.RootDirectory = "Content";
         }
 
         protected override void Initialize()
@@ -45,8 +43,6 @@ namespace TheVillainsRevenge
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = this.Content.Load<SpriteFont>("fonts/schrift");
             spieler.Load(this.Content);
             karte.Load(this.Content);
         }
@@ -79,32 +75,16 @@ namespace TheVillainsRevenge
             // change the scale of our rendered scene to the backbuffer
             float renderTargetScale = 1f;
 
-            // Draw to the renderTarget instead of the back buffer
-            GraphicsDevice.SetRenderTarget(renderTarget);
-            GraphicsDevice.Clear(Color.Transparent);
-            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied); //Set up your spritebatch however you need it
+
 
             // Example of drawing to the screen. You can use multiple sprite batches if you need to
-            Rectangle fullscreen = new Rectangle(0, 0, 1920, 1080);
-            SpriteBatch.Draw(Texture, fullscreen, Color.White);
+            Vector2 fullscreen = new Vector2(1920, 1080);
+ 
 
-            // Close your spritebatch
-            SpriteBatch.End();
-
-            // Now switch back to the back buffer as our rendering target
-            GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Transparent);
-            SpriteBatch.Begin();
-
-            // Draw our renderTarget to the back buffer
-            SpriteBatch.Draw(renderTarget, new Vector2(GraphicsDevice.PresentationParameters.BackBufferWidth / 2, GraphicsDevice.PresentationParameters.BackBufferHeight / 2), null, Color.White, 0f, new Vector2(renderTarget.Width / 2, renderTarget.Height / 2), renderTargetScale, SpriteEffects.None, 0f);
-
-
-
-
-            GraphicsDevice.Viewport = camera.viewport;
-            GraphicsDevice.Clear(Color.Black);
+            // Draw to the renderTarget instead of the back buffer
+            GraphicsDevice.SetRenderTarget(renderTarget);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.cammatrix);
+            GraphicsDevice.Clear(Color.Transparent);
             spieler.Draw(spriteBatch); //Führe Spielermalen aus
             karte.Draw(spriteBatch);
             spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
@@ -120,7 +100,15 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Camera: " + (camera.position.X + " " + camera.position.Y), new Vector2(500, 210), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.End();
             //Beende malen
-            base.Draw(gameTime);
+
+            // Now switch back to the back buffer as our rendering target
+            GraphicsDevice.SetRenderTarget(null);
+            spriteBatch.Begin();
+            GraphicsDevice.Clear(Color.Transparent);
+            // Draw our renderTarget to the back buffer
+            spriteBatch.Draw(renderTarget, new Vector2(GraphicsDevice.PresentationParameters.BackBufferWidth / 2, GraphicsDevice.PresentationParameters.BackBufferHeight / 2), null, Color.White, 0f, new Vector2(renderTarget.Width / 2, renderTarget.Height / 2), renderTargetScale, SpriteEffects.None, 0f);
+            spriteBatch.End();
+            base.Draw(gameTime);  
         }
     }
 }
