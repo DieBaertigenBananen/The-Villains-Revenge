@@ -29,16 +29,17 @@ namespace TheVillainsRevenge
         Camera camera = new Camera();
         Rectangle viewport = new Rectangle();
         Matrix viewportTransform;
-        float screenScale;
+        Matrix screenScale;
         RenderTarget2D renderTarget;
+        bool stretch;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             this.Window.AllowUserResizing = true;
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 800 / 16 * 9;
-            karte.Generate();
             graphics.IsFullScreen = false;
+            stretch = true;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
@@ -55,6 +56,7 @@ namespace TheVillainsRevenge
             font = this.Content.Load<SpriteFont>("fonts/schrift");
             spieler.Load(this.Content);
             karte.Load(this.Content);
+            karte.Generate();
         }
 
         protected override void UnloadContent()
@@ -80,8 +82,16 @@ namespace TheVillainsRevenge
                 int height = GraphicsDevice.PresentationParameters.BackBufferHeight;
                 viewport.Width = (int)(height / resolution.Y * resolution.X);
                 viewport.Height = (int)(width / resolution.X * resolution.Y);
-                viewport.X = ((int)viewport.Width - width) / 2;
-                viewport.Y = ((int)viewport.Height - height) / 2;
+                if (!stretch) //Viewport-Offset auf Screen
+                {
+                    viewport.X = ((int)viewport.Width - width) / 2;
+                    viewport.Y = ((int)viewport.Height - height) / 2;
+                }
+                else //Viewport screenfüllend
+                {
+                    viewport.X = 0;
+                    viewport.Y = 0;
+                }
                 if (viewport.X < viewport.Y)
                 {
                     //Balken oben/unten
@@ -104,7 +114,7 @@ namespace TheVillainsRevenge
                 graphics.ApplyChanges();
 
                 viewportTransform = Matrix.CreateTranslation(-camera.viewport.X, -camera.viewport.Y, 0);
-                viewportTransform = Matrix.CreateScale(1.0f);
+                //screenScale = 1.0f;
             }
             base.Update(gameTime);
         }
@@ -114,7 +124,7 @@ namespace TheVillainsRevenge
             //Draw to Texture
             GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, viewportTransform);
             spieler.Draw(spriteBatch);
             karte.Draw(spriteBatch);
             spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);

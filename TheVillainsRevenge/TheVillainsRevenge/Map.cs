@@ -27,7 +27,7 @@ namespace TheVillainsRevenge
         public void Draw(SpriteBatch spriteBatch)
         {
             //Gehe alle Blöcke durch
-            spriteBatch.Draw(background, Vector2.Zero, new Rectangle(0, 0, (int)size.X, (int)size.Y), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
+            spriteBatch.Draw(background, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
             foreach (Block block in blocks)
             {
                 //Zeichne die Blöcke anhand der Daten der Blöcke
@@ -41,19 +41,19 @@ namespace TheVillainsRevenge
             //Iteration
             for (int i = 0; i <= 5; i++)
             {
-                blocks.Add(new Block(new Vector2(i*48, Game1.resolution.Y-48), "ground_earth"));
+                blocks.Add(new Block(new Vector2(i*48, size.Y-48), "ground_earth"));
             }
             for (int i = 0; i <= 5; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.resolution.Y - 48), "ground_grass"));
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, size.Y - 48), "ground_grass"));
             }
             for (int i = 0; i <= 3; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, Game1.resolution.Y - 4 * 48), "platform_grass"));
+                blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, size.Y - 4 * 48), "platform_grass"));
             }
             for (int i = 0; i <= 50; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, Game1.resolution.Y - 7 * 48), "ground_grass_30"));
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, size.Y - 7 * 48), "ground_grass_30"));
             }
         }
     }
