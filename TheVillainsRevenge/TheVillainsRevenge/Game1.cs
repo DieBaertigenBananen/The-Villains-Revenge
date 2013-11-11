@@ -26,6 +26,7 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         Player spieler = new Player(10, 0);
         Map karte = new Map();
+        RenderTarget2D renderTarget; //the RenderTarget2D that we will draw to
         Camera camera = new Camera(resolution);
         public Game1()
         {
@@ -72,6 +73,35 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+
+            
+            
+            // change the scale of our rendered scene to the backbuffer
+            float renderTargetScale = 1f;
+
+            // Draw to the renderTarget instead of the back buffer
+            GraphicsDevice.SetRenderTarget(renderTarget);
+            GraphicsDevice.Clear(Color.Transparent);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied); //Set up your spritebatch however you need it
+
+            // Example of drawing to the screen. You can use multiple sprite batches if you need to
+            Rectangle fullscreen = new Rectangle(0, 0, 1920, 1080);
+            SpriteBatch.Draw(Texture, fullscreen, Color.White);
+
+            // Close your spritebatch
+            SpriteBatch.End();
+
+            // Now switch back to the back buffer as our rendering target
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Color.Transparent);
+            SpriteBatch.Begin();
+
+            // Draw our renderTarget to the back buffer
+            SpriteBatch.Draw(renderTarget, new Vector2(GraphicsDevice.PresentationParameters.BackBufferWidth / 2, GraphicsDevice.PresentationParameters.BackBufferHeight / 2), null, Color.White, 0f, new Vector2(renderTarget.Width / 2, renderTarget.Height / 2), renderTargetScale, SpriteEffects.None, 0f);
+
+
+
+
             GraphicsDevice.Viewport = camera.viewport;
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.cammatrix);
