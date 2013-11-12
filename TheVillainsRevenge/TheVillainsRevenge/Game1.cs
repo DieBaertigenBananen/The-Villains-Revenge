@@ -23,15 +23,12 @@ namespace TheVillainsRevenge
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         SpriteFont font;
-        public static Vector2 resolution = new Vector2(1920, 1080);
         Player spieler = new Player(10, 0);
         Map karte = new Map();
         Camera camera = new Camera();
-        Rectangle viewport = new Rectangle();
-        Matrix viewportTransform;
-        Matrix screenTransform;
+        
         RenderTarget2D renderTarget;
-        bool stretch;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -39,7 +36,7 @@ namespace TheVillainsRevenge
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 800 / 16 * 9;
             graphics.IsFullScreen = false;
-            stretch = false;
+            camera.stretch = false;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
@@ -73,38 +70,6 @@ namespace TheVillainsRevenge
                 spieler.Update(gameTime, karte);
 
                 camera.Update(graphics, spieler, karte);
-                
-                if (stretch) //Viewport screenfüllend
-                {
-                    viewport.X = 0;
-                    viewport.Y = 0;
-                    viewport.Width = GraphicsDevice.PresentationParameters.BackBufferWidth;
-                    viewport.Height = GraphicsDevice.PresentationParameters.BackBufferHeight;
-                }
-                else //Viewport mit Offset auf Screen
-                {
-                    if (viewport.X < viewport.Y) //Balken oben/unten
-                    {
-                        viewport.Width = (int)GraphicsDevice.PresentationParameters.BackBufferWidth;
-                        viewport.Height = (int)(GraphicsDevice.PresentationParameters.BackBufferWidth / resolution.X * resolution.Y);
-                    }
-                    else //Balken links/rechts
-                    { 
-                        viewport.Height = (int)GraphicsDevice.PresentationParameters.BackBufferHeight;
-                        viewport.Width = (int)(GraphicsDevice.PresentationParameters.BackBufferHeight / resolution.Y * resolution.X);
-                    }
-                    viewport.X = (GraphicsDevice.PresentationParameters.BackBufferWidth - (int)viewport.Width) / 2;
-                    viewport.Y = (GraphicsDevice.PresentationParameters.BackBufferHeight - (int)viewport.Height) / 2;
-                    //= viewport.Width / resolution.X;
-                    //= viewport.Height / resolution.Y;
-                }
-                Matrix screenScale = Matrix.CreateScale((float)viewport.Width / resolution.X, (float)viewport.Height / resolution.Y, 1);
-                screenTransform = screenScale * Matrix.CreateTranslation(viewport.X, viewport.Y, 0);
-
-                //graphics.ApplyChanges();
-
-                viewportTransform = Matrix.CreateTranslation(-camera.viewport.X, -camera.viewport.Y, 0);
-                //screenScale = 1.0f;
             }
             base.Update(gameTime);
         }
@@ -114,7 +79,7 @@ namespace TheVillainsRevenge
             //Draw to Texture
             GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             spieler.Draw(spriteBatch);
             karte.Draw(spriteBatch);
             spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
@@ -127,13 +92,13 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(500, 150), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(500, 170), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Player: " + (spieler.pos.X + " " + spieler.pos.Y), new Vector2(500, 190), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-            spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(500, 210), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Camera: " + (camera.virtualViewport.X + " " + camera.virtualViewport.Y), new Vector2(500, 210), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.End();
 
             //Draw Texture to Screen
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, screenTransform);
+            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             spriteBatch.End();
 
