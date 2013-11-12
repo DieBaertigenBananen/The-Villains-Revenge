@@ -65,8 +65,8 @@ namespace TheVillainsRevenge
             karte.Load(this.Content);
             karte.Generate();
             background_1.Load(this.Content, "background_1");
-            background_3.Load(this.Content, "background_2");
-            background_2.Load(this.Content, "background_3");
+            background_2.Load(this.Content, "background_2");
+            background_3.Load(this.Content, "background_3");
             clouds_1.Load(this.Content, "clouds_1");
             clouds_2.Load(this.Content, "clouds_2");
             clouds_3.Load(this.Content, "clouds_3");
@@ -141,11 +141,11 @@ namespace TheVillainsRevenge
 
             //Hintergrund und Wolken
             background_3.Draw(spriteBatch); //Himmel
-            clouds_3.Draw(spriteBatch);
+            //clouds_3.Draw(spriteBatch);
             background_2.Draw(spriteBatch); //Berge
-            clouds_2.Draw(spriteBatch);
+            //clouds_2.Draw(spriteBatch);
             background_1.Draw(spriteBatch); //Wald
-            clouds_1.Draw(spriteBatch);
+            //clouds_1.Draw(spriteBatch);
 
             //Spiel
             spieler.Draw(spriteBatch);
