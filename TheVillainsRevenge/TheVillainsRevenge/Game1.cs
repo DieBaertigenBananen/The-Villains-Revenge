@@ -116,10 +116,7 @@ namespace TheVillainsRevenge
                 Matrix screenScale = Matrix.CreateScale((float)viewport.Width / resolution.X, (float)viewport.Height / resolution.Y, 1);
                 screenTransform = screenScale * Matrix.CreateTranslation(viewport.X, viewport.Y, 0);
 
-                //graphics.ApplyChanges();
-
                 viewportTransform = Matrix.CreateTranslation(-camera.viewport.X, -camera.viewport.Y, 0);
-                //screenScale = 1.0f;
 
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
@@ -141,11 +138,11 @@ namespace TheVillainsRevenge
 
             //Hintergrund und Wolken
             background_3.Draw(spriteBatch); //Himmel
-            //clouds_3.Draw(spriteBatch);
+            clouds_3.Draw(spriteBatch);
             background_2.Draw(spriteBatch); //Berge
-            //clouds_2.Draw(spriteBatch);
+            clouds_2.Draw(spriteBatch);
             background_1.Draw(spriteBatch); //Wald
-            //clouds_1.Draw(spriteBatch);
+            clouds_1.Draw(spriteBatch);
 
             //Spiel
             spieler.Draw(spriteBatch);
