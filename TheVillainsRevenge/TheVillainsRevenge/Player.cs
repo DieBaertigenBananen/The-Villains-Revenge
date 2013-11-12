@@ -16,7 +16,8 @@ namespace TheVillainsRevenge
         Vector2 lastpos; //Position vor vorherigem Update
         Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
-        public int speed = 6; //Bewegungsgeschwindigkeit in m/s _/60
+        public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
+        public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
         public bool fall = false;
         public double falltimer;
@@ -43,6 +44,13 @@ namespace TheVillainsRevenge
         }
         public void Update(GameTime gameTime, Map map)
         {
+            //Geschwindigkeit festlegen
+            int actualspeed = speed; ;
+            if (jump || fall)
+            {
+                actualspeed = airspeed;
+            }
+
             //Lade Keyboard-Daten
             KeyboardState currentKeyboardState = Keyboard.GetState();
             if (
@@ -53,7 +61,7 @@ namespace TheVillainsRevenge
                 currentKeyboardState.IsKeyDown(Keys.D) == true
                 ) //Wenn Rechte Pfeiltaste
             {
-                Move(speed, 0, map); //Bewege Rechts
+                Move(actualspeed, 0, map); //Bewege Rechts
             }
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
@@ -63,7 +71,7 @@ namespace TheVillainsRevenge
                 currentKeyboardState.IsKeyDown(Keys.A) == true
                 ) //Wenn Rechte Pfeiltaste
             {
-                Move(-speed, 0, map);//Bewege Links
+                Move(-actualspeed, 0, map);//Bewege Links
             }
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
@@ -73,10 +81,11 @@ namespace TheVillainsRevenge
             {
                 if (!jump && !fall)
                 {
-                    Jump(gameTime, map); //Springen! Deine Mudda springt bei Doodle Jump nach unten.
+                    Jump(gameTime, map); //Springen!
                 }
             }
 
+            //Speed verändern
             if (currentKeyboardState.IsKeyDown(Keys.LeftShift) == true || GamePad.GetState(PlayerIndex.One).Triggers.Right == 1.0f) //Wenn Rechte Pfeiltaste
             {
                 speed++;
@@ -109,7 +118,7 @@ namespace TheVillainsRevenge
             }
         }
 
-        public void Jump(GameTime gameTime, Map map)
+        public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
         {
             if (CollisionCheckedVector(0, -1, map.blocks).Y < 0)
             {

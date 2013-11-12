@@ -11,7 +11,6 @@ namespace TheVillainsRevenge
     class Camera
     {
         public Rectangle viewport;
-        public Matrix viewportTransform;
         public Camera()
         {
             viewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
@@ -20,12 +19,20 @@ namespace TheVillainsRevenge
         public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
         {
             //Kamera an Spieler anpassen
-            int walkingspace = 600;
+            int leftspace = 800;
+            int rightspace = 800;
             int bottomspace = 700;
             int topspace = (int)Game1.resolution.Y - bottomspace;
             
 
-            viewport.X = (int)spieler.pos.X - walkingspace; //Scrolling seitlich
+            if (viewport.X + leftspace > spieler.pos.X) //Scrolling nach links
+            {
+                viewport.X = (int)spieler.pos.X - leftspace;
+            }
+            else if (viewport.X + viewport.Width - rightspace < spieler.pos.X) //Scrolling nach rechts
+            {
+                viewport.X = (int)spieler.pos.X - (viewport.Width - rightspace);
+            }
             if (viewport.X < 0) //Linker Maprand
             {
                 viewport.X = 0;

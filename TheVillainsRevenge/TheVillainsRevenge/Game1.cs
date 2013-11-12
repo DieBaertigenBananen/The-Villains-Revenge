@@ -58,7 +58,7 @@ namespace TheVillainsRevenge
             karte.Load(this.Content);
             karte.Generate();
         }
-
+        
         protected override void UnloadContent()
         {
         }
@@ -117,6 +117,15 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, viewportTransform);
             spieler.Draw(spriteBatch);
             karte.Draw(spriteBatch);
+            spriteBatch.End();
+
+            //Draw Texture to Screen
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, screenTransform);
+            spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
+
+            //HUD
             spriteBatch.DrawString(font, "X: " + spieler.cbox.X, new Vector2(500, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Y: " + spieler.cbox.Y, new Vector2(500, 70), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "W: " + (spieler.cbox.Width + spieler.cbox.X), new Vector2(600, 50), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
@@ -128,13 +137,7 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(500, 170), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Player: " + (spieler.pos.X + " " + spieler.pos.Y), new Vector2(500, 190), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(500, 210), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-            spriteBatch.End();
 
-            //Draw Texture to Screen
-            GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, screenTransform);
-            spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);
