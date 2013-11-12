@@ -12,7 +12,7 @@ namespace TheVillainsRevenge
     class Player
     {
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
-        public Vector2 pos; //Position
+        public Vector2 position; //Position
         Vector2 lastpos; //Position vor vorherigem Update
         Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
@@ -27,10 +27,10 @@ namespace TheVillainsRevenge
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
-            pos.X = x;
-            pos.Y = y;
-            lastpos = pos;
-            cbox = new Rectangle((int)pos.X, (int)pos.Y, 128, 128);
+            position.X = x;
+            position.Y = y;
+            lastpos = position;
+            cbox = new Rectangle((int)position.X, (int)position.Y, 128, 128);
 
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
@@ -40,7 +40,7 @@ namespace TheVillainsRevenge
         public void Draw(SpriteBatch spriteBatch)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(playerTexture, pos, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(playerTexture, position, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
         }
         public void Update(GameTime gameTime, Map map)
         {
@@ -150,10 +150,10 @@ namespace TheVillainsRevenge
         {
             Vector2 domove = new Vector2(0, 0);
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
-            pos.X += domove.X;
-            pos.Y += domove.Y;
-            cbox.X = (int)pos.X;
-            cbox.Y = (int)pos.Y;
+            position.X += domove.X;
+            position.Y += domove.Y;
+            cbox.X = (int)position.X;
+            cbox.Y = (int)position.Y;
         }
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)

@@ -25,13 +25,13 @@ namespace TheVillainsRevenge
             int topspace = (int)Game1.resolution.Y - bottomspace;
             
 
-            if (viewport.X + leftspace > spieler.pos.X) //Scrolling nach links
+            if (viewport.X + leftspace > spieler.position.X) //Scrolling nach links
             {
-                viewport.X = (int)spieler.pos.X - leftspace;
+                viewport.X = (int)spieler.position.X - leftspace;
             }
-            else if (viewport.X + viewport.Width - rightspace < spieler.pos.X) //Scrolling nach rechts
+            else if (viewport.X + viewport.Width - rightspace < spieler.position.X) //Scrolling nach rechts
             {
-                viewport.X = (int)spieler.pos.X - (viewport.Width - rightspace);
+                viewport.X = (int)spieler.position.X - (viewport.Width - rightspace);
             }
             if (viewport.X < 0) //Linker Maprand
             {
@@ -41,13 +41,13 @@ namespace TheVillainsRevenge
             {
                 viewport.X = (int)karte.size.X - viewport.Width;
             }
-            if (viewport.Y + topspace > spieler.pos.Y) //Scrolling nach oben
+            if (viewport.Y + topspace > spieler.position.Y) //Scrolling nach oben
             {
-                viewport.Y = (int)spieler.pos.Y - topspace;
+                viewport.Y = (int)spieler.position.Y - topspace;
             }
-            else if (viewport.Y + viewport.Height - bottomspace < spieler.pos.Y) //Scrolling nach unten
+            else if (viewport.Y + viewport.Height - bottomspace < spieler.position.Y) //Scrolling nach unten
             {
-                viewport.Y = (int)spieler.pos.Y - (viewport.Height - bottomspace);
+                viewport.Y = (int)spieler.position.Y - (viewport.Height - bottomspace);
             }
             if (viewport.Y < 0) //Oberer Maprand
             {

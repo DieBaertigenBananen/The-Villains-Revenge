@@ -27,6 +27,13 @@ namespace TheVillainsRevenge
         Player spieler = new Player(10, 0);
         Map karte = new Map();
         Camera camera = new Camera();
+        ParallaxPlane background_1 = new ParallaxPlane();
+        ParallaxPlane background_2 = new ParallaxPlane();
+        ParallaxPlane background_3 = new ParallaxPlane();
+        ParallaxPlane clouds_1 = new ParallaxPlane();
+        ParallaxPlane clouds_2 = new ParallaxPlane();
+        ParallaxPlane clouds_3 = new ParallaxPlane();
+        ParallaxPlane foreground_1 = new ParallaxPlane();
         Rectangle viewport = new Rectangle();
         Matrix viewportTransform;
         Matrix screenTransform;
@@ -57,10 +64,18 @@ namespace TheVillainsRevenge
             spieler.Load(this.Content);
             karte.Load(this.Content);
             karte.Generate();
+            background_1.Load(this.Content, "background_1");
+            background_3.Load(this.Content, "background_2");
+            background_2.Load(this.Content, "background_3");
+            clouds_1.Load(this.Content, "clouds_1");
+            clouds_2.Load(this.Content, "clouds_2");
+            clouds_3.Load(this.Content, "clouds_3");
+            foreground_1.Load(this.Content, "foreground_1");
         }
-        
+
         protected override void UnloadContent()
         {
+
         }
         protected override void Update(GameTime gameTime)
         {
@@ -105,6 +120,14 @@ namespace TheVillainsRevenge
 
                 viewportTransform = Matrix.CreateTranslation(-camera.viewport.X, -camera.viewport.Y, 0);
                 //screenScale = 1.0f;
+
+                background_1.Update(karte, camera);
+                background_2.Update(karte, camera);
+                background_3.Update(karte, camera);
+                clouds_1.Update(karte, camera);
+                clouds_2.Update(karte, camera);
+                clouds_3.Update(karte, camera);
+                foreground_1.Update(karte, camera);
             }
             base.Update(gameTime);
         }
@@ -115,14 +138,29 @@ namespace TheVillainsRevenge
             GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, viewportTransform);
+
+            //Hintergrund und Wolken
+            background_3.Draw(spriteBatch); //Himmel
+            clouds_3.Draw(spriteBatch);
+            background_2.Draw(spriteBatch); //Berge
+            clouds_2.Draw(spriteBatch);
+            background_1.Draw(spriteBatch); //Wald
+            clouds_1.Draw(spriteBatch);
+
+            //Spiel
             spieler.Draw(spriteBatch);
-            karte.Draw(spriteBatch);
+            karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
+
+            //Vordergrund
+            foreground_1.Draw(spriteBatch); //Bäume etc
+
             spriteBatch.End();
 
             //Draw Texture to Screen
             GraphicsDevice.SetRenderTarget(null);
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, screenTransform);
+
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
 
             //HUD
@@ -135,11 +173,10 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(500, 130), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(500, 150), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(500, 170), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
-            spriteBatch.DrawString(font, "Player: " + (spieler.pos.X + " " + spieler.pos.Y), new Vector2(500, 190), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
+            spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(500, 190), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
             spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(500, 210), Color.Black, 0f, Vector2.Zero, 1.0f, SpriteEffects.None, 0.0f);
 
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }
