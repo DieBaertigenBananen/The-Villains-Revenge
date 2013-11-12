@@ -137,7 +137,7 @@ namespace TheVillainsRevenge
             //Draw to Texture
             GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, viewportTransform);
 
             //Hintergrund und Wolken
             background_3.Draw(spriteBatch); //Himmel
