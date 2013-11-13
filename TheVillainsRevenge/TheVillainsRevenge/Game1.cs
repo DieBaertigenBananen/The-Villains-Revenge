@@ -43,10 +43,16 @@ namespace TheVillainsRevenge
         {
             graphics = new GraphicsDeviceManager(this);
             this.Window.AllowUserResizing = true;
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 800 / 16 * 9;
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = graphics.PreferredBackBufferWidth / 16 * 9;
             graphics.IsFullScreen = false;
             stretch = false;
+            if (graphics.IsFullScreen)
+            {
+                graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            }
+
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
@@ -86,9 +92,8 @@ namespace TheVillainsRevenge
             else //Falls kein Escape
             {
                 spieler.Update(gameTime, karte);
-
                 camera.Update(graphics, spieler, karte);
-                
+
                 if (stretch) //Viewport screenfüllend
                 {
                     viewport.X = 0;
