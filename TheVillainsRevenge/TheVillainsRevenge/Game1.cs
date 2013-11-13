@@ -25,6 +25,7 @@ namespace TheVillainsRevenge
         SpriteFont font;
         public static Vector2 resolution = new Vector2(1920, 1080);
         Player spieler = new Player(10, 0);
+        Enemy enemy = new Enemy(1500, 0,1);
         Map karte = new Map();
         Camera camera = new Camera();
         ParallaxPlane background_1 = new ParallaxPlane();
@@ -68,6 +69,7 @@ namespace TheVillainsRevenge
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = this.Content.Load<SpriteFont>("fonts/schrift");
             spieler.Load(this.Content);
+            enemy.Load(this.Content);
             karte.Load(this.Content);
             karte.Generate();
             background_1.Load(this.Content, "background_1");
@@ -91,6 +93,7 @@ namespace TheVillainsRevenge
             }
             else //Falls kein Escape
             {
+                enemy.Update(gameTime, karte);
                 spieler.Update(gameTime, karte);
                 camera.Update(graphics, spieler, karte);
 
@@ -150,6 +153,7 @@ namespace TheVillainsRevenge
             clouds_1.Draw(spriteBatch);
 
             //Spiel
+            enemy.Draw(spriteBatch);
             spieler.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
 

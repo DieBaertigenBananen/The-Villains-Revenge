@@ -48,33 +48,21 @@ namespace TheVillainsRevenge
             {
                 blocks.Add(new Block(new Vector2(i * 48, size.Y - 48), "ground_earth"));
             }
-            for (int i = 0; i <= 5; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, size.Y - 48), "ground_grass"));
-            }
             for (int i = 0; i <= 80; i++)
             {
                 blocks.Add(new Block(new Vector2(i * 48 + 5 * 48, size.Y - 4 * 48), "platform_grass"));
             }
             for (int i = 0; i <= 3; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, size.Y - 7 * 48), "ground_grass_30"));
+                blocks.Add(new Block(new Vector2(i * 48 + 10 * 48, size.Y - 5 * 48), "ground_grass_30"));
             }
             for (int i = 0; i <= 3; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 12 * 48, size.Y - 10 * 48), "platform_grass"));
+                blocks.Add(new Block(new Vector2(i * 48 + 60 * 48, size.Y - 5 * 48), "ground_grass_15"));
             }
             for (int i = 0; i <= 5; i++)
             {
-                blocks.Add(new Block(new Vector2(i * 48 + 17 * 48, size.Y - 13* 48), "ground_grass"));
-            }
-            for (int i = 0; i <= 5; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 20 * 48, size.Y - 16 * 48), "platform_grass"));
-            }
-            for (int i = 0; i <= 5; i++)
-            {
-                blocks.Add(new Block(new Vector2(i * 48 + 23 * 48, size.Y - 19 * 48), "platform_grass_30"));
+                blocks.Add(new Block(new Vector2(i * 48 + 15 * 48, size.Y - 7 * 48), "underground_earth"));
             }
         }
     }
