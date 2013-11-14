@@ -7,62 +7,53 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace TheVillainsRevenge
 {
-    class Enemy
+    class Hero
     {
         public Vector2 position; //Position
         public Rectangle cbox; //Collisionsbox
-        public int type;
         Texture2D enemyTexture; //Textur
+        public bool jump = false;
         public bool fall = false;
         public double falltimer;
+        public double jumptimer;
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
-        public bool mover = false;
-        public Enemy(int x, int y, int t) //Konstruktor, setzt Anfangsposition
+        public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
+        public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
             position.X = x;
             position.Y = y;
-            type = t;
-            cbox = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            cbox = new Rectangle((int)position.X, (int)position.Y, 85, 85);
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
         {
-            if (type == 1)
-                enemyTexture = Content.Load<Texture2D>("sprites/bunny");
+                enemyTexture = Content.Load<Texture2D>("sprites/held");
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(enemyTexture, position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(enemyTexture, position, new Rectangle(0, 0, 85, 85), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
         }
-        public void Update(GameTime gameTime, Map map)
+        public void Update(GameTime gameTime, Map map,Vector2 sposition)
         {
-            if (mover)
+            if (sposition.X > position.X)
             {
-                if (CollisionCheckedVector(2, 0, map.blocks).X != 0)
+                Move(8, 0, map); //Bewege Rechts
+            }
+            else if (sposition.X < position.X)
+            {
+                Move(-8, 0, map); //Bewege Rechts
+            }
+            if (sposition.Y+50 < position.Y)
+            {
+                if (!jump && !fall)
                 {
-                    Move(2, 0, map);//Bewege Rechts
-                }
-                else
-                {
-                    mover = false;
+                    Jump(gameTime, map); //Springen!
                 }
             }
-            else
-            {
-                if (CollisionCheckedVector(-2, 0, map.blocks).X != 0)
-                {
-                    Move(-2, 0, map);//Bewege Links
-                }
-                else
-                {
-                    mover = true;
-                }
-            }
-
-            //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
             {
                 if (!fall)
                 {
@@ -75,6 +66,40 @@ namespace TheVillainsRevenge
             else
             {
                 fall = false;
+            }
+
+            //Sprung fortführen
+            if (jump)
+            {
+                Jump(gameTime, map);
+            }
+        }
+
+        public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
+        {
+            if (CollisionCheckedVector(0, -1, map.blocks).Y < 0)
+            {
+                if (!jump)
+                {
+                    jump = true;
+                    jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
+                }
+                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - jumptimer) / 1000);
+                int deltay = (int)(-jumppower + (gravitation * t));
+                if (deltay > 0)
+                {
+                    jump = false;
+                    fall = true;
+                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                }
+                else
+                {
+                    Move(0, deltay, map); //v(t)=-g*t
+                }
+            }
+            else
+            {
+                jump = false;
             }
         }
 

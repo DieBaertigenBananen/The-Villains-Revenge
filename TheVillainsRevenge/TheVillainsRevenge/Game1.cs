@@ -26,6 +26,7 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
         Player spieler = new Player(10, 0);
+        Hero hero = new Hero(0, 0);
         Map karte = new Map();
         Camera camera = new Camera();
         ParallaxPlane background_1 = new ParallaxPlane();
@@ -72,6 +73,7 @@ namespace TheVillainsRevenge
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = this.Content.Load<SpriteFont>("fonts/schrift");
             spieler.Load(this.Content);
+            hero.Load(this.Content);
             karte.Load(this.Content);
             karte.Generate();
             background_1.Load(this.Content, "background_1");
@@ -104,6 +106,7 @@ namespace TheVillainsRevenge
                 {
                     enemy.Update(gameTime, karte);
                 }
+                hero.Update(gameTime, karte,spieler.position);
                 spieler.Update(gameTime, karte);
                 camera.Update(graphics, spieler, karte);
 
@@ -167,6 +170,7 @@ namespace TheVillainsRevenge
             {
                 enemy.Draw(spriteBatch);
             }
+            hero.Draw(spriteBatch);
             spieler.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
 
@@ -183,13 +187,14 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
 
             //HUD
-            //spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(resolution.X - 300, 90), Color.Black);
-            //spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(resolution.X - 300, 110), Color.Black);
-            //spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(resolution.X - 300, 130), Color.Black);
-            //spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(resolution.X - 300, 150), Color.Black);
-            //spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(resolution.X - 300, 170), Color.Black);
-            //spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(resolution.X - 300, 190), Color.Black);
-            //spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(resolution.X - 300, 210), Color.Black);
+            spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(resolution.X - 300, 90), Color.Black);
+            spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(resolution.X - 300, 110), Color.Black);
+            spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(resolution.X - 300, 130), Color.Black);
+            spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(resolution.X - 300, 150), Color.Black);
+            spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(resolution.X - 300, 170), Color.Black);
+            spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(resolution.X - 300, 190), Color.Black);
+            spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(resolution.X - 300, 210), Color.Black);
+            spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(resolution.X - 300, 230), Color.Black);
 
             spriteBatch.End();
             base.Draw(gameTime);
