@@ -25,18 +25,16 @@ namespace TheVillainsRevenge
             //Lade Textur, einmal ausgeführt
             mapTexture = Content.Load<Texture2D>("sprites/tiles");
             background = Content.Load<Texture2D>("sprites/background");
-            size = new Vector2(background.Width, background.Height);
+            size = new Vector2(background.Width * 2, background.Height * 2);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            //Gehe alle Blöcke durch
-            foreach (Block block in blocks)
+            spriteBatch.Draw(background, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 2.0f, SpriteEffects.None, 1.0f);
+            foreach (Block block in blocks) //Gehe alle Blöcke durch
             {
                 //Zeichne die Blöcke anhand der Daten der Blöcke
-                spriteBatch.Draw(background, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
                 spriteBatch.Draw(mapTexture, block.pos, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
-                
             }
         }
 

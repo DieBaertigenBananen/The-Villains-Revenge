@@ -23,12 +23,12 @@ namespace TheVillainsRevenge
         {
             //Lade Textur, einmal ausgeführt
             texture = Content.Load<Texture2D>("sprites/" + textureName);
-            size = new Vector2(texture.Width, texture.Height);
+            size = new Vector2(texture.Width * 2, texture.Height * 2);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
+            spriteBatch.Draw(texture, position, null, Color.White, 0, Vector2.Zero, 2.0f, SpriteEffects.None, 1.0f);
         }
 
         public void Update(Map karte, Camera camera)
