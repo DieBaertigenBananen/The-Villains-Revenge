@@ -64,6 +64,18 @@ namespace TheVillainsRevenge
             {
                 blocks.Add(new Block(new Vector2(i * 48 + 15 * 48, size.Y - 7 * 48), "underground_earth"));
             }
+            for (int i = 0; i <= 5; i++)
+            {
+                blocks.Add(new Block(new Vector2(i * 48 + 20 * 48, size.Y - 10 * 48), "underground_earth"));
+            }
+            for (int i = 0; i <= 5; i++)
+            {
+                blocks.Add(new Block(new Vector2(i * 48 + 25 * 48, size.Y - 13 * 48), "underground_earth"));
+            }
+            for (int i = 0; i <= 5; i++)
+            {
+                blocks.Add(new Block(new Vector2(i * 48 + 30 * 48, size.Y - 16 * 48), "underground_earth"));
+            }
         }
     }
 }
