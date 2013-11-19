@@ -21,6 +21,7 @@ namespace TheVillainsRevenge
         public double jumptimer;
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
+
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
             position.X = x;
