@@ -171,8 +171,8 @@ namespace TheVillainsRevenge
             animationState.Apply(skeleton);
             skeleton.UpdateWorldTransform();
             skeletonRenderer.Begin();
-            skeletonRenderer.Draw(skeleton, spriteBatch);
-            skeletonRenderer.End(spriteBatch);
+            skeletonRenderer.Draw(skeleton);
+            skeletonRenderer.End();
             bounds.Update(skeleton, true);
         }
 
