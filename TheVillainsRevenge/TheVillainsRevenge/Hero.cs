@@ -7,117 +7,52 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+
 namespace TheVillainsRevenge
 {
-    class Player
+    class Hero
     {
-        //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
-        Vector2 lastpos; //Position vor vorherigem Update
-        Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
-        public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
-        public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
+        Texture2D enemyTexture; //Textur
         public bool jump = false;
         public bool fall = false;
         public double falltimer;
         public double jumptimer;
-        public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
-        public int leben = 3;
-
-        public Player(int x, int y) //Konstruktor, setzt Anfangsposition
+        public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
+        public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
             position.X = x;
             position.Y = y;
-            lastpos = position;
-            cbox = new Rectangle((int)position.X, (int)position.Y, 128, 128);
-
+            cbox = new Rectangle((int)position.X, (int)position.Y, 85, 85);
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
         {
-            playerTexture = Content.Load<Texture2D>("sprites/player");
+                enemyTexture = Content.Load<Texture2D>("sprites/held");
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(playerTexture, position, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(enemyTexture, position, new Rectangle(0, 0, 85, 85), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
         }
-        public void gethit()
+        public void Update(GameTime gameTime, Map map,Vector2 sposition)
         {
-            leben--;
-            if (leben != 0)
+            if (sposition.X > position.X)
             {
-                position.X = 10;
-                position.Y = 0;
-                lastpos = position;
-                cbox.X = (int)position.X;
-                cbox.Y = (int)position.Y;
+                Move(8, 0, map); //Bewege Rechts
             }
-            else
+            else if (sposition.X < position.X)
             {
-                leben = 3;
-                position.X = 10;
-                position.Y = 0;
-                lastpos = position;
-                cbox.X = (int)position.X;
-                cbox.Y = (int)position.Y;
+                Move(-8, 0, map); //Bewege Rechts
             }
-        }
-        public void Update(GameTime gameTime, Map map)
-        {
-            //Geschwindigkeit festlegen
-            int actualspeed = speed; ;
-            if (jump || fall)
-            {
-                actualspeed = airspeed;
-            }
-
-            //Lade Keyboard-Daten
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-            if (
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0f
-                ||
-                currentKeyboardState.IsKeyDown(Keys.Right) == true
-                ||
-                currentKeyboardState.IsKeyDown(Keys.D) == true
-                ) //Wenn Rechte Pfeiltaste
-            {
-                Move(actualspeed, 0, map); //Bewege Rechts
-            }
-            if (
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
-                ||
-                currentKeyboardState.IsKeyDown(Keys.Left) == true
-                ||
-                currentKeyboardState.IsKeyDown(Keys.A) == true
-                ) //Wenn Rechte Pfeiltaste
-            {
-                Move(-actualspeed, 0, map);//Bewege Links
-            }
-            if (
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
-                ||
-                currentKeyboardState.IsKeyDown(Keys.Space) == true
-                )
+            if (sposition.Y+50 < position.Y)
             {
                 if (!jump && !fall)
                 {
                     Jump(gameTime, map); //Springen!
                 }
             }
-
-            //Speed verändern
-            if (currentKeyboardState.IsKeyDown(Keys.LeftShift) == true || GamePad.GetState(PlayerIndex.One).Triggers.Right == 1.0f) //Wenn Rechte Pfeiltaste
-            {
-                speed++;
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.LeftControl) == true || GamePad.GetState(PlayerIndex.One).Triggers.Left == 1.0f)//Wenn Linke Pfeiltaste
-            {
-                speed--;
-            }
-
-            //Gravitation
             if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
             {
                 if (!fall)
