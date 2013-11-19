@@ -11,9 +11,14 @@ namespace TheVillainsRevenge
     class Camera
     {
         public Rectangle viewport;
+        public Rectangle screenViewport = new Rectangle();
+        public Matrix viewportTransform;
+        public Matrix screenTransform;
+        public bool stretchScreen;
         public Camera()
         {
             viewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
+            stretchScreen = false;
         }
 
         public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
@@ -57,6 +62,36 @@ namespace TheVillainsRevenge
             {
                 viewport.Y = (int)karte.size.Y - viewport.Height;
             }
+
+
+            if (stretchScreen) //Viewport screenfüllend
+            {
+                screenViewport.X = 0;
+                screenViewport.Y = 0;
+                screenViewport.Width = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
+                screenViewport.Height = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
+            }
+            else //Viewport mit Offset auf Screen
+            {
+                if (screenViewport.X < screenViewport.Y) //Balken oben/unten
+                {
+                    screenViewport.Width = (int)graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
+                    screenViewport.Height = (int)(graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / Game1.resolution.X * Game1.resolution.Y);
+                }
+                else //Balken links/rechts
+                {
+                    screenViewport.Height = (int)graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
+                    screenViewport.Width = (int)(graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / Game1.resolution.Y * Game1.resolution.X);
+                }
+                screenViewport.X = (graphics.GraphicsDevice.PresentationParameters.BackBufferWidth - (int)screenViewport.Width) / 2;
+                screenViewport.Y = (graphics.GraphicsDevice.PresentationParameters.BackBufferHeight - (int)screenViewport.Height) / 2;
+                //= viewport.Width / resolution.X;
+                //= viewport.Height / resolution.Y;
+            }
+            Matrix screenScale = Matrix.CreateScale((float)screenViewport.Width / Game1.resolution.X, (float)screenViewport.Height / Game1.resolution.Y, 1);
+            screenTransform = screenScale * Matrix.CreateTranslation(screenViewport.X, screenViewport.Y, 0);
+
+            viewportTransform = Matrix.CreateTranslation(-screenViewport.X, -screenViewport.Y, 0);
         }
 
     }
