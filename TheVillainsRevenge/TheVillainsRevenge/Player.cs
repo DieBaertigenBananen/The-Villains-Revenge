@@ -14,7 +14,6 @@ namespace TheVillainsRevenge
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
         Vector2 lastpos; //Position vor vorherigem Update
-        Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
         public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
@@ -28,7 +27,6 @@ namespace TheVillainsRevenge
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
         public Skeleton skeleton;
-        public Slot headSlot;
         public AnimationState animationState;
         public SkeletonBounds bounds = new SkeletonBounds();
 
@@ -40,6 +38,7 @@ namespace TheVillainsRevenge
             cbox = new Rectangle((int)position.X, (int)position.Y, 128, 128);
 
         }
+
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
             //----------Spine----------
@@ -83,34 +82,8 @@ namespace TheVillainsRevenge
             skeleton.X = 320;
             skeleton.Y = 440;
             skeleton.UpdateWorldTransform();
-
-            headSlot = skeleton.FindSlot("head");
         }
-        public void Draw(SpriteBatch spriteBatch,GameTime gameTime)
-        {
-            //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            //----------Spine----------
-            animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
-            animationState.Apply(skeleton);
-            skeleton.UpdateWorldTransform();
-            skeletonRenderer.Begin();
-            skeletonRenderer.Draw(skeleton);
-            skeletonRenderer.End();
 
-            bounds.Update(skeleton, true);
-            MouseState mouse = Mouse.GetState();
-            headSlot.G = 1;
-            headSlot.B = 1;
-            if (bounds.AabbContainsPoint(mouse.X, mouse.Y))
-            {
-                BoundingBoxAttachment hit = bounds.ContainsPoint(mouse.X, mouse.Y);
-                if (hit != null)
-                {
-                    headSlot.G = 0;
-                    headSlot.B = 0;
-                }
-            }
-        }
         public void Update(GameTime gameTime, Map map)
         {
             //Geschwindigkeit festlegen
@@ -190,6 +163,19 @@ namespace TheVillainsRevenge
             //skeleton.UpdateWorldTransform();
         }
 
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
+            //----------Spine----------
+            animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
+            animationState.Apply(skeleton);
+            skeleton.UpdateWorldTransform();
+            skeletonRenderer.Begin();
+            skeletonRenderer.Draw(skeleton, spriteBatch);
+            skeletonRenderer.End(spriteBatch);
+            bounds.Update(skeleton, true);
+        }
+
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
         {
             if (CollisionCheckedVector(0, -1, map.blocks).Y < 0)
@@ -207,7 +193,7 @@ namespace TheVillainsRevenge
                     jump = false;
                     fall = true;
                     falltimer = gameTime.TotalGameTime.TotalMilliseconds;
-                }
+                } 
                 else
                 {
                     Move(0, deltay, map); //v(t)=-g*t

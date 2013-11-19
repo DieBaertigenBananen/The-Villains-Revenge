@@ -74,14 +74,14 @@ namespace TheVillainsRevenge {
 			effect.Projection = Matrix.CreateOrthographicOffCenter(0, device.Viewport.Width, device.Viewport.Height, 0, 1, 0);
 		}
 
-		public void End () {
+		public void End (SpriteBatch spriteBatch) {
 			foreach (EffectPass pass in effect.CurrentTechnique.Passes) {
 				pass.Apply();
-				batcher.Draw(device);
+				batcher.Draw(spriteBatch);
 			}
 		}
 
-		public void Draw (Skeleton skeleton) {
+		public void Draw (Skeleton skeleton, SpriteBatch spriteBatch) {
 			List<Slot> drawOrder = skeleton.DrawOrder;
 			float x = skeleton.X, y = skeleton.Y;
 			float skeletonR = skeleton.R, skeletonG = skeleton.G, skeletonB = skeleton.B, skeletonA = skeleton.A;
@@ -91,7 +91,7 @@ namespace TheVillainsRevenge {
 				if (regionAttachment != null) {
 					BlendState blend = slot.Data.AdditiveBlending ? BlendState.Additive : defaultBlendState;
 					if (device.BlendState != blend) {
-						End();
+						End(spriteBatch);
 						device.BlendState = blend;
 					}
 

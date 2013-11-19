@@ -178,7 +178,7 @@ namespace TheVillainsRevenge {
 			_vertexArray = new VertexPositionColorTexture[4 * numBatchItems];
 		}
 
-		public void Draw (GraphicsDevice device) {
+		public void Draw (SpriteBatch spriteBatch) {
 			// nothing to do
 			if (_batchItemList.Count == 0)
 				return;
@@ -204,11 +204,11 @@ namespace TheVillainsRevenge {
 					// if the texture changed, we need to flush and bind the new texture
 					var shouldFlush = !ReferenceEquals(item.Texture, tex);
 					if (shouldFlush) {
-						FlushVertexArray(device, startIndex, index);
+						FlushVertexArray(spriteBatch, startIndex, index);
 
 						tex = item.Texture;
 						startIndex = index = 0;
-						device.Textures[0] = tex;
+						spriteBatch.GraphicsDevice.Textures[0] = tex;
 					}
 
 					// store the SpriteBatchItem data in our vertexArray
@@ -222,7 +222,7 @@ namespace TheVillainsRevenge {
 					_freeBatchItemQueue.Enqueue(item);
 				}
 				// flush the remaining vertexArray data
-				FlushVertexArray(device, startIndex, index);
+				FlushVertexArray(spriteBatch, startIndex, index);
 				// Update our batch count to continue the process of culling down large batches
 				batchCount -= numBatchesToProcess;
 			}
@@ -234,13 +234,13 @@ namespace TheVillainsRevenge {
 		/// </summary>
 		/// <param name="start">Start index of vertices to draw. Not used except to compute the count of vertices to draw.</param>
 		/// <param name="end">End index of vertices to draw. Not used except to compute the count of vertices to draw.</param>
-		private void FlushVertexArray (GraphicsDevice device, int start, int end) {
+		private void FlushVertexArray (SpriteBatch spriteBatch, int start, int end) {
 			if (start == end)
 				return;
 
 			var vertexCount = end - start;
 
-			device.DrawUserIndexedPrimitives(
+            spriteBatch.GraphicsDevice.DrawUserIndexedPrimitives(
 				 PrimitiveType.TriangleList,
 				 _vertexArray,
 				 0,
