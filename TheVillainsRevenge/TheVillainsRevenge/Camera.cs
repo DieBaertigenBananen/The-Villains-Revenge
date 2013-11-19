@@ -24,8 +24,8 @@ namespace TheVillainsRevenge
         public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte, int width, int height)
         {
             //Kamera an Spieler anpassen
-            int leftspace = 400;
-            int rightspace = 400;
+            int leftspace = 800;
+            int rightspace = (int)Game1.resolution.X-leftspace;
             int bottomspace = 700;
             int topspace = (int)Game1.resolution.Y - bottomspace;
             

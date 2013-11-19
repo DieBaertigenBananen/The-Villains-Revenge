@@ -15,6 +15,8 @@ namespace TheVillainsRevenge
         public Vector2 position; //Position
         public Rectangle cbox; //Collisionsbox
         Texture2D enemyTexture; //Textur
+        public int speed = 8; //Bewegungsgeschwindigkeit in m/s _/60
+        public int airspeed = 6; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
         public bool fall = false;
         public double falltimer;
@@ -39,13 +41,20 @@ namespace TheVillainsRevenge
         }
         public void Update(GameTime gameTime, Map map,Vector2 sposition)
         {
+            //Geschwindigkeit festlegen
+            int actualspeed = speed; ;
+            if (jump || fall)
+            {
+                actualspeed = airspeed;
+            }
+
             if (sposition.X > position.X)
             {
-                Move(8, 0, map); //Bewege Rechts
+                Move(actualspeed, 0, map); //Bewege Rechts
             }
             else if (sposition.X < position.X)
             {
-                Move(-8, 0, map); //Bewege Rechts
+                Move(-actualspeed, 0, map); //Bewege Rechts
             }
             if (sposition.Y+50 < position.Y)
             {

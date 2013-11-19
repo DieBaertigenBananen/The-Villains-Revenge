@@ -103,7 +103,9 @@ namespace TheVillainsRevenge
                     enemy.Update(gameTime, karte);
                     if(spieler.cbox.Intersects(enemy.cbox))
                     {
-                        //spieler.getHit();
+                        spieler.getHit();
+                        enemies.Remove(enemy);
+                        break;
                     }
                 }
                 hero.Update(gameTime, karte,spieler.position);

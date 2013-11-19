@@ -50,11 +50,11 @@ namespace TheVillainsRevenge
             lifes--;
             if (lifes > 0)
             {
-                position.X = 100;
-                position.Y = 1000;
-                lastPosition = position;
-                cbox.X = (int)position.X;
-                cbox.Y = (int)position.Y;
+                //position.X = 100;
+                //position.Y = 1000;
+                //lastPosition = position;
+                //cbox.X = (int)position.X;
+                //cbox.Y = (int)position.Y;
             }
             else
             {
