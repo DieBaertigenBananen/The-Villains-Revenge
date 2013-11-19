@@ -24,8 +24,8 @@ namespace TheVillainsRevenge
         public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte, int width, int height)
         {
             //Kamera an Spieler anpassen
-            int leftspace = 800;
-            int rightspace = 800;
+            int leftspace = 400;
+            int rightspace = 400;
             int bottomspace = 700;
             int topspace = (int)Game1.resolution.Y - bottomspace;
             
@@ -90,7 +90,7 @@ namespace TheVillainsRevenge
             Matrix screenScale = Matrix.CreateScale((float)screenViewport.Width / Game1.resolution.X, (float)screenViewport.Height / Game1.resolution.Y, 1);
             screenTransform = screenScale * Matrix.CreateTranslation(screenViewport.X, screenViewport.Y, 0);
 
-            viewportTransform = Matrix.CreateTranslation(-screenViewport.X, -screenViewport.Y, 0);
+            viewportTransform = Matrix.CreateTranslation(-viewport.X, -viewport.Y, 0);
         }
 
     }
