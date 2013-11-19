@@ -118,10 +118,48 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="Spine_CSharp\Animation.cs" />
+    <Compile Include="Spine_CSharp\AnimationState.cs" />
+    <Compile Include="Spine_CSharp\AnimationStateData.cs" />
+    <Compile Include="Spine_CSharp\Atlas.cs" />
+    <Compile Include="Spine_CSharp\Attachments\AtlasAttachmentLoader.cs" />
+    <Compile Include="Spine_CSharp\Attachments\Attachment.cs" />
+    <Compile Include="Spine_CSharp\Attachments\AttachmentLoader.cs" />
+    <Compile Include="Spine_CSharp\Attachments\AttachmentType.cs" />
+    <Compile Include="Spine_CSharp\Attachments\BoundingBoxAttachment.cs" />
+    <Compile Include="Spine_CSharp\Attachments\RegionAttachment.cs" />
+    <Compile Include="Spine_CSharp\Bone.cs" />
+    <Compile Include="Spine_CSharp\BoneData.cs" />
+    <Compile Include="Spine_CSharp\Event.cs" />
+    <Compile Include="Spine_CSharp\EventData.cs" />
+    <Compile Include="Spine_CSharp\Json.cs" />
+    <Compile Include="Spine_CSharp\Skeleton.cs" />
+    <Compile Include="Spine_CSharp\SkeletonBounds.cs" />
+    <Compile Include="Spine_CSharp\SkeletonData.cs" />
+    <Compile Include="Spine_CSharp\SkeletonJson.cs" />
+    <Compile Include="Spine_CSharp\Skin.cs" />
+    <Compile Include="Spine_CSharp\Slot.cs" />
+    <Compile Include="Spine_CSharp\SlotData.cs" />
+    <Compile Include="Spine_XNA\SkeletonRenderer.cs" />
+    <Compile Include="Spine_XNA\SpriteBatcher.cs" />
+    <Compile Include="Spine_XNA\Util.cs" />
+    <Compile Include="Spine_XNA\XnaTextureLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <None Include="spine\spineboy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spine\goblins.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spine\spineboy.atlas">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spine\spineboy.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TheVillainsRevengeContent\TheVillainsRevengeContent.contentproj">
@@ -155,6 +193,14 @@
       <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="spine\goblins.atlas">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spine\goblins.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

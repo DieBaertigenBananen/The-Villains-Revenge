@@ -39,6 +39,14 @@ namespace TheVillainsRevenge
         Matrix screenTransform;
         RenderTarget2D renderTarget;
         bool stretch;
+
+        //Spine
+        SkeletonRenderer skeletonRenderer;
+        Skeleton skeleton;
+        Slot headSlot;
+        AnimationState state;
+        SkeletonBounds bounds = new SkeletonBounds();
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -77,6 +85,52 @@ namespace TheVillainsRevenge
             clouds_2.Load(this.Content, "clouds_2");
             clouds_3.Load(this.Content, "clouds_3");
             foreground_1.Load(this.Content, "foreground_1");
+
+            //----------Spine----------
+            skeletonRenderer = new SkeletonRenderer(GraphicsDevice);
+            skeletonRenderer.PremultipliedAlpha = true;
+
+            String name = "spineboy"; // "goblins";
+
+            Atlas atlas = new Atlas("spine/" + name + ".atlas", new XnaTextureLoader(GraphicsDevice));
+            SkeletonJson json = new SkeletonJson(atlas);
+            skeleton = new Skeleton(json.ReadSkeletonData("spine/" + name + ".json"));
+            if (name == "goblins") skeleton.SetSkin("goblingirl");
+            skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
+
+            // Define mixing between animations.
+            AnimationStateData stateData = new AnimationStateData(skeleton.Data);
+            if (name == "spineboy")
+            {
+                stateData.SetMix("walk", "jump", 0.2f);
+                stateData.SetMix("jump", "walk", 0.4f);
+            }
+
+            state = new AnimationState(stateData);
+
+            if (true)
+            {
+                // Event handling for all animations.
+                state.Start += Start;
+                state.End += End;
+                state.Complete += Complete;
+                state.Event += Event;
+
+                state.SetAnimation(0, "drawOrder", true);
+            }
+            else
+            {
+                state.SetAnimation(0, "walk", false);
+                TrackEntry entry = state.AddAnimation(0, "jump", false, 0);
+                entry.End += new EventHandler<StartEndArgs>(End); // Event handling for queued animations.
+                state.AddAnimation(0, "walk", true, 0);
+            }
+
+            skeleton.X = 320;
+            skeleton.Y = 440;
+            skeleton.UpdateWorldTransform();
+
+            headSlot = skeleton.FindSlot("head");
         }
 
         protected override void UnloadContent()
@@ -152,6 +206,27 @@ namespace TheVillainsRevenge
             //Spiel
             spieler.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
+            //Spine
+            state.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
+            state.Apply(skeleton);
+            skeleton.UpdateWorldTransform();
+            skeletonRenderer.Begin();
+            skeletonRenderer.Draw(skeleton);
+            skeletonRenderer.End();
+
+            bounds.Update(skeleton, true);
+            MouseState mouse = Mouse.GetState();
+            headSlot.G = 1;
+            headSlot.B = 1;
+            if (bounds.AabbContainsPoint(mouse.X, mouse.Y))
+            {
+                BoundingBoxAttachment hit = bounds.ContainsPoint(mouse.X, mouse.Y);
+                if (hit != null)
+                {
+                    headSlot.G = 0;
+                    headSlot.B = 0;
+                }
+            }
 
             //Vordergrund
             foreground_1.Draw(spriteBatch); //Bäume etc
@@ -176,6 +251,27 @@ namespace TheVillainsRevenge
 
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        //Spine
+        public void Start(object sender, StartEndArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + state.GetCurrent(e.TrackIndex) + ": start");
+        }
+
+        public void End(object sender, StartEndArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + state.GetCurrent(e.TrackIndex) + ": end");
+        }
+
+        public void Complete(object sender, CompleteArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + state.GetCurrent(e.TrackIndex) + ": complete " + e.LoopCount);
+        }
+
+        public void Event(object sender, EventTriggeredArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + state.GetCurrent(e.TrackIndex) + ": event " + e.Event);
         }
     }
 }
