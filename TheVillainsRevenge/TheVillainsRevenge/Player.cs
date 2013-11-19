@@ -50,19 +50,17 @@ namespace TheVillainsRevenge
 
             Atlas atlas = new Atlas("spine/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
             SkeletonJson json = new SkeletonJson(atlas);
+            //json.Scale = 1; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
             skeleton = new Skeleton(json.ReadSkeletonData("spine/" + name + ".json"));
             if (name == "goblins") skeleton.SetSkin("goblingirl");
             skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
 
             // Define mixing between animations.
-            AnimationStateData stateData = new AnimationStateData(skeleton.Data);
-            if (name == "spineboy")
-            {
-                stateData.SetMix("walk", "jump", 0.2f);
-                stateData.SetMix("jump", "walk", 0.4f);
-            }
+            AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
+            animationStateData.SetMix("walk", "jump", 0.2f);
+            animationStateData.SetMix("jump", "walk", 0.4f);
 
-            animationState = new AnimationState(stateData);
+            animationState = new AnimationState(animationStateData);
 
             if (true)
             {
@@ -189,6 +187,7 @@ namespace TheVillainsRevenge
             }
             skeleton.X = position.X;
             skeleton.Y = position.Y;
+            //skeleton.UpdateWorldTransform();
         }
 
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
@@ -197,6 +196,7 @@ namespace TheVillainsRevenge
             {
                 if (!jump)
                 {
+                    animationState.SetAnimation(0, "jump", true);
                     jump = true;
                     jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
