@@ -13,7 +13,7 @@ namespace TheVillainsRevenge
     {
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
-        Vector2 lastPosition; //Position vor vorherigem Update
+        Vector2 lastpos; //Position vor vorherigem Update
         Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
         public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
@@ -24,16 +24,14 @@ namespace TheVillainsRevenge
         public double jumptimer;
         public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
-        public int lifes;
-        public static int startLifes = 3;
+        public int leben = 3;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
             position.X = x;
             position.Y = y;
-            lastPosition = position;
+            lastpos = position;
             cbox = new Rectangle((int)position.X, (int)position.Y, 128, 128);
-            lifes = startLifes;
 
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
@@ -45,23 +43,23 @@ namespace TheVillainsRevenge
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
             spriteBatch.Draw(playerTexture, position, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
         }
-        public void getHit()
+        public void gethit()
         {
-            lifes--;
-            if (lifes > 0)
+            leben--;
+            if (leben != 0)
             {
-                position.X = 100;
-                position.Y = 1000;
-                lastPosition = position;
+                position.X = 10;
+                position.Y = 0;
+                lastpos = position;
                 cbox.X = (int)position.X;
                 cbox.Y = (int)position.Y;
             }
             else
             {
-                lifes = startLifes;
-                position.X = 100;
-                position.Y = 1000;
-                lastPosition = position;
+                leben = 3;
+                position.X = 10;
+                position.Y = 0;
+                lastpos = position;
                 cbox.X = (int)position.X;
                 cbox.Y = (int)position.Y;
             }
