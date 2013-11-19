@@ -21,7 +21,7 @@ namespace TheVillainsRevenge
             stretchScreen = false;
         }
 
-        public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
+        public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte, int width, int height)
         {
             //Kamera an Spieler anpassen
             int leftspace = 800;
@@ -63,28 +63,27 @@ namespace TheVillainsRevenge
                 viewport.Y = (int)karte.size.Y - viewport.Height;
             }
 
-
             if (stretchScreen) //Viewport screenfüllend
             {
                 screenViewport.X = 0;
                 screenViewport.Y = 0;
-                screenViewport.Width = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
-                screenViewport.Height = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
+                screenViewport.Width = width;
+                screenViewport.Height = height;
             }
             else //Viewport mit Offset auf Screen
             {
                 if (screenViewport.X < screenViewport.Y) //Balken oben/unten
                 {
-                    screenViewport.Width = (int)graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
-                    screenViewport.Height = (int)(graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / Game1.resolution.X * Game1.resolution.Y);
+                    screenViewport.Width = (int)width;
+                    screenViewport.Height = (int)(width / Game1.resolution.X * Game1.resolution.Y);
                 }
                 else //Balken links/rechts
                 {
-                    screenViewport.Height = (int)graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
-                    screenViewport.Width = (int)(graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / Game1.resolution.Y * Game1.resolution.X);
+                    screenViewport.Height = (int)height;
+                    screenViewport.Width = (int)(height / Game1.resolution.Y * Game1.resolution.X);
                 }
-                screenViewport.X = (graphics.GraphicsDevice.PresentationParameters.BackBufferWidth - (int)screenViewport.Width) / 2;
-                screenViewport.Y = (graphics.GraphicsDevice.PresentationParameters.BackBufferHeight - (int)screenViewport.Height) / 2;
+                screenViewport.X = (width - (int)screenViewport.Width) / 2;
+                screenViewport.Y = (height - (int)screenViewport.Height) / 2;
                 //= viewport.Width / resolution.X;
                 //= viewport.Height / resolution.Y;
             }
