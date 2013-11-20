@@ -185,9 +185,6 @@ namespace TheVillainsRevenge
             {
                 Jump(gameTime, map);
             }
-            skeleton.X = position.X;
-            skeleton.Y = position.Y;
-            //skeleton.UpdateWorldTransform();
         }
 
         public void Draw(SpriteBatch spriteBatch)

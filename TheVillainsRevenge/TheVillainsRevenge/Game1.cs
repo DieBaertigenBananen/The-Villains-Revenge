@@ -37,6 +37,8 @@ namespace TheVillainsRevenge
         ParallaxPlane clouds_3 = new ParallaxPlane();
         ParallaxPlane foreground_1 = new ParallaxPlane();
         RenderTarget2D renderTarget;
+        Texture2D renderSpine;
+        int[] backBuffer;
         Texture2D heartTexture; //Textur
         public Game1()
         {
@@ -125,6 +127,13 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+            spieler.DrawSpine(gameTime);
+            backBuffer = new int[GraphicsDevice.PresentationParameters.BackBufferWidth * GraphicsDevice.PresentationParameters.BackBufferHeight];
+            renderSpine = new Texture2D(GraphicsDevice, 256, GraphicsDevice.PresentationParameters.BackBufferHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat);
+            GraphicsDevice.GetBackBufferData(backBuffer);
+            //copy into a texture
+            renderSpine.SetData(backBuffer);
+
             //Draw to Texture
             GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.Transparent);
@@ -144,6 +153,7 @@ namespace TheVillainsRevenge
                 enemy.Draw(spriteBatch);
             }
             spieler.Draw(spriteBatch);
+            spriteBatch.Draw(renderSpine, spieler.position, Color.White);
             hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
 
@@ -173,7 +183,6 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(resolution.X - 300, 230), Color.White);
 
             spriteBatch.End();
-            spieler.DrawSpine(gameTime);
             base.Draw(gameTime);
         }
     }
