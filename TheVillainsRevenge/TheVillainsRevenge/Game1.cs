@@ -94,6 +94,15 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
+            if (GraphicsDevice.PresentationParameters.BackBufferWidth < spieler.spineSize)
+            {
+                graphics.PreferredBackBufferWidth = spieler.spineSize;
+            }
+            if (GraphicsDevice.PresentationParameters.BackBufferHeight < spieler.spineSize)
+            {
+                graphics.PreferredBackBufferHeight = spieler.spineSize;
+            }
+            graphics.ApplyChanges();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 this.Exit();
@@ -129,7 +138,7 @@ namespace TheVillainsRevenge
         {
             spieler.DrawSpine(gameTime);
             backBuffer = new int[GraphicsDevice.PresentationParameters.BackBufferWidth * GraphicsDevice.PresentationParameters.BackBufferHeight];
-            renderSpine = new Texture2D(GraphicsDevice, 256, GraphicsDevice.PresentationParameters.BackBufferHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat);
+            renderSpine = new Texture2D(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat);
             GraphicsDevice.GetBackBufferData(backBuffer);
             //copy into a texture
             renderSpine.SetData(backBuffer);
@@ -153,7 +162,7 @@ namespace TheVillainsRevenge
                 enemy.Draw(spriteBatch);
             }
             spieler.Draw(spriteBatch);
-            spriteBatch.Draw(renderSpine, spieler.position, Color.White);
+            spriteBatch.Draw(renderSpine, spieler.position - new Vector2(spieler.spineSize / 3, spieler.spineSize / 2), new Rectangle(0, 0, spieler.spineSize, spieler.spineSize), Color.White);
             hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
 

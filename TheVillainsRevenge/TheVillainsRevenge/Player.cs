@@ -26,6 +26,7 @@ namespace TheVillainsRevenge
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int lifes;
         public static int startLifes = 3;
+        public int spineSize = 256;
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
@@ -54,7 +55,7 @@ namespace TheVillainsRevenge
 
             Atlas atlas = new Atlas("spine/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
             SkeletonJson json = new SkeletonJson(atlas);
-            //json.Scale = 1; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
+            json.Scale = 0.6f; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
             skeleton = new Skeleton(json.ReadSkeletonData("spine/" + name + ".json"));
             if (name == "goblins") skeleton.SetSkin("goblingirl");
             skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
@@ -73,8 +74,6 @@ namespace TheVillainsRevenge
                 animationState.End += End;
                 animationState.Complete += Complete;
                 animationState.Event += Event;
-
-                animationState.SetAnimation(0, "drawOrder", true);
             }
             else
             {
@@ -84,8 +83,9 @@ namespace TheVillainsRevenge
                 animationState.AddAnimation(0, "walk", true, 0);
             }
 
-            skeleton.X = 320;
-            skeleton.Y = 440;
+            skeleton.x = spineSize / 2;
+            skeleton.y = spineSize;
+            skeleton.SetBonesToSetupPose();
             skeleton.UpdateWorldTransform();
         }
 
@@ -131,6 +131,8 @@ namespace TheVillainsRevenge
                 ) //Wenn Rechte Pfeiltaste
             {
                 Move(actualspeed, 0, map); //Bewege Rechts
+                animationState.AddAnimation(0, "walk", false, 0f);
+                skeleton.flipX = false;
             }
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
@@ -141,6 +143,8 @@ namespace TheVillainsRevenge
                 ) //Wenn Rechte Pfeiltaste
             {
                 Move(-actualspeed, 0, map);//Bewege Links
+                animationState.AddAnimation(0, "walk", false, 0f);
+                skeleton.flipX = true;
             }
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
@@ -222,7 +226,6 @@ namespace TheVillainsRevenge
                     jump = false;
                     fall = true;
                     falltimer = gameTime.TotalGameTime.TotalMilliseconds;
-                    animationState.AddAnimation(0, "walk", true, 0f);
                 } 
                 else
                 {
