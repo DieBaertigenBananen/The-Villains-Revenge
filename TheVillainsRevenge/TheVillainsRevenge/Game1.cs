@@ -139,7 +139,9 @@ namespace TheVillainsRevenge
             clouds_1.Draw(spriteBatch);
 
             //Spiel
+            spriteBatch.End();
             spieler.Draw(spriteBatch, gameTime);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
