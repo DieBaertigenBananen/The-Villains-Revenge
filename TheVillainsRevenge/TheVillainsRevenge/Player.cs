@@ -14,7 +14,11 @@ namespace TheVillainsRevenge
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
         Vector2 lastPosition; //Position vor vorherigem Update
+<<<<<<< HEAD
         Texture2D playerTexture; //Textur
+=======
+        public Texture2D playerTexture; //Textur
+>>>>>>> origin/Spine
         public Rectangle cbox; //Collisionsbox
         public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
@@ -26,6 +30,16 @@ namespace TheVillainsRevenge
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int lifes;
         public static int startLifes = 3;
+<<<<<<< HEAD
+=======
+        public int spineSize = 256;
+
+        //----------Spine----------
+        public SkeletonRenderer skeletonRenderer;
+        public Skeleton skeleton;
+        public AnimationState animationState;
+        public SkeletonBounds bounds = new SkeletonBounds();
+>>>>>>> origin/Spine
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -36,15 +50,52 @@ namespace TheVillainsRevenge
             lifes = startLifes;
 
         }
-        public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
+
+        public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
             playerTexture = Content.Load<Texture2D>("sprites/player");
+            //----------Spine----------
+            skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
+            skeletonRenderer.PremultipliedAlpha = true;
+
+            String name = "spineboy"; // "goblins";
+
+            Atlas atlas = new Atlas("spine/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
+            SkeletonJson json = new SkeletonJson(atlas);
+            json.Scale = 0.6f; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
+            skeleton = new Skeleton(json.ReadSkeletonData("spine/" + name + ".json"));
+            if (name == "goblins") skeleton.SetSkin("goblingirl");
+            skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
+
+            // Define mixing between animations.
+            AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
+            animationStateData.SetMix("walk", "jump", 0.2f);
+            animationStateData.SetMix("jump", "walk", 0.4f);
+
+            animationState = new AnimationState(animationStateData);
+
+            if (true)
+            {
+                // Event handling for all animations.
+                animationState.Start += Start;
+                animationState.End += End;
+                animationState.Complete += Complete;
+                animationState.Event += Event;
+            }
+            else
+            {
+                animationState.SetAnimation(0, "walk", false);
+                TrackEntry entry = animationState.AddAnimation(0, "jump", false, 0);
+                entry.End += new EventHandler<StartEndArgs>(End); // Event handling for queued animations.
+                animationState.AddAnimation(0, "walk", true, 0);
+            }
+
+            skeleton.x = spineSize / 2;
+            skeleton.y = spineSize;
+            skeleton.SetBonesToSetupPose();
+            skeleton.UpdateWorldTransform();
         }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(playerTexture, position, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-        }
+
         public void getHit()
         {
             lifes--;
@@ -66,6 +117,31 @@ namespace TheVillainsRevenge
                 cbox.Y = (int)position.Y;
             }
         }
+<<<<<<< HEAD
+        public void getHit()
+        {
+            lifes--;
+            if (lifes > 0)
+            {
+                //position.X = 100;
+                //position.Y = 1000;
+                //lastPosition = position;
+                //cbox.X = (int)position.X;
+                //cbox.Y = (int)position.Y;
+            }
+            else
+            {
+                lifes = startLifes;
+                position.X = 100;
+                position.Y = 1000;
+                lastPosition = position;
+                cbox.X = (int)position.X;
+                cbox.Y = (int)position.Y;
+            }
+        }
+=======
+
+>>>>>>> origin/Spine
         public void Update(GameTime gameTime, Map map)
         {
             //Geschwindigkeit festlegen
@@ -86,6 +162,8 @@ namespace TheVillainsRevenge
                 ) //Wenn Rechte Pfeiltaste
             {
                 Move(actualspeed, 0, map); //Bewege Rechts
+                animationState.AddAnimation(0, "walk", false, 0f);
+                skeleton.flipX = false;
             }
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
@@ -96,6 +174,8 @@ namespace TheVillainsRevenge
                 ) //Wenn Rechte Pfeiltaste
             {
                 Move(-actualspeed, 0, map);//Bewege Links
+                animationState.AddAnimation(0, "walk", false, 0f);
+                skeleton.flipX = true;
             }
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
@@ -142,12 +222,31 @@ namespace TheVillainsRevenge
             }
         }
 
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
+            spriteBatch.Draw(playerTexture, position, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+        }
+
+        public void DrawSpine(GameTime gameTime)
+        {
+            //----------Spine----------
+            animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
+            animationState.Apply(skeleton);
+            skeleton.UpdateWorldTransform();
+            skeletonRenderer.Begin();
+            skeletonRenderer.Draw(skeleton);
+            skeletonRenderer.End();
+            bounds.Update(skeleton, true);
+        }
+
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
         {
             if (CollisionCheckedVector(0, -1, map.blocks).Y < 0)
             {
                 if (!jump)
                 {
+                    animationState.SetAnimation(0, "jump", false);
                     jump = true;
                     jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
@@ -158,7 +257,7 @@ namespace TheVillainsRevenge
                     jump = false;
                     fall = true;
                     falltimer = gameTime.TotalGameTime.TotalMilliseconds;
-                }
+                } 
                 else
                 {
                     Move(0, deltay, map); //v(t)=-g*t
@@ -223,6 +322,27 @@ namespace TheVillainsRevenge
                 }
             }
             return move;
+        }
+
+        //----------Spine----------
+        public void Start(object sender, StartEndArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": start");
+        }
+
+        public void End(object sender, StartEndArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": end");
+        }
+
+        public void Complete(object sender, CompleteArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": complete " + e.LoopCount);
+        }
+
+        public void Event(object sender, EventTriggeredArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": event " + e.Event);
         }
     }
 }

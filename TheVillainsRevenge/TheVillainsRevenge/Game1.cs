@@ -37,6 +37,11 @@ namespace TheVillainsRevenge
         ParallaxPlane clouds_3 = new ParallaxPlane();
         ParallaxPlane foreground_1 = new ParallaxPlane();
         RenderTarget2D renderTarget;
+<<<<<<< HEAD
+=======
+        Texture2D renderSpine;
+        int[] backBuffer;
+>>>>>>> origin/Spine
         Texture2D heartTexture; //Textur
         public Game1()
         {
@@ -67,7 +72,11 @@ namespace TheVillainsRevenge
             renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = this.Content.Load<SpriteFont>("fonts/schrift");
+<<<<<<< HEAD
             spieler.Load(this.Content);
+=======
+            spieler.Load(this.Content, graphics);
+>>>>>>> origin/Spine
             hero.Load(this.Content);
             karte.Load(this.Content);
             karte.Generate();
@@ -92,6 +101,15 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
+            if (GraphicsDevice.PresentationParameters.BackBufferWidth < spieler.spineSize)
+            {
+                graphics.PreferredBackBufferWidth = spieler.spineSize;
+            }
+            if (GraphicsDevice.PresentationParameters.BackBufferHeight < spieler.spineSize)
+            {
+                graphics.PreferredBackBufferHeight = spieler.spineSize;
+            }
+            graphics.ApplyChanges();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 this.Exit();
@@ -110,7 +128,11 @@ namespace TheVillainsRevenge
                 }
                 hero.Update(gameTime, karte,spieler.position);
                 spieler.Update(gameTime, karte);
+<<<<<<< HEAD
                 camera.Update(graphics, spieler, karte, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight);
+=======
+                camera.Update(graphics, spieler, karte);
+>>>>>>> origin/Spine
 
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
@@ -125,6 +147,14 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+            graphics.GraphicsDevice.Clear(Color.Transparent);
+            spieler.DrawSpine(gameTime);
+            backBuffer = new int[GraphicsDevice.PresentationParameters.BackBufferWidth * GraphicsDevice.PresentationParameters.BackBufferHeight];
+            renderSpine = new Texture2D(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat);
+            GraphicsDevice.GetBackBufferData(backBuffer);
+            //copy into a texture
+            renderSpine.SetData(backBuffer);
+            
             //Draw to Texture
             GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.Transparent);
@@ -143,8 +173,13 @@ namespace TheVillainsRevenge
             {
                 enemy.Draw(spriteBatch);
             }
+<<<<<<< HEAD
             hero.Draw(spriteBatch);
+=======
+>>>>>>> origin/Spine
             spieler.Draw(spriteBatch);
+            spriteBatch.Draw(renderSpine, spieler.position - new Vector2(spieler.spineSize / 3, spieler.spineSize / 2), new Rectangle(0, 0, spieler.spineSize, spieler.spineSize), Color.White);
+            hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
 
             //Vordergrund
@@ -158,7 +193,6 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
 
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
-
             //HUD
             for (int i = 0; i != spieler.lifes; i++)
             {

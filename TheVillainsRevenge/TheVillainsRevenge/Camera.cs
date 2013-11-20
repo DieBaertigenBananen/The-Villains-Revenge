@@ -63,6 +63,11 @@ namespace TheVillainsRevenge
                 viewport.Y = (int)karte.size.Y - viewport.Height;
             }
 
+<<<<<<< HEAD
+=======
+            int width = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
+            int height = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
+>>>>>>> origin/Spine
             if (stretchScreen) //Viewport screenfüllend
             {
                 screenViewport.X = 0;
