@@ -22,7 +22,7 @@ namespace TheVillainsRevenge
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont font;
+        SpriteFont font; 
         public static Vector2 resolution = new Vector2(1920, 1080);
         List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
         Player spieler = new Player(10, 0);
