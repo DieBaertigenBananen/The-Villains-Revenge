@@ -239,7 +239,6 @@ namespace TheVillainsRevenge {
 				return;
 
 			var vertexCount = end - start;
-
 			device.DrawUserIndexedPrimitives(
 				 PrimitiveType.TriangleList,
 				 _vertexArray,

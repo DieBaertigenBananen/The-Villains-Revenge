@@ -136,13 +136,14 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+            graphics.GraphicsDevice.Clear(Color.Transparent);
             spieler.DrawSpine(gameTime);
             backBuffer = new int[GraphicsDevice.PresentationParameters.BackBufferWidth * GraphicsDevice.PresentationParameters.BackBufferHeight];
             renderSpine = new Texture2D(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat);
             GraphicsDevice.GetBackBufferData(backBuffer);
             //copy into a texture
             renderSpine.SetData(backBuffer);
-
+            
             //Draw to Texture
             GraphicsDevice.SetRenderTarget(renderTarget);
             GraphicsDevice.Clear(Color.Transparent);
