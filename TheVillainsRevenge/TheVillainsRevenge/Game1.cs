@@ -139,13 +139,11 @@ namespace TheVillainsRevenge
             clouds_1.Draw(spriteBatch);
 
             //Spiel
-            spriteBatch.End();
-            spieler.Draw(spriteBatch, gameTime);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             foreach (Enemy enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
             }
+            spieler.Draw(spriteBatch);
             hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
 
@@ -175,6 +173,7 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(resolution.X - 300, 230), Color.White);
 
             spriteBatch.End();
+            spieler.DrawSpine(gameTime);
             base.Draw(gameTime);
         }
     }

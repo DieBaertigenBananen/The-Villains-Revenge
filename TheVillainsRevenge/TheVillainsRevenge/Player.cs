@@ -14,6 +14,7 @@ namespace TheVillainsRevenge
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
         Vector2 lastPosition; //Position vor vorherigem Update
+        public Texture2D playerTexture; //Textur
         public Rectangle cbox; //Collisionsbox
         public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
@@ -38,11 +39,13 @@ namespace TheVillainsRevenge
             position.Y = y;
             lastPosition = position;
             cbox = new Rectangle((int)position.X, (int)position.Y, 128, 128);
+            lifes = startLifes;
 
         }
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
+            playerTexture = Content.Load<Texture2D>("sprites/player");
             //----------Spine----------
             skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
             skeletonRenderer.PremultipliedAlpha = true;
@@ -187,9 +190,14 @@ namespace TheVillainsRevenge
             //skeleton.UpdateWorldTransform();
         }
 
-        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
+        public void Draw(SpriteBatch spriteBatch)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
+            spriteBatch.Draw(playerTexture, position, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+        }
+
+        public void DrawSpine(GameTime gameTime)
+        {
             //----------Spine----------
             animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
             animationState.Apply(skeleton);
