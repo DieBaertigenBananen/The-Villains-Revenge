@@ -206,7 +206,7 @@ namespace TheVillainsRevenge
             {
                 if (!jump)
                 {
-                    animationState.SetAnimation(0, "jump", true);
+                    animationState.SetAnimation(0, "jump", false);
                     jump = true;
                     jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
@@ -217,6 +217,7 @@ namespace TheVillainsRevenge
                     jump = false;
                     fall = true;
                     falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    animationState.AddAnimation(0, "walk", true, 0f);
                 } 
                 else
                 {

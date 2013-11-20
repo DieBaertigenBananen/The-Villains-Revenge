@@ -21,7 +21,7 @@ namespace TheVillainsRevenge
             stretchScreen = false;
         }
 
-        public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte, int width, int height)
+        public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
         {
             //Kamera an Spieler anpassen
             int leftspace = 800;
@@ -63,6 +63,8 @@ namespace TheVillainsRevenge
                 viewport.Y = (int)karte.size.Y - viewport.Height;
             }
 
+            int width = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
+            int height = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
             if (stretchScreen) //Viewport screenfüllend
             {
                 screenViewport.X = 0;

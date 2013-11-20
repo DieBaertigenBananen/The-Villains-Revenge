@@ -110,7 +110,7 @@ namespace TheVillainsRevenge
                 }
                 hero.Update(gameTime, karte,spieler.position);
                 spieler.Update(gameTime, karte);
-                camera.Update(graphics, spieler, karte, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight);
+                camera.Update(graphics, spieler, karte);
 
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
