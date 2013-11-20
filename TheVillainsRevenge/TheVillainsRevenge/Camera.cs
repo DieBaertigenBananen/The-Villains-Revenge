@@ -11,16 +11,21 @@ namespace TheVillainsRevenge
     class Camera
     {
         public Rectangle viewport;
+        public Rectangle screenViewport = new Rectangle();
+        public Matrix viewportTransform;
+        public Matrix screenTransform;
+        public bool stretchScreen;
         public Camera()
         {
             viewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
+            stretchScreen = false;
         }
 
-        public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
+        public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte, int width, int height)
         {
             //Kamera an Spieler anpassen
             int leftspace = 800;
-            int rightspace = 800;
+            int rightspace = (int)Game1.resolution.X-leftspace;
             int bottomspace = 700;
             int topspace = (int)Game1.resolution.Y - bottomspace;
             
@@ -57,6 +62,35 @@ namespace TheVillainsRevenge
             {
                 viewport.Y = (int)karte.size.Y - viewport.Height;
             }
+
+            if (stretchScreen) //Viewport screenfüllend
+            {
+                screenViewport.X = 0;
+                screenViewport.Y = 0;
+                screenViewport.Width = width;
+                screenViewport.Height = height;
+            }
+            else //Viewport mit Offset auf Screen
+            {
+                if (screenViewport.X < screenViewport.Y) //Balken oben/unten
+                {
+                    screenViewport.Width = (int)width;
+                    screenViewport.Height = (int)(width / Game1.resolution.X * Game1.resolution.Y);
+                }
+                else //Balken links/rechts
+                {
+                    screenViewport.Height = (int)height;
+                    screenViewport.Width = (int)(height / Game1.resolution.Y * Game1.resolution.X);
+                }
+                screenViewport.X = (width - (int)screenViewport.Width) / 2;
+                screenViewport.Y = (height - (int)screenViewport.Height) / 2;
+                //= viewport.Width / resolution.X;
+                //= viewport.Height / resolution.Y;
+            }
+            Matrix screenScale = Matrix.CreateScale((float)screenViewport.Width / Game1.resolution.X, (float)screenViewport.Height / Game1.resolution.Y, 1);
+            screenTransform = screenScale * Matrix.CreateTranslation(screenViewport.X, screenViewport.Y, 0);
+
+            viewportTransform = Matrix.CreateTranslation(-viewport.X, -viewport.Y, 0);
         }
 
     }

@@ -13,7 +13,7 @@ namespace TheVillainsRevenge
     {
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
-        Vector2 lastpos; //Position vor vorherigem Update
+        Vector2 lastPosition; //Position vor vorherigem Update
         public Rectangle cbox; //Collisionsbox
         public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
@@ -23,6 +23,8 @@ namespace TheVillainsRevenge
         public double jumptimer;
         public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
+        public int lifes;
+        public static int startLifes = 3;
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
@@ -34,7 +36,7 @@ namespace TheVillainsRevenge
         {
             position.X = x;
             position.Y = y;
-            lastpos = position;
+            lastPosition = position;
             cbox = new Rectangle((int)position.X, (int)position.Y, 128, 128);
 
         }
@@ -82,6 +84,28 @@ namespace TheVillainsRevenge
             skeleton.X = 320;
             skeleton.Y = 440;
             skeleton.UpdateWorldTransform();
+        }
+
+        public void getHit()
+        {
+            lifes--;
+            if (lifes > 0)
+            {
+                //position.X = 100;
+                //position.Y = 1000;
+                //lastPosition = position;
+                //cbox.X = (int)position.X;
+                //cbox.Y = (int)position.Y;
+            }
+            else
+            {
+                lifes = startLifes;
+                position.X = 100;
+                position.Y = 1000;
+                lastPosition = position;
+                cbox.X = (int)position.X;
+                cbox.Y = (int)position.Y;
+            }
         }
 
         public void Update(GameTime gameTime, Map map)
