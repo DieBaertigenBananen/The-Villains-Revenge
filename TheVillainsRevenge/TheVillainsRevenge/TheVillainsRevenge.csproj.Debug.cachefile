@@ -11,8 +11,6 @@ Content\sprites\foreground_1.xnb
 Content\sprites\bunny.xnb
 Content\sprites\held.xnb
 Content\sprites\leben.xnb
-<<<<<<< HEAD
-=======
 Content\sprites\player.xnb
 spine\spineboy.png
 spine\goblins.png
@@ -20,4 +18,3 @@ spine\spineboy.atlas
 spine\spineboy.json
 spine\goblins.atlas
 spine\goblins.json
->>>>>>> origin/Spine
