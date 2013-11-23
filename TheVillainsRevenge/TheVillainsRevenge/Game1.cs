@@ -37,11 +37,8 @@ namespace TheVillainsRevenge
         ParallaxPlane clouds_3 = new ParallaxPlane();
         ParallaxPlane foreground_1 = new ParallaxPlane();
         RenderTarget2D renderTarget;
-<<<<<<< HEAD
-=======
         Texture2D renderSpine;
         int[] backBuffer;
->>>>>>> origin/Spine
         Texture2D heartTexture; //Textur
         public Game1()
         {
@@ -72,11 +69,7 @@ namespace TheVillainsRevenge
             renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = this.Content.Load<SpriteFont>("fonts/schrift");
-<<<<<<< HEAD
-            spieler.Load(this.Content);
-=======
             spieler.Load(this.Content, graphics);
->>>>>>> origin/Spine
             hero.Load(this.Content);
             karte.Load(this.Content);
             karte.Generate();
@@ -128,12 +121,7 @@ namespace TheVillainsRevenge
                 }
                 hero.Update(gameTime, karte,spieler.position);
                 spieler.Update(gameTime, karte);
-<<<<<<< HEAD
-                camera.Update(graphics, spieler, karte, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight);
-=======
                 camera.Update(graphics, spieler, karte);
->>>>>>> origin/Spine
-
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
                 background_3.Update(karte, camera);
@@ -173,10 +161,6 @@ namespace TheVillainsRevenge
             {
                 enemy.Draw(spriteBatch);
             }
-<<<<<<< HEAD
-            hero.Draw(spriteBatch);
-=======
->>>>>>> origin/Spine
             spieler.Draw(spriteBatch);
             spriteBatch.Draw(renderSpine, spieler.position - new Vector2(spieler.spineSize / 3, spieler.spineSize / 2), new Rectangle(0, 0, spieler.spineSize, spieler.spineSize), Color.White);
             hero.Draw(spriteBatch);

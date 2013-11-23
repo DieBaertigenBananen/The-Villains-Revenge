@@ -14,11 +14,7 @@ namespace TheVillainsRevenge
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
         Vector2 lastPosition; //Position vor vorherigem Update
-<<<<<<< HEAD
-        Texture2D playerTexture; //Textur
-=======
         public Texture2D playerTexture; //Textur
->>>>>>> origin/Spine
         public Rectangle cbox; //Collisionsbox
         public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
@@ -30,8 +26,6 @@ namespace TheVillainsRevenge
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int lifes;
         public static int startLifes = 3;
-<<<<<<< HEAD
-=======
         public int spineSize = 256;
 
         //----------Spine----------
@@ -39,7 +33,6 @@ namespace TheVillainsRevenge
         public Skeleton skeleton;
         public AnimationState animationState;
         public SkeletonBounds bounds = new SkeletonBounds();
->>>>>>> origin/Spine
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -117,31 +110,7 @@ namespace TheVillainsRevenge
                 cbox.Y = (int)position.Y;
             }
         }
-<<<<<<< HEAD
-        public void getHit()
-        {
-            lifes--;
-            if (lifes > 0)
-            {
-                //position.X = 100;
-                //position.Y = 1000;
-                //lastPosition = position;
-                //cbox.X = (int)position.X;
-                //cbox.Y = (int)position.Y;
-            }
-            else
-            {
-                lifes = startLifes;
-                position.X = 100;
-                position.Y = 1000;
-                lastPosition = position;
-                cbox.X = (int)position.X;
-                cbox.Y = (int)position.Y;
-            }
-        }
-=======
 
->>>>>>> origin/Spine
         public void Update(GameTime gameTime, Map map)
         {
             //Geschwindigkeit festlegen

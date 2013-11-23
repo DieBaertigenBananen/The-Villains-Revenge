@@ -106,29 +106,17 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-<<<<<<< HEAD
-  </ItemGroup>
-  <ItemGroup>
-=======
->>>>>>> origin/Spine
     <Compile Include="sprites\held.png">
       <Name>held</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-<<<<<<< HEAD
-  </ItemGroup>
-  <ItemGroup>
-=======
->>>>>>> origin/Spine
     <Compile Include="sprites\leben.png">
       <Name>leben</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-<<<<<<< HEAD
-=======
   <ItemGroup>
     <Compile Include="sprites\player.png">
       <Name>player</Name>
@@ -136,7 +124,6 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
->>>>>>> origin/Spine
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
