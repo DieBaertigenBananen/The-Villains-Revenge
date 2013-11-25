@@ -39,7 +39,8 @@ namespace TheVillainsRevenge
         public void Draw(SpriteBatch spriteBatch)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(enemyTexture, position, new Rectangle(0, 0, 85, 85), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            if(start)
+                spriteBatch.Draw(enemyTexture, position, new Rectangle(0, 0, 85, 85), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
         }
         public void Update(GameTime gameTime, Map map,Vector2 sposition)
         {
@@ -92,11 +93,7 @@ namespace TheVillainsRevenge
             {
                 herotime += gameTime.ElapsedGameTime.TotalSeconds;
                 if (herotime > 10)
-                {
-                    position.X = 0;
-                    position.Y = 0;
                     start = true;
-                }
             }
         }
 

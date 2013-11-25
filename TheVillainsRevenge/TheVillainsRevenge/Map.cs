@@ -12,8 +12,10 @@ namespace TheVillainsRevenge
     {
         Texture2D mapTexture;
         Texture2D background;
+        Texture2D itemTexture;
         public Vector2 size;
         public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
+        public List<Item> items = new List<Item>(); //Erstelle Blocks als List
 
         public Map()
         {
@@ -24,6 +26,7 @@ namespace TheVillainsRevenge
         {
             //Lade Textur, einmal ausgeführt
             mapTexture = Content.Load<Texture2D>("sprites/tiles");
+            itemTexture = Content.Load<Texture2D>("sprites/items");
             background = Content.Load<Texture2D>("sprites/background");
             size = new Vector2(background.Width * 2, background.Height * 2);
         }
@@ -35,6 +38,10 @@ namespace TheVillainsRevenge
             {
                 //Zeichne die Blöcke anhand der Daten der Blöcke
                 spriteBatch.Draw(mapTexture, block.pos, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
+            }
+            foreach (Item item in items) //Gehe alle Blöcke durch
+            {
+                spriteBatch.Draw(itemTexture, item.pos, item.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
             }
         }
 
@@ -74,6 +81,7 @@ namespace TheVillainsRevenge
             {
                 blocks.Add(new Block(new Vector2(i * 48 + 30 * 48, size.Y - 16 * 48), "underground_earth"));
             }
+            items.Add(new Item(2000, (int)size.Y - 240, "herz"));
         }
     }
 }

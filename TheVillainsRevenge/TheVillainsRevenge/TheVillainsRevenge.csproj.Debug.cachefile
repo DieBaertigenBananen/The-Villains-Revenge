@@ -1,5 +1,6 @@
 Content\fonts\schrift.xnb
 Content\sprites\tiles.xnb
+Content\sprites\player.xnb
 Content\sprites\background.xnb
 Content\sprites\background_1.xnb
 Content\sprites\background_2.xnb
@@ -11,7 +12,7 @@ Content\sprites\foreground_1.xnb
 Content\sprites\bunny.xnb
 Content\sprites\held.xnb
 Content\sprites\leben.xnb
-Content\sprites\player.xnb
+Content\sprites\items.xnb
 spine\spineboy.png
 spine\goblins.png
 spine\spineboy.atlas

@@ -110,6 +110,18 @@ namespace TheVillainsRevenge
                         break;
                     }
                 }
+                foreach (Item item in karte.items)
+                {
+                    if (spieler.cbox.Intersects(item.cbox))
+                    {
+                        if (item.type == "herz")
+                        {
+                            spieler.lifes++;
+                            karte.items.Remove(item);
+                        }
+                        break;
+                    }
+                }
                 hero.Update(gameTime, karte,spieler.position);
                 spieler.Update(gameTime, karte);
                 camera.Update(graphics, spieler, karte);

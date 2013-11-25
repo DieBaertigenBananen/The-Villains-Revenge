@@ -142,6 +142,7 @@
     <Compile Include="Spine_CSharp\Skin.cs" />
     <Compile Include="Spine_CSharp\Slot.cs" />
     <Compile Include="Spine_CSharp\SlotData.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Spine_XNA\SkeletonRenderer.cs" />
     <Compile Include="Spine_XNA\SpriteBatcher.cs" />
     <Compile Include="Spine_XNA\Util.cs" />
