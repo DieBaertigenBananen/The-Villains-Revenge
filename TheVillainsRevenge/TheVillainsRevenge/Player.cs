@@ -26,7 +26,6 @@ namespace TheVillainsRevenge
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int lifes;
         public static int startLifes = 3;
-        public int spineSize = 256;
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
@@ -82,9 +81,6 @@ namespace TheVillainsRevenge
                 entry.End += new EventHandler<StartEndArgs>(End); // Event handling for queued animations.
                 animationState.AddAnimation(0, "walk", true, 0);
             }
-
-            skeleton.x = spineSize / 2;
-            skeleton.y = spineSize;
             skeleton.SetBonesToSetupPose();
             skeleton.UpdateWorldTransform();
         }
