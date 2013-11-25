@@ -179,6 +179,7 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(resolution.X - 300, 210), Color.Black);
             spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(resolution.X - 300, 230), Color.Black);
             spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(resolution.X - 300, 250), Color.Black);
+            spriteBatch.DrawString(font, "HeroStart: " + hero.herotime, new Vector2(resolution.X - 300, 270), Color.Black);
 
             spriteBatch.End();
             base.Draw(gameTime);

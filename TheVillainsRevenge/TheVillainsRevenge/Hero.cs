@@ -23,6 +23,8 @@ namespace TheVillainsRevenge
         public double jumptimer;
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
+        public double herotime;
+        bool start = false;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -41,47 +43,60 @@ namespace TheVillainsRevenge
         }
         public void Update(GameTime gameTime, Map map,Vector2 sposition)
         {
-            //Geschwindigkeit festlegen
-            int actualspeed = speed; 
-            if (jump || fall)
+            if (start)
             {
-                actualspeed = airspeed;
-            }
+                //Geschwindigkeit festlegen
+                int actualspeed = speed;
+                if (jump || fall)
+                {
+                    actualspeed = airspeed;
+                }
 
-            if (sposition.X > position.X)
-            {
-                Move(actualspeed, 0, map); //Bewege Rechts
-            }
-            else if (sposition.X < position.X)
-            {
-                Move(-actualspeed, 0, map); //Bewege Rechts
-            }
-            if (sposition.Y+50 < position.Y)
-            {
-                if (!jump && !fall)
+                if (sposition.X > position.X)
                 {
-                    Jump(gameTime, map); //Springen!
+                    Move(actualspeed, 0, map); //Bewege Rechts
                 }
-            }
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
-            {
-                if (!fall)
+                else if (sposition.X < position.X)
                 {
-                    fall = true;
-                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    Move(-actualspeed, 0, map); //Bewege Rechts
                 }
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
-                Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
+                if (sposition.Y + 50 < position.Y)
+                {
+                    if (!jump && !fall)
+                    {
+                        Jump(gameTime, map); //Springen!
+                    }
+                }
+                if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
+                {
+                    if (!fall)
+                    {
+                        fall = true;
+                        falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    }
+                    float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                    Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
+                }
+                else
+                {
+                    fall = false;
+                }
+
+                //Sprung fortführen
+                if (jump)
+                {
+                    Jump(gameTime, map);
+                }
             }
             else
             {
-                fall = false;
-            }
-
-            //Sprung fortführen
-            if (jump)
-            {
-                Jump(gameTime, map);
+                herotime += gameTime.ElapsedGameTime.TotalSeconds;
+                if (herotime > 10)
+                {
+                    position.X = 0;
+                    position.Y = 0;
+                    start = true;
+                }
             }
         }
 
