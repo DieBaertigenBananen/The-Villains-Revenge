@@ -29,6 +29,7 @@ namespace TheVillainsRevenge
         Hero hero = new Hero(0, 0);
         Map karte = new Map();
         Camera camera = new Camera();
+        GUI gui = new GUI();
         ParallaxPlane background_1 = new ParallaxPlane();
         ParallaxPlane background_2 = new ParallaxPlane();
         ParallaxPlane background_3 = new ParallaxPlane();
@@ -38,7 +39,6 @@ namespace TheVillainsRevenge
         ParallaxPlane foreground_1 = new ParallaxPlane();
         RenderTarget2D renderTarget;
         RenderTarget2D renderSpine;
-        Texture2D heartTexture; //Textur
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -80,7 +80,7 @@ namespace TheVillainsRevenge
             clouds_2.Load(this.Content, "clouds_2");
             clouds_3.Load(this.Content, "clouds_3");
             foreground_1.Load(this.Content, "foreground_1");
-            heartTexture = Content.Load<Texture2D>("sprites/leben");
+            gui.Load(this.Content);
             foreach (Enemy enemy in enemies)
             {
                 enemy.Load(this.Content);
@@ -178,10 +178,8 @@ namespace TheVillainsRevenge
 
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             //HUD
-            for (int i = 0; i != spieler.lifes; i++)
-            {
-                spriteBatch.Draw(heartTexture, new Vector2(10+i*50, 0), new Rectangle(0, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-            }
+            gui.Draw(spriteBatch, spieler.lifes,spieler.position,hero.position,karte.size);
+            /*
             spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(resolution.X - 300, 90), Color.Black);
             spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(resolution.X - 300, 110), Color.Black);
             spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(resolution.X - 300, 130), Color.Black);
@@ -192,7 +190,8 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(resolution.X - 300, 230), Color.Black);
             spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(resolution.X - 300, 250), Color.Black);
             spriteBatch.DrawString(font, "HeroStart: " + hero.herotime, new Vector2(resolution.X - 300, 270), Color.Black);
-
+            spriteBatch.DrawString(font, "Karte: " + (karte.size.X + " " + karte.size.Y), new Vector2(resolution.X - 300, 300), Color.Black);
+            */
             spriteBatch.End();
             base.Draw(gameTime);
         }
