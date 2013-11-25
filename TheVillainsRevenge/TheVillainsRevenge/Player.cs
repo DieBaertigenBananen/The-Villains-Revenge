@@ -114,7 +114,7 @@ namespace TheVillainsRevenge
         public void Update(GameTime gameTime, Map map)
         {
             //Geschwindigkeit festlegen
-            int actualspeed = speed; ;
+            int actualspeed = speed; 
             if (jump || fall)
             {
                 actualspeed = airspeed;
