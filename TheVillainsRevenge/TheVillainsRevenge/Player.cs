@@ -189,6 +189,8 @@ namespace TheVillainsRevenge
             {
                 Jump(gameTime, map);
             }
+            skeleton.x = position.X;
+            skeleton.y = position.Y;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -197,8 +199,11 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(playerTexture, position, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
         }
 
-        public void DrawSpine(GameTime gameTime)
+        public void DrawSpine(GameTime gameTime, Camera camera)
         {
+            //Player -> Drawposition
+            skeleton.x = position.X - camera.viewport.X;
+            skeleton.y = position.Y - camera.viewport.Y;
             //----------Spine----------
             animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
             animationState.Apply(skeleton);
@@ -207,6 +212,10 @@ namespace TheVillainsRevenge
             skeletonRenderer.Draw(skeleton);
             skeletonRenderer.End();
             bounds.Update(skeleton, true);
+            //Player -> Worldposition
+            skeleton.x = position.X;
+            skeleton.y = position.Y;
+            skeleton.UpdateWorldTransform();
         }
 
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.

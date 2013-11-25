@@ -25,7 +25,7 @@ namespace TheVillainsRevenge
         SpriteFont font; 
         public static Vector2 resolution = new Vector2(1920, 1080);
         List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
-        Player spieler = new Player(10, 0);
+        Player spieler = new Player(40, 1080);
         Hero hero = new Hero(0, 0);
         Map karte = new Map();
         Camera camera = new Camera();
@@ -37,8 +37,7 @@ namespace TheVillainsRevenge
         ParallaxPlane clouds_3 = new ParallaxPlane();
         ParallaxPlane foreground_1 = new ParallaxPlane();
         RenderTarget2D renderTarget;
-        Texture2D renderSpine;
-        int[] backBuffer;
+        RenderTarget2D renderSpine;
         Texture2D heartTexture; //Textur
         public Game1()
         {
@@ -67,6 +66,7 @@ namespace TheVillainsRevenge
         protected override void LoadContent()
         {
             renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
+            renderSpine = new RenderTarget2D(GraphicsDevice, 1920, 1080);
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = this.Content.Load<SpriteFont>("fonts/schrift");
             spieler.Load(this.Content, graphics);
@@ -135,13 +135,10 @@ namespace TheVillainsRevenge
 
         protected override void Draw(GameTime gameTime)
         {
+            //Draw to Spine
+            graphics.GraphicsDevice.SetRenderTarget(renderSpine);           
             graphics.GraphicsDevice.Clear(Color.Transparent);
-            spieler.DrawSpine(gameTime);
-            backBuffer = new int[GraphicsDevice.PresentationParameters.BackBufferWidth * GraphicsDevice.PresentationParameters.BackBufferHeight];
-            renderSpine = new Texture2D(GraphicsDevice, GraphicsDevice.PresentationParameters.BackBufferWidth, GraphicsDevice.PresentationParameters.BackBufferHeight, false, GraphicsDevice.PresentationParameters.BackBufferFormat);
-            GraphicsDevice.GetBackBufferData(backBuffer);
-            //copy into a texture
-            renderSpine.SetData(backBuffer);
+            spieler.DrawSpine(gameTime, camera);
             
             //Draw to Texture
             GraphicsDevice.SetRenderTarget(renderTarget);
@@ -162,13 +159,13 @@ namespace TheVillainsRevenge
                 enemy.Draw(spriteBatch);
             }
             spieler.Draw(spriteBatch);
-            spriteBatch.Draw(renderSpine, spieler.position - new Vector2(spieler.spineSize / 3, spieler.spineSize / 2), new Rectangle(0, 0, spieler.spineSize, spieler.spineSize), Color.White);
+            spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White);
             hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
 
             //Vordergrund
             foreground_1.Draw(spriteBatch); //Bäume etc
-
+            spriteBatch.Draw(renderSpine, new Vector2(), Color.White);
             spriteBatch.End();
 
             //Draw Texture to Screen
