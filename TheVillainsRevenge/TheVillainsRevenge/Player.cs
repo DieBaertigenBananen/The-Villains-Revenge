@@ -26,7 +26,8 @@ namespace TheVillainsRevenge
         public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int lifes;
         public static int startLifes = 4;
-        public int item = 0;
+        public int item1 = 1;
+        public int item2 = 1;
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;

@@ -16,8 +16,24 @@ namespace TheVillainsRevenge
         {
             Texture = Content.Load<Texture2D>("sprites/gui");
         }
-        public void Draw(SpriteBatch spriteBatch,int leben,Vector2 spielerpos,Vector2 heropos,Vector2 kartesize,int sitem)
+        public void Draw(SpriteBatch spriteBatch,int leben,Vector2 spielerpos,Vector2 heropos,Vector2 kartesize,int sitem1,int sitem2)
         {
+            //Itemslot hinten
+            spriteBatch.Draw(Texture, new Vector2(36, 10), new Rectangle(0, 96, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            switch (sitem2)
+            {
+                case 1:
+                    spriteBatch.Draw(Texture, new Vector2(36+9, 18), new Rectangle(64, 96, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    break;
+            }            
+            //Itemslot vorne
+            spriteBatch.Draw(Texture, new Vector2(24, 10), new Rectangle(0, 96, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            switch (sitem1)
+            {
+                case 1:
+                    spriteBatch.Draw(Texture, new Vector2(24 + 9, 18), new Rectangle(64, 96, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    break;
+            }
             //Leben
             switch (leben)
             {
@@ -32,14 +48,6 @@ namespace TheVillainsRevenge
                     break;
                 case 1:
                     spriteBatch.Draw(Texture, new Vector2(10, 0), new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                    break;
-            }
-            //Itemslot
-            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - 64, 10), new Rectangle(0, 96, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-            switch (sitem)
-            {
-                case 1:
-                    spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - 56, 18), new Rectangle(64, 96, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
             }
             
