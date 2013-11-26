@@ -12,9 +12,9 @@ Content\sprites\foreground_1.xnb
 Content\sprites\bunny.xnb
 Content\sprites\held.xnb
 Content\sprites\items.xnb
-Content\sprites\gui.xnb
 Content\sprites\itemslot.xnb
 Content\sprites\block.xnb
+Content\sprites\gui.xnb
 spine\spineboy.png
 spine\goblins.png
 spine\spineboy.atlas
