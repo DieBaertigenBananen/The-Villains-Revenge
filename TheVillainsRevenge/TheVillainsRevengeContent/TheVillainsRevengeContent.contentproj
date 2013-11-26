@@ -127,6 +127,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="sprites\itemslot.png">
+      <Name>itemslot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\block.png">
+      <Name>block</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="sprites\gui.png">
       <Name>gui</Name>
       <Importer>TextureImporter</Importer>

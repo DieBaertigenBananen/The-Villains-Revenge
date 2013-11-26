@@ -178,7 +178,7 @@ namespace TheVillainsRevenge
 
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             //HUD
-            gui.Draw(spriteBatch, spieler.lifes,spieler.position,hero.position,karte.size);
+            gui.Draw(spriteBatch, spieler.lifes,spieler.position,hero.position,karte.size,spieler.item);
             /*
             spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(resolution.X - 300, 90), Color.Black);
             spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(resolution.X - 300, 110), Color.Black);
