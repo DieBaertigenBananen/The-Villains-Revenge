@@ -28,6 +28,7 @@ namespace TheVillainsRevenge
         public static int startLifes = 4;
         public int item1 = 1;
         public int item2 = 0;
+        Input input = new Input();
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
@@ -117,65 +118,38 @@ namespace TheVillainsRevenge
             {
                 actualspeed = airspeed;
             }
-
+            input.update();
             //Lade Keyboard-Daten
-            KeyboardState currentKeyboardState = Keyboard.GetState();
-            if (currentKeyboardState.IsKeyDown(Keys.E) == true) 
+            if (input.iteme) 
             {
                 int i = item1;
                 item1 = item2;
                 item2 = i;
             }
-            else if (currentKeyboardState.IsKeyDown(Keys.Q) == true)
+            else if (input.itemq)
             {
                 int i = item2;
                 item2 = item1;
                 item1 = i;
             }
-            if (
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0f
-                ||
-                currentKeyboardState.IsKeyDown(Keys.Right) == true
-                ||
-                currentKeyboardState.IsKeyDown(Keys.D) == true
-                ) //Wenn Rechte Pfeiltaste
+            if (input.rechts) //Wenn Rechte Pfeiltaste
             {
                 Move(actualspeed, 0, map); //Bewege Rechts
                 animationState.AddAnimation(0, "walk", false, 0f);
                 skeleton.flipX = false;
             }
-            if (
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
-                ||
-                currentKeyboardState.IsKeyDown(Keys.Left) == true
-                ||
-                currentKeyboardState.IsKeyDown(Keys.A) == true
-                ) //Wenn Rechte Pfeiltaste
+            if (input.links) //Wenn Rechte Pfeiltaste
             {
                 Move(-actualspeed, 0, map);//Bewege Links
                 animationState.AddAnimation(0, "walk", false, 0f);
                 skeleton.flipX = true;
             }
-            if (
-                GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
-                ||
-                currentKeyboardState.IsKeyDown(Keys.Space) == true
-                )
+            if (input.sprung)
             {
                 if (!jump && !fall)
                 {
                     Jump(gameTime, map); //Springen!
                 }
-            }
-
-            //Speed verändern
-            if (currentKeyboardState.IsKeyDown(Keys.LeftShift) == true || GamePad.GetState(PlayerIndex.One).Triggers.Right == 1.0f) //Wenn Rechte Pfeiltaste
-            {
-                speed++;
-            }
-            if (currentKeyboardState.IsKeyDown(Keys.LeftControl) == true || GamePad.GetState(PlayerIndex.One).Triggers.Left == 1.0f)//Wenn Linke Pfeiltaste
-            {
-                speed--;
             }
 
             //Gravitation
