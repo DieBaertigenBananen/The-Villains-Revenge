@@ -69,7 +69,23 @@ namespace TheVillainsRevenge
                 {
                     //Update und hole Wert vom Menü
                     wert = menu.update();
-                    if (wert == 2)
+                    if (wert == 3)
+                    {
+                        if (graphics.IsFullScreen)
+                        {
+                            graphics.IsFullScreen = false;
+                            graphics.PreferredBackBufferWidth = 1024;
+                            graphics.PreferredBackBufferHeight = graphics.PreferredBackBufferWidth / 16 * 9;
+                        }
+                        else
+                        {
+                            graphics.IsFullScreen = true;
+                            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                        }
+                        graphics.ApplyChanges();
+                    }
+                    else if (wert == 2)
                     {
                         menu = null; //entlädt das menü
                         Content.Unload(); //entlädt den Content
