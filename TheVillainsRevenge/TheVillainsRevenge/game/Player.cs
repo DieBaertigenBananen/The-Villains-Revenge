@@ -14,8 +14,6 @@ namespace TheVillainsRevenge
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
         Vector2 lastPosition; //Position vor vorherigem Update
-        public Texture2D playerTexture; //Textur
-        public Rectangle cbox; //Collisionsbox
         public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
@@ -28,6 +26,7 @@ namespace TheVillainsRevenge
         public static int startLifes = 4;
         public int item1 = 1;
         public int item2 = 0;
+        public bool check = false;
         Input input = new Input();
 
         //----------Spine----------
@@ -41,14 +40,12 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             lastPosition = position;
-            cbox = new Rectangle((int)position.X, (int)position.Y, 128, 128);
             lifes = startLifes;
 
         }
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            playerTexture = Content.Load<Texture2D>("sprites/player");
             //----------Spine----------
             skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
             skeletonRenderer.PremultipliedAlpha = true;
@@ -85,6 +82,8 @@ namespace TheVillainsRevenge
                 animationState.AddAnimation(0, "walk", true, 0);
             }
             skeleton.SetBonesToSetupPose();
+            skeleton.x = position.X;
+            skeleton.y = position.Y;
             skeleton.UpdateWorldTransform();
         }
 
@@ -104,9 +103,7 @@ namespace TheVillainsRevenge
                 lifes = startLifes;
                 position.X = 100;
                 position.Y = 1000;
-                lastPosition = position;
-                cbox.X = (int)position.X;
-                cbox.Y = (int)position.Y;
+                lastPosition = new Vector2(skeleton.X, skeleton.Y);
             }
         }
 
@@ -153,7 +150,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump &&input.fall == true)
             {
                 if (!fall)
                 {
@@ -173,21 +170,14 @@ namespace TheVillainsRevenge
             {
                 Jump(gameTime, map);
             }
-            skeleton.x = position.X;
-            skeleton.y = position.Y;
+            position = new Vector2(skeleton.X, skeleton.Y);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(playerTexture, position, new Rectangle(0, 0, 128, 128), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-        }
-
-        public void DrawSpine(GameTime gameTime, Camera camera)
+        public void Draw(GameTime gameTime, Camera camera)
         {
             //Player -> Drawposition
-            skeleton.x = position.X - camera.viewport.X;
-            skeleton.y = position.Y - camera.viewport.Y;
+            skeleton.X = position.X - camera.viewport.X;
+            skeleton.Y = position.Y - camera.viewport.Y;
             //----------Spine----------
             animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
             animationState.Apply(skeleton);
@@ -195,10 +185,9 @@ namespace TheVillainsRevenge
             skeletonRenderer.Begin();
             skeletonRenderer.Draw(skeleton);
             skeletonRenderer.End();
-            bounds.Update(skeleton, true);
             //Player -> Worldposition
-            skeleton.x = position.X;
-            skeleton.y = position.Y;
+            skeleton.X = position.X;
+            skeleton.Y = position.Y;
             skeleton.UpdateWorldTransform();
         }
 
@@ -235,15 +224,14 @@ namespace TheVillainsRevenge
         {
             Vector2 domove = new Vector2(0, 0);
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
-            position.X += domove.X;
-            position.Y += domove.Y;
-            cbox.X = (int)position.X;
-            cbox.Y = (int)position.Y;
+            skeleton.X += domove.X;
+            skeleton.Y += domove.Y;
+            //bounds.Update(skeleton, true);
         }
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
-            Rectangle cboxnew = this.cbox;
+            position = new Vector2(skeleton.X, skeleton.Y);
             Vector2 move = new Vector2(0, 0);
             int icoll;
             bool stop;
@@ -261,14 +249,20 @@ namespace TheVillainsRevenge
             {
                 stop = false;
                 //Box für nächsten Iterationsschritt berechnen
-                cboxnew.X = this.cbox.X + ((x / icoll) * i);
-                cboxnew.Y = this.cbox.Y + ((y / icoll) * i);
+                skeleton.X = position.X + ((x / icoll) * i);
+                skeleton.Y = position.Y + ((y / icoll) * i);
+                bounds.Update(skeleton, false);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if (cboxnew.Intersects(block.cbox))
+                    BoundingBoxAttachment colLO = this.bounds.ContainsPoint(block.cbox.X, block.cbox.Y);
+                    BoundingBoxAttachment colRO = this.bounds.ContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height);
+                    BoundingBoxAttachment colRU = this.bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y);
+                    BoundingBoxAttachment colLU = this.bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height);
+                    if (colLO != null || colRO != null || colRU != null || colLU != null)
                     {
+                        check = true;
                         stop = true;
                         break;
                     }
@@ -279,10 +273,12 @@ namespace TheVillainsRevenge
                 }
                 else //Kollisionsfreien Fortschritt speichern
                 {
-                    move.X = cboxnew.X - cbox.X;
-                    move.Y = cboxnew.Y - cbox.Y;
+                    move.X = skeleton.X - position.X;
+                    move.Y = skeleton.Y - position.Y;
                 }
             }
+            skeleton.X = position.X;
+            skeleton.Y = position.Y;
             return move;
         }
 

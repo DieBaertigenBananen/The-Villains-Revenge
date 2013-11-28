@@ -10,25 +10,36 @@ namespace TheVillainsRevenge
 {
     class ParallaxPlane
     {
-        Texture2D texture;
+        Texture2D[] texture;
+        int tilesCount;
         public Vector2 size;
         public Vector2 position;
 
         public ParallaxPlane()
         {
             position = new Vector2(0, 0);
+            size = new Vector2(0, 0);
         }
 
-        public void Load(ContentManager Content, string textureName)
+        public void Load(ContentManager Content, string textureName, int tiles)
         {
+            tilesCount = tiles;
             //Lade Textur, einmal ausgeführt
-            texture = Content.Load<Texture2D>("sprites/" + textureName);
-            size = new Vector2(texture.Width * 2, texture.Height * 2);
+            texture = new Texture2D[tilesCount];
+            for (int i = 0; i < tilesCount; i++)
+            {
+                texture[i] = Content.Load<Texture2D>("sprites/Level_1/Planes/" + textureName + "_" + (i + 1));
+                size.X += texture[i].Width;
+            }
+            size.Y = texture[0].Height;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, null, Color.White, 0, Vector2.Zero, 2.0f, SpriteEffects.None, 1.0f);
+            for (int i = 0; i < tilesCount; i++)
+            {
+                spriteBatch.Draw(texture[i], new Vector2(position.X + (i * 3840), position.Y), Color.White);
+            }
         }
 
         public void Update(Map karte, Camera camera)
