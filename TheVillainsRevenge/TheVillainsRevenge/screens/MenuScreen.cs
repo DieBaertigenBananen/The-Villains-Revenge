@@ -33,11 +33,11 @@ namespace TheVillainsRevenge
                     return 2;
                 }
             }
-            if (keyState.IsKeyDown(Keys.Down))
+            if (keyState.IsKeyDown(Keys.Down)||keyState.IsKeyDown(Keys.S))
             {
                 wo = 1;
             }
-            if (keyState.IsKeyDown(Keys.Up))
+            if (keyState.IsKeyDown(Keys.Up) | keyState.IsKeyDown(Keys.W))
             {
                 wo = 0;
             }

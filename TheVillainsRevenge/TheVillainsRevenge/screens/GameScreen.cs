@@ -104,7 +104,8 @@ namespace TheVillainsRevenge
                 {
                     if (item.type == "herz")
                     {
-                        spieler.lifes++;
+                        if(spieler.lifes != 4)
+                            spieler.lifes++;
                         karte.items.Remove(item);
                     }
                     break;
