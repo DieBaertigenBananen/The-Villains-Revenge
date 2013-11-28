@@ -8,14 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-/*
- * 
- * Was geht???!!???
- * 
- * 
-Deine Mudda nutzt den Telefonjoker, um zu fragen, welche Farbe das weiße Haus hat.
- * 
- * */
+
 namespace TheVillainsRevenge
 {
     public class Game1 : Microsoft.Xna.Framework.Game
@@ -68,15 +61,20 @@ namespace TheVillainsRevenge
             else //Falls kein Escape
             {
                 int wert = 0;
+                //Wenn Menü existiert
+                //wert == 0 = game ende
+                //Wert == 1 = läuft weiter
+                //wert == 2 = nächste szene
                 if (menu != null)
                 {
+                    //Update und hole Wert vom Menü
                     wert = menu.update();
                     if (wert == 2)
                     {
-                        menu = null;
-                        Content.Unload();
-                        game = new GameScreen();
-                        game.load(Content);
+                        menu = null; //entlädt das menü
+                        Content.Unload(); //entlädt den Content
+                        game = new GameScreen(); //lädt das Game
+                        game.load(Content); // lädt die Game Bilder
                     }
                 }
                 else if (game != null)

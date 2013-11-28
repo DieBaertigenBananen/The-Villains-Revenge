@@ -27,7 +27,7 @@ namespace TheVillainsRevenge
         public int lifes;
         public static int startLifes = 4;
         public int item1 = 1;
-        public int item2 = 1;
+        public int item2 = 0;
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
@@ -120,6 +120,18 @@ namespace TheVillainsRevenge
 
             //Lade Keyboard-Daten
             KeyboardState currentKeyboardState = Keyboard.GetState();
+            if (currentKeyboardState.IsKeyDown(Keys.E) == true) 
+            {
+                int i = item1;
+                item1 = item2;
+                item2 = i;
+            }
+            else if (currentKeyboardState.IsKeyDown(Keys.Q) == true)
+            {
+                int i = item2;
+                item2 = item1;
+                item1 = i;
+            }
             if (
                 GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0f
                 ||
