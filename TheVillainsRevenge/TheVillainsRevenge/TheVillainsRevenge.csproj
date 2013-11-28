@@ -111,7 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="game\Block.cs" />
-    <Compile Include="Camera.cs" />
+    <Compile Include="game\Camera.cs" />
     <Compile Include="game\Enemy.cs" />
     <Compile Include="game\GUI.cs" />
     <Compile Include="game\Hero.cs" />

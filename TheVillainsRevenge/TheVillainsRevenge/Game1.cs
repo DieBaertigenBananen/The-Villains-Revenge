@@ -74,6 +74,7 @@ namespace TheVillainsRevenge
                     if (wert == 2)
                     {
                         menu = null;
+                        Content.Unload();
                         game = new GameScreen();
                         game.load(Content);
                     }
@@ -83,6 +84,7 @@ namespace TheVillainsRevenge
                     if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     {
                         game = null;
+                        Content.Unload();
                         menu = new MenuScreen();
                         menu.load(Content);
                         wert = 1;
