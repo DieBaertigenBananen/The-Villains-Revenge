@@ -20,25 +20,11 @@ namespace TheVillainsRevenge
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont font; 
         public static Vector2 resolution = new Vector2(1920, 1080);
-        List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
-        Player spieler = new Player(40, 1080);
-        Hero hero = new Hero(0, 0);
-        Map karte = new Map();
-        Camera camera = new Camera();
-        GUI gui = new GUI();
-        ParallaxPlane background_1 = new ParallaxPlane();
-        ParallaxPlane background_2 = new ParallaxPlane();
-        ParallaxPlane background_3 = new ParallaxPlane();
-        ParallaxPlane clouds_1 = new ParallaxPlane();
-        ParallaxPlane clouds_2 = new ParallaxPlane();
-        ParallaxPlane clouds_3 = new ParallaxPlane();
-        ParallaxPlane foreground_1 = new ParallaxPlane();
-        RenderTarget2D renderTarget;
-        RenderTarget2D renderSpine;
+        GameScreen game;
+        MenuScreen menu;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -52,40 +38,21 @@ namespace TheVillainsRevenge
                 graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             }
             this.IsMouseVisible = true;
-            enemies.Add(new Enemy(1200, 0, 1));
-            enemies.Add(new Enemy(1700, 0, 1));
-            enemies.Add(new Enemy(2300, 0, 1));
             Content.RootDirectory = "Content";
         }
 
         protected override void Initialize()
         {
+            menu = new MenuScreen();
+            //game = new GameScreen();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            renderTarget = new RenderTarget2D(GraphicsDevice, 1920, 1080);
-            renderSpine = new RenderTarget2D(GraphicsDevice, 1920, 1080);
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = this.Content.Load<SpriteFont>("fonts/schrift");
-            spieler.Load(this.Content, graphics);
-            hero.Load(this.Content);
-            karte.Load(this.Content);
-            karte.Generate();
-            background_1.Load(this.Content, "background_1");
-            background_2.Load(this.Content, "background_2");
-            background_3.Load(this.Content, "background_3");
-            clouds_1.Load(this.Content, "clouds_1");
-            clouds_2.Load(this.Content, "clouds_2");
-            clouds_3.Load(this.Content, "clouds_3");
-            foreground_1.Load(this.Content, "foreground_1");
-            gui.Load(this.Content);
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Load(this.Content);
-
-            }
+            menu.load(Content);
+            //game.load(Content);
         }
 
         protected override void UnloadContent()
@@ -94,105 +61,49 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
                 this.Exit();
             }
             else //Falls kein Escape
             {
-                foreach (Enemy enemy in enemies)
+                int wert = 0;
+                if (menu != null)
                 {
-                    enemy.Update(gameTime, karte);
-                    if(spieler.cbox.Intersects(enemy.cbox))
+                    wert = menu.update();
+                    if (wert == 2)
                     {
-                        spieler.getHit();
-                        enemies.Remove(enemy);
-                        break;
+                        menu = null;
+                        game = new GameScreen();
+                        game.load(Content);
                     }
                 }
-                foreach (Item item in karte.items)
+                else if (game != null)
                 {
-                    if (spieler.cbox.Intersects(item.cbox))
+                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                     {
-                        if (item.type == "herz")
-                        {
-                            spieler.lifes++;
-                            karte.items.Remove(item);
-                        }
-                        break;
+                        game = null;
+                        menu = new MenuScreen();
+                        menu.load(Content);
+                        wert = 1;
+                    }
+                    else
+                    {
+                        wert = game.update(gameTime);
                     }
                 }
-                hero.Update(gameTime, karte,spieler.position);
-                spieler.Update(gameTime, karte);
-                camera.Update(graphics, spieler, karte);
-                background_1.Update(karte, camera);
-                background_2.Update(karte, camera);
-                background_3.Update(karte, camera);
-                clouds_1.Update(karte, camera);
-                clouds_2.Update(karte, camera);
-                clouds_3.Update(karte, camera);
-                foreground_1.Update(karte, camera);
+                if (wert == 0)
+                    this.Exit();
             }
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            //Draw to Spine
-            graphics.GraphicsDevice.SetRenderTarget(renderSpine);           
-            graphics.GraphicsDevice.Clear(Color.Transparent);
-            spieler.DrawSpine(gameTime, camera);
-            
-            //Draw to Texture
-            GraphicsDevice.SetRenderTarget(renderTarget);
-            GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-
-            //Hintergrund und Wolken
-            background_3.Draw(spriteBatch); //Himmel
-            clouds_3.Draw(spriteBatch);
-            background_2.Draw(spriteBatch); //Berge
-            clouds_2.Draw(spriteBatch);
-            background_1.Draw(spriteBatch); //Wald
-            clouds_1.Draw(spriteBatch);
-
-            //Spiel
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Draw(spriteBatch);
-            }
-            spieler.Draw(spriteBatch);
-            spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White);
-            hero.Draw(spriteBatch);
-            karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
-
-            //Vordergrund
-            foreground_1.Draw(spriteBatch); //Bäume etc
-            spriteBatch.Draw(renderSpine, new Vector2(), Color.White);
-            spriteBatch.End();
-
-            //Draw Texture to Screen
-            GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
-
-            spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
-            //HUD
-            gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
-            /*
-            spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(resolution.X - 300, 90), Color.Black);
-            spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(resolution.X - 300, 110), Color.Black);
-            spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(resolution.X - 300, 130), Color.Black);
-            spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(resolution.X - 300, 150), Color.Black);
-            spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(resolution.X - 300, 170), Color.Black);
-            spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(resolution.X - 300, 190), Color.Black);
-            spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(resolution.X - 300, 210), Color.Black);
-            spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(resolution.X - 300, 230), Color.Black);
-            spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(resolution.X - 300, 250), Color.Black);
-            spriteBatch.DrawString(font, "HeroStart: " + hero.herotime, new Vector2(resolution.X - 300, 270), Color.Black);
-            spriteBatch.DrawString(font, "Karte: " + (karte.size.X + " " + karte.size.Y), new Vector2(resolution.X - 300, 300), Color.Black);
-            */
-            spriteBatch.End();
+            if (menu != null)
+                menu.draw(spriteBatch);
+            else if (game != null)
+                game.draw(gameTime, spriteBatch);
             base.Draw(gameTime);
         }
     }

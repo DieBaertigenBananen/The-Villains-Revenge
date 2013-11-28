@@ -110,58 +110,60 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Block.cs" />
+    <Compile Include="game\Block.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="Enemy.cs" />
-    <Compile Include="GUI.cs" />
-    <Compile Include="Hero.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="ParallaxPlane.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="game\Enemy.cs" />
+    <Compile Include="game\GUI.cs" />
+    <Compile Include="game\Hero.cs" />
+    <Compile Include="game\Map.cs" />
+    <Compile Include="game\ParallaxPlane.cs" />
+    <Compile Include="game\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Spine_CSharp\Animation.cs" />
-    <Compile Include="Spine_CSharp\AnimationState.cs" />
-    <Compile Include="Spine_CSharp\AnimationStateData.cs" />
-    <Compile Include="Spine_CSharp\Atlas.cs" />
-    <Compile Include="Spine_CSharp\Attachments\AtlasAttachmentLoader.cs" />
-    <Compile Include="Spine_CSharp\Attachments\Attachment.cs" />
-    <Compile Include="Spine_CSharp\Attachments\AttachmentLoader.cs" />
-    <Compile Include="Spine_CSharp\Attachments\AttachmentType.cs" />
-    <Compile Include="Spine_CSharp\Attachments\BoundingBoxAttachment.cs" />
-    <Compile Include="Spine_CSharp\Attachments\RegionAttachment.cs" />
-    <Compile Include="Spine_CSharp\Bone.cs" />
-    <Compile Include="Spine_CSharp\BoneData.cs" />
-    <Compile Include="Spine_CSharp\Event.cs" />
-    <Compile Include="Spine_CSharp\EventData.cs" />
-    <Compile Include="Spine_CSharp\Json.cs" />
-    <Compile Include="Spine_CSharp\Skeleton.cs" />
-    <Compile Include="Spine_CSharp\SkeletonBounds.cs" />
-    <Compile Include="Spine_CSharp\SkeletonData.cs" />
-    <Compile Include="Spine_CSharp\SkeletonJson.cs" />
-    <Compile Include="Spine_CSharp\Skin.cs" />
-    <Compile Include="Spine_CSharp\Slot.cs" />
-    <Compile Include="Spine_CSharp\SlotData.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="Spine_XNA\SkeletonRenderer.cs" />
-    <Compile Include="Spine_XNA\SpriteBatcher.cs" />
-    <Compile Include="Spine_XNA\Util.cs" />
-    <Compile Include="Spine_XNA\XnaTextureLoader.cs" />
+    <Compile Include="screens\GameScreen.cs" />
+    <Compile Include="screens\MenuScreen.cs" />
+    <Compile Include="spine\Spine_CSharp\Animation.cs" />
+    <Compile Include="spine\Spine_CSharp\AnimationState.cs" />
+    <Compile Include="spine\Spine_CSharp\AnimationStateData.cs" />
+    <Compile Include="spine\Spine_CSharp\Atlas.cs" />
+    <Compile Include="spine\Spine_CSharp\Attachments\AtlasAttachmentLoader.cs" />
+    <Compile Include="spine\Spine_CSharp\Attachments\Attachment.cs" />
+    <Compile Include="spine\Spine_CSharp\Attachments\AttachmentLoader.cs" />
+    <Compile Include="spine\Spine_CSharp\Attachments\AttachmentType.cs" />
+    <Compile Include="spine\Spine_CSharp\Attachments\BoundingBoxAttachment.cs" />
+    <Compile Include="spine\Spine_CSharp\Attachments\RegionAttachment.cs" />
+    <Compile Include="spine\Spine_CSharp\Bone.cs" />
+    <Compile Include="spine\Spine_CSharp\BoneData.cs" />
+    <Compile Include="spine\Spine_CSharp\Event.cs" />
+    <Compile Include="spine\Spine_CSharp\EventData.cs" />
+    <Compile Include="spine\Spine_CSharp\Json.cs" />
+    <Compile Include="spine\Spine_CSharp\Skeleton.cs" />
+    <Compile Include="spine\Spine_CSharp\SkeletonBounds.cs" />
+    <Compile Include="spine\Spine_CSharp\SkeletonData.cs" />
+    <Compile Include="spine\Spine_CSharp\SkeletonJson.cs" />
+    <Compile Include="spine\Spine_CSharp\Skin.cs" />
+    <Compile Include="spine\Spine_CSharp\Slot.cs" />
+    <Compile Include="spine\Spine_CSharp\SlotData.cs" />
+    <Compile Include="game\Item.cs" />
+    <Compile Include="spine\Spine_XNA\SkeletonRenderer.cs" />
+    <Compile Include="spine\Spine_XNA\SpriteBatcher.cs" />
+    <Compile Include="spine\Spine_XNA\Util.cs" />
+    <Compile Include="spine\Spine_XNA\XnaTextureLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <None Include="spine\spineboy.png">
+    <None Include="spine\sprites\spineboy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="spine\goblins.png">
+    <None Include="spine\sprites\goblins.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="spine\spineboy.atlas">
+    <None Include="spine\sprites\spineboy.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="spine\spineboy.json">
+    <None Include="spine\sprites\spineboy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -199,12 +201,15 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="spine\goblins.atlas">
+    <None Include="spine\sprites\goblins.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="spine\goblins.json">
+    <None Include="spine\sprites\goblins.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="menu\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
