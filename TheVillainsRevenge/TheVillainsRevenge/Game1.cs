@@ -90,7 +90,7 @@ namespace TheVillainsRevenge
                         menu = null; //entlädt das menü
                         Content.Unload(); //entlädt den Content
                         game = new GameScreen(); //lädt das Game
-                        game.load(Content); // lädt die Game Bilder
+                        game.Load(Content); // lädt die Game Bilder
                     }
                 }
                 else if (game != null)
@@ -105,7 +105,7 @@ namespace TheVillainsRevenge
                     }
                     else
                     {
-                        wert = game.update(gameTime);
+                        wert = game.Update(gameTime);
                     }
                 }
                 if (wert == 0)
@@ -119,7 +119,7 @@ namespace TheVillainsRevenge
             if (menu != null)
                 menu.draw(spriteBatch);
             else if (game != null)
-                game.draw(gameTime, spriteBatch);
+                game.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
         }
     }

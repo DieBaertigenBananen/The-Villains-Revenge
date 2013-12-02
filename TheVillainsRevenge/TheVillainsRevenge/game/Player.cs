@@ -34,6 +34,8 @@ namespace TheVillainsRevenge
         public Skeleton skeleton;
         public AnimationState animationState;
         public SkeletonBounds bounds = new SkeletonBounds();
+        //Slots
+        Slot headSlot;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -85,6 +87,8 @@ namespace TheVillainsRevenge
             skeleton.x = position.X;
             skeleton.y = position.Y;
             skeleton.UpdateWorldTransform();
+
+            headSlot = skeleton.FindSlot("head");
         }
 
         public void getHit()
@@ -255,16 +259,19 @@ namespace TheVillainsRevenge
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
-                    //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    BoundingBoxAttachment colLO = this.bounds.ContainsPoint(block.cbox.X, block.cbox.Y);
-                    BoundingBoxAttachment colRO = this.bounds.ContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height);
-                    BoundingBoxAttachment colRU = this.bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y);
-                    BoundingBoxAttachment colLU = this.bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height);
-                    if (colLO != null || colRO != null || colRU != null || colLU != null)
+                    if (bounds.AabbContainsPoint(block.cbox.X, block.cbox.Y) || bounds.AabbContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height) || bounds.AabbContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y) || bounds.AabbContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height))
                     {
-                        check = true;
-                        stop = true;
-                        break;
+                        //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                        BoundingBoxAttachment colLO = bounds.ContainsPoint(block.cbox.X, block.cbox.Y);
+                        BoundingBoxAttachment colRO = bounds.ContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height);
+                        BoundingBoxAttachment colRU = bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y);
+                        BoundingBoxAttachment colLU = bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height);
+                        if ((colLO != null) || (colRO != null) || (colRU != null) || (colLU != null))
+                        {
+                            check = true;
+                            stop = true;
+                            break;
+                        }
                     }
                 }
                 if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
