@@ -11,9 +11,111 @@ using Microsoft.Xna.Framework.Media;
 
 namespace TheVillainsRevenge
 {
+    /*
+class GameScreen
+{
+    GraphicsDeviceManager graphics;
+    SkeletonRenderer skeletonRenderer;
+    Skeleton skeleton;
+    Slot headSlot;
+    AnimationState state;
+    SkeletonBounds bounds = new SkeletonBounds();
+    public void Load(ContentManager Content,GraphicsDeviceManager graphics)
+    {
+        skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
+        skeletonRenderer.PremultipliedAlpha = true;
+
+        String name = "spineboy"; // "goblins";
+
+        Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
+        SkeletonJson json = new SkeletonJson(atlas);
+        skeleton = new Skeleton(json.ReadSkeletonData("spine/sprites/" + name + ".json"));
+        if (name == "goblins") skeleton.SetSkin("goblingirl");
+        skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
+
+        // Define mixing between animations.
+        AnimationStateData stateData = new AnimationStateData(skeleton.Data);
+        if (name == "spineboy")
+        {
+            stateData.SetMix("walk", "jump", 0.2f);
+            stateData.SetMix("jump", "walk", 0.4f);
+        }
+
+        state = new AnimationState(stateData);
+
+        if (true)
+        {
+            // Event handling for all animations.
+            state.Start += Start;
+            state.End += End;
+            state.Complete += Complete;
+            state.Event += Event;
+
+            state.SetAnimation(0, "drawOrder", true);
+        }
+        else
+        {
+            state.SetAnimation(0, "walk", false);
+            TrackEntry entry = state.AddAnimation(0, "jump", false, 0);
+            entry.End += new EventHandler<StartEndArgs>(End); // Event handling for queued animations.
+            state.AddAnimation(0, "walk", true, 0);
+        }
+
+        skeleton.X = 320;
+        skeleton.Y = 440;
+        skeleton.UpdateWorldTransform();
+
+        headSlot = skeleton.FindSlot("head");
+
+    }
+
+    public void Draw(GameTime gameTime)
+    {
+        state.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
+        state.Apply(skeleton);
+        skeleton.UpdateWorldTransform();
+        skeletonRenderer.Begin();
+        skeletonRenderer.Draw(skeleton);
+        skeletonRenderer.End();
+
+        bounds.Update(skeleton, true);
+        MouseState mouse = Mouse.GetState();
+        headSlot.R = 1;
+        headSlot.B = 1;
+        if (bounds.AabbContainsPoint(mouse.X, mouse.Y))
+        {
+            BoundingBoxAttachment hit = bounds.ContainsPoint(mouse.X, mouse.Y);
+            if (hit != null)
+            {
+                headSlot.R = 0;
+                headSlot.B = 0;
+            }
+        }
+    }
+
+    public void Start(object sender, StartEndArgs e)
+    {
+        Console.WriteLine(e.TrackIndex + " " + state.GetCurrent(e.TrackIndex) + ": start");
+    }
+
+    public void End(object sender, StartEndArgs e)
+    {
+        Console.WriteLine(e.TrackIndex + " " + state.GetCurrent(e.TrackIndex) + ": end");
+    }
+
+    public void Complete(object sender, CompleteArgs e)
+    {
+        Console.WriteLine(e.TrackIndex + " " + state.GetCurrent(e.TrackIndex) + ": complete " + e.LoopCount);
+    }
+
+    public void Event(object sender, EventTriggeredArgs e)
+    {
+        Console.WriteLine(e.TrackIndex + " " + state.GetCurrent(e.TrackIndex) + ": event " + e.Event);
+    }
+}*/
     class GameScreen
     {
-        Player spieler = new Player(40, 1080);
+        Player spieler = new Player(50, 228);
         Hero hero = new Hero(0, 0);
         Map karte = new Map();
         Camera camera = new Camera();
@@ -163,6 +265,8 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.Black);
             spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + foreground_1.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.Black);
             spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.Black);
+            MouseState mouse = Mouse.GetState();
+            spriteBatch.DrawString(font, "Mouse.X: " + mouse.X + " " + "Mouse.Y:" + mouse.Y, new Vector2(Game1.resolution.X - 300, 320), Color.Black);
             //for (int i = 0; i < karte.background.Width; i++)
             //{
             //    for (int t = 15; t < karte.background.Height; t++)

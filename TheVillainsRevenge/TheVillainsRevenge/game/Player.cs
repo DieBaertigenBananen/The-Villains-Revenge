@@ -151,7 +151,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump&&input.fall)
             {
                 if (!fall)
                 {
@@ -175,6 +175,20 @@ namespace TheVillainsRevenge
             position.X = skeleton.X;
             if (position.Y >= 2160)
                 getHit();
+
+            bounds.Update(skeleton, true);
+            MouseState mouse = Mouse.GetState();
+            headSlot.R = 1;
+            headSlot.B = 1;
+            if (bounds.AabbContainsPoint(mouse.X, mouse.Y))
+            {
+                BoundingBoxAttachment hit = bounds.ContainsPoint(mouse.X, mouse.Y);
+                if (hit != null)
+                {
+                    headSlot.R = 0;
+                    headSlot.B = 0;
+                }
+            }
         }
 
         public void Draw(GameTime gameTime, Camera camera)
@@ -192,7 +206,7 @@ namespace TheVillainsRevenge
             //Player -> Worldposition
             skeleton.X = position.X;
             skeleton.Y = position.Y;
-            skeleton.UpdateWorldTransform();
+            //skeleton.UpdateWorldTransform();
         }
 
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
