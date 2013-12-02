@@ -28,6 +28,8 @@ namespace TheVillainsRevenge
         public int item2 = 0;
         public bool check = false;
         Input input = new Input();
+        public Rectangle cbox; //Collisionsbox
+        public Vector2 checkpoint;
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
@@ -39,10 +41,12 @@ namespace TheVillainsRevenge
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
+            checkpoint = new Vector2(x, y);
             position.X = x;
             position.Y = y;
             lastPosition = position;
             lifes = startLifes;
+            cbox = new Rectangle((int)position.X, (int)position.Y-128, 64, 128);
 
         }
 
@@ -96,17 +100,19 @@ namespace TheVillainsRevenge
             lifes--;
             if (lifes > 0)
             {
-                //position.X = 100;
-                //position.Y = 1000;
-                //lastPosition = position;
-                //cbox.X = (int)position.X;
-                //cbox.Y = (int)position.Y;
+                position.X = checkpoint.X;
+                position.Y = checkpoint.Y;
+                skeleton.x = position.X;
+                skeleton.y = position.Y;
+                lastPosition = new Vector2(skeleton.X, skeleton.Y);
             }
             else
             {
                 lifes = startLifes;
-                position.X = 100;
-                position.Y = 1000;
+                position.X = checkpoint.X;
+                position.Y = checkpoint.Y;
+                skeleton.x = position.X;
+                skeleton.y = position.Y;
                 lastPosition = new Vector2(skeleton.X, skeleton.Y);
             }
         }
@@ -154,7 +160,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump &&input.fall == true)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
             {
                 if (!fall)
                 {
@@ -174,7 +180,10 @@ namespace TheVillainsRevenge
             {
                 Jump(gameTime, map);
             }
-            position = new Vector2(skeleton.X, skeleton.Y);
+            position.Y = skeleton.Y;
+            position.X = skeleton.X;
+            if (position.Y >= 2160)
+                getHit();
         }
 
         public void Draw(GameTime gameTime, Camera camera)
@@ -230,12 +239,13 @@ namespace TheVillainsRevenge
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
             skeleton.X += domove.X;
             skeleton.Y += domove.Y;
-            //bounds.Update(skeleton, true);
+            cbox.X = (int)skeleton.X;
+            cbox.Y = (int)skeleton.Y-128;
         }
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
-            position = new Vector2(skeleton.X, skeleton.Y);
+            Rectangle cboxnew = this.cbox;
             Vector2 move = new Vector2(0, 0);
             int icoll;
             bool stop;
@@ -253,25 +263,16 @@ namespace TheVillainsRevenge
             {
                 stop = false;
                 //Box für nächsten Iterationsschritt berechnen
-                skeleton.X = position.X + ((x / icoll) * i);
-                skeleton.Y = position.Y + ((y / icoll) * i);
-                bounds.Update(skeleton, false);
+                cboxnew.X = this.cbox.X + ((x / icoll) * i);
+                cboxnew.Y = this.cbox.Y + ((y / icoll) * i);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
-                    if (bounds.AabbContainsPoint(block.cbox.X, block.cbox.Y) || bounds.AabbContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height) || bounds.AabbContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y) || bounds.AabbContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height))
+                    //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                    if (cboxnew.Intersects(block.cbox))
                     {
-                        //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                        BoundingBoxAttachment colLO = bounds.ContainsPoint(block.cbox.X, block.cbox.Y);
-                        BoundingBoxAttachment colRO = bounds.ContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height);
-                        BoundingBoxAttachment colRU = bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y);
-                        BoundingBoxAttachment colLU = bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height);
-                        if ((colLO != null) || (colRO != null) || (colRU != null) || (colLU != null))
-                        {
-                            check = true;
-                            stop = true;
-                            break;
-                        }
+                        stop = true;
+                        break;
                     }
                 }
                 if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
@@ -280,12 +281,10 @@ namespace TheVillainsRevenge
                 }
                 else //Kollisionsfreien Fortschritt speichern
                 {
-                    move.X = skeleton.X - position.X;
-                    move.Y = skeleton.Y - position.Y;
+                    move.X = cboxnew.X - cbox.X;
+                    move.Y = cboxnew.Y - cbox.Y;
                 }
             }
-            skeleton.X = position.X;
-            skeleton.Y = position.Y;
             return move;
         }
 

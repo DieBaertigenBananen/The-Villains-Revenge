@@ -66,14 +66,13 @@ namespace TheVillainsRevenge
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime, karte);
-                if (spieler.bounds.AabbIntersectsSegment(enemy.cbox.X, enemy.cbox.Y, enemy.cbox.Width, enemy.cbox.Height))
+                if (spieler.cbox.Intersects(enemy.cbox))
                 {
                     spieler.getHit();
                     enemies.Remove(enemy);
                     break;
                 }
             }
-            /*
             foreach (Item item in karte.items)
             {
                 if (spieler.cbox.Intersects(item.cbox))
@@ -87,7 +86,6 @@ namespace TheVillainsRevenge
                     break;
                 }
             }
-             * */
             hero.Update(gameTime, karte, spieler.position);
             spieler.Update(gameTime, karte);
             camera.Update(Game1.graphics, spieler, karte);
