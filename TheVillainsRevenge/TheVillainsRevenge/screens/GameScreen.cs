@@ -13,7 +13,7 @@ namespace TheVillainsRevenge
 {
     class GameScreen
     {
-        Player spieler = new Player(40, 1080);
+        Player spieler = new Player(40, 100);
         Hero hero = new Hero(0, 0);
         Map karte = new Map();
         Camera camera = new Camera();
@@ -29,6 +29,7 @@ namespace TheVillainsRevenge
         RenderTarget2D renderSpine;
         SpriteFont font;
         List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
+        SpineTest spineTest = new SpineTest();
 
         public GameScreen()
         {
@@ -59,6 +60,7 @@ namespace TheVillainsRevenge
                 enemy.Load(Content);
 
             }
+            spineTest.Load();
         }
 
         public int Update(GameTime gameTime)
@@ -139,6 +141,8 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
 
+            
+
             spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.Black);
             spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(Game1.resolution.X - 300, 110), Color.Black);
             spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(Game1.resolution.X - 300, 130), Color.Black);
@@ -150,6 +154,8 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.Black);
             spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + foreground_1.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.Black);
             spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.Black);
+            Slot bb = spieler.skeleton.FindSlot("bb-head");
+            spriteBatch.DrawString(font, "bb-head: " + bb.data.attachmentName.ToString(), new Vector2(Game1.resolution.X - 300, 310), Color.Black);
             //for (int i = 0; i < karte.background.Width; i++)
             //{
             //    for (int t = 15; t < karte.background.Height; t++)
@@ -157,8 +163,9 @@ namespace TheVillainsRevenge
             //        spriteBatch.DrawString(font, karte.pixelRGBA[i, t, 0] + "," + karte.pixelRGBA[i, t, 1] + "," + karte.pixelRGBA[i, t, 2], new Vector2(i * 60, (t - 15) * 30), Color.Black);
             //    }
             //}*/
-
+            
             spriteBatch.End();
+            //spineTest.Draw(gameTime);
         }
     }
 }

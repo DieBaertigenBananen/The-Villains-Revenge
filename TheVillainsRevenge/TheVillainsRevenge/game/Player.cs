@@ -65,30 +65,17 @@ namespace TheVillainsRevenge
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
             animationStateData.SetMix("walk", "jump", 0.2f);
             animationStateData.SetMix("jump", "walk", 0.4f);
-
             animationState = new AnimationState(animationStateData);
 
-            if (true)
-            {
-                // Event handling for all animations.
-                animationState.Start += Start;
-                animationState.End += End;
-                animationState.Complete += Complete;
-                animationState.Event += Event;
-            }
-            else
-            {
-                animationState.SetAnimation(0, "walk", false);
-                TrackEntry entry = animationState.AddAnimation(0, "jump", false, 0);
-                entry.End += new EventHandler<StartEndArgs>(End); // Event handling for queued animations.
-                animationState.AddAnimation(0, "walk", true, 0);
-            }
-            skeleton.SetBonesToSetupPose();
+            // Event handling for all animations.
+            animationState.Start += Start;
+            animationState.End += End;
+            animationState.Complete += Complete;
+            animationState.Event += Event;
+
             skeleton.x = position.X;
             skeleton.y = position.Y;
             skeleton.UpdateWorldTransform();
-
-            headSlot = skeleton.FindSlot("head");
         }
 
         public void getHit()
@@ -230,6 +217,7 @@ namespace TheVillainsRevenge
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
             skeleton.X += domove.X;
             skeleton.Y += domove.Y;
+            skeleton.UpdateWorldTransform();
             //bounds.Update(skeleton, true);
         }
 
@@ -255,18 +243,16 @@ namespace TheVillainsRevenge
                 //Box für nächsten Iterationsschritt berechnen
                 skeleton.X = position.X + ((x / icoll) * i);
                 skeleton.Y = position.Y + ((y / icoll) * i);
-                bounds.Update(skeleton, false);
+                skeleton.UpdateWorldTransform();
+                bounds.Update(skeleton, true);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
-                    if (bounds.AabbContainsPoint(block.cbox.X, block.cbox.Y) || bounds.AabbContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height) || bounds.AabbContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y) || bounds.AabbContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height))
+                    if (bounds.AabbIntersectsSegment((float)block.cbox.X, (float)block.cbox.Y, (float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height)))
                     {
-                        //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                        BoundingBoxAttachment colLO = bounds.ContainsPoint(block.cbox.X, block.cbox.Y);
-                        BoundingBoxAttachment colRO = bounds.ContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height);
-                        BoundingBoxAttachment colRU = bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y);
-                        BoundingBoxAttachment colLU = bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height);
-                        if ((colLO != null) || (colRO != null) || (colRU != null) || (colLU != null))
+                        check = true;
+                        BoundingBoxAttachment collision = bounds.IntersectsSegment((float)block.cbox.X, (float)block.cbox.Y, (float)block.cbox.Width, (float)block.cbox.Height);
+                        if (collision != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                         {
                             check = true;
                             stop = true;

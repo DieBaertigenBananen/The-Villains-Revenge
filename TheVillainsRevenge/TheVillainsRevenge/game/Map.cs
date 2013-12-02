@@ -117,6 +117,13 @@ namespace TheVillainsRevenge
                  }
              }
              items.Add(new Item(1200, (int)1200, "herz"));
+             for (int i = 0; i <= 20; i++)
+             {
+                 for (int t = 0; t <= 20; t++)
+                 {
+                    blocks.Add(new Block(new Vector2(i * 48, t * 48), "ground_grass"));
+                 }
+             }
          }
     }
 }
