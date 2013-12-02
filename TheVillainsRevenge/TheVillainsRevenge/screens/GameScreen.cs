@@ -33,7 +33,6 @@ namespace TheVillainsRevenge
         public GameScreen()
         {
             enemies.Add(new Enemy(1200, 0, 1));
-            enemies.Add(new Enemy(1700, 0, 1));
             enemies.Add(new Enemy(2300, 0, 1));
         }
 
@@ -86,6 +85,15 @@ namespace TheVillainsRevenge
                     break;
                 }
             }
+            foreach (Checkpoint cpoint in karte.checkpoints)
+            {
+                if (spieler.cbox.Intersects(cpoint.cbox))
+                {
+                    spieler.checkpoint.X = cpoint.cbox.X;
+                    spieler.checkpoint.Y = spieler.position.Y;
+                    break;
+                }
+            }
             hero.Update(gameTime, karte, spieler.position);
             spieler.Update(gameTime, karte);
             camera.Update(Game1.graphics, spieler, karte);
@@ -96,7 +104,14 @@ namespace TheVillainsRevenge
             clouds_2.Update(karte, camera);
             clouds_3.Update(karte, camera);
             foreground_1.Update(karte, camera);
-            return 1;
+            if (spieler.lifes != 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

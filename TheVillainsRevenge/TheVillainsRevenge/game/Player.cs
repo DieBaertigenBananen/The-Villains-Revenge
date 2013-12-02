@@ -106,15 +106,6 @@ namespace TheVillainsRevenge
                 skeleton.y = position.Y;
                 lastPosition = new Vector2(skeleton.X, skeleton.Y);
             }
-            else
-            {
-                lifes = startLifes;
-                position.X = checkpoint.X;
-                position.Y = checkpoint.Y;
-                skeleton.x = position.X;
-                skeleton.y = position.Y;
-                lastPosition = new Vector2(skeleton.X, skeleton.Y);
-            }
         }
 
         public void Update(GameTime gameTime, Map map)
@@ -269,7 +260,7 @@ namespace TheVillainsRevenge
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if (cboxnew.Intersects(block.cbox))
+                    if (cboxnew.Intersects(block.cbox) && block.block)
                     {
                         stop = true;
                         break;
