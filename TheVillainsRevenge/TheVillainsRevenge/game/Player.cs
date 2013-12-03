@@ -28,7 +28,6 @@ namespace TheVillainsRevenge
         public int item2 = 0;
         public bool check = false;
         Input input = new Input();
-        public Rectangle cbox; //Collisionsbox
         public Vector2 checkpoint;
 
         //----------Spine----------
@@ -36,8 +35,6 @@ namespace TheVillainsRevenge
         public Skeleton skeleton;
         public AnimationState animationState;
         public SkeletonBounds bounds = new SkeletonBounds();
-        //Slots
-        Slot headSlot;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -46,7 +43,6 @@ namespace TheVillainsRevenge
             position.Y = y;
             lastPosition = position;
             lifes = startLifes;
-            cbox = new Rectangle((int)position.X, (int)position.Y-128, 64, 128);
 
         }
 
@@ -159,22 +155,7 @@ namespace TheVillainsRevenge
             }
             position.Y = skeleton.Y;
             position.X = skeleton.X;
-            if (position.Y >= 2160)
-                getHit();
-
-            bounds.Update(skeleton, true);
-            MouseState mouse = Mouse.GetState();
-            headSlot.R = 1;
-            headSlot.B = 1;
-            if (bounds.AabbContainsPoint(mouse.X, mouse.Y))
-            {
-                BoundingBoxAttachment hit = bounds.ContainsPoint(mouse.X, mouse.Y);
-                if (hit != null)
-                {
-                    headSlot.R = 0;
-                    headSlot.B = 0;
-                }
-            }
+            if (position.Y >= (map.size.Y)) getHit();
         }
 
         public void Draw(GameTime gameTime, Camera camera)
@@ -233,7 +214,6 @@ namespace TheVillainsRevenge
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
-            Rectangle cboxnew = this.cbox;
             Vector2 move = new Vector2(0, 0);
             int icoll;
             bool stop;

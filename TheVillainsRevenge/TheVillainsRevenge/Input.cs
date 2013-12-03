@@ -138,7 +138,7 @@ namespace TheVillainsRevenge
             {
                 down = false;
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y >= 0f
-                    ||
+                    &&
                     keyState.IsKeyUp(Keys.Down) && keyState.IsKeyUp(Keys.S))
                 {
                     downp = false;
@@ -158,7 +158,7 @@ namespace TheVillainsRevenge
             {
                 up = false;
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y <= 0f
-                    ||
+                    &&
                     keyState.IsKeyUp(Keys.Up) && keyState.IsKeyUp(Keys.W))
                 {
                     upp = false;
