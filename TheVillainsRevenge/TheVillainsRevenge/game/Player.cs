@@ -161,15 +161,63 @@ namespace TheVillainsRevenge
                 Jump(gameTime, map);
             }
             position = new Vector2(skeleton.X, skeleton.Y);
-
+            
+            bounds.Update(skeleton, true);
+            int colO;
+            int colU;
+            int colR;
+            int colL;
             do //Falls Spieler in Platform feststeckt: Raus bewegen.
             {
-                int colO = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
-                int colU = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
-                int colR = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
-                int colL = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
-
-            } while ();
+                colO = (int)CollisionCheckedVector(0, -1, map.blocks).Y;
+                colU = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
+                colR = (int)CollisionCheckedVector(1, 0, map.blocks).X;
+                colL = (int)CollisionCheckedVector(-1, 0, map.blocks).X;
+                if (colO == 0 && colU == 0)
+                {
+                    bool stop = false;
+                    foreach (Block block in map.blocks)
+                    {
+                        if (bounds.AabbIntersectsSegment((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height / 2), (float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height)))
+                        {
+                            BoundingBoxAttachment collision = bounds.IntersectsSegment((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height / 2), (float)block.cbox.Width, (float)block.cbox.Height);
+                            if (collision != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                            {
+                                skeleton.Y ++;
+                                bounds.Update(skeleton, true);
+                                stop = true;
+                            }
+                        }
+                    }
+                    if (!stop)
+                    {
+                        skeleton.Y --;
+                        bounds.Update(skeleton, true);
+                    }
+                }
+                if (colR == 0 && colL == 0)
+                {
+                    bool stop = false;
+                    foreach (Block block in map.blocks)
+                    {
+                        if (bounds.AabbIntersectsSegment((float)(block.cbox.X + block.cbox.Width / 2), (float)block.cbox.Y, (float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height)))
+                        {
+                            BoundingBoxAttachment collision = bounds.IntersectsSegment((float)(block.cbox.X + block.cbox.Width / 2), (float)block.cbox.Y, (float)block.cbox.Width, (float)block.cbox.Height);
+                            if (collision != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                            {
+                                skeleton.X --;
+                                bounds.Update(skeleton, true);
+                                stop = true;
+                            }
+                        }
+                    }
+                    if (!stop)
+                    {
+                        skeleton.X ++;
+                        bounds.Update(skeleton, true);
+                    }
+                }
+            } while ((colO == 0 && colU == 0) || (colR == 0 && colL == 0));
         }
 
         public void Draw(GameTime gameTime, Camera camera)
@@ -255,7 +303,7 @@ namespace TheVillainsRevenge
                     if (bounds.AabbIntersectsSegment((float)block.cbox.X, (float)block.cbox.Y, (float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height)))
                     {
                         check = true;
-                        BoundingBoxAttachment collision = bounds.IntersectsSegment((float)block.cbox.X, (float)block.cbox.Y, (float)block.cbox.Width, (float)block.cbox.Height);
+                        BoundingBoxAttachment collision = bounds.IntersectsSegment((float)block.cbox.X, (float)block.cbox.Y, (float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
                         if (collision != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                         {
                             check = true;
