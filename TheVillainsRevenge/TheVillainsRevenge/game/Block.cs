@@ -13,12 +13,14 @@ namespace TheVillainsRevenge
         public Vector2 pos; //Position
         public Rectangle cbox = new Rectangle(0,0,48,48); //Collisionsbox
         public Rectangle cuttexture = new Rectangle(0,0,48,48);
+        public bool block;
         public Block(Vector2 npos, string type)
         {
             //Setze Position und Collisionsbox
             pos = npos;
             cbox.X = (int) pos.X;
             cbox.Y = (int) pos.Y;
+            block = true;
             //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
             switch (type)
             {
@@ -45,6 +47,7 @@ namespace TheVillainsRevenge
                 case "water":
                     cuttexture.X = 5 * 48;
                     cuttexture.Y = 0;
+                    block = false;
                     break;
                 case "underground_rock":
                     cuttexture.X = 0;

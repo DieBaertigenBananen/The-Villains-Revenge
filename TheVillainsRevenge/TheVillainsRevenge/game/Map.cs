@@ -17,6 +17,7 @@ namespace TheVillainsRevenge
          public int[, ,] pixelRGBA;
          public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
          public List<Item> items = new List<Item>(); //Erstelle Blocks als List
+         public List<Checkpoint> checkpoints = new List<Checkpoint>(); //Erstelle Blocks als List
 
          public Map()
          {
@@ -117,6 +118,7 @@ namespace TheVillainsRevenge
                  }
              }
              items.Add(new Item(1200, (int)1200, "herz"));
+             checkpoints.Add(new Checkpoint(4000));
          }
     }
 }

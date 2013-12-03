@@ -36,7 +36,7 @@ namespace TheVillainsRevenge
 
         protected override void Initialize()
         {
-            menu = new MenuScreen();
+            menu = new MenuScreen(false);
             //game = new GameScreen();
             base.Initialize();
         }
@@ -99,13 +99,20 @@ namespace TheVillainsRevenge
                     {
                         game = null;
                         Content.Unload();
-                        menu = new MenuScreen();
+                        menu = new MenuScreen(false);
                         menu.load(Content);
                         wert = 1;
                     }
                     else
                     {
                         wert = game.Update(gameTime);
+                        if (wert == 2)
+                        {
+                            game = null;
+                            Content.Unload();
+                            menu = new MenuScreen(true);
+                            menu.load(Content);
+                        }
                     }
                 }
                 if (wert == 0)
