@@ -65,30 +65,16 @@ namespace TheVillainsRevenge
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
             animationStateData.SetMix("walk", "jump", 0.2f);
             animationStateData.SetMix("jump", "walk", 0.4f);
-
             animationState = new AnimationState(animationStateData);
 
-            if (true)
-            {
-                // Event handling for all animations.
-                animationState.Start += Start;
-                animationState.End += End;
-                animationState.Complete += Complete;
-                animationState.Event += Event;
-            }
-            else
-            {
-                animationState.SetAnimation(0, "walk", false);
-                TrackEntry entry = animationState.AddAnimation(0, "jump", false, 0);
-                entry.End += new EventHandler<StartEndArgs>(End); // Event handling for queued animations.
-                animationState.AddAnimation(0, "walk", true, 0);
-            }
-            skeleton.SetBonesToSetupPose();
+            // Event handling for all animations.
+            animationState.Start += Start;
+            animationState.End += End;
+            animationState.Complete += Complete;
+            animationState.Event += Event;
+
             skeleton.x = position.X;
             skeleton.y = position.Y;
-            skeleton.UpdateWorldTransform();
-
-            headSlot = skeleton.FindSlot("head");
         }
 
         public void getHit()
@@ -154,7 +140,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump &&input.fall == true)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
             {
                 if (!fall)
                 {
@@ -192,7 +178,6 @@ namespace TheVillainsRevenge
             //Player -> Worldposition
             skeleton.X = position.X;
             skeleton.Y = position.Y;
-            skeleton.UpdateWorldTransform();
         }
 
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
@@ -230,7 +215,6 @@ namespace TheVillainsRevenge
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
             skeleton.X += domove.X;
             skeleton.Y += domove.Y;
-            //bounds.Update(skeleton, true);
         }
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
@@ -255,18 +239,23 @@ namespace TheVillainsRevenge
                 //Box für nächsten Iterationsschritt berechnen
                 skeleton.X = position.X + ((x / icoll) * i);
                 skeleton.Y = position.Y + ((y / icoll) * i);
-                bounds.Update(skeleton, false);
+                bounds.Update(skeleton, true);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
-                    if (bounds.AabbContainsPoint(block.cbox.X, block.cbox.Y) || bounds.AabbContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height) || bounds.AabbContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y) || bounds.AabbContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height))
+                    Vector2 ol = new Vector2((float)block.cbox.X, (float)block.cbox.Y);
+                    Vector2 or = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)block.cbox.Y);
+                    Vector2 ul = new Vector2((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height));
+                    Vector2 ur = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
+                    if (bounds.AabbContainsPoint(ol.X, ol.Y) || bounds.AabbContainsPoint(or.X, or.Y) || bounds.AabbContainsPoint(ul.X, ul.Y) || bounds.AabbContainsPoint(ur.X, ur.Y))
                     {
-                        //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                        BoundingBoxAttachment colLO = bounds.ContainsPoint(block.cbox.X, block.cbox.Y);
-                        BoundingBoxAttachment colRO = bounds.ContainsPoint(block.cbox.X, block.cbox.Y + block.cbox.Height);
-                        BoundingBoxAttachment colRU = bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y);
-                        BoundingBoxAttachment colLU = bounds.ContainsPoint(block.cbox.X + block.cbox.Width, block.cbox.Y + block.cbox.Height);
-                        if ((colLO != null) || (colRO != null) || (colRU != null) || (colLU != null))
+                        check = true;
+                        BoundingBoxAttachment colOL = bounds.ContainsPoint(ol.X, ol.Y);
+                        BoundingBoxAttachment colOR = bounds.ContainsPoint(or.X, or.Y);
+                        BoundingBoxAttachment colUL = bounds.ContainsPoint(ul.X, ul.Y);
+                        BoundingBoxAttachment colUR = bounds.ContainsPoint(ur.X, ur.Y);
+                        BoundingBoxAttachment bb = bounds.BoundingBoxes.FirstOrDefault();
+                        if (colOL == bb || colOR == bb || colUL == bb || colUR == bb) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                         {
                             check = true;
                             stop = true;
@@ -280,6 +269,7 @@ namespace TheVillainsRevenge
                 }
                 else //Kollisionsfreien Fortschritt speichern
                 {
+                    check = false;
                     move.X = skeleton.X - position.X;
                     move.Y = skeleton.Y - position.Y;
                 }
