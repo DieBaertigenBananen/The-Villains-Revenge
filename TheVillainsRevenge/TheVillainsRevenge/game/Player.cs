@@ -243,11 +243,19 @@ namespace TheVillainsRevenge
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
-                    if (bounds.AabbIntersectsSegment((float)block.cbox.X, (float)block.cbox.Y, (float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height)))
+                    Vector2 ol = new Vector2((float)block.cbox.X, (float)block.cbox.Y);
+                    Vector2 or = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)block.cbox.Y);
+                    Vector2 ul = new Vector2((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height));
+                    Vector2 ur = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
+                    if (bounds.AabbContainsPoint(ol.X, ol.Y) || bounds.AabbContainsPoint(or.X, or.Y) || bounds.AabbContainsPoint(ul.X, ul.Y) || bounds.AabbContainsPoint(ur.X, ur.Y))
                     {
                         check = true;
-                        BoundingBoxAttachment collision = bounds.IntersectsSegment((float)block.cbox.X, (float)block.cbox.Y, (float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
-                        if (collision != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                        BoundingBoxAttachment colOL = bounds.ContainsPoint(ol.X, ol.Y);
+                        BoundingBoxAttachment colOR = bounds.ContainsPoint(or.X, or.Y);
+                        BoundingBoxAttachment colUL = bounds.ContainsPoint(ul.X, ul.Y);
+                        BoundingBoxAttachment colUR = bounds.ContainsPoint(ur.X, ur.Y);
+                        BoundingBoxAttachment bb = bounds.BoundingBoxes.FirstOrDefault();
+                        if (colOL == bb || colOR == bb || colUL == bb || colUR == bb) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                         {
                             check = true;
                             stop = true;
