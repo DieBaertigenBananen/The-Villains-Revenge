@@ -75,7 +75,6 @@ namespace TheVillainsRevenge
 
             skeleton.x = position.X;
             skeleton.y = position.Y;
-            skeleton.UpdateWorldTransform();
         }
 
         public void getHit()
@@ -141,7 +140,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump &&input.fall == true)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
             {
                 if (!fall)
                 {
@@ -162,6 +161,15 @@ namespace TheVillainsRevenge
                 Jump(gameTime, map);
             }
             position = new Vector2(skeleton.X, skeleton.Y);
+
+            do //Falls Spieler in Platform feststeckt: Raus bewegen.
+            {
+                int colO = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
+                int colU = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
+                int colR = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
+                int colL = (int)CollisionCheckedVector(0, 1, map.blocks).Y;
+
+            } while ();
         }
 
         public void Draw(GameTime gameTime, Camera camera)
@@ -179,7 +187,6 @@ namespace TheVillainsRevenge
             //Player -> Worldposition
             skeleton.X = position.X;
             skeleton.Y = position.Y;
-            skeleton.UpdateWorldTransform();
         }
 
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
@@ -217,8 +224,6 @@ namespace TheVillainsRevenge
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
             skeleton.X += domove.X;
             skeleton.Y += domove.Y;
-            skeleton.UpdateWorldTransform();
-            //bounds.Update(skeleton, true);
         }
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
@@ -243,7 +248,6 @@ namespace TheVillainsRevenge
                 //Box für nächsten Iterationsschritt berechnen
                 skeleton.X = position.X + ((x / icoll) * i);
                 skeleton.Y = position.Y + ((y / icoll) * i);
-                skeleton.UpdateWorldTransform();
                 bounds.Update(skeleton, true);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
@@ -266,6 +270,7 @@ namespace TheVillainsRevenge
                 }
                 else //Kollisionsfreien Fortschritt speichern
                 {
+                    check = false;
                     move.X = skeleton.X - position.X;
                     move.Y = skeleton.Y - position.Y;
                 }

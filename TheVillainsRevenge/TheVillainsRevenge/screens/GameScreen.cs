@@ -29,7 +29,6 @@ namespace TheVillainsRevenge
         RenderTarget2D renderSpine;
         SpriteFont font;
         List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
-        SpineTest spineTest = new SpineTest();
 
         public GameScreen()
         {
@@ -60,7 +59,6 @@ namespace TheVillainsRevenge
                 enemy.Load(Content);
 
             }
-            spineTest.Load();
         }
 
         public int Update(GameTime gameTime)
@@ -165,7 +163,6 @@ namespace TheVillainsRevenge
             //}*/
             
             spriteBatch.End();
-            //spineTest.Draw(gameTime);
         }
     }
 }
