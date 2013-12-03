@@ -151,7 +151,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump&&input.fall)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
             {
                 if (!fall)
                 {
