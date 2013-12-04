@@ -36,16 +36,8 @@ namespace TheVillainsRevenge
                     cuttexture.X = 2 * 48;
                     cuttexture.Y = 0;
                     break;
-                case "ground_grass_30":
-                    cuttexture.X = 3 * 48;
-                    cuttexture.Y = 0;
-                    break;
-                case "ground_grass_15":
-                    cuttexture.X = 4 * 48;
-                    cuttexture.Y = 0;
-                    break;
                 case "water":
-                    cuttexture.X = 5 * 48;
+                    cuttexture.X = 3 * 48;
                     cuttexture.Y = 0;
                     block = false;
                     break;
@@ -61,16 +53,8 @@ namespace TheVillainsRevenge
                     cuttexture.X = 2 * 48;
                     cuttexture.Y = 48;
                     break;
-                case "ground_rock_30":
-                    cuttexture.X = 3 * 48;
-                    cuttexture.Y = 48;
-                    break;
-                case "ground_rock_15":
-                    cuttexture.X = 4 * 48;
-                    cuttexture.Y = 48;
-                    break;
                 case "lava":
-                    cuttexture.X = 5 * 48;
+                    cuttexture.X = 3 * 48;
                     cuttexture.Y = 48;
                     break;
             }

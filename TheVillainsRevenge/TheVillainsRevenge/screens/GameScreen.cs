@@ -62,6 +62,7 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime)
         {
+            /*
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime, karte);
@@ -94,6 +95,7 @@ namespace TheVillainsRevenge
                     break;
                 }
             }
+            */
             hero.Update(gameTime, karte, spieler.position);
             spieler.Update(gameTime, karte);
             camera.Update(Game1.graphics, spieler, karte);

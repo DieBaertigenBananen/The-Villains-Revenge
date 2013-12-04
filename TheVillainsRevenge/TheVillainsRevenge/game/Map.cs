@@ -85,12 +85,6 @@ namespace TheVillainsRevenge
                              case "18,52,86":
                                  type = "platform_grass";
                                  break;
-                             case "255,0,0":
-                                 type = "ground_grass_30";
-                                 break;
-                             case "18,52,87":
-                                 type = "ground_grass_15";
-                                 break;
                              case "0,0,255":
                                  type = "water";
                                  break;
@@ -102,12 +96,6 @@ namespace TheVillainsRevenge
                                  break;
                              case "18,53,86":
                                  type = "platform_rock";
-                                 break;
-                             case "255,255,255":
-                                 type = "ground_rock_30";
-                                 break;
-                             case "255,255,0":
-                                 type = "ground_rock_15";
                                  break;
                              case "0,0,0":
                                  type = "lava";
