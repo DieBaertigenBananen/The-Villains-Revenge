@@ -91,6 +91,7 @@ namespace TheVillainsRevenge
             {
                 if (spieler.cbox.Intersects(cpoint.cbox))
                 {
+                    //TODO: Speichern aller dynamischen Objekte in der Welt um diesen Zustand bei zurücksetzen an Checkpoint exakt zu rekonstruieren.
                     spieler.checkpoint.X = cpoint.cbox.X;
                     spieler.checkpoint.Y = spieler.position.Y;
                     break;

@@ -21,7 +21,7 @@ namespace TheVillainsRevenge
         public bool back;
         bool backp;
         public bool links, rechts, sprung, fall, end;
-        public void update()
+        public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
             if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed && GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed) || keyState.IsKeyDown(Keys.F10) == true)

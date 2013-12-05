@@ -56,7 +56,7 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
-            input.update();
+            input.Update();
             int menuOption = 0;
             //Wenn Menü existiert
             //menuOption == 0 = game ende
