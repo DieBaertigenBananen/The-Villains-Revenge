@@ -62,17 +62,18 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime)
         {
-            /*
+            
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime, karte);
-                if (spieler.cbox.Intersects(enemy.cbox))
+               /* if (spieler.cbox.Intersects(enemy.cbox))
                 {
                     spieler.getHit();
                     enemies.Remove(enemy);
                     break;
-                }
+                }*/
             }
+            /*
             foreach (Item item in karte.items)
             {
                 if (spieler.cbox.Intersects(item.cbox))
@@ -94,8 +95,7 @@ namespace TheVillainsRevenge
                     spieler.checkpoint.Y = spieler.position.Y;
                     break;
                 }
-            }
-            */
+            }*/
             hero.Update(gameTime, karte, spieler.position);
             spieler.Update(gameTime, karte);
             camera.Update(Game1.graphics, spieler, karte);

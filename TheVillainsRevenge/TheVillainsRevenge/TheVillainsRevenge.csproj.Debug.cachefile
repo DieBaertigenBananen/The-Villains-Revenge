@@ -1,11 +1,11 @@
 Content\fonts\schrift.xnb
-Content\sprites\block.xnb
-Content\sprites\bunny.xnb
-Content\sprites\gui.xnb
-Content\sprites\held.xnb
-Content\sprites\itemslot.xnb
-Content\sprites\player.xnb
 Content\sprites\tiles.xnb
+Content\sprites\player.xnb
+Content\sprites\bunny.xnb
+Content\sprites\held.xnb
+Content\sprites\block.xnb
+Content\sprites\gui.xnb
+Content\sprites\itemslot.xnb
 Content\sprites\Level_1\map.xnb
 Content\sprites\Level_1\Planes\background_1_1.xnb
 Content\sprites\Level_1\Planes\background_1_2.xnb

@@ -92,6 +92,7 @@ namespace TheVillainsRevenge
 
         public void Update(GameTime gameTime, Map map)
         {
+
             //Geschwindigkeit festlegen
             int actualspeed = speed; 
             if (jump || fall)
@@ -131,9 +132,11 @@ namespace TheVillainsRevenge
                     Jump(gameTime, map); //Springen!
                 }
             }
+            position.Y = skeleton.Y;
+            position.X = skeleton.X;
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump&&input.fall)
             {
                 if (!fall)
                 {
@@ -155,7 +158,7 @@ namespace TheVillainsRevenge
             }
             position.Y = skeleton.Y;
             position.X = skeleton.X;
-            if (position.Y >= (map.size.Y)) getHit();
+            //if (position.Y >= (map.size.Y)) getHit();
         }
 
         public void Draw(GameTime gameTime, Camera camera)
@@ -241,7 +244,7 @@ namespace TheVillainsRevenge
                     Vector2 or = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)block.cbox.Y);
                     Vector2 ul = new Vector2((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height));
                     Vector2 ur = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
-                    if (bounds.AabbContainsPoint(ol.X, ol.Y) || bounds.AabbContainsPoint(or.X, or.Y) || bounds.AabbContainsPoint(ul.X, ul.Y) || bounds.AabbContainsPoint(ur.X, ur.Y))
+                    /*if (bounds.AabbContainsPoint(ol.X, ol.Y) || bounds.AabbContainsPoint(or.X, or.Y) || bounds.AabbContainsPoint(ul.X, ul.Y) || bounds.AabbContainsPoint(ur.X, ur.Y))
                     {
                         check = true;
                         BoundingBoxAttachment colOL = bounds.ContainsPoint(ol.X, ol.Y);
@@ -255,7 +258,7 @@ namespace TheVillainsRevenge
                             stop = true;
                             break;
                         }
-                    }
+                    }*/
                 }
                 if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
                 {
@@ -268,6 +271,8 @@ namespace TheVillainsRevenge
                     move.Y = skeleton.Y - position.Y;
                 }
             }
+            skeleton.Y = position.Y;
+            skeleton.X = position.X;
             return move;
         }
 
