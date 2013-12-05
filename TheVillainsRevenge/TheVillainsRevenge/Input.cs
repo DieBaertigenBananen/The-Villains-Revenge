@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TheVillainsRevenge
 {
-    class Input
+    public class Input
     {
         public bool up;
         bool upp;
@@ -18,10 +18,20 @@ namespace TheVillainsRevenge
         bool itemep;
         public bool itemq;
         bool itemqp;
-        public bool links, rechts, sprung,fall;
+        public bool back;
+        bool backp;
+        public bool links, rechts, sprung, fall, end;
         public void update()
         {
             KeyboardState keyState = Keyboard.GetState();
+            if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed && GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed) || keyState.IsKeyDown(Keys.F10) == true)
+            {
+                end = true;
+            }
+            else
+            {
+                end = false;
+            }
             if (keyState.IsKeyDown(Keys.Tab) == true)
             {
                 fall = true;
@@ -164,7 +174,27 @@ namespace TheVillainsRevenge
                     upp = false;
                 }
             }
-
+            if (!backp)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                    ||
+                    Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    back = true;
+                    backp = true;
+                }
+            }
+            else
+            {
+                back = false;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Released
+                    &&
+                    keyState.IsKeyUp(Keys.Escape))
+                {
+                    backp = false;
+                }
+            }
+            
         }
 
     }

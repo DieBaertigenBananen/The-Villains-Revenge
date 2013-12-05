@@ -14,12 +14,11 @@ namespace TheVillainsRevenge
     class MenuScreen
     {
         SpriteFont font;
-        Input input = new Input();
-        int wo = 0;
-        bool ende;
-        public MenuScreen(bool was)
+        int option = 0;
+        bool deadScreen;
+        public MenuScreen(bool playerDied)
         {
-            ende = was;
+            deadScreen = playerDied;
         }
         public void load(ContentManager Content)
         {
@@ -27,23 +26,22 @@ namespace TheVillainsRevenge
         }
         public int update()
         {
-            input.update();
-            if (ende)
+            if (deadScreen)
             {
-                if (input.enter)
+                if (Game1.input.enter)
                 {
-                    ende = false;
+                    deadScreen = false;
                 }
             }
             else
             {
-                if (input.enter)
+                if (Game1.input.enter)
                 {
-                    if (wo == 2)
+                    if (option == 2)
                     {
                         return 0;
                     }
-                    else if (wo == 1)
+                    else if (option == 1)
                     {
                         return 3;
                     }
@@ -52,62 +50,79 @@ namespace TheVillainsRevenge
                         return 2;
                     }
                 }
-                if (input.down)
+                if (Game1.input.down)
                 {
-                    if (wo == 0)
-                        wo = 1;
-                    else if (wo == 1)
-                        wo = 2;
+                    if (option == 0)
+                        option = 1;
+                    else if (option == 1)
+                        option = 2;
                     else
-                        wo = 0;
+                        option = 0;
                 }
-                if (input.up)
+                if (Game1.input.up)
                 {
-                    if (wo == 0)
-                        wo = 2;
-                    else if (wo == 2)
-                        wo = 1;
+                    if (option == 0)
+                    {
+                        option = 2;
+                    }
+                    else if (option == 2)
+                    {
+                        option = 1;
+                    }
                     else
-                        wo = 0;
+                    {
+                        option = 0;
+                    }
+                }
+                if (Game1.input.back)
+                {
+                    if (option == 2)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        option = 2;
+                    }
                 }
             }
             return 1;
         }
         public void draw(SpriteBatch spriteBatch)
         {
-            Game1.graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            Game1.graphics.GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
-            if (!ende)
+            if (!deadScreen)
             {
-                if (wo == 0)
-                {
-                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) - 50), Color.Blue);
-                }
-                else
+                if (option == 0)
                 {
                     spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) - 50), Color.Black);
                 }
-                if (wo == 1)
-                {
-                    spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2)), Color.Blue);
-                }
                 else
+                {
+                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) - 50), Color.Gray);
+                }
+                if (option == 1)
                 {
                     spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2)), Color.Black);
                 }
-                if (wo == 2)
+                else
                 {
-                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Blue);
+                    spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2)), Color.Gray);
+                }
+                if (option == 2)
+                {
+                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Black);
                 }
                 else
                 {
-                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Black);
+                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Gray);
                 }
             }
             else
             {
-                spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) - 50), Color.Blue);
-                spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 60, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Blue);
+                spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) - 50), Color.Black);
+                spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 60, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Black);
                   
             }
             spriteBatch.End();

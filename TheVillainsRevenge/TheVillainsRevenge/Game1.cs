@@ -18,6 +18,7 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         GameScreen game;
         MenuScreen menu;
+        public static Input input;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -31,6 +32,7 @@ namespace TheVillainsRevenge
                 graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             }
             this.IsMouseVisible = true;
+            input = new Input();
             Content.RootDirectory = "Content";
         }
 
@@ -54,70 +56,64 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            input.update();
+            int menuOption = 0;
+            //Wenn Menü existiert
+            //menuOption == 0 = game ende
+            //menuOption == 1 = läuft weiter
+            //menuOption == 2 = nächste szene
+            if (menu != null)
             {
-                this.Exit();
-            }
-            else //Falls kein Escape
-            {
-                int wert = 0;
-                //Wenn Menü existiert
-                //wert == 0 = game ende
-                //Wert == 1 = läuft weiter
-                //wert == 2 = nächste szene
-                if (menu != null)
+                //Update und hole Wert vom Menü
+                menuOption = menu.update();
+                if (menuOption == 3)
                 {
-                    //Update und hole Wert vom Menü
-                    wert = menu.update();
-                    if (wert == 3)
+                    if (graphics.IsFullScreen)
                     {
-                        if (graphics.IsFullScreen)
-                        {
-                            graphics.IsFullScreen = false;
-                            graphics.PreferredBackBufferWidth = 1024;
-                            graphics.PreferredBackBufferHeight = graphics.PreferredBackBufferWidth / 16 * 9;
-                        }
-                        else
-                        {
-                            graphics.IsFullScreen = true;
-                            graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                            graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                        }
-                        graphics.ApplyChanges();
-                    }
-                    else if (wert == 2)
-                    {
-                        menu = null; //entlädt das menü
-                        Content.Unload(); //entlädt den Content
-                        game = new GameScreen(); //lädt das Game
-                        game.Load(Content); // lädt die Game Bilder
-                    }
-                }
-                else if (game != null)
-                {
-                    if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                    {
-                        game = null;
-                        Content.Unload();
-                        menu = new MenuScreen(false);
-                        menu.load(Content);
-                        wert = 1;
+                        graphics.IsFullScreen = false;
+                        graphics.PreferredBackBufferWidth = 1024;
+                        graphics.PreferredBackBufferHeight = graphics.PreferredBackBufferWidth / 16 * 9;
                     }
                     else
                     {
-                        wert = game.Update(gameTime);
-                        if (wert == 2)
-                        {
-                            game = null;
-                            Content.Unload();
-                            menu = new MenuScreen(true);
-                            menu.load(Content);
-                        }
+                        graphics.IsFullScreen = true;
+                        graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                        graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    }
+                    graphics.ApplyChanges();
+                }
+                else if (menuOption == 2)
+                {
+                    menu = null; //entlädt das menü
+                    Content.Unload(); //entlädt den Content
+                    game = new GameScreen(); //lädt das Game
+                    game.Load(Content); // lädt die Game Bilder
+                }
+            }
+            else if (game != null)
+            {
+                if (input.back)
+                {
+                    game = null;
+                    Content.Unload();
+                    menu = new MenuScreen(false);
+                    menu.load(Content);
+                    menuOption = 1;
+                }
+                else
+                {
+                    menuOption = game.Update(gameTime);
+                    if (menuOption == 2) //GameScreen beendet (Spieler tot)
+                    {
+                        game = null;
+                        Content.Unload();
+                        menu = new MenuScreen(true);
+                        menu.load(Content);
                     }
                 }
-                if (wert == 0)
-                    this.Exit();
             }
+            if (menuOption == 0 || input.end)
+                this.Exit();
             base.Update(gameTime);
         }
 

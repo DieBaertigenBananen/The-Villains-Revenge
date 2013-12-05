@@ -27,7 +27,6 @@ namespace TheVillainsRevenge
         public int item1 = 1;
         public int item2 = 0;
         public bool check = false;
-        Input input = new Input();
         public Vector2 checkpoint;
 
         //----------Spine----------
@@ -99,44 +98,41 @@ namespace TheVillainsRevenge
             {
                 actualspeed = airspeed;
             }
-            input.update();
             //Lade Keyboard-Daten
-            if (input.iteme) 
+            if (Game1.input.iteme) 
             {
                 int i = item1;
                 item1 = item2;
                 item2 = i;
             }
-            else if (input.itemq)
+            else if (Game1.input.itemq)
             {
                 int i = item2;
                 item2 = item1;
                 item1 = i;
             }
-            if (input.rechts) //Wenn Rechte Pfeiltaste
+            if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
             {
                 Move(actualspeed, 0, map); //Bewege Rechts
                 animationState.AddAnimation(0, "walk", false, 0f);
                 skeleton.flipX = false;
             }
-            if (input.links) //Wenn Rechte Pfeiltaste
+            if (Game1.input.links) //Wenn Rechte Pfeiltaste
             {
                 Move(-actualspeed, 0, map);//Bewege Links
                 animationState.AddAnimation(0, "walk", false, 0f);
                 skeleton.flipX = true;
             }
-            if (input.sprung)
+            if (Game1.input.sprung)
             {
                 if (!jump && !fall)
                 {
                     Jump(gameTime, map); //Springen!
                 }
             }
-            position.Y = skeleton.Y;
-            position.X = skeleton.X;
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump&&input.fall)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump && Game1.input.fall)
             {
                 if (!fall)
                 {
@@ -217,6 +213,8 @@ namespace TheVillainsRevenge
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
+            position.Y = skeleton.Y;
+            position.X = skeleton.X;
             Vector2 move = new Vector2(0, 0);
             int icoll;
             bool stop;
