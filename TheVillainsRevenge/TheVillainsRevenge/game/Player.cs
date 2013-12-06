@@ -28,6 +28,7 @@ namespace TheVillainsRevenge
         public int item2 = 0;
         public bool check = false;
         public Vector2 checkpoint;
+        public bool coverEyes;
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
