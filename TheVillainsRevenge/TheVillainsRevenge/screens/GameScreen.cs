@@ -29,6 +29,7 @@ namespace TheVillainsRevenge
         RenderTarget2D renderSpine;
         SpriteFont font;
         List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
+        Effect coverEyes;
 
         public GameScreen()
         {
@@ -58,6 +59,7 @@ namespace TheVillainsRevenge
                 enemy.Load(Content);
 
             }
+            coverEyes = Content.Load<Effect>("CoverEyes");
         }
 
         public int Update(GameTime gameTime)
@@ -152,15 +154,21 @@ namespace TheVillainsRevenge
             foreground_1.Draw(spriteBatch); //Bäume etc
             spriteBatch.End();
 
+            //Shader
+
+
             //Draw Texture to Screen
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
-
+            //Shader
+            coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
+            coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
-            gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
+            spriteBatch.End();
 
-            
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
 
             spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.Black);
             spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(Game1.resolution.X - 300, 110), Color.Black);
