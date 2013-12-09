@@ -79,25 +79,25 @@ namespace TheVillainsRevenge
                              case "104,60,17":
                                  type = "underground_earth";
                                  break;
-                             case "0,255,0":
+                             case "42,124,1":
                                  type = "ground_grass";
                                  break;
-                             case "18,52,86":
+                             case "02,02,02":
                                  type = "platform_grass";
                                  break;
                              case "0,0,255":
                                  type = "water";
                                  break;
-                             case "18,52,89":
+                             case "01,01,01":
                                  type = "underground_rock";
                                  break;
-                             case "18,68,88":
+                             case "0,0,0":
                                  type = "ground_rock";
                                  break;
-                             case "18,53,86":
+                             case "255,255,0":
                                  type = "platform_rock";
                                  break;
-                             case "0,0,0":
+                             case "255,0,0":
                                  type = "lava";
                                  break;
                          }
