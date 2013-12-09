@@ -9,11 +9,13 @@ namespace TheVillainsRevenge
 {
     class Checkpoint
     {
-        public Rectangle cbox;
+        public int x;
+        public bool end;
 
-        public Checkpoint(int x)
+        public Checkpoint(int x,bool end)
         {
-            cbox = new Rectangle(x, 0, 128, 2160);
+            this.end = end;
+            this.x = x;
         }
     }
 }

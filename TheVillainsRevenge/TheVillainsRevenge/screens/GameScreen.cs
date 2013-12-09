@@ -29,6 +29,7 @@ namespace TheVillainsRevenge
         RenderTarget2D renderSpine;
         SpriteFont font;
         List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
+        bool levelend = false;
 
         public GameScreen()
         {
@@ -62,56 +63,65 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime)
         {
-            
-            foreach (Enemy enemy in enemies)
+            if (!levelend)
             {
-                enemy.Update(gameTime, karte);
-                if (enemy.position.X < -enemy.cbox.Width || enemy.position.Y < -enemy.cbox.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
+
+                foreach (Enemy enemy in enemies)
                 {
-                    enemies.Remove(enemy);
-                    break;
-                }
-               /* if (spieler.cbox.Intersects(enemy.cbox))
-                {
-                    spieler.getHit();
-                    enemies.Remove(enemy);
-                    break;
-                }*/
-            }
-            /*
-            foreach (Item item in karte.items)
-            {
-                if (spieler.cbox.Intersects(item.cbox))
-                {
-                    if (item.type == "herz")
+                    enemy.Update(gameTime, karte);
+                    if (enemy.position.X < -enemy.cbox.Width || enemy.position.Y < -enemy.cbox.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
                     {
-                        if(spieler.lifes != 4)
-                            spieler.lifes++;
-                        karte.items.Remove(item);
+                        enemies.Remove(enemy);
+                        break;
                     }
-                    break;
+                    /* if (spieler.cbox.Intersects(enemy.cbox))
+                     {
+                         spieler.getHit();
+                         enemies.Remove(enemy);
+                         break;
+                     }*/
                 }
-            }
-            foreach (Checkpoint cpoint in karte.checkpoints)
-            {
-                if (spieler.cbox.Intersects(cpoint.cbox))
+                /*
+                foreach (Item item in karte.items)
                 {
-                    //TODO: Speichern aller dynamischen Objekte in der Welt um diesen Zustand bei zurücksetzen an Checkpoint exakt zu rekonstruieren.
-                    spieler.checkpoint.X = cpoint.cbox.X;
-                    spieler.checkpoint.Y = spieler.position.Y;
-                    break;
+                    if (spieler.cbox.Intersects(item.cbox))
+                    {
+                        if (item.type == "herz")
+                        {
+                            if(spieler.lifes != 4)
+                                spieler.lifes++;
+                            karte.items.Remove(item);
+                        }
+                        break;
+                    }
                 }
-            }*/
-            hero.Update(gameTime, karte, spieler.position);
-            spieler.Update(gameTime, karte);
-            camera.Update(Game1.graphics, spieler, karte);
-            background_1.Update(karte, camera);
-            background_2.Update(karte, camera);
-            background_3.Update(karte, camera);
-            clouds_1.Update(karte, camera);
-            clouds_2.Update(karte, camera);
-            clouds_3.Update(karte, camera);
-            foreground_1.Update(karte, camera);
+                 * */
+                foreach (Checkpoint cpoint in karte.checkpoints)
+                {
+                    if (spieler.position.X > cpoint.x && spieler.checkpoint.X < cpoint.x)
+                    {
+                        //TODO: Speichern aller dynamischen Objekte in der Welt um diesen Zustand bei zurücksetzen an Checkpoint exakt zu rekonstruieren.
+                        if (cpoint.end)
+                            levelend = true;
+                        else
+                        {
+                            spieler.checkpoint.X = cpoint.x;
+                            spieler.checkpoint.Y = spieler.position.Y;
+                        }
+                        break;
+                    }
+                }
+                hero.Update(gameTime, karte, spieler.position);
+                spieler.Update(gameTime, karte);
+                camera.Update(Game1.graphics, spieler, karte);
+                background_1.Update(karte, camera);
+                background_2.Update(karte, camera);
+                background_3.Update(karte, camera);
+                clouds_1.Update(karte, camera);
+                clouds_2.Update(karte, camera);
+                clouds_3.Update(karte, camera);
+                foreground_1.Update(karte, camera);
+            }
             if (spieler.lifes != 0)
             {
                 return 1;
@@ -160,6 +170,10 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
 
+            if (levelend)
+            {
+                spriteBatch.DrawString(font, "Finished level!", new Vector2(Game1.resolution.X - 300, Game1.resolution.Y/2), Color.Black);
+            }
             
 
             spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.Black);

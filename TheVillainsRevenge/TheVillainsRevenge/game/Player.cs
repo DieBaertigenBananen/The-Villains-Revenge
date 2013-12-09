@@ -165,7 +165,7 @@ namespace TheVillainsRevenge
             }
             position.Y = skeleton.Y;
             position.X = skeleton.X;
-            //if (position.Y >= (map.size.Y)) getHit();
+            if (position.Y >= (map.size.Y)) getHit();
         }
 
         public void Draw(GameTime gameTime, Camera camera)

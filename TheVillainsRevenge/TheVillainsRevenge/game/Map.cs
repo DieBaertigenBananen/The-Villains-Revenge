@@ -106,7 +106,8 @@ namespace TheVillainsRevenge
                  }
              }
              items.Add(new Item(1200, (int)1200, "herz"));
-             checkpoints.Add(new Checkpoint(4000));
+             checkpoints.Add(new Checkpoint(4000, false));
+             checkpoints.Add(new Checkpoint((int)size.X-100, true));
          }
     }
 }
