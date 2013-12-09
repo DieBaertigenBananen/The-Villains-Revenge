@@ -52,13 +52,12 @@ namespace TheVillainsRevenge
             skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
             skeletonRenderer.PremultipliedAlpha = true;
 
-            String name = "skeleton"; // "goblins";
+            String name = "skeleton";
 
             Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
             SkeletonJson json = new SkeletonJson(atlas);
             json.Scale = 0.3f; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
             skeleton = new Skeleton(json.ReadSkeletonData("spine/sprites/" + name + ".json"));
-            if (name == "goblins") skeleton.SetSkin("goblingirl");
             skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
 
             // Define mixing between animations.
@@ -253,7 +252,7 @@ namespace TheVillainsRevenge
                     Vector2 or = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)block.cbox.Y);
                     Vector2 ul = new Vector2((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height));
                     Vector2 ur = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
-                    /*if (bounds.AabbContainsPoint(ol.X, ol.Y) || bounds.AabbContainsPoint(or.X, or.Y) || bounds.AabbContainsPoint(ul.X, ul.Y) || bounds.AabbContainsPoint(ur.X, ur.Y))
+                    if (bounds.AabbContainsPoint(ol.X, ol.Y) || bounds.AabbContainsPoint(or.X, or.Y) || bounds.AabbContainsPoint(ul.X, ul.Y) || bounds.AabbContainsPoint(ur.X, ur.Y))
                     {
                         check = true;
                         BoundingBoxAttachment colOL = bounds.ContainsPoint(ol.X, ol.Y);
@@ -267,7 +266,7 @@ namespace TheVillainsRevenge
                             stop = true;
                             break;
                         }
-                    }*/
+                    }
                 }
                 if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
                 {

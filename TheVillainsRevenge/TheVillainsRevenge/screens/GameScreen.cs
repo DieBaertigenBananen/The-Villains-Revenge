@@ -187,8 +187,8 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.Black);
             spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + foreground_1.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.Black);
             spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.Black);
-            Slot bb = spieler.skeleton.FindSlot("bb-head");
-            spriteBatch.DrawString(font, "bb-head: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.Black);
+            Slot bb = spieler.skeleton.FindSlot("bonepuker");
+            spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.Black);
             spriteBatch.DrawString(font, "Lua: " + spieler.speed, new Vector2(Game1.resolution.X - 300, 330), Color.Black);
             //for (int i = 0; i < karte.background.Width; i++)
             //{
