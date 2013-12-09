@@ -5,7 +5,18 @@ float playerY;
 float4 Shader(float2 coords: TEXCOORD) : COLOR
 {  
 	float4 color = tex2D(textureSampler, coords);
-    if (coords.x > playerX && coords.y > playerY)
+
+	float2 playerPos = float2(playerX, playerY);
+	playerPos.y = playerPos.y - 0.13;
+
+	float deltaViewX = coords.x - playerPos.x;
+	float deltaY = deltaViewX * 0.8;
+
+    if (coords.x > playerPos.x && coords.y > playerPos.y - deltaY && coords.y < playerPos.y + deltaY && distance(playerPos, coords) < 0.2)
+	{
+		color = color;
+	}
+	else
 	{
 		color.rgb = 0;
 	}
