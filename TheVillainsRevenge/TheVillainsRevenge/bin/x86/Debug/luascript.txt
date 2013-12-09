@@ -1,0 +1,13 @@
+--Loading
+playerStartLifes = 4
+
+--Update
+playerSpeed = 10
+playerAirspeed = playerSpeed - 2
+playerJumppower = 20
+playerGravitation = 60
+
+--Enter
+playerLifes = playerStartLifes
+playerItem1 = 1
+playerItem2 = 0
