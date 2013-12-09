@@ -32,7 +32,7 @@ namespace TheVillainsRevenge
             {
                 end = false;
             }
-            if (keyState.IsKeyDown(Keys.Tab) == true)
+            if (keyState.IsKeyDown(Keys.Tab) == true || GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
             {
                 fall = true;
             }

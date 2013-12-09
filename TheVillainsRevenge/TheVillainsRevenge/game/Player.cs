@@ -14,18 +14,18 @@ namespace TheVillainsRevenge
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
         Vector2 lastPosition; //Position vor vorherigem Update
-        public int speed = 10; //Bewegungsgeschwindigkeit in m/s _/60
-        public int airspeed = 8; //Geschwindigkeit bei Sprung & Fall in m/s _/60
+        public int speed; //Bewegungsgeschwindigkeit in m/s _/60
+        public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
         public bool fall = false;
         public double falltimer;
         public double jumptimer;
-        public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
-        public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
+        public int jumppower; //Anfangsgeschwindigkeit in m/s _/60
+        public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int lifes;
-        public static int startLifes = 4;
-        public int item1 = 1;
-        public int item2 = 0;
+        public static int startLifes = Convert.ToInt32((double)Game1.luaInstance["playerStartLifes"]);
+        public int item1;
+        public int item2;
         public bool check = false;
         public Vector2 checkpoint;
         public bool coverEyes;
@@ -92,6 +92,16 @@ namespace TheVillainsRevenge
 
         public void Update(GameTime gameTime, Map map)
         {
+            speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
+            airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
+            jumppower = Convert.ToInt32((double)Game1.luaInstance["playerJumppower"]);
+            gravitation = Convert.ToInt32((double)Game1.luaInstance["playerGravitation"]);
+            if (Game1.input.enter)
+            {
+                lifes = Convert.ToInt32((double)Game1.luaInstance["playerLifes"]);
+                item1 = Convert.ToInt32((double)Game1.luaInstance["playerItem1"]);
+                item2 = Convert.ToInt32((double)Game1.luaInstance["playerItem2"]);
+            }
 
             //Geschwindigkeit festlegen
             int actualspeed = speed; 

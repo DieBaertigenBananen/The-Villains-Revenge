@@ -170,6 +170,7 @@ namespace TheVillainsRevenge
             spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.Black);
             Slot bb = spieler.skeleton.FindSlot("bb-head");
             spriteBatch.DrawString(font, "bb-head: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.Black);
+            spriteBatch.DrawString(font, "Lua: " + spieler.speed, new Vector2(Game1.resolution.X - 300, 330), Color.Black);
             //for (int i = 0; i < karte.background.Width; i++)
             //{
             //    for (int t = 15; t < karte.background.Height; t++)

@@ -60,6 +60,12 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="lua51">
+      <HintPath>.\lua51.dll</HintPath>
+    </Reference>
+    <Reference Include="LuaInterface">
+      <HintPath>.\LuaInterface.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>

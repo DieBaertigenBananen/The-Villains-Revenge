@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using LuaInterface;
 
 namespace TheVillainsRevenge
 {
@@ -19,6 +20,8 @@ namespace TheVillainsRevenge
         GameScreen game;
         MenuScreen menu;
         public static Input input;
+        public static Lua luaInstance = new Lua();
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,6 +43,22 @@ namespace TheVillainsRevenge
         {
             menu = new MenuScreen(false);
             //game = new GameScreen();
+            luaInstance["playerSpeed"] = "";
+            luaInstance["playerAirspeed"] = "";
+            luaInstance["playerJumppower"] = "";
+            luaInstance["playerGravitation"] = "";
+            luaInstance["playerLifes"] = "";
+            luaInstance["playerStartLifes"] = "";
+            luaInstance["playerItem1"] = "";
+            luaInstance["playerItem2"] = "";
+
+            /*
+            luaInstance.RegisterFunction("getPlayerHitpoints", this, this.GetType().GetMethod("getPlayerHitpoints"));
+            public int getPlayerHitpoints()
+                {
+                    return (int)
+                }
+            */
             base.Initialize();
         }
 
@@ -56,6 +75,7 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
+            luaInstance.DoFile("luascript.txt");
             input.Update();
             int menuOption = 0;
             //Wenn Menü existiert
