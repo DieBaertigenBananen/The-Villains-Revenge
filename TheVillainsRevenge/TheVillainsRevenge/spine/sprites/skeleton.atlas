@@ -1,0 +1,12 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bonepuker-01
+  rotate: false
+  xy: 2, 2
+  size: 524, 700
+  orig: 596, 843
+  offset: 26, 76
+  index: -1

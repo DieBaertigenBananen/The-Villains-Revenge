@@ -52,7 +52,7 @@ namespace TheVillainsRevenge
             skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
             skeletonRenderer.PremultipliedAlpha = true;
 
-            String name = "spineboy"; // "goblins";
+            String name = "skeleton"; // "goblins";
 
             Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
             SkeletonJson json = new SkeletonJson(atlas);
@@ -63,8 +63,8 @@ namespace TheVillainsRevenge
 
             // Define mixing between animations.
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
-            animationStateData.SetMix("walk", "jump", 0.2f);
-            animationStateData.SetMix("jump", "walk", 0.4f);
+            //animationStateData.SetMix("walk", "jump", 0.2f);
+            //animationStateData.SetMix("jump", "walk", 0.4f);
             animationState = new AnimationState(animationStateData);
 
             // Event handling for all animations.
@@ -125,13 +125,13 @@ namespace TheVillainsRevenge
             if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
             {
                 Move(actualspeed, 0, map); //Bewege Rechts
-                animationState.AddAnimation(0, "walk", false, 0f);
+              //  animationState.AddAnimation(0, "walk", false, 0f);
                 skeleton.flipX = false;
             }
             if (Game1.input.links) //Wenn Rechte Pfeiltaste
             {
                 Move(-actualspeed, 0, map);//Bewege Links
-                animationState.AddAnimation(0, "walk", false, 0f);
+              //  animationState.AddAnimation(0, "walk", false, 0f);
                 skeleton.flipX = true;
             }
             if (Game1.input.sprung)
@@ -191,7 +191,7 @@ namespace TheVillainsRevenge
             {
                 if (!jump)
                 {
-                    animationState.SetAnimation(0, "jump", false);
+                //    animationState.SetAnimation(0, "jump", false);
                     jump = true;
                     jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
