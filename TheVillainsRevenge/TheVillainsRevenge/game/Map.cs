@@ -79,7 +79,7 @@ namespace TheVillainsRevenge
                              case "104,60,17":
                                  type = "underground_earth";
                                  break;
-                             case "42,124,1":
+                             case "0,255,0":
                                  type = "ground_grass";
                                  break;
                              case "02,02,02":
