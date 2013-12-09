@@ -52,7 +52,7 @@ namespace TheVillainsRevenge
              foreach (Block block in blocks) //Gehe alle Blöcke durch
              {
                  //Zeichne die Blöcke anhand der Daten der Blöcke
-                 spriteBatch.Draw(mapTexture, block.pos, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
+                 spriteBatch.Draw(mapTexture, block.pos, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
              }
              foreach (Item item in items) //Gehe alle Blöcke durch
              {

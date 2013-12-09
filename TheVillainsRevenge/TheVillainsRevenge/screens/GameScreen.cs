@@ -66,6 +66,11 @@ namespace TheVillainsRevenge
             foreach (Enemy enemy in enemies)
             {
                 enemy.Update(gameTime, karte);
+                if (enemy.position.X < -enemy.cbox.Width || enemy.position.Y < -enemy.cbox.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
+                {
+                    enemies.Remove(enemy);
+                    break;
+                }
                /* if (spieler.cbox.Intersects(enemy.cbox))
                 {
                     spieler.getHit();
