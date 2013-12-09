@@ -56,7 +56,7 @@ namespace TheVillainsRevenge
 
             Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
             SkeletonJson json = new SkeletonJson(atlas);
-            json.Scale = 0.6f; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
+            json.Scale = 0.3f; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
             skeleton = new Skeleton(json.ReadSkeletonData("spine/sprites/" + name + ".json"));
             if (name == "goblins") skeleton.SetSkin("goblingirl");
             skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
