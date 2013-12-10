@@ -147,13 +147,16 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             //Hintergrund und Wolken
-            background_3.Draw(spriteBatch); //Himmel
-            clouds_3.Draw(spriteBatch);
-            background_2.Draw(spriteBatch); //Berge
-            clouds_2.Draw(spriteBatch);
-            background_1.Draw(spriteBatch); //Wald
-            clouds_1.Draw(spriteBatch);
-            background_0.Draw(spriteBatch); //Bäume
+            if (!Game1.debug)
+            {
+                background_3.Draw(spriteBatch); //Himmel
+                clouds_3.Draw(spriteBatch);
+                background_2.Draw(spriteBatch); //Berge
+                clouds_2.Draw(spriteBatch);
+                background_1.Draw(spriteBatch); //Wald
+                clouds_1.Draw(spriteBatch);
+                background_0.Draw(spriteBatch); //Bäume
+            }
             //Spiel
             foreach (Enemy enemy in enemies)
             {
