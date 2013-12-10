@@ -27,7 +27,7 @@ float4 blackMask(float2 coords: TEXCOORD) : COLOR
 float4 blur(float2 coords: TEXCOORD) : COLOR
 {  
 	float4 color = tex2D(textureSampler, coords);
-	float blubb = 100.0f * sin(gameTime / 10);
+	float blubb = 15.0f * sin(gameTime / 10);
 	color = (tex2D(textureSampler, float2(coords.x + blubb / 1920, coords.y)) + tex2D(textureSampler, float2(coords.x - blubb / 1920, coords.y)) + tex2D(textureSampler, float2(coords.x, coords.y + blubb / 1080)) + tex2D(textureSampler, float2(coords.x, coords.y - blubb / 1080))) / 4;
 
 	return color;
@@ -36,11 +36,11 @@ float4 blur(float2 coords: TEXCOORD) : COLOR
 technique Technique1
 {  
     pass Pass1
-    {  
+    {
         //PixelShader = compile ps_2_0 blackMask();  
     }  
 	pass Pass2
 	{
-		PixelShader = compile ps_2_0 blur();
+		//PixelShader = compile ps_2_0 blur();
 	}
 }  

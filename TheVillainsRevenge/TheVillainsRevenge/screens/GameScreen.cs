@@ -161,11 +161,14 @@ namespace TheVillainsRevenge
                 enemy.Draw(spriteBatch);
             }
             spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White);
+            if (Game1.debug)
+            {
+                spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
+            }
             hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
             //Vordergrund
-            foreground_1.Draw(spriteBatch); //Bäume et
-            spriteBatch.Draw(texture, spieler.position, spieler.cbox, Color.White);
+            foreground_1.Draw(spriteBatch); //Bäume etc
             spriteBatch.End();
 
             //Shader
@@ -196,29 +199,30 @@ namespace TheVillainsRevenge
             
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
             gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
-
-            spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.Black);
-            spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(Game1.resolution.X - 300, 110), Color.Black);
-            spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(Game1.resolution.X - 300, 130), Color.Black);
-            spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(Game1.resolution.X - 300, 150), Color.Black);
-            spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(Game1.resolution.X - 300, 170), Color.Black);
-            spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.Black);
-            spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.Black);
-            spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(Game1.resolution.X - 300, 230), Color.Black);
-            spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.Black);
-            spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + foreground_1.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.Black);
-            spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.Black);
-            Slot bb = spieler.skeleton.FindSlot("bonepuker");
-            spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.Black);
-            spriteBatch.DrawString(font, "Lua: " + spieler.speed, new Vector2(Game1.resolution.X - 300, 330), Color.Black);
-            //for (int i = 0; i < karte.background.Width; i++)
-            //{
-            //    for (int t = 15; t < karte.background.Height; t++)
-            //    {
-            //        spriteBatch.DrawString(font, karte.pixelRGBA[i, t, 0] + "," + karte.pixelRGBA[i, t, 1] + "," + karte.pixelRGBA[i, t, 2], new Vector2(i * 60, (t - 15) * 30), Color.Black);
-            //    }
-            //}*/
-            
+            if (Game1.debug)
+            {
+                spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.Black);
+                spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(Game1.resolution.X - 300, 110), Color.Black);
+                spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(Game1.resolution.X - 300, 130), Color.Black);
+                spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(Game1.resolution.X - 300, 150), Color.Black);
+                spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(Game1.resolution.X - 300, 170), Color.Black);
+                spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.Black);
+                spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.Black);
+                spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(Game1.resolution.X - 300, 230), Color.Black);
+                spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.Black);
+                spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + foreground_1.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.Black);
+                spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.Black);
+                Slot bb = spieler.skeleton.FindSlot("bonepuker");
+                spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.Black);
+                spriteBatch.DrawString(font, "Lua: " + spieler.speed, new Vector2(Game1.resolution.X - 300, 330), Color.Black);
+                //for (int i = 0; i < karte.background.Width; i++)
+                //{
+                //    for (int t = 15; t < karte.background.Height; t++)
+                //    {
+                //        spriteBatch.DrawString(font, karte.pixelRGBA[i, t, 0] + "," + karte.pixelRGBA[i, t, 1] + "," + karte.pixelRGBA[i, t, 2], new Vector2(i * 60, (t - 15) * 30), Color.Black);
+                //    }
+                //}*/
+            }
             spriteBatch.End();
         }
     }

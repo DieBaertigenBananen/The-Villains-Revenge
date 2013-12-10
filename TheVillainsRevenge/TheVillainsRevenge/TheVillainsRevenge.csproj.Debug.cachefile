@@ -1,11 +1,12 @@
 Content\fonts\schrift.xnb
-Content\sprites\block.xnb
-Content\sprites\bunny.xnb
-Content\sprites\gui.xnb
-Content\sprites\held.xnb
-Content\sprites\itemslot.xnb
-Content\sprites\player.xnb
 Content\sprites\tiles.xnb
+Content\sprites\held.xnb
+Content\sprites\player.xnb
+Content\sprites\bunny.xnb
+Content\sprites\items.xnb
+Content\sprites\itemslot.xnb
+Content\sprites\block.xnb
+Content\sprites\gui.xnb
 Content\sprites\Level_1\map.xnb
 Content\sprites\Level_1\Planes\background_1_1.xnb
 Content\sprites\Level_1\Planes\background_1_2.xnb
@@ -35,7 +36,6 @@ Content\sprites\Level_1\Planes\foreground_1_4.xnb
 Content\sprites\Level_1\Planes\foreground_1_5.xnb
 Content\sprites\Level_1\Planes\foreground_1_6.xnb
 Content\sprites\Level_1\Planes\foreground_1_7.xnb
-Content\sprites\items.xnb
 Content\CoverEyes.xnb
 spine\sprites\skeleton.png
 spine\sprites\skeleton.atlas

@@ -21,6 +21,7 @@ namespace TheVillainsRevenge
         MenuScreen menu;
         public static Input input;
         public static Lua luaInstance = new Lua();
+        public static bool debug = false;
 
         public Game1()
         {
@@ -75,6 +76,10 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
+            if (input.debug)
+            {
+                debug = !debug;
+            }
             luaInstance.DoFile("luascript.txt");
             input.Update();
             int menuOption = 0;

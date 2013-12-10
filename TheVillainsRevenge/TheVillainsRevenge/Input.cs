@@ -20,7 +20,9 @@ namespace TheVillainsRevenge
         bool itemqp;
         public bool back;
         bool backp;
-        public bool links, rechts, sprung, fall, end;
+        public bool debug;
+        bool debugp;
+        public bool links, rechts, sprung, end;
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -31,14 +33,6 @@ namespace TheVillainsRevenge
             else
             {
                 end = false;
-            }
-            if (keyState.IsKeyDown(Keys.Tab) == true || GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
-            {
-                fall = true;
-            }
-            else
-            {
-                fall = false;
             }
             if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed || keyState.IsKeyDown(Keys.Space) == true)
             {
@@ -192,6 +186,26 @@ namespace TheVillainsRevenge
                     keyState.IsKeyUp(Keys.Escape))
                 {
                     backp = false;
+                }
+            }
+            if (!debugp)
+            {
+                if (keyState.IsKeyDown(Keys.Tab) == true
+                    ||
+                    GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed)
+                {
+                    debug = true;
+                    debugp = true;
+                }
+            }
+            else
+            {
+                debug = false;
+                if (keyState.IsKeyUp(Keys.Tab) == true
+                    &&
+                    GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Released)
+                {
+                    debugp = false;
                 }
             }
             

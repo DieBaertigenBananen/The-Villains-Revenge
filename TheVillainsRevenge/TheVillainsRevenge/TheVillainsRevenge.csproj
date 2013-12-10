@@ -119,6 +119,7 @@
     <Compile Include="game\Block.cs" />
     <Compile Include="game\Camera.cs" />
     <Compile Include="game\Checkpoint.cs" />
+    <Compile Include="game\CollisionBox.cs" />
     <Compile Include="game\Enemy.cs" />
     <Compile Include="game\GUI.cs" />
     <Compile Include="game\Hero.cs" />

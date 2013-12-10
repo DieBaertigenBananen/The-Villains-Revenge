@@ -14,7 +14,7 @@ namespace TheVillainsRevenge
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
         Vector2 lastPosition; //Position vor vorherigem Update
-        public Rectangle cbox;
+        public CollisionBox cbox;
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
@@ -43,7 +43,7 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             lastPosition = position;
-            cbox = new Rectangle((int)position.X, (int)position.Y, 100, 100);
+            cbox = new CollisionBox(0, 0, 100, 100);
             lifes = startLifes;
 
         }
@@ -93,7 +93,7 @@ namespace TheVillainsRevenge
 
         public void Update(GameTime gameTime, Map map)
         {
-            if (Game1.input.fall)
+            if (Game1.debug)
             {
                 coverEyes = true;
             }
@@ -231,14 +231,14 @@ namespace TheVillainsRevenge
             skeleton.Y += domove.Y;
             position.Y = skeleton.Y;
             position.X = skeleton.X;
-            cbox.X = (int)position.X;
-            cbox.Y = (int)position.Y;
+            cbox.Update(position);
         }
 
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
-            Rectangle cboxnew = this.cbox;
+            CollisionBox cboxnew = new CollisionBox((int)cbox.offset.X, (int)cbox.offset.Y, cbox.box.Width, cbox.box.Height);
+            cboxnew.Update(cbox.position);
             Vector2 move = new Vector2(0, 0);
             int icoll;
             bool stop;
@@ -256,13 +256,13 @@ namespace TheVillainsRevenge
             {
                 stop = false;
                 //Box für nächsten Iterationsschritt berechnen
-                cboxnew.X = this.cbox.X + ((x / icoll) * i);
-                cboxnew.Y = this.cbox.Y + ((y / icoll) * i);
+                cboxnew.box.X = this.cbox.box.X + ((x / icoll) * i);
+                cboxnew.box.Y = this.cbox.box.Y + ((y / icoll) * i);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if (cboxnew.Intersects(block.cbox))
+                    if (cboxnew.box.Intersects(block.cbox))
                     {
                         stop = true;
                         break;
@@ -274,8 +274,8 @@ namespace TheVillainsRevenge
                 }
                 else //Kollisionsfreien Fortschritt speichern
                 {
-                    move.X = cboxnew.X - cbox.X;
-                    move.Y = cboxnew.Y - cbox.Y;
+                    move.X = cboxnew.box.X - cbox.box.X;
+                    move.Y = cboxnew.box.Y - cbox.box.Y;
                 }
             }
             return move;
