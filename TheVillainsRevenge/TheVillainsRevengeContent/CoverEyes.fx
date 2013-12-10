@@ -1,53 +1,32 @@
-float4x4 World;
-float4x4 View;
-float4x4 Projection;
+sampler textureSampler;
+float playerX;
+float playerY;
 
-// TODO: add effect parameters here.
+float4 Shader(float2 coords: TEXCOORD) : COLOR
+{  
+	float4 color = tex2D(textureSampler, coords);
 
-struct VertexShaderInput
-{
-    float4 Position : POSITION0;
+	float2 playerPos = float2(playerX, playerY);
+	playerPos.y = playerPos.y - 0.13;
 
-    // TODO: add input channels such as texture
-    // coordinates and vertex colors here.
-};
+	float deltaViewX = coords.x - playerPos.x;
+	float deltaY = deltaViewX * 0.8;
 
-struct VertexShaderOutput
-{
-    float4 Position : POSITION0;
-
-    // TODO: add vertex shader outputs such as colors and texture
-    // coordinates here. These values will automatically be interpolated
-    // over the triangle, and provided as input to your pixel shader.
-};
-
-VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
-{
-    VertexShaderOutput output;
-
-    float4 worldPosition = mul(input.Position, World);
-    float4 viewPosition = mul(worldPosition, View);
-    output.Position = mul(viewPosition, Projection);
-
-    // TODO: add your vertex shader code here.
-
-    return output;
-}
-
-float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
-{
-    // TODO: add your pixel shader code here.
-
-    return float4(1, 0, 0, 1);
-}
-
-technique Technique1
-{
-    pass Pass1
-    {
-        // TODO: set renderstates here.
-
-        VertexShader = compile vs_2_0 VertexShaderFunction();
-        PixelShader = compile ps_2_0 PixelShaderFunction();
-    }
-}
+    if (coords.x > playerPos.x && coords.y > playerPos.y - deltaY && coords.y < playerPos.y + deltaY && distance(playerPos, coords) < 0.2)
+	{
+		color = color;
+	}
+	else
+	{
+		color.rgb = 0;
+	}
+	return color;
+}  
+  
+technique Technique1  
+{  
+    pass Pass1  
+    {  
+        PixelShader = compile ps_2_0 Shader();  
+    }  
+}  
