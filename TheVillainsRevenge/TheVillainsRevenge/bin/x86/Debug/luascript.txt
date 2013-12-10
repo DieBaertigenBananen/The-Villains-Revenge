@@ -12,6 +12,8 @@ planeTilesBackground1 = 4 --Wald
 planeTilesBackground2 = 2 --Berg
 planeTilesBackground3 = 1 --Himmel
 
+heroStartTime = 10
+
 
 --Update
 playerSpeed = 10

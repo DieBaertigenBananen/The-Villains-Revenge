@@ -24,12 +24,14 @@ namespace TheVillainsRevenge
         public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
         public double herotime;
         bool start = false;
+        int heroStartTime;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
             position.X = x;
             position.Y = y;
             cbox = new Rectangle((int)position.X, (int)position.Y, 85, 85);
+            heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
         {
@@ -91,7 +93,7 @@ namespace TheVillainsRevenge
             else
             {
                 herotime += gameTime.ElapsedGameTime.TotalSeconds;
-                if (herotime > 10)
+                if (herotime > heroStartTime)
                     start = true;
             }
         }
