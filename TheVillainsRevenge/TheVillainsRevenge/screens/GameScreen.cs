@@ -182,6 +182,7 @@ namespace TheVillainsRevenge
             coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
             coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
             coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
+            coverEyes.Parameters["left"].SetValue(spieler.skeleton.FlipX);
             if (spieler.coverEyes)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
