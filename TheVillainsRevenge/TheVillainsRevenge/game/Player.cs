@@ -14,6 +14,7 @@ namespace TheVillainsRevenge
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
         Vector2 lastPosition; //Position vor vorherigem Update
+        public Rectangle cbox;
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
@@ -42,6 +43,7 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             lastPosition = position;
+            cbox = new Rectangle((int)position.X, (int)position.Y, 85, 85);
             lifes = startLifes;
 
         }
@@ -227,9 +229,58 @@ namespace TheVillainsRevenge
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
             skeleton.X += domove.X;
             skeleton.Y += domove.Y;
+            position.Y = skeleton.Y;
+            position.X = skeleton.X;
+            cbox.X = (int)position.X;
+            cbox.Y = (int)position.Y;
         }
 
+
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
+        {
+            Rectangle cboxnew = this.cbox;
+            Vector2 move = new Vector2(0, 0);
+            int icoll;
+            bool stop;
+            //Größere Koordinate als Iteration nehmen
+            if (Math.Abs(x) > Math.Abs(y))
+            {
+                icoll = Math.Abs(x);
+            }
+            else
+            {
+                icoll = Math.Abs(y);
+            }
+            //Iteration
+            for (int i = 1; i <= icoll; i++)
+            {
+                stop = false;
+                //Box für nächsten Iterationsschritt berechnen
+                cboxnew.X = this.cbox.X + ((x / icoll) * i);
+                cboxnew.Y = this.cbox.Y + ((y / icoll) * i);
+                //Gehe die Blöcke der Liste durch
+                foreach (Block block in list)
+                {
+                    //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                    if (cboxnew.Intersects(block.cbox))
+                    {
+                        stop = true;
+                        break;
+                    }
+                }
+                if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
+                {
+                    break;
+                }
+                else //Kollisionsfreien Fortschritt speichern
+                {
+                    move.X = cboxnew.X - cbox.X;
+                    move.Y = cboxnew.Y - cbox.Y;
+                }
+            }
+            return move;
+        }
+        Vector2 BoundingCheckedVector(int x, int y, List<Block> list)
         {
             position.Y = skeleton.Y;
             position.X = skeleton.X;
