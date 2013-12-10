@@ -37,6 +37,9 @@ Content\sprites\Level_1\Planes\foreground_1_5.xnb
 Content\sprites\Level_1\Planes\foreground_1_6.xnb
 Content\sprites\Level_1\Planes\foreground_1_7.xnb
 Content\CoverEyes.xnb
+spine\sprites\skeleton.png
+spine\sprites\skeleton.atlas
+spine\sprites\skeleton.json
 spine\sprites\spineboy.png
 spine\sprites\goblins.png
 spine\sprites\spineboy.atlas

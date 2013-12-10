@@ -91,6 +91,14 @@ namespace TheVillainsRevenge
 
         public void Update(GameTime gameTime, Map map)
         {
+            if (Game1.input.fall)
+            {
+                coverEyes = true;
+            }
+            else
+            {
+                coverEyes = false;
+            }
             speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
             airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
             jumppower = Convert.ToInt32((double)Game1.luaInstance["playerJumppower"]);
@@ -142,7 +150,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump && Game1.input.fall)
+            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
             {
                 if (!fall)
                 {
@@ -259,8 +267,9 @@ namespace TheVillainsRevenge
                         BoundingBoxAttachment colOR = bounds.ContainsPoint(or.X, or.Y);
                         BoundingBoxAttachment colUL = bounds.ContainsPoint(ul.X, ul.Y);
                         BoundingBoxAttachment colUR = bounds.ContainsPoint(ur.X, ur.Y);
-                        BoundingBoxAttachment bb = bounds.BoundingBoxes.FirstOrDefault();
-                        if (colOL == bb || colOR == bb || colUL == bb || colUR == bb) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                        //BoundingBoxAttachment bb = bounds.BoundingBoxes.FirstOrDefault();
+                        //if (colOL == bb || colOR == bb || colUL == bb || colUR == bb) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                        if (colOL != null || colOR != null || colUL != null || colUR != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                         {
                             check = true;
                             stop = true;

@@ -170,13 +170,21 @@ namespace TheVillainsRevenge
             //Draw Texture to Screen
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
+            
             //Shader
             coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
             coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
+            coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
+            if (spieler.coverEyes)
+            {
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            }
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             spriteBatch.End();
-
             if (levelend)
             {
                 spriteBatch.DrawString(font, "Finished level!", new Vector2(Game1.resolution.X - 300, Game1.resolution.Y/2), Color.Black);
