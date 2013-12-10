@@ -201,20 +201,19 @@ namespace TheVillainsRevenge
             gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             if (Game1.debug)
             {
-                spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.Black);
-                spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(Game1.resolution.X - 300, 110), Color.Black);
-                spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(Game1.resolution.X - 300, 130), Color.Black);
-                spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(Game1.resolution.X - 300, 150), Color.Black);
-                spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(Game1.resolution.X - 300, 170), Color.Black);
-                spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.Black);
-                spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.Black);
-                spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(Game1.resolution.X - 300, 230), Color.Black);
-                spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.Black);
-                spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + background_0.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.Black);
-                spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.Black);
+                spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.White);
+                spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(Game1.resolution.X - 300, 110), Color.White);
+                spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(Game1.resolution.X - 300, 130), Color.White);
+                spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(Game1.resolution.X - 300, 150), Color.White);
+                spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(Game1.resolution.X - 300, 170), Color.White);
+                spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);
+                spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.White);
+                spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(Game1.resolution.X - 300, 230), Color.White);
+                spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
+                spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + background_0.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
+                spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.White);
                 Slot bb = spieler.skeleton.FindSlot("bonepuker");
-                spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.Black);
-                spriteBatch.DrawString(font, "Lua: " + spieler.speed, new Vector2(Game1.resolution.X - 300, 330), Color.Black);
+                spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 //for (int i = 0; i < karte.background.Width; i++)
                 //{
                 //    for (int t = 15; t < karte.background.Height; t++)
