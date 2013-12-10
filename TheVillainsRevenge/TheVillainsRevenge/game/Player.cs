@@ -43,7 +43,7 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             lastPosition = position;
-            cbox = new CollisionBox(0, 0, 100, 100);
+            cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionHeight"]));
             lifes = startLifes;
 
         }
@@ -58,7 +58,7 @@ namespace TheVillainsRevenge
 
             Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
             SkeletonJson json = new SkeletonJson(atlas);
-            json.Scale = 0.3f; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
+            json.Scale = (float)Convert.ToInt32((double)Game1.luaInstance["playerScale"])/10; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
             skeleton = new Skeleton(json.ReadSkeletonData("spine/sprites/" + name + ".json"));
             skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
 

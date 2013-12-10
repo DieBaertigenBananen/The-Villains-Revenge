@@ -23,11 +23,11 @@ namespace TheVillainsRevenge
 
         public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
         {
-            //Kamera an Spieler anpassen
-            int leftspace = 800;
-            int rightspace = (int)Game1.resolution.X-leftspace;
-            int bottomspace = 700;
-            int topspace = (int)Game1.resolution.Y - bottomspace;
+            //Kamera an Spieler anpassen 
+            int leftspace = Convert.ToInt32((double)Game1.luaInstance["cameraLeftspace"]);
+            int rightspace = Convert.ToInt32((double)Game1.luaInstance["cameraRightspace"]);
+            int bottomspace = Convert.ToInt32((double)Game1.luaInstance["cameraBottomspace"]);
+            int topspace = Convert.ToInt32((double)Game1.luaInstance["cameraTopspace"]);
             
 
             if (viewport.X + leftspace > spieler.position.X) //Scrolling nach links

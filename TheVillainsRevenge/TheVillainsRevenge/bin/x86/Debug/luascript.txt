@@ -1,11 +1,22 @@
 --Loading
 playerStartLifes = 4
+playerScale = 3
+
+playerCollisionOffsetX = 0
+playerCollisionOffsetY = 0
+playerCollisionWidth = 100
+playerCollisionHeight = 100
 
 --Update
 playerSpeed = 10
 playerAirspeed = playerSpeed - 2
 playerJumppower = 20
 playerGravitation = 60
+
+cameraLeftspace = 800
+cameraRightspace = 1920 - cameraLeftspace
+cameraBottomspace = 700
+cameraTopspace = 1080 - cameraBottomspace
 
 --Enter
 playerLifes = playerStartLifes
