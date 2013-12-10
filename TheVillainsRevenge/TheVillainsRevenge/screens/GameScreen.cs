@@ -19,13 +19,13 @@ namespace TheVillainsRevenge
         Map karte = new Map();
         Camera camera = new Camera();
         GUI gui = new GUI();
+        ParallaxPlane background_0 = new ParallaxPlane();
         ParallaxPlane background_1 = new ParallaxPlane();
         ParallaxPlane background_2 = new ParallaxPlane();
         ParallaxPlane background_3 = new ParallaxPlane();
         ParallaxPlane clouds_1 = new ParallaxPlane();
         ParallaxPlane clouds_2 = new ParallaxPlane();
         ParallaxPlane clouds_3 = new ParallaxPlane();
-        ParallaxPlane foreground_1 = new ParallaxPlane();
         RenderTarget2D renderTarget;
         RenderTarget2D renderSpine;
         SpriteFont font;
@@ -50,13 +50,13 @@ namespace TheVillainsRevenge
             hero.Load(Content);
             karte.Load(Content);
             karte.Generate();
+            background_0.Load(Content, "background_0", 7);
             background_1.Load(Content, "background_1", 4);
             background_2.Load(Content, "background_2", 2);
             background_3.Load(Content, "background_3", 1);
             clouds_1.Load(Content, "clouds_1", 6);
             clouds_2.Load(Content, "clouds_2", 5);
             clouds_3.Load(Content, "clouds_3", 3);
-            foreground_1.Load(Content, "foreground_1", 7);
             gui.Load(Content);
             foreach (Enemy enemy in enemies)
             {
@@ -119,13 +119,13 @@ namespace TheVillainsRevenge
                 hero.Update(gameTime, karte, spieler.position);
                 spieler.Update(gameTime, karte);
                 camera.Update(Game1.graphics, spieler, karte);
+                background_0.Update(karte, camera);
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
                 background_3.Update(karte, camera);
                 clouds_1.Update(karte, camera);
                 clouds_2.Update(karte, camera);
                 clouds_3.Update(karte, camera);
-                foreground_1.Update(karte, camera);
             }
             if (spieler.lifes != 0)
             {
@@ -155,6 +155,7 @@ namespace TheVillainsRevenge
             clouds_2.Draw(spriteBatch);
             background_1.Draw(spriteBatch); //Wald
             clouds_1.Draw(spriteBatch);
+            background_0.Draw(spriteBatch); //Bäume
             //Spiel
             foreach (Enemy enemy in enemies)
             {
@@ -167,8 +168,6 @@ namespace TheVillainsRevenge
             }
             hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
-            //Vordergrund
-            foreground_1.Draw(spriteBatch); //Bäume etc
             spriteBatch.End();
 
             //Shader
@@ -210,7 +209,7 @@ namespace TheVillainsRevenge
                 spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.Black);
                 spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(Game1.resolution.X - 300, 230), Color.Black);
                 spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.Black);
-                spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + foreground_1.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.Black);
+                spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + background_0.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.Black);
                 spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.Black);
                 Slot bb = spieler.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.Black);

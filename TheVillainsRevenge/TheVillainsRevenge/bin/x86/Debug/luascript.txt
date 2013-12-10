@@ -7,6 +7,12 @@ playerCollisionOffsetY = 0
 playerCollisionWidth = 100
 playerCollisionHeight = 100
 
+planeTilesBackground0 = 7 --Baueme
+planeTilesBackground1 = 4 --Wald
+planeTilesBackground2 = 2 --Berg
+planeTilesBackground3 = 1 --Himmel
+
+
 --Update
 playerSpeed = 10
 playerAirspeed = playerSpeed - 2
@@ -17,6 +23,7 @@ cameraLeftspace = 800
 cameraRightspace = 1920 - cameraLeftspace
 cameraBottomspace = 700
 cameraTopspace = 1080 - cameraBottomspace
+
 
 --Enter
 playerLifes = playerStartLifes

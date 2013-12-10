@@ -61,6 +61,10 @@ namespace TheVillainsRevenge
             luaInstance["playerCollisionOffsetY"] = "";
             luaInstance["playerCollisionWidth"] = "";
             luaInstance["playerCollisionHeight"] = "";
+            luaInstance["planeTilesBackground0"] = "";
+            luaInstance["planeTilesBackground1"] = "";
+            luaInstance["planeTilesBackground2"] = "";
+            luaInstance["planeTilesBackground3"] = "";
 
             /*
             luaInstance.RegisterFunction("getPlayerHitpoints", this, this.GetType().GetMethod("getPlayerHitpoints"));
