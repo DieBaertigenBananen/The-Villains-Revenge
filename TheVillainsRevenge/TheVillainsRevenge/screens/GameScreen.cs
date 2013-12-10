@@ -79,17 +79,16 @@ namespace TheVillainsRevenge
                         enemies.Remove(enemy);
                         break;
                     }
-                    /* if (spieler.cbox.Intersects(enemy.cbox))
+                    if (spieler.cbox.box.Intersects(enemy.cbox))
                      {
                          spieler.getHit();
                          enemies.Remove(enemy);
                          break;
-                     }*/
+                     }
                 }
-                /*
                 foreach (Item item in karte.items)
                 {
-                    if (spieler.cbox.Intersects(item.cbox))
+                    if (spieler.cbox.box.Intersects(item.cbox))
                     {
                         if (item.type == "herz")
                         {
@@ -100,7 +99,6 @@ namespace TheVillainsRevenge
                         break;
                     }
                 }
-                 * */
                 foreach (Checkpoint cpoint in karte.checkpoints)
                 {
                     if (spieler.position.X > cpoint.x && spieler.checkpoint.X < cpoint.x)

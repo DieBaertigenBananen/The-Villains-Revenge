@@ -2,10 +2,10 @@
 playerStartLifes = 4
 playerScale = 3
 
-playerCollisionOffsetX = 0
-playerCollisionOffsetY = 0
-playerCollisionWidth = 100
-playerCollisionHeight = 100
+playerCollisionOffsetX = -90
+playerCollisionOffsetY = -100
+playerCollisionWidth = 180
+playerCollisionHeight = 200
 
 planeTilesBackground0 = 7 --Baueme
 planeTilesBackground1 = 4 --Wald

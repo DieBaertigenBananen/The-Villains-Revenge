@@ -80,7 +80,7 @@ namespace TheVillainsRevenge
             {
                 iteme = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Released
-                    ||
+                    &&
                     keyState.IsKeyUp(Keys.E))
                 {
                     itemep = false;
@@ -100,7 +100,7 @@ namespace TheVillainsRevenge
             {
                 itemq = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Released
-                    || 
+                    && 
                     keyState.IsKeyUp(Keys.Q))
                 {
                     itemqp = false;
