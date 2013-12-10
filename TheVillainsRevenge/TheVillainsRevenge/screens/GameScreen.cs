@@ -13,6 +13,7 @@ namespace TheVillainsRevenge
 {
     class GameScreen
     {
+        Texture2D texture;
         Player spieler = new Player(40, 100);
         Hero hero = new Hero(0, 0);
         Map karte = new Map();
@@ -36,6 +37,8 @@ namespace TheVillainsRevenge
         {
             enemies.Add(new Enemy(1200, 0, 1));
             enemies.Add(new Enemy(2300, 0, 1));
+            texture = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            texture.SetData<Color>(new Color[] { Color.White });
         }
 
         public void Load(ContentManager Content)
@@ -161,7 +164,8 @@ namespace TheVillainsRevenge
             hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
             //Vordergrund
-            foreground_1.Draw(spriteBatch); //Bäume etc
+            foreground_1.Draw(spriteBatch); //Bäume et
+            spriteBatch.Draw(texture, spieler.position, spieler.cbox, Color.White);
             spriteBatch.End();
 
             //Shader

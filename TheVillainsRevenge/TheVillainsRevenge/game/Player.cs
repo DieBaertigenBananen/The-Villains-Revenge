@@ -43,7 +43,7 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             lastPosition = position;
-            cbox = new Rectangle((int)position.X, (int)position.Y, 85, 85);
+            cbox = new Rectangle((int)position.X, (int)position.Y, 100, 100);
             lifes = startLifes;
 
         }
