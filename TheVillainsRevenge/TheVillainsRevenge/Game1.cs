@@ -56,6 +56,8 @@ namespace TheVillainsRevenge
             luaInstance["cameraRightspace"] = "";
             luaInstance["cameraBottomspace"] = "";
             luaInstance["cameraTopspace"] = "";
+            luaInstance["minimapWidth"] = "";
+            luaInstance["minimapOffsetX"] = "";
             luaInstance["playerScale"] = "";
             luaInstance["playerCollisionOffsetX"] = "";
             luaInstance["playerCollisionOffsetY"] = "";

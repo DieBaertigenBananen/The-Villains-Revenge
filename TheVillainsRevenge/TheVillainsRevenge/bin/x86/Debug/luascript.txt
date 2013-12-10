@@ -24,6 +24,9 @@ cameraRightspace = 1920 - cameraLeftspace
 cameraBottomspace = 700
 cameraTopspace = 1080 - cameraBottomspace
 
+minimapWidth = 400
+minimapOffsetX = 300
+
 
 --Enter
 playerLifes = playerStartLifes

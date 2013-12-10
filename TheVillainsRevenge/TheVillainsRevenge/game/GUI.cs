@@ -11,6 +11,7 @@ namespace TheVillainsRevenge
     class GUI
     {
         Texture2D Texture;
+        int mm_width,mm_offsetX;
 
         public void Load(ContentManager Content)
         {
@@ -53,16 +54,18 @@ namespace TheVillainsRevenge
             
            
             //Breite = 450
-            int spielerX = (int)((spielerpos.X / kartesize.X) * 450);
-            int heldX = (int)((heropos.X / kartesize.X) * 450);
+            mm_width = Convert.ToInt32((double)Game1.luaInstance["minimapWidth"]);
+            mm_offsetX = Convert.ToInt32((double)Game1.luaInstance["minimapOffsetX"]);
+            int spielerX = (int)((spielerpos.X / kartesize.X) * mm_width);
+            int heldX = (int)((heropos.X / kartesize.X) * mm_width);
             //Start
-            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - 300, Game1.resolution.Y - 50), new Rectangle(0, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - mm_offsetX, Game1.resolution.Y - 50), new Rectangle(0, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
             //Ende 
-            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) + 150, Game1.resolution.Y - 50), new Rectangle(144, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - mm_offsetX+mm_width, Game1.resolution.Y - 50), new Rectangle(144, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
             //Spieler 
-            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - 300 + spielerX, Game1.resolution.Y - 50), new Rectangle(48, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - mm_offsetX + spielerX, Game1.resolution.Y - 50), new Rectangle(48, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
             //Held 
-            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - 300 + heldX, Game1.resolution.Y - 50), new Rectangle(96, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            spriteBatch.Draw(Texture, new Vector2((Game1.resolution.X / 2) - mm_offsetX + heldX, Game1.resolution.Y - 50), new Rectangle(96, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
            
         }
     }
