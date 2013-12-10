@@ -96,33 +96,33 @@ namespace TheVillainsRevenge
             {
                 if (option == 0)
                 {
-                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) - 50), Color.Black);
+                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
                 }
                 else
                 {
-                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) - 50), Color.Gray);
+                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Gray);
                 }
                 if (option == 1)
                 {
-                    spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2)), Color.Black);
+                    spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Black);
                 }
                 else
                 {
-                    spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2)), Color.Gray);
+                    spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Gray);
                 }
                 if (option == 2)
                 {
-                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Black);
+                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
                 }
                 else
                 {
-                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Gray);
+                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
                 }
             }
             else
             {
-                spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 50, (Game1.graphics.PreferredBackBufferHeight / 2) - 50), Color.Black);
-                spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.graphics.PreferredBackBufferWidth / 2) - 60, (Game1.graphics.PreferredBackBufferHeight / 2) + 50), Color.Black);
+                spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
+                spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 60, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
                   
             }
             spriteBatch.End();
