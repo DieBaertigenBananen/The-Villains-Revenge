@@ -25,6 +25,7 @@ namespace TheVillainsRevenge
         public double herotime;
         bool start = false;
         int heroStartTime;
+        public float test;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -61,17 +62,32 @@ namespace TheVillainsRevenge
                 {
                     actualspeed = airspeed;
                 }
+                //sposition.X = 8000;
+                //Wenn Spieler ist hinten bewege zurück
+                if (sposition.X < position.X)
+                {
+                    actualspeed = -actualspeed;
+                }
+                //Schaue ob an nächster Position ein Block ist
+                test = 0.0f;
+                if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
+                {
+                    //kein Block, also bewege
+                    Move(actualspeed, 0, map);
+                    //Schau ob unten ein Block ist
+                    if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                    {
+                        //Kein Block unten, kann also fallen, daher spring mal lieber
+                        if (!jump && !fall)
+                        {
+                            Jump(gameTime, map); //Springen!
+                        }
+                    }
 
-                if (sposition.X > position.X)
-                {
-                    Move(actualspeed, 0, map); //Bewege Rechts
                 }
-                else if (sposition.X < position.X)
+                else
                 {
-                    Move(-actualspeed, 0, map); //Bewege Rechts
-                }
-                if (sposition.Y + 50 < position.Y)
-                {
+                    //Doch ein Block, also spring
                     if (!jump && !fall)
                     {
                         Jump(gameTime, map); //Springen!

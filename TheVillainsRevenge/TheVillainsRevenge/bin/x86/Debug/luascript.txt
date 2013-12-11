@@ -11,7 +11,7 @@ planeTilesBackground1 = 4 --Wald
 planeTilesBackground2 = 2 --Berg
 planeTilesBackground3 = 1 --Himmel
 
-heroStartTime = 10
+heroStartTime = 3
 heroCollisionOffsetX = 0
 heroCollisionOffsetY = 0
 heroCollisionWidth = 85

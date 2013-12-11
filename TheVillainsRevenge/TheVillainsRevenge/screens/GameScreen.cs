@@ -37,7 +37,7 @@ namespace TheVillainsRevenge
 
         public GameScreen()
         {
-            enemies.Add(new Enemy(1800, 0, 1));
+            enemies.Add(new Enemy(5000, 0, 1));
             texture = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             texture.SetData<Color>(new Color[] { Color.White });
         }
@@ -232,6 +232,7 @@ namespace TheVillainsRevenge
                 Slot bb = spieler.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: "+slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
+                spriteBatch.DrawString(font, "Test: " + hero.test, new Vector2(Game1.resolution.X - 300, 350), Color.White);
                 //for (int i = 0; i < karte.background.Width; i++)
                 //{
                 //    for (int t = 15; t < karte.background.Height; t++)
