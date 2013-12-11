@@ -59,6 +59,12 @@ namespace TheVillainsRevenge
             luaInstance["minimapWidth"] = "";
             luaInstance["minimapOffsetX"] = "";
             luaInstance["heroStartTime"] = "";
+            luaInstance["heroSpeed"] = "";
+            luaInstance["heroAirspeed"] = "";
+            luaInstance["heroJumppower"] = "";
+            luaInstance["heroGravitation"] = "";
+            luaInstance["enemySpeed"] = "";
+            luaInstance["enemyGravitation"] = "";
             luaInstance["playerScale"] = "";
             luaInstance["playerCollisionOffsetX"] = "";
             luaInstance["playerCollisionOffsetY"] = "";

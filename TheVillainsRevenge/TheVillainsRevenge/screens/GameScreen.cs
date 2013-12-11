@@ -35,8 +35,7 @@ namespace TheVillainsRevenge
 
         public GameScreen()
         {
-            enemies.Add(new Enemy(1200, 0, 1));
-            enemies.Add(new Enemy(2300, 0, 1));
+            enemies.Add(new Enemy(1800, 0, 1));
             texture = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             texture.SetData<Color>(new Color[] { Color.White });
         }

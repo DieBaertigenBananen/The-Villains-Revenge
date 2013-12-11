@@ -14,14 +14,14 @@ namespace TheVillainsRevenge
         public Vector2 position; //Position
         public Rectangle cbox; //Collisionsbox
         Texture2D enemyTexture; //Textur
-        public int speed = 8; //Bewegungsgeschwindigkeit in m/s _/60
-        public int airspeed = 6; //Geschwindigkeit bei Sprung & Fall in m/s _/60
+        public int speed; //Bewegungsgeschwindigkeit in m/s _/60
+        public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
         public bool fall = false;
         public double falltimer;
         public double jumptimer;
-        public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
-        public int jumppower = 20; //Anfangsgeschwindigkeit in m/s _/60
+        public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
+        public int jumppower; //Anfangsgeschwindigkeit in m/s _/60
         public double herotime;
         bool start = false;
         int heroStartTime;
@@ -47,6 +47,10 @@ namespace TheVillainsRevenge
         {
             if (start)
             {
+                speed = Convert.ToInt32((double)Game1.luaInstance["heroSpeed"]);
+                airspeed = Convert.ToInt32((double)Game1.luaInstance["heroAirspeed"]);
+                jumppower = Convert.ToInt32((double)Game1.luaInstance["heroJumppower"]);
+                gravitation = Convert.ToInt32((double)Game1.luaInstance["heroGravitation"]);
                 //Geschwindigkeit festlegen
                 int actualspeed = speed;
                 if (jump || fall)

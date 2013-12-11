@@ -21,6 +21,14 @@ playerAirspeed = playerSpeed - 2
 playerJumppower = 20
 playerGravitation = 60
 
+heroSpeed = 10
+heroAirspeed = heroSpeed - 2
+heroJumppower = 20
+heroGravitation = 60
+
+enemySpeed = 2
+enemyGravitation = 60
+
 cameraLeftspace = 800
 cameraRightspace = 1920 - cameraLeftspace
 cameraBottomspace = 700

@@ -16,7 +16,8 @@ namespace TheVillainsRevenge
         Texture2D enemyTexture; //Textur
         public bool fall = false;
         public double falltimer;
-        public int gravitation = 60; //Erdbeschleunigung in (m/s)*(m/s) _/60
+        public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
+        public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public bool mover = false;
         public Enemy(int x, int y, int t) //Konstruktor, setzt Anfangsposition
         {
@@ -37,11 +38,18 @@ namespace TheVillainsRevenge
         }
         public void Update(GameTime gameTime, Map map)
         {
+            speed = Convert.ToInt32((double)Game1.luaInstance["enemySpeed"]);
+            gravitation = Convert.ToInt32((double)Game1.luaInstance["enemyGravitation"]);
             if (mover)
             {
-                if (CollisionCheckedVector(2, 0, map.blocks).X != 0)
+                if (CollisionCheckedVector(speed, 0, map.blocks).X != 0)
                 {
-                    Move(2, 0, map);//Bewege Rechts
+                    Move(speed, 0, map);//Bewege Rechts
+                    if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                    {
+                        mover = false;
+                        Move(-speed, 0, map);
+                    }
                 }
                 else
                 {
@@ -50,9 +58,14 @@ namespace TheVillainsRevenge
             }
             else
             {
-                if (CollisionCheckedVector(-2, 0, map.blocks).X != 0)
+                if (CollisionCheckedVector(-speed, 0, map.blocks).X != 0)
                 {
-                    Move(-2, 0, map);//Bewege Links
+                    Move(-speed, 0, map);//Bewege Links
+                    if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                    {
+                        mover = true;
+                        Move(speed, 0, map);
+                    }
                 }
                 else
                 {
