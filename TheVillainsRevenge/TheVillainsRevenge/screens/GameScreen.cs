@@ -99,6 +99,8 @@ namespace TheVillainsRevenge
                         }
                         else if (item.type == "zeit")
                         {
+                            if(spieler.item1 != 0)
+                                spieler.item2 = spieler.item1;
                             spieler.item1 = 1;
                             karte.items.Remove(item);
                         }
