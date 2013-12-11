@@ -129,76 +129,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_1_1.png">
-      <Name>clouds_1_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_1_2.png">
-      <Name>clouds_1_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_1_3.png">
-      <Name>clouds_1_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_1_4.png">
-      <Name>clouds_1_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_1_5.png">
-      <Name>clouds_1_5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_1_6.png">
-      <Name>clouds_1_6</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_2_1.png">
-      <Name>clouds_2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_2_2.png">
-      <Name>clouds_2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_2_3.png">
-      <Name>clouds_2_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_2_4.png">
-      <Name>clouds_2_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_2_5.png">
-      <Name>clouds_2_5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_3_1.png">
-      <Name>clouds_3_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_3_2.png">
-      <Name>clouds_3_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_3_3.png">
-      <Name>clouds_3_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="sprites\Level_1\Planes\background_0_1.png">
       <Name>background_0_1</Name>
       <Importer>TextureImporter</Importer>
@@ -247,6 +177,23 @@
       <Name>CoverEyes</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\Level_1\Planes\clouds_1.png">
+      <Name>clouds_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\Level_1\Planes\clouds_2.png">
+      <Name>clouds_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\Level_1\Planes\clouds_3.png">
+      <Name>clouds_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

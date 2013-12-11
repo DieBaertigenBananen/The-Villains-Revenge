@@ -75,6 +75,24 @@ namespace TheVillainsRevenge
             luaInstance["planeTilesBackground2"] = "";
             luaInstance["planeTilesBackground3"] = "";
 
+            luaInstance["cloudPlane1Top"] = "";
+            luaInstance["cloudPlane1Bottom"] = "";
+            luaInstance["cloudPlane1Amount"] = "";
+            luaInstance["cloudPlane1Type"] = "";
+            luaInstance["cloudPlane1Wind"] = "";
+
+            luaInstance["cloudPlane2Top"] = "";
+            luaInstance["cloudPlane2Bottom"] = "";
+            luaInstance["cloudPlane2Amount"] = "";
+            luaInstance["cloudPlane2Type"] = "";
+            luaInstance["cloudPlane2Wind"] = "";
+
+            luaInstance["cloudPlane3Top"] = "";
+            luaInstance["cloudPlane3Bottom"] = "";
+            luaInstance["cloudPlane3Amount"] = "";
+            luaInstance["cloudPlane3Type"] = "";
+            luaInstance["cloudPlane3Wind"] = "";
+
             /*
             luaInstance.RegisterFunction("getPlayerHitpoints", this, this.GetType().GetMethod("getPlayerHitpoints"));
             public int getPlayerHitpoints()

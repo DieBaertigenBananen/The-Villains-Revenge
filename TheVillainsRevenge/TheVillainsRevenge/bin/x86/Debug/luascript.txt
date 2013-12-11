@@ -16,9 +16,9 @@ heroStartTime = 10
 
 
 --Update
-playerSpeed = 10
+playerSpeed = 30
 playerAirspeed = playerSpeed - 2
-playerJumppower = 20
+playerJumppower = 60
 playerGravitation = 60
 
 heroSpeed = 10
@@ -37,6 +37,23 @@ cameraTopspace = 1080 - cameraBottomspace
 minimapWidth = 400
 minimapOffsetX = 300
 
+cloudPlane1Top = 1300
+cloudPlane1Bottom = 1500
+cloudPlane1Amount = 5
+cloudPlane1Type = 5
+cloudPlane1Wind = 130
+
+cloudPlane2Top = 1200
+cloudPlane2Bottom = 1500
+cloudPlane2Amount = 5
+cloudPlane2Type = 5
+cloudPlane2Wind = 120
+
+cloudPlane3Top = 1400
+cloudPlane3Bottom = 1500
+cloudPlane3Amount = 5
+cloudPlane3Type = 5
+cloudPlane3Wind = 100
 
 --Enter
 playerLifes = playerStartLifes
