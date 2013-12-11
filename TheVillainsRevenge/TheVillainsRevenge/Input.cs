@@ -141,7 +141,7 @@ namespace TheVillainsRevenge
             else
             {
                 enter = false;
-                if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Released
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Released
                     || 
                     keyState.IsKeyUp(Keys.Enter))
                 {
