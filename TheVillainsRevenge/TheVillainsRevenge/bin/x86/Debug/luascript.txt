@@ -1,11 +1,10 @@
 --Loading
 playerStartLifes = 4
-playerScale = 3
-
+playerScale = 4
 playerCollisionOffsetX = -90
-playerCollisionOffsetY = -100
+playerCollisionOffsetY = -330
 playerCollisionWidth = 180
-playerCollisionHeight = 200
+playerCollisionHeight = 220
 
 planeTilesBackground0 = 7 --Baueme
 planeTilesBackground1 = 4 --Wald
@@ -13,6 +12,15 @@ planeTilesBackground2 = 2 --Berg
 planeTilesBackground3 = 1 --Himmel
 
 heroStartTime = 10
+heroCollisionOffsetX = 0
+heroCollisionOffsetY = 0
+heroCollisionWidth = 85
+heroCollisionHeight = 85
+
+enemyCollisionOffsetX = 0
+enemyCollisionOffsetY = 0
+enemyCollisionWidth = 64
+enemyCollisionHeight = 64
 
 
 --Update
@@ -37,6 +45,8 @@ cameraTopspace = 1080 - cameraBottomspace
 minimapWidth = 400
 minimapOffsetX = 300
 
+itemSlowTime = 10
+itemSlowReduce = 2
 
 --Enter
 playerLifes = playerStartLifes

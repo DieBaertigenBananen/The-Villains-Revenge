@@ -26,6 +26,10 @@ namespace TheVillainsRevenge
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
                     break;
+                case "zeit":
+                    cuttexture.X = 48;
+                    cuttexture.Y = 0;
+                    break;
             }
         }
     }

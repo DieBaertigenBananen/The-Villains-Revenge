@@ -18,6 +18,8 @@ namespace TheVillainsRevenge
         bool itemep;
         public bool itemq;
         bool itemqp;
+        public bool itemu;
+        bool itemup;
         public bool back;
         bool backp;
         public bool debug;
@@ -100,10 +102,30 @@ namespace TheVillainsRevenge
             {
                 itemq = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Released
-                    && 
+                    &&
                     keyState.IsKeyUp(Keys.Q))
                 {
                     itemqp = false;
+                }
+            }
+            if (!itemup)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed
+                    ||
+                    keyState.IsKeyDown(Keys.F))
+                {
+                    itemu = true;
+                    itemup = true;
+                }
+            }
+            else
+            {
+                itemu = false;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Released
+                    &&
+                    keyState.IsKeyUp(Keys.F))
+                {
+                    itemup = false;
                 }
             }
             if (!enterp)

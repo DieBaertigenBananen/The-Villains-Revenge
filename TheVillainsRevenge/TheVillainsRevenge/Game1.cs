@@ -44,36 +44,60 @@ namespace TheVillainsRevenge
         {
             menu = new MenuScreen(false);
             //game = new GameScreen();
-            luaInstance["playerSpeed"] = "";
-            luaInstance["playerAirspeed"] = "";
-            luaInstance["playerJumppower"] = "";
-            luaInstance["playerGravitation"] = "";
-            luaInstance["playerLifes"] = "";
+
+            //Loading Stuffs
             luaInstance["playerStartLifes"] = "";
-            luaInstance["playerItem1"] = "";
-            luaInstance["playerItem2"] = "";
-            luaInstance["cameraLeftspace"] = "";
-            luaInstance["cameraRightspace"] = "";
-            luaInstance["cameraBottomspace"] = "";
-            luaInstance["cameraTopspace"] = "";
-            luaInstance["minimapWidth"] = "";
-            luaInstance["minimapOffsetX"] = "";
-            luaInstance["heroStartTime"] = "";
-            luaInstance["heroSpeed"] = "";
-            luaInstance["heroAirspeed"] = "";
-            luaInstance["heroJumppower"] = "";
-            luaInstance["heroGravitation"] = "";
-            luaInstance["enemySpeed"] = "";
-            luaInstance["enemyGravitation"] = "";
             luaInstance["playerScale"] = "";
             luaInstance["playerCollisionOffsetX"] = "";
             luaInstance["playerCollisionOffsetY"] = "";
             luaInstance["playerCollisionWidth"] = "";
             luaInstance["playerCollisionHeight"] = "";
+
             luaInstance["planeTilesBackground0"] = "";
             luaInstance["planeTilesBackground1"] = "";
             luaInstance["planeTilesBackground2"] = "";
             luaInstance["planeTilesBackground3"] = "";
+
+            luaInstance["heroStartTime"] = "";
+            luaInstance["heroCollisionOffsetX"] = "";
+            luaInstance["heroCollisionOffsetY"] = "";
+            luaInstance["heroCollisionWidth"] = "";
+            luaInstance["heroCollisionHeight"] = "";
+
+            luaInstance["enemyCollisionOffsetX"] = "";
+            luaInstance["enemyCollisionOffsetY"] = "";
+            luaInstance["enemyCollisionWidth"] = "";
+            luaInstance["enemyCollisionHeight"] = "";
+
+            //Update
+            luaInstance["playerSpeed"] = "";
+            luaInstance["playerAirspeed"] = "";
+            luaInstance["playerJumppower"] = "";
+            luaInstance["playerGravitation"] = "";
+
+            luaInstance["heroSpeed"] = "";
+            luaInstance["heroAirspeed"] = "";
+            luaInstance["heroJumppower"] = "";
+            luaInstance["heroGravitation"] = "";
+
+            luaInstance["enemySpeed"] = "";
+            luaInstance["enemyGravitation"] = "";
+
+            luaInstance["cameraLeftspace"] = "";
+            luaInstance["cameraRightspace"] = "";
+            luaInstance["cameraBottomspace"] = "";
+            luaInstance["cameraTopspace"] = "";
+
+            luaInstance["minimapWidth"] = "";
+            luaInstance["minimapOffsetX"] = "";
+
+            luaInstance["itemSlowTime"] = "";
+            luaInstance["itemSlowReduce"] = "";
+
+            //Enter
+            luaInstance["playerLifes"] = "";
+            luaInstance["playerItem1"] = "";
+            luaInstance["playerItem2"] = "";
 
             /*
             luaInstance.RegisterFunction("getPlayerHitpoints", this, this.GetType().GetMethod("getPlayerHitpoints"));

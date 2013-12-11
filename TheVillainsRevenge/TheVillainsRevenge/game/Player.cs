@@ -30,6 +30,7 @@ namespace TheVillainsRevenge
         public bool check = false;
         public Vector2 checkpoint;
         public bool coverEyes = true;
+        string animation = "";
 
         //----------Spine----------
         public SkeletonRenderer skeletonRenderer;
@@ -134,14 +135,30 @@ namespace TheVillainsRevenge
             if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
             {
                 Move(actualspeed, 0, map); //Bewege Rechts
-              //  animationState.AddAnimation(0, "walk", false, 0f);
+                    if (animation != "run")
+                    {
+                        animationState.SetAnimation(0, "run", true);
+                        animation = "run";
+                    }
                 skeleton.flipX = false;
             }
-            if (Game1.input.links) //Wenn Rechte Pfeiltaste
+            else if (Game1.input.links) //Wenn Rechte Pfeiltaste
             {
                 Move(-actualspeed, 0, map);//Bewege Links
-              //  animationState.AddAnimation(0, "walk", false, 0f);
+                if (animation != "run")
+                {
+                    animationState.SetAnimation(0, "run", true);
+                    animation = "run";
+                }
                 skeleton.flipX = true;
+            }
+            else
+            {
+                if (animation != "idle")
+                {
+                    animationState.SetAnimation(0, "idle", true);
+                    animation = "idle";
+                }
             }
             if (Game1.input.sprung)
             {
@@ -149,6 +166,14 @@ namespace TheVillainsRevenge
                 {
                     Jump(gameTime, map); //Springen!
                 }
+            }
+            if (Game1.input.itemu)
+            {
+                if (item1 == 1)
+                {
+                    GameScreen.slow = GameScreen.slow+Convert.ToInt32((double)Game1.luaInstance["itemSlowTime"]);
+                }
+                item1 = 0;
             }
 
             //Gravitation

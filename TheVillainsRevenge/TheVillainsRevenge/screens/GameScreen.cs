@@ -32,6 +32,8 @@ namespace TheVillainsRevenge
         List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
         bool levelend = false;
         Effect coverEyes;
+        public static int slow = 0;
+        double slowTime;
 
         public GameScreen()
         {
@@ -73,12 +75,12 @@ namespace TheVillainsRevenge
                 foreach (Enemy enemy in enemies)
                 {
                     enemy.Update(gameTime, karte);
-                    if (enemy.position.X < -enemy.cbox.Width || enemy.position.Y < -enemy.cbox.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
+                    if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
                     {
                         enemies.Remove(enemy);
                         break;
                     }
-                    if (spieler.cbox.box.Intersects(enemy.cbox))
+                    if (spieler.cbox.box.Intersects(enemy.cbox.box))
                      {
                          spieler.getHit();
                          enemies.Remove(enemy);
@@ -93,6 +95,11 @@ namespace TheVillainsRevenge
                         {
                             if(spieler.lifes != 4)
                                 spieler.lifes++;
+                            karte.items.Remove(item);
+                        }
+                        else if (item.type == "zeit")
+                        {
+                            spieler.item1 = 1;
                             karte.items.Remove(item);
                         }
                         break;
@@ -123,6 +130,15 @@ namespace TheVillainsRevenge
                 clouds_1.Update(karte, camera);
                 clouds_2.Update(karte, camera);
                 clouds_3.Update(karte, camera);
+                if (slow != 0)
+                {
+                    slowTime += gameTime.ElapsedGameTime.TotalSeconds;
+                    if (slowTime > slow)
+                    {
+                        slowTime = 0;
+                        slow = 0;
+                    }
+                }
             }
             if (spieler.lifes != 0)
             {
@@ -213,6 +229,7 @@ namespace TheVillainsRevenge
                 spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.White);
                 Slot bb = spieler.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
+                spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: "+slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                 //for (int i = 0; i < karte.background.Width; i++)
                 //{
                 //    for (int t = 15; t < karte.background.Height; t++)

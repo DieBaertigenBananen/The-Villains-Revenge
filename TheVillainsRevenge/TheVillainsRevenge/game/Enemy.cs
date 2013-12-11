@@ -11,7 +11,7 @@ namespace TheVillainsRevenge
     class Enemy
     {
         public Vector2 position; //Position
-        public Rectangle cbox; //Collisionsbox
+        public CollisionBox cbox;
         public int type;
         Texture2D enemyTexture; //Textur
         public bool fall = false;
@@ -24,7 +24,7 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             type = t;
-            cbox = new Rectangle((int)position.X, (int)position.Y, 64, 64);
+            cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionHeight"]));
         }
         public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
         {
@@ -39,6 +39,10 @@ namespace TheVillainsRevenge
         public void Update(GameTime gameTime, Map map)
         {
             speed = Convert.ToInt32((double)Game1.luaInstance["enemySpeed"]);
+            if (GameScreen.slow != 0)
+            {
+                speed = speed /Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
+            }
             gravitation = Convert.ToInt32((double)Game1.luaInstance["enemyGravitation"]);
             if (mover)
             {
@@ -96,13 +100,14 @@ namespace TheVillainsRevenge
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
             position.X += domove.X;
             position.Y += domove.Y;
-            cbox.X = (int)position.X;
-            cbox.Y = (int)position.Y;
+            cbox.Update(position);
         }
+
 
         Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
-            Rectangle cboxnew = this.cbox;
+            CollisionBox cboxnew = new CollisionBox((int)cbox.offset.X, (int)cbox.offset.Y, cbox.box.Width, cbox.box.Height);
+            cboxnew.Update(cbox.position);
             Vector2 move = new Vector2(0, 0);
             int icoll;
             bool stop;
@@ -120,13 +125,13 @@ namespace TheVillainsRevenge
             {
                 stop = false;
                 //Box für nächsten Iterationsschritt berechnen
-                cboxnew.X = this.cbox.X + ((x / icoll) * i);
-                cboxnew.Y = this.cbox.Y + ((y / icoll) * i);
+                cboxnew.box.X = this.cbox.box.X + ((x / icoll) * i);
+                cboxnew.box.Y = this.cbox.box.Y + ((y / icoll) * i);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if (cboxnew.Intersects(block.cbox))
+                    if (cboxnew.box.Intersects(block.cbox))
                     {
                         stop = true;
                         break;
@@ -138,8 +143,8 @@ namespace TheVillainsRevenge
                 }
                 else //Kollisionsfreien Fortschritt speichern
                 {
-                    move.X = cboxnew.X - cbox.X;
-                    move.Y = cboxnew.Y - cbox.Y;
+                    move.X = cboxnew.box.X - cbox.box.X;
+                    move.Y = cboxnew.box.Y - cbox.box.Y;
                 }
             }
             return move;
