@@ -29,7 +29,6 @@ namespace TheVillainsRevenge
         RenderTarget2D renderTarget;
         RenderTarget2D renderSpine;
         SpriteFont font;
-        List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
         bool levelend = false;
         Effect coverEyes;
         public static int slow = 0;
@@ -37,7 +36,6 @@ namespace TheVillainsRevenge
 
         public GameScreen()
         {
-            enemies.Add(new Enemy(4200, 0, 1));
             texture = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             texture.SetData<Color>(new Color[] { Color.White });
         }
@@ -59,11 +57,6 @@ namespace TheVillainsRevenge
             clouds_2.Load(Content, "clouds_2", 5);
             clouds_3.Load(Content, "clouds_3", 3);
             gui.Load(Content);
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Load(Content);
-
-            }
             coverEyes = Content.Load<Effect>("CoverEyes");
         }
 
@@ -72,18 +65,18 @@ namespace TheVillainsRevenge
             if (!levelend)
             {
 
-                foreach (Enemy enemy in enemies)
+                foreach (Enemy enemy in karte.enemies)
                 {
                     enemy.Update(gameTime, karte);
                     if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
                     {
-                        enemies.Remove(enemy);
+                        karte.enemies.Remove(enemy);
                         break;
                     }
                     if (spieler.cbox.box.Intersects(enemy.cbox.box))
                      {
                          spieler.getHit();
-                         enemies.Remove(enemy);
+                         karte.enemies.Remove(enemy);
                          break;
                      }
                 }
@@ -176,10 +169,6 @@ namespace TheVillainsRevenge
                 background_0.Draw(spriteBatch); //Bäume
             }
             //Spiel
-            foreach (Enemy enemy in enemies)
-            {
-                enemy.Draw(spriteBatch);
-            }
             spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White);
             if (Game1.debug)
             {

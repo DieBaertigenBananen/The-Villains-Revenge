@@ -10,16 +10,15 @@ namespace TheVillainsRevenge
 {
     class Item
     {
-        public Vector2 pos; //Position
+        public Vector2 position; //Position
         public Rectangle cbox; //Collisionsbox
         public string type;
         public Rectangle cuttexture = new Rectangle(0, 0, 48, 48);
-        public Item(int x, int y, string t) //Konstruktor, setzt Anfangsposition
+        public Item(Vector2 pos, string t) //Konstruktor, setzt Anfangsposition
         {
-            pos.X = x;
-            pos.Y = y;
+            position = pos;
             type = t;
-            cbox = new Rectangle((int)pos.X, (int)pos.Y, 48, 48);
+            cbox = new Rectangle((int)position.X, (int)position.Y, 48, 48);
             switch (type)
             {
                 case "herz":

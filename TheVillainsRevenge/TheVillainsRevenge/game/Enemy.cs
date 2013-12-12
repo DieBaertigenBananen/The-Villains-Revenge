@@ -13,28 +13,16 @@ namespace TheVillainsRevenge
         public Vector2 position; //Position
         public CollisionBox cbox;
         public int type;
-        Texture2D enemyTexture; //Textur
         public bool fall = false;
         public double falltimer;
         public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public bool mover = false;
-        public Enemy(int x, int y, int t) //Konstruktor, setzt Anfangsposition
+        public Enemy(Vector2 pos, int t) //Konstruktor, setzt Anfangsposition
         {
-            position.X = x;
-            position.Y = y;
+            position = pos;
             type = t;
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["enemyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionHeight"]));
-        }
-        public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
-        {
-            if (type == 1)
-                enemyTexture = Content.Load<Texture2D>("sprites/bunny");
-        }
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            spriteBatch.Draw(enemyTexture, position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
         }
         public void Update(GameTime gameTime, Map map)
         {

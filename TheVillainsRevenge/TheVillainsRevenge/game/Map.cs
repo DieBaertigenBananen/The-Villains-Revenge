@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
      class Map
      {
-         Texture2D mapTexture,itemTexture;
+         Texture2D mapTexture,itemTexture,enemyTexture;
          public Texture2D levelMap;
          public Vector2 size;
          public Color[] pixelColors;
@@ -18,6 +18,7 @@ namespace TheVillainsRevenge
          public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
          public List<Item> items = new List<Item>(); //Erstelle Blocks als List
          public List<Checkpoint> checkpoints = new List<Checkpoint>(); //Erstelle Blocks als List
+         public List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
 
          public Map()
          {
@@ -30,6 +31,7 @@ namespace TheVillainsRevenge
              itemTexture = Content.Load<Texture2D>("sprites/items");
              mapTexture = Content.Load<Texture2D>("sprites/tiles");
              levelMap = Content.Load<Texture2D>("sprites/Level_1/map");
+             enemyTexture = Content.Load<Texture2D>("sprites/bunny");
              pixelColors = new Color[levelMap.Width * levelMap.Height];
              levelMap.GetData<Color>(pixelColors);
              pixelRGBA = new int[levelMap.Width, levelMap.Height, 4];
@@ -56,7 +58,11 @@ namespace TheVillainsRevenge
              }
              foreach (Item item in items) //Gehe alle Blöcke durch
              {
-                 spriteBatch.Draw(itemTexture, item.pos, item.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
+                 spriteBatch.Draw(itemTexture, item.position, item.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
+             }
+             foreach (Enemy enemy in enemies) //Gehe alle Blöcke durch
+             {
+                 spriteBatch.Draw(enemyTexture, enemy.position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
          }
 
@@ -78,35 +84,39 @@ namespace TheVillainsRevenge
                          {
                              case "104,60,17":
                                  type = "underground_earth";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "0,255,0":
                                  type = "ground_grass";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "02,02,02":
                                  type = "platform_grass";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "0,0,255":
                                  type = "water";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "01,01,01":
                                  type = "underground_rock";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "0,0,0":
-                                 type = "ground_rock";
+                                 enemies.Add(new Enemy(new Vector2(i * 48, (t * 48)-64), 1));
                                  break;
                              case "255,255,0":
-                                 type = "platform_rock";
+                                 items.Add(new Item(new Vector2(i * 48, t * 48), "zeit"));
                                  break;
                              case "255,0,0":
                                  type = "lava";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                          }
-                         blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                      }
                  }
              }
-             items.Add(new Item(1200, (int)1800, "herz"));
-             items.Add(new Item(2200, (int)1800, "zeit"));
+             items.Add(new Item(new Vector2(1200, 1800), "herz"));
              checkpoints.Add(new Checkpoint(4000, false));
              checkpoints.Add(new Checkpoint((int)size.X-100, true));
          }
