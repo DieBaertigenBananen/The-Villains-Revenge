@@ -108,6 +108,9 @@ namespace TheVillainsRevenge
                              case "255,255,0":
                                  items.Add(new Item(new Vector2(i * 48, t * 48), "zeit"));
                                  break;
+                             case "171,140,188":
+                                 items.Add(new Item(new Vector2(i * 48, t * 48), "herz"));
+                                 break;
                              case "255,0,0":
                                  type = "lava";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
@@ -116,7 +119,6 @@ namespace TheVillainsRevenge
                      }
                  }
              }
-             items.Add(new Item(new Vector2(1200, 1800), "herz"));
              checkpoints.Add(new Checkpoint(4000, false));
              checkpoints.Add(new Checkpoint((int)size.X-100, true));
          }
