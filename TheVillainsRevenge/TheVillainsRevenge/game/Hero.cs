@@ -107,7 +107,7 @@ namespace TheVillainsRevenge
                 {
                     actualspeed = airspeed;
                 }
-                sposition.X = 8000;
+                sposition.X = map.size.X;
                 //Wenn Spieler ist hinten bewege zurück
                 if (sposition.X < position.X)
                 {

@@ -37,7 +37,7 @@ namespace TheVillainsRevenge
 
         public GameScreen()
         {
-            enemies.Add(new Enemy(5000, 0, 1));
+            enemies.Add(new Enemy(4000, 0, 1));
             texture = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             texture.SetData<Color>(new Color[] { Color.White });
         }
@@ -210,12 +210,12 @@ namespace TheVillainsRevenge
             }
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             spriteBatch.End();
-            if (levelend)
-            {
-                spriteBatch.DrawString(font, "Finished level!", new Vector2(Game1.resolution.X - 300, Game1.resolution.Y/2), Color.Black);
-            }
             
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            if (levelend)
+            {
+                spriteBatch.DrawString(font, "Finished level!", new Vector2(Game1.resolution.X - 300, Game1.resolution.Y / 2), Color.Black);
+            }
             gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             if (Game1.debug)
             {
