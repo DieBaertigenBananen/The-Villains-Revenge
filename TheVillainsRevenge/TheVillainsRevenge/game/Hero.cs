@@ -13,7 +13,6 @@ namespace TheVillainsRevenge
     {
         public Vector2 position; //Position
         public CollisionBox cbox;
-        Texture2D enemyTexture; //Textur
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
@@ -27,6 +26,13 @@ namespace TheVillainsRevenge
         int heroStartTime;
         public float test;
 
+        //----------Spine----------
+        string animation = "";
+        public SkeletonRenderer skeletonRenderer;
+        public Skeleton skeleton;
+        public AnimationState animationState;
+        public SkeletonBounds bounds = new SkeletonBounds();
+
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
             position.X = x;
@@ -34,15 +40,54 @@ namespace TheVillainsRevenge
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionHeight"]));
             heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
         }
-        public void Load(ContentManager Content)//Wird im Hauptgame ausgeführt und geladen
+        public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-                enemyTexture = Content.Load<Texture2D>("sprites/held");
+            //----------Spine----------
+            skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
+            skeletonRenderer.PremultipliedAlpha = true;
+
+            String name = "ashbrett";
+
+            Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
+            SkeletonJson json = new SkeletonJson(atlas);
+            json.Scale = (float)Convert.ToInt32((double)Game1.luaInstance["heroScale"]) / 20; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
+            skeleton = new Skeleton(json.ReadSkeletonData("spine/sprites/" + name + ".json"));
+            skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
+
+            // Define mixing between animations.
+            AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
+            //animationStateData.SetMix("walk", "jump", 0.2f);
+            //animationStateData.SetMix("jump", "walk", 0.4f);
+            animationState = new AnimationState(animationStateData);
+
+            // Event handling for all animations.
+            animationState.Start += Start;
+            animationState.End += End;
+            animationState.Complete += Complete;
+            animationState.Event += Event;
+
+            skeleton.x = position.X;
+            skeleton.y = position.Y;
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, Camera camera)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
-            if(start)
-                spriteBatch.Draw(enemyTexture, position, new Rectangle(0, 0, 85, 85), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+            if (start)
+            {
+                //Player -> Drawposition
+                skeleton.X = position.X - camera.viewport.X;
+                skeleton.Y = position.Y - camera.viewport.Y;
+                //----------Spine----------
+                animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
+                animationState.Apply(skeleton);
+                skeleton.UpdateWorldTransform();
+                skeletonRenderer.Begin();
+                skeletonRenderer.Draw(skeleton);
+                skeletonRenderer.End();
+                //Player -> Worldposition
+                skeleton.X = position.X;
+                skeleton.Y = position.Y;
+            }
         }
         public void Update(GameTime gameTime, Map map,Vector2 sposition)
         {
@@ -62,14 +107,13 @@ namespace TheVillainsRevenge
                 {
                     actualspeed = airspeed;
                 }
-                //sposition.X = 8000;
+                sposition.X = 8000;
                 //Wenn Spieler ist hinten bewege zurück
                 if (sposition.X < position.X)
                 {
                     actualspeed = -actualspeed;
                 }
                 //Schaue ob an nächster Position ein Block ist
-                test = 0.0f;
                 if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
                 {
                     //kein Block, also bewege
@@ -77,10 +121,53 @@ namespace TheVillainsRevenge
                     //Schau ob unten ein Block ist
                     if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
                     {
+                        //Schau ob er tief fällt, wenn ja, beweg mal zurück
+                        if (fall || jump)
+                        {
+                            //Schaue ob an nächster Position ein Block wär wo er drauf könnte
+                            if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
+                            {
+                                Move(actualspeed, 0, map);
+                                //Schau ob er direkt auf nen Block steht, wenn ja bewege
+                                if (CollisionCheckedVector(0, gravitation, map.blocks).Y != gravitation) 
+                                {
+                                    Move(-actualspeed, 0, map);
+                                }
+                                else
+                                {
+                                    Move(-actualspeed, 0, map);
+                                    //Schaue ob er wenn er fällt auf einen block stehen würd, wenn ja, bewege garnicht
+                                    test = CollisionCheckedVector(0, gravitation, map.blocks).Y;
+                                    if (CollisionCheckedVector(0, gravitation, map.blocks).Y != gravitation)
+                                    {
+                                        Move(-actualspeed, 0, map);
+                                    }
+                                }
+                            }
+                        }
                         //Kein Block unten, kann also fallen, daher spring mal lieber
                         if (!jump && !fall)
                         {
                             Jump(gameTime, map); //Springen!
+                        }
+                    }
+                    //Schau ob oben ein Block ist
+                    if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
+                    {
+                        Move(actualspeed, 0, map);
+                        if (CollisionCheckedVector(0, -jumppower, map.blocks).Y != -jumppower)
+                        {
+                            Move(-actualspeed, 0, map);
+                            //Kein Block unten, kann also fallen, daher spring mal lieber
+                            if (!jump && !fall)
+                            {
+                                Jump(gameTime, map); //Springen!
+                            }
+                        }
+                        else
+                        {
+                            Move(-actualspeed, 0, map);
+
                         }
                     }
 
@@ -154,8 +241,10 @@ namespace TheVillainsRevenge
         {
             Vector2 domove = new Vector2(0, 0);
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
-            position.X += domove.X;
-            position.Y += domove.Y;
+            skeleton.X += domove.X;
+            skeleton.Y += domove.Y;
+            position.Y = skeleton.Y;
+            position.X = skeleton.X;
             cbox.Update(position);
         }
 
@@ -204,6 +293,27 @@ namespace TheVillainsRevenge
                 }
             }
             return move;
+        }
+
+        //----------Spine----------
+        public void Start(object sender, StartEndArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": start");
+        }
+
+        public void End(object sender, StartEndArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": end");
+        }
+
+        public void Complete(object sender, CompleteArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": complete " + e.LoopCount);
+        }
+
+        public void Event(object sender, EventTriggeredArgs e)
+        {
+            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": event " + e.Event);
         }
     }
 }

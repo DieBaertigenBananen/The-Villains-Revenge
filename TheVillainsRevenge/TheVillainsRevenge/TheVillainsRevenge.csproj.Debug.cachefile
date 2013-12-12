@@ -37,12 +37,9 @@ Content\sprites\Level_1\Planes\background_0_4.xnb
 Content\sprites\Level_1\Planes\background_0_5.xnb
 Content\sprites\Level_1\Planes\background_0_6.xnb
 Content\sprites\Level_1\Planes\background_0_7.xnb
+spine\sprites\ashbrett.png
 spine\sprites\skeleton.png
+spine\sprites\ashbrett.atlas
+spine\sprites\ashbrett.json
 spine\sprites\skeleton.atlas
 spine\sprites\skeleton.json
-spine\sprites\spineboy.png
-spine\sprites\goblins.png
-spine\sprites\spineboy.atlas
-spine\sprites\spineboy.json
-spine\sprites\goblins.atlas
-spine\sprites\goblins.json

@@ -1,0 +1,12 @@
+
+ashbrett.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ashbrett_vorlage
+  rotate: false
+  xy: 2, 2
+  size: 531, 1010
+  orig: 1024, 1024
+  offset: 247, 8
+  index: -1

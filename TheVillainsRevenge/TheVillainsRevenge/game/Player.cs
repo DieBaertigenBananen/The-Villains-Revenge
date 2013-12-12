@@ -30,9 +30,9 @@ namespace TheVillainsRevenge
         public bool check = false;
         public Vector2 checkpoint;
         public bool coverEyes = true;
-        string animation = "";
 
         //----------Spine----------
+        string animation = "";
         public SkeletonRenderer skeletonRenderer;
         public Skeleton skeleton;
         public AnimationState animationState;

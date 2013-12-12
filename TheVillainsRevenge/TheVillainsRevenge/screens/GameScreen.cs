@@ -48,7 +48,7 @@ namespace TheVillainsRevenge
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             font = Content.Load<SpriteFont>("fonts/schrift");
             spieler.Load(Content, Game1.graphics);
-            hero.Load(Content);
+            hero.Load(Content, Game1.graphics);
             karte.Load(Content);
             karte.Generate();
             background_0.Load(Content, "background_0", 7);
@@ -158,6 +158,7 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderSpine);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spieler.Draw(gameTime, camera);
+            hero.Draw(gameTime, camera);
 
             //Draw to Texture
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderTarget);
@@ -183,8 +184,8 @@ namespace TheVillainsRevenge
             if (Game1.debug)
             {
                 spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
+                spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
             }
-            hero.Draw(spriteBatch);
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
             spriteBatch.End();
 

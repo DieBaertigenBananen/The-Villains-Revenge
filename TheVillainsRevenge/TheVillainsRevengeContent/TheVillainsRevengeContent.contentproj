@@ -65,11 +65,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="sprites\held.png">
-      <Name>held</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="sprites\itemslot.png">
       <Name>itemslot</Name>
       <Importer>TextureImporter</Importer>

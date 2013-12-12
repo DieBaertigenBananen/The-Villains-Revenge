@@ -11,17 +11,17 @@ planeTilesBackground1 = 4 --Wald
 planeTilesBackground2 = 2 --Berg
 planeTilesBackground3 = 1 --Himmel
 
+heroScale = 3
 heroStartTime = 3
-heroCollisionOffsetX = 0
-heroCollisionOffsetY = 0
+heroCollisionOffsetX = -50
+heroCollisionOffsetY = -200
 heroCollisionWidth = 85
-heroCollisionHeight = 85
+heroCollisionHeight = 200
 
 enemyCollisionOffsetX = 0
 enemyCollisionOffsetY = 0
 enemyCollisionWidth = 64
 enemyCollisionHeight = 64
-
 
 --Update
 playerSpeed = 10
