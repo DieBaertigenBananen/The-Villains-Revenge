@@ -84,10 +84,11 @@ namespace TheVillainsRevenge
             lifes--;
             if (lifes > 0)
             {
-                position.X = checkpoint.X;
-                position.Y = checkpoint.Y;
-                skeleton.x = position.X;
-                skeleton.y = position.Y;
+                skeleton.x = checkpoint.X;
+                skeleton.y = checkpoint.Y;
+                position.Y = skeleton.Y;
+                position.X = skeleton.X;
+                cbox.Update(position);
                 lastPosition = new Vector2(skeleton.X, skeleton.Y);
             }
         }
@@ -199,7 +200,6 @@ namespace TheVillainsRevenge
             }
             position.Y = skeleton.Y;
             position.X = skeleton.X;
-            if (position.Y >= (map.size.Y)) getHit();
         }
 
         public void Draw(GameTime gameTime, Camera camera)

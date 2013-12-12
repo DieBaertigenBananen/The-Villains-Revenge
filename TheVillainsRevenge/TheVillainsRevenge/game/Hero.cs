@@ -13,6 +13,7 @@ namespace TheVillainsRevenge
     {
         public Vector2 position; //Position
         public CollisionBox cbox;
+        public Vector2 checkpoint;
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
@@ -35,6 +36,7 @@ namespace TheVillainsRevenge
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
+            checkpoint = new Vector2(x, y);
             position.X = x;
             position.Y = y;
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionHeight"]));
@@ -88,6 +90,14 @@ namespace TheVillainsRevenge
                 skeleton.X = position.X;
                 skeleton.Y = position.Y;
             }
+        }
+        public void Reset()
+        {
+            skeleton.x = checkpoint.X;
+            skeleton.y = checkpoint.Y;
+            position.Y = skeleton.Y;
+            position.X = skeleton.X;
+            cbox.Update(position);
         }
         public void Update(GameTime gameTime, Map map,Vector2 sposition)
         {

@@ -76,6 +76,7 @@ namespace TheVillainsRevenge
                     if (spieler.cbox.box.Intersects(enemy.cbox.box))
                      {
                          spieler.getHit();
+                         hero.Reset();
                          karte.enemies.Remove(enemy);
                          break;
                      }
@@ -111,12 +112,19 @@ namespace TheVillainsRevenge
                         {
                             spieler.checkpoint.X = cpoint.x;
                             spieler.checkpoint.Y = spieler.position.Y;
+                            hero.checkpoint.X = hero.position.X;
+                            hero.checkpoint.Y = hero.position.Y;
                         }
                         break;
                     }
                 }
                 hero.Update(gameTime, karte, spieler.position);
                 spieler.Update(gameTime, karte);
+                if (spieler.position.Y >= (karte.size.Y))
+                {
+                    spieler.getHit();
+                    hero.Reset();
+                }
                 if (spieler.cbox.box.Intersects(hero.cbox.box))
                 {
                     spieler.lifes = 0;
