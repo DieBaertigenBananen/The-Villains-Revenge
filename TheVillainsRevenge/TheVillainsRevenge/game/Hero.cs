@@ -107,77 +107,81 @@ namespace TheVillainsRevenge
                 {
                     actualspeed = airspeed;
                 }
-                sposition.X = map.size.X;
+                //sposition.X = map.size.X;
                 //Wenn Spieler ist hinten bewege zurück
                 if (sposition.X < position.X)
                 {
                     actualspeed = -actualspeed;
                 }
-                //Schaue ob an nächster Position ein Block ist
-                if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
+                if (position.X + 50 < sposition.X || position.X - 50 > sposition.X)
                 {
-                    //kein Block, also bewege
-                    Move(actualspeed, 0, map);
-                    //Schau ob unten ein Block ist
-                    if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+
+                    //Schaue ob an nächster Position ein Block ist
+                    if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
                     {
-                        //Schau ob er tief fällt, wenn ja, beweg mal zurück
-                        if (fall || jump)
+                        //kein Block, also bewege
+                        Move(actualspeed, 0, map);
+                        //Schau ob unten ein Block ist
+                        if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
                         {
-                            //Schaue ob an nächster Position ein Block wär wo er drauf könnte
-                            if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
+                            //Schau ob er tief fällt, wenn ja, beweg mal zurück
+                            if (fall || jump)
                             {
-                                Move(actualspeed, 0, map);
-                                //Schau ob er direkt auf nen Block steht, wenn ja bewege
-                                if (CollisionCheckedVector(0, gravitation, map.blocks).Y != gravitation) 
+                                //Schaue ob an nächster Position ein Block wär wo er drauf könnte
+                                if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
                                 {
-                                    Move(-actualspeed, 0, map);
-                                }
-                                else
-                                {
-                                    Move(-actualspeed, 0, map);
-                                    //Schaue ob er wenn er fällt auf einen block stehen würd, wenn ja, bewege garnicht
-                                    test = CollisionCheckedVector(0, gravitation, map.blocks).Y;
+                                    Move(actualspeed, 0, map);
+                                    //Schau ob er direkt auf nen Block steht, wenn ja bewege
                                     if (CollisionCheckedVector(0, gravitation, map.blocks).Y != gravitation)
                                     {
                                         Move(-actualspeed, 0, map);
                                     }
+                                    else
+                                    {
+                                        Move(-actualspeed, 0, map);
+                                        //Schaue ob er wenn er fällt auf einen block stehen würd, wenn ja, bewege garnicht
+                                        test = CollisionCheckedVector(0, gravitation, map.blocks).Y;
+                                        if (CollisionCheckedVector(0, gravitation, map.blocks).Y != gravitation)
+                                        {
+                                            Move(-actualspeed, 0, map);
+                                        }
+                                    }
                                 }
                             }
-                        }
-                        //Kein Block unten, kann also fallen, daher spring mal lieber
-                        if (!jump && !fall)
-                        {
-                            Jump(gameTime, map); //Springen!
-                        }
-                    }
-                    //Schau ob oben ein Block ist
-                    if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
-                    {
-                        Move(actualspeed, 0, map);
-                        if (CollisionCheckedVector(0, -jumppower, map.blocks).Y != -jumppower)
-                        {
-                            Move(-actualspeed, 0, map);
                             //Kein Block unten, kann also fallen, daher spring mal lieber
                             if (!jump && !fall)
                             {
                                 Jump(gameTime, map); //Springen!
                             }
                         }
-                        else
+                        //Schau ob oben ein Block ist
+                        if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
                         {
-                            Move(-actualspeed, 0, map);
+                            Move(actualspeed, 0, map);
+                            if (CollisionCheckedVector(0, -jumppower, map.blocks).Y != -jumppower)
+                            {
+                                Move(-actualspeed, 0, map);
+                                //Kein Block unten, kann also fallen, daher spring mal lieber
+                                if (!jump && !fall)
+                                {
+                                    Jump(gameTime, map); //Springen!
+                                }
+                            }
+                            else
+                            {
+                                Move(-actualspeed, 0, map);
 
+                            }
                         }
-                    }
 
-                }
-                else
-                {
-                    //Doch ein Block, also spring
-                    if (!jump && !fall)
+                    }
+                    else
                     {
-                        Jump(gameTime, map); //Springen!
+                        //Doch ein Block, also spring
+                        if (!jump && !fall)
+                        {
+                            Jump(gameTime, map); //Springen!
+                        }
                     }
                 }
                 if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
