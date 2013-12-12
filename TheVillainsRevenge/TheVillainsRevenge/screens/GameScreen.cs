@@ -14,7 +14,7 @@ namespace TheVillainsRevenge
     class GameScreen
     {
         Texture2D texture;
-        Player spieler = new Player(40, 100);
+        Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
         Map karte = new Map();
         Camera camera = new Camera();
@@ -117,6 +117,10 @@ namespace TheVillainsRevenge
                 }
                 hero.Update(gameTime, karte, spieler.position);
                 spieler.Update(gameTime, karte);
+                if (spieler.cbox.box.Intersects(hero.cbox.box))
+                {
+                    spieler.lifes = 0;
+                }
                 camera.Update(Game1.graphics, spieler, karte);
                 background_0.Update(karte, camera);
                 background_1.Update(karte, camera);

@@ -130,7 +130,7 @@ namespace TheVillainsRevenge
             }
             if (!enterp)
             {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed
                     || 
                     keyState.IsKeyDown(Keys.Enter))
                 {
@@ -142,7 +142,7 @@ namespace TheVillainsRevenge
             {
                 enter = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Released
-                    || 
+                    && 
                     keyState.IsKeyUp(Keys.Enter))
                 {
                     enterp = false;
