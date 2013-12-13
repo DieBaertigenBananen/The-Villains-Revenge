@@ -64,7 +64,7 @@ namespace TheVillainsRevenge
         {
             if (!levelend)
             {
-
+                karte.Update(gameTime,spieler.cbox.box);
                 foreach (Enemy enemy in karte.enemies)
                 {
                     enemy.Update(gameTime, karte);
@@ -118,6 +118,14 @@ namespace TheVillainsRevenge
                         break;
                     }
                 }
+                foreach (Trigger trigger in karte.triggers)
+                {
+                    if (spieler.cbox.box.Intersects(trigger.cbox)&&spieler.fall)
+                    {
+                        trigger.Pushed(karte.blocks);
+                        break;
+                    }
+                }
                 hero.Update(gameTime, karte, spieler.position);
                 spieler.Update(gameTime, karte);
                 if (spieler.position.Y >= (karte.size.Y))
@@ -129,7 +137,6 @@ namespace TheVillainsRevenge
                 {
                     spieler.lifes = 0;
                 }
-                camera.Update(Game1.graphics, spieler, karte);
                 background_0.Update(karte, camera);
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
@@ -147,6 +154,7 @@ namespace TheVillainsRevenge
                     }
                 }
             }
+            camera.Update(Game1.graphics, spieler, karte);
             if (spieler.lifes != 0)
             {
                 return 1;
@@ -228,11 +236,11 @@ namespace TheVillainsRevenge
                 spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);
                 spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.White);
                 spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(Game1.resolution.X - 300, 230), Color.White);
-                spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
+                spriteBatch.DrawString(font, "Skeleton: " + (spieler.spine.skeleton.X + " " + spieler.spine.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
                 spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + background_0.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
                 spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.White);
-                Slot bb = spieler.skeleton.FindSlot("bonepuker");
-                spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
+                Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
+                spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: "+slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                 spriteBatch.DrawString(font, "Test: " + hero.test, new Vector2(Game1.resolution.X - 300, 350), Color.White);
                 //for (int i = 0; i < karte.background.Width; i++)

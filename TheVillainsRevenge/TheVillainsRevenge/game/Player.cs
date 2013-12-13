@@ -30,13 +30,7 @@ namespace TheVillainsRevenge
         public bool check = false;
         public Vector2 checkpoint;
         public bool coverEyes = true;
-
-        //----------Spine----------
-        string animation = "";
-        public SkeletonRenderer skeletonRenderer;
-        public Skeleton skeleton;
-        public AnimationState animationState;
-        public SkeletonBounds bounds = new SkeletonBounds();
+        public Spine spine;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -46,37 +40,13 @@ namespace TheVillainsRevenge
             lastPosition = position;
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionHeight"]));
             lifes = startLifes;
+            spine = new Spine();
 
         }
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            //----------Spine----------
-            skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
-            skeletonRenderer.PremultipliedAlpha = true;
-
-            String name = "skeleton";
-
-            Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
-            SkeletonJson json = new SkeletonJson(atlas);
-            json.Scale = (float)Convert.ToInt32((double)Game1.luaInstance["playerScale"])/10; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
-            skeleton = new Skeleton(json.ReadSkeletonData("spine/sprites/" + name + ".json"));
-            skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
-
-            // Define mixing between animations.
-            AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
-            //animationStateData.SetMix("walk", "jump", 0.2f);
-            //animationStateData.SetMix("jump", "walk", 0.4f);
-            animationState = new AnimationState(animationStateData);
-
-            // Event handling for all animations.
-            animationState.Start += Start;
-            animationState.End += End;
-            animationState.Complete += Complete;
-            animationState.Event += Event;
-
-            skeleton.x = position.X;
-            skeleton.y = position.Y;
+            spine.Load(position, "skeleton", (float)Convert.ToInt32((double)Game1.luaInstance["playerScale"]) / 10);
         }
 
         public void getHit()
@@ -84,12 +54,12 @@ namespace TheVillainsRevenge
             lifes--;
             if (lifes > 0)
             {
-                skeleton.x = checkpoint.X;
-                skeleton.y = checkpoint.Y;
-                position.Y = skeleton.Y;
-                position.X = skeleton.X;
+                spine.skeleton.x = checkpoint.X;
+                spine.skeleton.y = checkpoint.Y;
+                position.Y = spine.skeleton.Y;
+                position.X = spine.skeleton.X;
                 cbox.Update(position);
-                lastPosition = new Vector2(skeleton.X, skeleton.Y);
+                lastPosition = new Vector2(spine.skeleton.X, spine.skeleton.Y);
             }
         }
 
@@ -136,30 +106,16 @@ namespace TheVillainsRevenge
             if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
             {
                 Move(actualspeed, 0, map); //Bewege Rechts
-                    if (animation != "run")
-                    {
-                        animationState.SetAnimation(0, "run", true);
-                        animation = "run";
-                    }
-                skeleton.flipX = false;
+                spine.anim("run", 2);
             }
             else if (Game1.input.links) //Wenn Rechte Pfeiltaste
             {
                 Move(-actualspeed, 0, map);//Bewege Links
-                if (animation != "run")
-                {
-                    animationState.SetAnimation(0, "run", true);
-                    animation = "run";
-                }
-                skeleton.flipX = true;
+                spine.anim("run", 1);
             }
             else
             {
-                if (animation != "idle")
-                {
-                    animationState.SetAnimation(0, "idle", true);
-                    animation = "idle";
-                }
+                spine.anim("idle", 0);
             }
             if (Game1.input.sprung)
             {
@@ -198,25 +154,13 @@ namespace TheVillainsRevenge
             {
                 Jump(gameTime, map);
             }
-            position.Y = skeleton.Y;
-            position.X = skeleton.X;
+            position.Y = spine.skeleton.Y;
+            position.X = spine.skeleton.X;
         }
 
         public void Draw(GameTime gameTime, Camera camera)
         {
-            //Player -> Drawposition
-            skeleton.X = position.X - camera.viewport.X;
-            skeleton.Y = position.Y - camera.viewport.Y;
-            //----------Spine----------
-            animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
-            animationState.Apply(skeleton);
-            skeleton.UpdateWorldTransform();
-            skeletonRenderer.Begin();
-            skeletonRenderer.Draw(skeleton);
-            skeletonRenderer.End();
-            //Player -> Worldposition
-            skeleton.X = position.X;
-            skeleton.Y = position.Y;
+            spine.Draw(gameTime, camera, position);
         }
 
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
@@ -252,10 +196,10 @@ namespace TheVillainsRevenge
         {
             Vector2 domove = new Vector2(0, 0);
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
-            skeleton.X += domove.X;
-            skeleton.Y += domove.Y;
-            position.Y = skeleton.Y;
-            position.X = skeleton.X;
+            spine.skeleton.X += domove.X;
+            spine.skeleton.Y += domove.Y;
+            position.Y = spine.skeleton.Y;
+            position.X = spine.skeleton.X;
             cbox.Update(position);
         }
 
@@ -287,7 +231,7 @@ namespace TheVillainsRevenge
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if (cboxnew.box.Intersects(block.cbox))
+                    if (cboxnew.box.Intersects(block.cbox) && block.block)
                     {
                         stop = true;
                         break;
@@ -307,8 +251,8 @@ namespace TheVillainsRevenge
         }
         Vector2 BoundingCheckedVector(int x, int y, List<Block> list)
         {
-            position.Y = skeleton.Y;
-            position.X = skeleton.X;
+            position.Y = spine.skeleton.Y;
+            position.X = spine.skeleton.X;
             Vector2 move = new Vector2(0, 0);
             int icoll;
             bool stop;
@@ -326,9 +270,9 @@ namespace TheVillainsRevenge
             {
                 stop = false;
                 //Box für nächsten Iterationsschritt berechnen
-                skeleton.X = position.X + ((x / icoll) * i);
-                skeleton.Y = position.Y + ((y / icoll) * i);
-                bounds.Update(skeleton, true);
+                spine.skeleton.X = position.X + ((x / icoll) * i);
+                spine.skeleton.Y = position.Y + ((y / icoll) * i);
+                spine.bounds.Update(spine.skeleton, true);
                 //Gehe die Blöcke der Liste durch
                 foreach (Block block in list)
                 {
@@ -336,13 +280,13 @@ namespace TheVillainsRevenge
                     Vector2 or = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)block.cbox.Y);
                     Vector2 ul = new Vector2((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height));
                     Vector2 ur = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
-                    if (bounds.AabbContainsPoint(ol.X, ol.Y) || bounds.AabbContainsPoint(or.X, or.Y) || bounds.AabbContainsPoint(ul.X, ul.Y) || bounds.AabbContainsPoint(ur.X, ur.Y))
+                    if (spine.bounds.AabbContainsPoint(ol.X, ol.Y) || spine.bounds.AabbContainsPoint(or.X, or.Y) || spine.bounds.AabbContainsPoint(ul.X, ul.Y) || spine.bounds.AabbContainsPoint(ur.X, ur.Y))
                     {
                         check = true;
-                        BoundingBoxAttachment colOL = bounds.ContainsPoint(ol.X, ol.Y);
-                        BoundingBoxAttachment colOR = bounds.ContainsPoint(or.X, or.Y);
-                        BoundingBoxAttachment colUL = bounds.ContainsPoint(ul.X, ul.Y);
-                        BoundingBoxAttachment colUR = bounds.ContainsPoint(ur.X, ur.Y);
+                        BoundingBoxAttachment colOL = spine.bounds.ContainsPoint(ol.X, ol.Y);
+                        BoundingBoxAttachment colOR = spine.bounds.ContainsPoint(or.X, or.Y);
+                        BoundingBoxAttachment colUL = spine.bounds.ContainsPoint(ul.X, ul.Y);
+                        BoundingBoxAttachment colUR = spine.bounds.ContainsPoint(ur.X, ur.Y);
                         //BoundingBoxAttachment bb = bounds.BoundingBoxes.FirstOrDefault();
                         //if (colOL == bb || colOR == bb || colUL == bb || colUR == bb) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                         if (colOL != null || colOR != null || colUL != null || colUR != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
@@ -360,34 +304,13 @@ namespace TheVillainsRevenge
                 else //Kollisionsfreien Fortschritt speichern
                 {
                     check = false;
-                    move.X = skeleton.X - position.X;
-                    move.Y = skeleton.Y - position.Y;
+                    move.X = spine.skeleton.X - position.X;
+                    move.Y = spine.skeleton.Y - position.Y;
                 }
             }
-            skeleton.Y = position.Y;
-            skeleton.X = position.X;
+            spine.skeleton.Y = position.Y;
+            spine.skeleton.X = position.X;
             return move;
-        }
-
-        //----------Spine----------
-        public void Start(object sender, StartEndArgs e)
-        {
-            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": start");
-        }
-
-        public void End(object sender, StartEndArgs e)
-        {
-            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": end");
-        }
-
-        public void Complete(object sender, CompleteArgs e)
-        {
-            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": complete " + e.LoopCount);
-        }
-
-        public void Event(object sender, EventTriggeredArgs e)
-        {
-            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": event " + e.Event);
         }
     }
 }

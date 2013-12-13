@@ -10,20 +10,28 @@ namespace TheVillainsRevenge
 {
     class Block
     {
-        public Vector2 pos; //Position
+        public Vector2 position; //Position
         public Rectangle cbox = new Rectangle(0,0,48,48); //Collisionsbox
         public Rectangle cuttexture = new Rectangle(0,0,48,48);
         public bool block;
         public Block(Vector2 npos, string type)
         {
             //Setze Position und Collisionsbox
-            pos = npos;
-            cbox.X = (int) pos.X;
-            cbox.Y = (int) pos.Y;
+            position = npos;
+            cbox.X = (int)position.X;
+            cbox.Y = (int)position.Y;
             block = true;
             //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
             switch (type)
             {
+                case "trigger": //Triggerblock, nur zum blocken
+                    cuttexture.X = 0;
+                    cuttexture.Y = 0;
+                    cuttexture.Width = 0;
+                    cuttexture.Height = 0;
+                    cbox.Height = 46;
+                    cbox.Y = (int)position.Y + 2;
+                    break;
                 case "underground_earth":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;

@@ -26,77 +26,36 @@ namespace TheVillainsRevenge
         bool start = false;
         int heroStartTime;
         public float test;
-
-        //----------Spine----------
-        string animation = "";
-        public SkeletonRenderer skeletonRenderer;
-        public Skeleton skeleton;
-        public AnimationState animationState;
-        public SkeletonBounds bounds = new SkeletonBounds();
+        public Spine spine;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
+            test = 0.0f;
             checkpoint = new Vector2(x, y);
             position.X = x;
             position.Y = y;
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionHeight"]));
             heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
+            spine = new Spine();
         }
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            //----------Spine----------
-            skeletonRenderer = new SkeletonRenderer(graphics.GraphicsDevice);
-            skeletonRenderer.PremultipliedAlpha = true;
-
-            String name = "ashbrett";
-
-            Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(graphics.GraphicsDevice));
-            SkeletonJson json = new SkeletonJson(atlas);
-            json.Scale = (float)Convert.ToInt32((double)Game1.luaInstance["heroScale"]) / 20; //Für den Fall dass die aktuelle Textur in der Größe von der in Spine verwendeten Textur abweicht.
-            skeleton = new Skeleton(json.ReadSkeletonData("spine/sprites/" + name + ".json"));
-            skeleton.SetSlotsToSetupPose(); // Without this the skin attachments won't be attached. See SetSkin.
-
-            // Define mixing between animations.
-            AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
-            //animationStateData.SetMix("walk", "jump", 0.2f);
-            //animationStateData.SetMix("jump", "walk", 0.4f);
-            animationState = new AnimationState(animationStateData);
-
-            // Event handling for all animations.
-            animationState.Start += Start;
-            animationState.End += End;
-            animationState.Complete += Complete;
-            animationState.Event += Event;
-
-            skeleton.x = position.X;
-            skeleton.y = position.Y;
+            spine.Load(position, "ashbrett",(float)Convert.ToInt32((double)Game1.luaInstance["heroScale"]) / 20);
         }
         public void Draw(GameTime gameTime, Camera camera)
         {
             //Wird im Hauptgame ausgeführt und malt den Spieler mit der entsprechenden Animation
             if (start)
             {
-                //Player -> Drawposition
-                skeleton.X = position.X - camera.viewport.X;
-                skeleton.Y = position.Y - camera.viewport.Y;
-                //----------Spine----------
-                animationState.Update(gameTime.ElapsedGameTime.Milliseconds / 1000f);
-                animationState.Apply(skeleton);
-                skeleton.UpdateWorldTransform();
-                skeletonRenderer.Begin();
-                skeletonRenderer.Draw(skeleton);
-                skeletonRenderer.End();
-                //Player -> Worldposition
-                skeleton.X = position.X;
-                skeleton.Y = position.Y;
+                spine.Draw(gameTime, camera, position);
             }
         }
         public void Reset()
         {
-            skeleton.x = checkpoint.X;
-            skeleton.y = checkpoint.Y;
-            position.Y = skeleton.Y;
-            position.X = skeleton.X;
+            spine.skeleton.x = checkpoint.X;
+            spine.skeleton.y = checkpoint.Y;
+            position.Y = spine.skeleton.Y;
+            position.X = spine.skeleton.X;
             cbox.Update(position);
         }
         public void Update(GameTime gameTime, Map map,Vector2 sposition)
@@ -134,6 +93,7 @@ namespace TheVillainsRevenge
                         //Schau ob unten ein Block ist
                         if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
                         {
+                            /*
                             //Schau ob er tief fällt, wenn ja, beweg mal zurück
                             if (fall || jump)
                             {
@@ -158,6 +118,7 @@ namespace TheVillainsRevenge
                                     }
                                 }
                             }
+                             * */
                             //Kein Block unten, kann also fallen, daher spring mal lieber
                             if (!jump && !fall)
                             {
@@ -168,10 +129,11 @@ namespace TheVillainsRevenge
                         if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
                         {
                             Move(actualspeed, 0, map);
+                            //Schaue ob an nächster Position ein Block über ihn sein wird
                             if (CollisionCheckedVector(0, -jumppower, map.blocks).Y != -jumppower)
                             {
                                 Move(-actualspeed, 0, map);
-                                //Kein Block unten, kann also fallen, daher spring mal lieber
+                                //Block ist oben, bewege zurück und spring
                                 if (!jump && !fall)
                                 {
                                     Jump(gameTime, map); //Springen!
@@ -255,10 +217,10 @@ namespace TheVillainsRevenge
         {
             Vector2 domove = new Vector2(0, 0);
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
-            skeleton.X += domove.X;
-            skeleton.Y += domove.Y;
-            position.Y = skeleton.Y;
-            position.X = skeleton.X;
+            spine.skeleton.X += domove.X;
+            spine.skeleton.Y += domove.Y;
+            position.Y = spine.skeleton.Y;
+            position.X = spine.skeleton.X;
             cbox.Update(position);
         }
 
@@ -307,27 +269,6 @@ namespace TheVillainsRevenge
                 }
             }
             return move;
-        }
-
-        //----------Spine----------
-        public void Start(object sender, StartEndArgs e)
-        {
-            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": start");
-        }
-
-        public void End(object sender, StartEndArgs e)
-        {
-            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": end");
-        }
-
-        public void Complete(object sender, CompleteArgs e)
-        {
-            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": complete " + e.LoopCount);
-        }
-
-        public void Event(object sender, EventTriggeredArgs e)
-        {
-            Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": event " + e.Event);
         }
     }
 }
