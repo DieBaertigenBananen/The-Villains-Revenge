@@ -12,13 +12,28 @@ namespace TheVillainsRevenge
     {
         Texture2D cloudTexture;
         List<Cloud> clouds = new List<Cloud>(); //Erstelle Blocks als List
-        public int wind;
         public int number;
+
+        public double spawnTimer;
+
+        int luaTop;
+        int luaBottom;
+        int luaAmount;
+        int luaChaos;
+        int luaType;
+        public int luaWind;
+        int testSpawn;
+        int testType;
+        int testPosition;
+        int testSize;
+        Random randomSpawn = new Random();
+        Random randomType = new Random();
+        Random randomPosition = new Random();
+        Random randomSize = new Random();
 
         public CloudPlane(int planeNumber)
         {
             number = planeNumber;
-            wind = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Wind"]);
         }
 
         public void Load(ContentManager Content, string textureName)
@@ -36,31 +51,41 @@ namespace TheVillainsRevenge
 
         public void Update(Map karte, GameTime gameTime)
         {
-            //Wolken random erzeugen
-            float randomFactor = (float)Math.Sin((double)gameTime.TotalGameTime.Milliseconds);
-            randomFactor = (randomFactor + 1.0f) / 2; //Normalisieren
-            //Entscheiden ob Wolke gespawned werden soll
-            if (randomFactor > (0.05 - (float)Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Amount"]) / 200) && randomFactor < (0.05 + (float)Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Amount"]) / 200))
+            
+            luaTop = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Top"]);
+            luaBottom = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Bottom"]);
+            luaAmount = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Amount"]);
+            luaChaos = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Chaos"]);
+            luaType = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Type"]);
+            luaWind = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Wind"]);
+            //Spawntimer
+            if (gameTime.TotalGameTime.TotalMilliseconds > spawnTimer + ((100000 - (float)luaAmount) * ((100 - (float)luaChaos) / 100)))
             {
-                Console.WriteLine("YAY");
-                //Wolkentyp bestimmen
-                int type = 1;
-                if (randomFactor < Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Type"]) / 10)
+                spawnTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                //Entscheiden ob Wolke gespawned werden soll
+                testSpawn = randomSpawn.Next(0, 100);
+                if (testSpawn > luaChaos)
                 {
-                    type = 2;
+                    //Wolkentyp bestimmen
+                    testType = randomType.Next(0, 10);
+                    int type = 1;
+                    if (testType < luaType)
+                    {
+                        type = 2;
+                    }
+                    //Wolkenposition bestimmen
+                    testPosition = randomPosition.Next(0, 100);
+                    int spawnPosition = ((int)((luaBottom - luaTop) * ((float)testPosition / 100))) + luaTop;
+                    //Wolke erstellen
+                    testSize = randomSize.Next(0, 100);
+                    clouds.Add(new Cloud(type, new Vector2(karte.size.X, spawnPosition), (float)testSize / 100));
                 }
-                //Wolkenposition bestimmen
-                int top = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Top"]);
-                int bottom = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Bottom"]);
-                int spawnPosition = ((int)((bottom - top) * randomFactor)) + top;
-                //Wolke erstellen
-                clouds.Add(new Cloud(type, new Vector2(karte.size.X, spawnPosition), randomFactor));
             }
 
             //Wolken updaten
             foreach (Cloud cloud in clouds)
             {
-                cloud.Update(wind);
+                cloud.Update(luaWind);
             }
             foreach (Cloud cloud in clouds)
             {

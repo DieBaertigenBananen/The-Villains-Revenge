@@ -78,18 +78,21 @@ namespace TheVillainsRevenge
             luaInstance["cloudPlane1Top"] = "";
             luaInstance["cloudPlane1Bottom"] = "";
             luaInstance["cloudPlane1Amount"] = "";
+            luaInstance["cloudPlane1Chaos"] = "";
             luaInstance["cloudPlane1Type"] = "";
             luaInstance["cloudPlane1Wind"] = "";
 
             luaInstance["cloudPlane2Top"] = "";
             luaInstance["cloudPlane2Bottom"] = "";
             luaInstance["cloudPlane2Amount"] = "";
+            luaInstance["cloudPlane2Chaos"] = "";
             luaInstance["cloudPlane2Type"] = "";
             luaInstance["cloudPlane2Wind"] = "";
 
             luaInstance["cloudPlane3Top"] = "";
             luaInstance["cloudPlane3Bottom"] = "";
             luaInstance["cloudPlane3Amount"] = "";
+            luaInstance["cloudPlane3Chaos"] = "";
             luaInstance["cloudPlane3Type"] = "";
             luaInstance["cloudPlane3Wind"] = "";
 

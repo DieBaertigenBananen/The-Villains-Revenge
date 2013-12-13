@@ -39,21 +39,24 @@ minimapOffsetX = 300
 
 cloudPlane1Top = 1300
 cloudPlane1Bottom = 1500
-cloudPlane1Amount = 5
+cloudPlane1Amount = 50000
+cloudPlane1Chaos = 80
 cloudPlane1Type = 5
-cloudPlane1Wind = 130
+cloudPlane1Wind = 3
 
 cloudPlane2Top = 1200
 cloudPlane2Bottom = 1500
-cloudPlane2Amount = 5
+cloudPlane2Amount = 50000
+cloudPlane2Chaos = 80
 cloudPlane2Type = 5
-cloudPlane2Wind = 120
+cloudPlane2Wind = 2
 
 cloudPlane3Top = 1400
 cloudPlane3Bottom = 1500
-cloudPlane3Amount = 5
+cloudPlane3Amount = 50000
+cloudPlane3Chaos = 80
 cloudPlane3Type = 5
-cloudPlane3Wind = 100
+cloudPlane3Wind = 1
 
 --Enter
 playerLifes = playerStartLifes
