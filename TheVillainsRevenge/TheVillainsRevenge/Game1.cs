@@ -88,6 +88,8 @@ namespace TheVillainsRevenge
             luaInstance["cameraRightspace"] = "";
             luaInstance["cameraBottomspace"] = "";
             luaInstance["cameraTopspace"] = "";
+            luaInstance["cameraMaxBewegung"] = "";
+            luaInstance["cameraBewegungSteps"] = "";
 
             luaInstance["minimapWidth"] = "";
             luaInstance["minimapOffsetX"] = "";

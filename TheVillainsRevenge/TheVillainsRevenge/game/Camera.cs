@@ -15,6 +15,7 @@ namespace TheVillainsRevenge
         public Matrix viewportTransform;
         public Matrix screenTransform;
         public bool stretchScreen;
+        int camerabewegung;
         public Camera()
         {
             viewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
@@ -28,6 +29,31 @@ namespace TheVillainsRevenge
             int rightspace = Convert.ToInt32((double)Game1.luaInstance["cameraRightspace"]);
             int bottomspace = Convert.ToInt32((double)Game1.luaInstance["cameraBottomspace"]);
             int topspace = Convert.ToInt32((double)Game1.luaInstance["cameraTopspace"]);
+            int maxbewegung = Convert.ToInt32((double)Game1.luaInstance["cameraMaxBewegung"]);
+            int bewegungsteps = Convert.ToInt32((double)Game1.luaInstance["cameraBewegungSteps"]);
+            if (Game1.input.camerar)
+            {
+                if (camerabewegung != maxbewegung)
+                    camerabewegung += bewegungsteps;
+                rightspace += camerabewegung;
+                leftspace -= camerabewegung;
+            }
+            else if (Game1.input.cameral)
+            {
+                if (camerabewegung != -maxbewegung)
+                    camerabewegung -= bewegungsteps;
+                rightspace += camerabewegung;
+                leftspace -= camerabewegung;
+            }
+            else
+            {
+                if (camerabewegung > 0)
+                    camerabewegung -= bewegungsteps;
+                else if (camerabewegung < 0)
+                    camerabewegung += bewegungsteps;
+                rightspace += camerabewegung;
+                leftspace -= camerabewegung;
+            }
             
 
             if (viewport.X + leftspace > spieler.position.X) //Scrolling nach links

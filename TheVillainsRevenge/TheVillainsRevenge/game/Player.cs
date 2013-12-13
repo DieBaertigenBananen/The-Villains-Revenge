@@ -91,17 +91,11 @@ namespace TheVillainsRevenge
                 actualspeed = airspeed;
             }
             //Lade Keyboard-Daten
-            if (Game1.input.iteme) 
+            if (Game1.input.itemw) 
             {
                 int i = item1;
                 item1 = item2;
                 item2 = i;
-            }
-            else if (Game1.input.itemq)
-            {
-                int i = item2;
-                item2 = item1;
-                item1 = i;
             }
             if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
             {

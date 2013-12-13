@@ -41,6 +41,8 @@ cameraLeftspace = 1100
 cameraRightspace = 1920 - cameraLeftspace
 cameraBottomspace = 700
 cameraTopspace = 1080 - cameraBottomspace
+cameraMaxBewegung = 400
+cameraBewegungSteps = 20
 
 minimapWidth = 400
 minimapOffsetX = 300
