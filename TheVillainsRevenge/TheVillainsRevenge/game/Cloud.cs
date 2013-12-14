@@ -36,9 +36,9 @@ namespace TheVillainsRevenge
             position.X -= wind;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Texture2D cloudTexture)
+        public void Draw(SpriteBatch spriteBatch, Texture2D cloudTexture, Vector2 parallaxOffset)
         {
-            spriteBatch.Draw(cloudTexture, position, cuttexture, Color.White);
+            spriteBatch.Draw(cloudTexture, position + parallaxOffset, cuttexture, Color.White, 0.0f, Vector2.Zero, size, SpriteEffects.None, 1.0f);
         }
     }
 }

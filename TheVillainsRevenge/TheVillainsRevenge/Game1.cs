@@ -75,26 +75,38 @@ namespace TheVillainsRevenge
             luaInstance["planeTilesBackground2"] = "";
             luaInstance["planeTilesBackground3"] = "";
 
+            luaInstance["cloudPlane1Width"] = "";
+            luaInstance["cloudPlane1Height"] = "";
             luaInstance["cloudPlane1Top"] = "";
             luaInstance["cloudPlane1Bottom"] = "";
             luaInstance["cloudPlane1Amount"] = "";
             luaInstance["cloudPlane1Chaos"] = "";
             luaInstance["cloudPlane1Type"] = "";
             luaInstance["cloudPlane1Wind"] = "";
+            luaInstance["cloudPlane1SizeMin"] = "";
+            luaInstance["cloudPlane1SizeMax"] = "";
 
+            luaInstance["cloudPlane2Width"] = "";
+            luaInstance["cloudPlane2Height"] = "";
             luaInstance["cloudPlane2Top"] = "";
             luaInstance["cloudPlane2Bottom"] = "";
             luaInstance["cloudPlane2Amount"] = "";
             luaInstance["cloudPlane2Chaos"] = "";
             luaInstance["cloudPlane2Type"] = "";
             luaInstance["cloudPlane2Wind"] = "";
+            luaInstance["cloudPlane2SizeMin"] = "";
+            luaInstance["cloudPlane2SizeMax"] = "";
 
+            luaInstance["cloudPlane3Width"] = "";
+            luaInstance["cloudPlane3Height"] = "";
             luaInstance["cloudPlane3Top"] = "";
             luaInstance["cloudPlane3Bottom"] = "";
             luaInstance["cloudPlane3Amount"] = "";
             luaInstance["cloudPlane3Chaos"] = "";
             luaInstance["cloudPlane3Type"] = "";
             luaInstance["cloudPlane3Wind"] = "";
+            luaInstance["cloudPlane3SizeMin"] = "";
+            luaInstance["cloudPlane3SizeMax"] = "";
 
             /*
             luaInstance.RegisterFunction("getPlayerHitpoints", this, this.GetType().GetMethod("getPlayerHitpoints"));
