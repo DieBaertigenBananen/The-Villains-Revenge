@@ -167,17 +167,19 @@ namespace TheVillainsRevenge
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //Draw to Spine
+            //--------------------Draw to Spine--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderSpine);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spieler.Draw(gameTime, camera);
             hero.Draw(gameTime, camera);
 
-            //Draw to Texture
+
+            //--------------------Draw to Texture--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderTarget);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-            //Hintergrund und Wolken
+
+            //-----Hintergrundebenen-----
             if (!Game1.debug)
             {
                 background_3.Draw(spriteBatch); //Himmel
@@ -188,27 +190,32 @@ namespace TheVillainsRevenge
                 clouds_1.Draw(spriteBatch);
                 background_0.Draw(spriteBatch); //Bäume
             }
-            //Spiel
-            spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White);
-            if (Game1.debug)
+
+            //-----Spielebene-----
+            karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
+            foreach (Enemy enemy in enemies) //Enemies
+            {
+                enemy.Draw(spriteBatch);
+            }
+            hero.Draw(spriteBatch); //Ashbrett
+            spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
+            if (Game1.debug) //Boundingbox Bonepuker
             {
                 spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                 spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
             }
-            karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
             spriteBatch.End();
 
-            //Shader
 
-
-            //Draw Texture to Screen
+            //--------------------Draw to Screen--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
             
-            //Shader
+            //-----renderTarget-----
             coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
             coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
             coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
+            coverEyes.Parameters["left"].SetValue(spieler.skeleton.FlipX);
             if (spieler.coverEyes)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
@@ -219,13 +226,13 @@ namespace TheVillainsRevenge
             }
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             spriteBatch.End();
-            
+
+            //-----HUD-----
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
             if (levelend)
             {
                 spriteBatch.DrawString(font, "Finished level!", new Vector2(Game1.resolution.X - 300, Game1.resolution.Y / 2), Color.Black);
             }
-            gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             if (Game1.debug)
             {
                 spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.White);
@@ -252,6 +259,9 @@ namespace TheVillainsRevenge
                 //        spriteBatch.DrawString(font, karte.pixelRGBA[i, t, 0] + "," + karte.pixelRGBA[i, t, 1] + "," + karte.pixelRGBA[i, t, 2], new Vector2(i * 60, (t - 15) * 30), Color.Black);
                 //    }
                 //}*/
+            else
+            {
+                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             }
             spriteBatch.End();
         }

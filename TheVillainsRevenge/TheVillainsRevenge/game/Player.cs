@@ -27,7 +27,6 @@ namespace TheVillainsRevenge
         public static int startLifes = Convert.ToInt32((double)Game1.luaInstance["playerStartLifes"]);
         public int item1;
         public int item2;
-        public bool check = false;
         public Vector2 checkpoint;
         public bool coverEyes = true;
         public Spine spine;
@@ -276,7 +275,6 @@ namespace TheVillainsRevenge
                     Vector2 ur = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
                     if (spine.bounds.AabbContainsPoint(ol.X, ol.Y) || spine.bounds.AabbContainsPoint(or.X, or.Y) || spine.bounds.AabbContainsPoint(ul.X, ul.Y) || spine.bounds.AabbContainsPoint(ur.X, ur.Y))
                     {
-                        check = true;
                         BoundingBoxAttachment colOL = spine.bounds.ContainsPoint(ol.X, ol.Y);
                         BoundingBoxAttachment colOR = spine.bounds.ContainsPoint(or.X, or.Y);
                         BoundingBoxAttachment colUL = spine.bounds.ContainsPoint(ul.X, ul.Y);
@@ -285,7 +283,6 @@ namespace TheVillainsRevenge
                         //if (colOL == bb || colOR == bb || colUL == bb || colUR == bb) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                         if (colOL != null || colOR != null || colUL != null || colUR != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                         {
-                            check = true;
                             stop = true;
                             break;
                         }
@@ -297,7 +294,6 @@ namespace TheVillainsRevenge
                 }
                 else //Kollisionsfreien Fortschritt speichern
                 {
-                    check = false;
                     move.X = spine.skeleton.X - position.X;
                     move.Y = spine.skeleton.Y - position.Y;
                 }
