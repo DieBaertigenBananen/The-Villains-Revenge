@@ -119,6 +119,7 @@
     <Compile Include="game\Block.cs" />
     <Compile Include="game\Camera.cs" />
     <Compile Include="game\Checkpoint.cs" />
+    <Compile Include="game\Cloud.cs" />
     <Compile Include="game\CollisionBox.cs" />
     <Compile Include="game\Enemy.cs" />
     <Compile Include="game\GUI.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="game\Player.cs" />
     <Compile Include="game\Spine.cs" />
     <Compile Include="game\Trigger.cs" />
+    <Compile Include="game\CloudPlane.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

@@ -24,9 +24,13 @@ enemyCollisionWidth = 64
 enemyCollisionHeight = 64
 
 --Update
-playerSpeed = 10
+playerSpeed = 15
 playerAirspeed = playerSpeed - 2
+<<<<<<< HEAD
 playerJumppower = 30
+=======
+playerJumppower = 55
+>>>>>>> origin/Wolken
 playerGravitation = 60
 
 heroSpeed = 10
@@ -47,8 +51,43 @@ cameraBewegungSteps = 20
 minimapWidth = 400
 minimapOffsetX = 300
 
+<<<<<<< HEAD
 itemSlowTime = 10
 itemSlowReduce = 2
+=======
+cloudPlane1Width = 1920
+cloudPlane1Height = 1080
+cloudPlane1Top = 930
+cloudPlane1Bottom = 1500
+cloudPlane1Amount = 96000
+cloudPlane1Chaos = 0
+cloudPlane1Type = 5
+cloudPlane1Wind = 3
+cloudPlane1SizeMin = 60
+cloudPlane1SizeMax = 160
+
+cloudPlane2Width = 2100
+cloudPlane2Height = 1150
+cloudPlane2Top = 920
+cloudPlane2Bottom = 1500
+cloudPlane2Amount = 96000
+cloudPlane2Chaos = 0
+cloudPlane2Type = 5
+cloudPlane2Wind = 2
+cloudPlane2SizeMin = 50
+cloudPlane2SizeMax = 140
+
+cloudPlane3Width = 2500
+cloudPlane3Height = 1300
+cloudPlane3Top = 940
+cloudPlane3Bottom = 1500
+cloudPlane3Amount = 96000
+cloudPlane3Chaos = 0
+cloudPlane3Type = 5
+cloudPlane3Wind = 1
+cloudPlane3SizeMin = 20
+cloudPlane3SizeMax = 100
+>>>>>>> origin/Wolken
 
 --Enter
 playerLifes = playerStartLifes

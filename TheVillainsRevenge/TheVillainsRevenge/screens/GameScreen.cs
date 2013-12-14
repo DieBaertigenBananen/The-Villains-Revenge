@@ -23,9 +23,9 @@ namespace TheVillainsRevenge
         ParallaxPlane background_1 = new ParallaxPlane();
         ParallaxPlane background_2 = new ParallaxPlane();
         ParallaxPlane background_3 = new ParallaxPlane();
-        ParallaxPlane clouds_1 = new ParallaxPlane();
-        ParallaxPlane clouds_2 = new ParallaxPlane();
-        ParallaxPlane clouds_3 = new ParallaxPlane();
+        CloudPlane clouds_1 = new CloudPlane(1);
+        CloudPlane clouds_2 = new CloudPlane(2);
+        CloudPlane clouds_3 = new CloudPlane(3);
         RenderTarget2D renderTarget;
         RenderTarget2D renderSpine;
         SpriteFont font;
@@ -53,9 +53,9 @@ namespace TheVillainsRevenge
             background_1.Load(Content, "background_1", 4);
             background_2.Load(Content, "background_2", 2);
             background_3.Load(Content, "background_3", 1);
-            clouds_1.Load(Content, "clouds_1", 6);
-            clouds_2.Load(Content, "clouds_2", 5);
-            clouds_3.Load(Content, "clouds_3", 3);
+            clouds_1.Load(Content, "clouds_1");
+            clouds_2.Load(Content, "clouds_2");
+            clouds_3.Load(Content, "clouds_3");
             gui.Load(Content);
             coverEyes = Content.Load<Effect>("CoverEyes");
         }
@@ -141,9 +141,9 @@ namespace TheVillainsRevenge
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
                 background_3.Update(karte, camera);
-                clouds_1.Update(karte, camera);
-                clouds_2.Update(karte, camera);
-                clouds_3.Update(karte, camera);
+                clouds_1.Update(karte, gameTime, camera);
+                clouds_2.Update(karte, gameTime, camera);
+                clouds_3.Update(karte, gameTime, camera);
                 if (slow != 0)
                 {
                     slowTime += gameTime.ElapsedGameTime.TotalSeconds;
@@ -238,6 +238,8 @@ namespace TheVillainsRevenge
                 spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(Game1.resolution.X - 300, 230), Color.White);
                 spriteBatch.DrawString(font, "Skeleton: " + (spieler.spine.skeleton.X + " " + spieler.spine.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
                 spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + background_0.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
+                spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
+                spriteBatch.DrawString(font, "Planes.Size.X: " + background_0.size.X + " " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
                 spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.White);
                 Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
