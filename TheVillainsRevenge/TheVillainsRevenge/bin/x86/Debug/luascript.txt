@@ -16,9 +16,9 @@ heroStartTime = 10
 
 
 --Update
-playerSpeed = 30
+playerSpeed = 15
 playerAirspeed = playerSpeed - 2
-playerJumppower = 60
+playerJumppower = 55
 playerGravitation = 60
 
 heroSpeed = 10
@@ -37,26 +37,38 @@ cameraTopspace = 1080 - cameraBottomspace
 minimapWidth = 400
 minimapOffsetX = 300
 
-cloudPlane1Top = 1300
+cloudPlane1Width = 1920
+cloudPlane1Height = 1080
+cloudPlane1Top = 930
 cloudPlane1Bottom = 1500
-cloudPlane1Amount = 50000
-cloudPlane1Chaos = 80
+cloudPlane1Amount = 96000
+cloudPlane1Chaos = 0
 cloudPlane1Type = 5
 cloudPlane1Wind = 3
+cloudPlane1SizeMin = 60
+cloudPlane1SizeMax = 160
 
-cloudPlane2Top = 1200
+cloudPlane2Width = 2100
+cloudPlane2Height = 1150
+cloudPlane2Top = 920
 cloudPlane2Bottom = 1500
-cloudPlane2Amount = 50000
-cloudPlane2Chaos = 80
+cloudPlane2Amount = 96000
+cloudPlane2Chaos = 0
 cloudPlane2Type = 5
 cloudPlane2Wind = 2
+cloudPlane2SizeMin = 50
+cloudPlane2SizeMax = 140
 
-cloudPlane3Top = 1400
+cloudPlane3Width = 2500
+cloudPlane3Height = 1300
+cloudPlane3Top = 940
 cloudPlane3Bottom = 1500
-cloudPlane3Amount = 50000
-cloudPlane3Chaos = 80
+cloudPlane3Amount = 96000
+cloudPlane3Chaos = 0
 cloudPlane3Type = 5
 cloudPlane3Wind = 1
+cloudPlane3SizeMin = 20
+cloudPlane3SizeMax = 100
 
 --Enter
 playerLifes = playerStartLifes

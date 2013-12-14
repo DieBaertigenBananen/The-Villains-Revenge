@@ -120,9 +120,9 @@ namespace TheVillainsRevenge
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
                 background_3.Update(karte, camera);
-                clouds_1.Update(karte, gameTime);
-                clouds_2.Update(karte, gameTime);
-                clouds_3.Update(karte, gameTime);
+                clouds_1.Update(karte, gameTime, camera);
+                clouds_2.Update(karte, gameTime, camera);
+                clouds_3.Update(karte, gameTime, camera);
             }
             if (spieler.lifes != 0)
             {
@@ -191,12 +191,12 @@ namespace TheVillainsRevenge
             }
             spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
             spriteBatch.End();
-            if (levelend)
-            {
-                spriteBatch.DrawString(font, "Finished level!", new Vector2(Game1.resolution.X - 300, Game1.resolution.Y/2), Color.Black);
-            }
             
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            if (levelend)
+            {
+                spriteBatch.DrawString(font, "Finished level!", new Vector2(Game1.resolution.X - 300, Game1.resolution.Y / 2), Color.Black);
+            }
             gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             if (Game1.debug)
             {
