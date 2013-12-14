@@ -16,6 +16,7 @@ namespace TheVillainsRevenge
         SpriteFont font;
         int option = 0;
         bool deadScreen;
+        bool loadScreen;
         public MenuScreen(bool playerDied)
         {
             deadScreen = playerDied;
@@ -26,73 +27,78 @@ namespace TheVillainsRevenge
         }
         public int update()
         {
-            if (deadScreen)
-            {
-                if (Game1.input.enter)
-                {
-                    deadScreen = false;
-                }
-            }
+            if (loadScreen)
+                return 2;
             else
             {
-                if (Game1.input.enter)
+                if (deadScreen)
                 {
-                    if (option == 2)
+                    if (Game1.input.enter)
                     {
-                        return 0;
-                    }
-                    else if (option == 1)
-                    {
-                        return 3;
-                    }
-                    else
-                    {
-                        return 2;
+                        deadScreen = false;
                     }
                 }
-                if (Game1.input.down)
+                else
                 {
-                    if (option == 0)
-                        option = 1;
-                    else if (option == 1)
-                        option = 2;
-                    else
-                        option = 0;
+                    if (Game1.input.enter)
+                    {
+                        if (option == 2)
+                        {
+                            return 0;
+                        }
+                        else if (option == 1)
+                        {
+                            return 3;
+                        }
+                        else
+                        {
+                            loadScreen = true;
+                        }
+                    }
+                    if (Game1.input.down)
+                    {
+                        if (option == 0)
+                            option = 1;
+                        else if (option == 1)
+                            option = 2;
+                        else
+                            option = 0;
+                    }
+                    if (Game1.input.up)
+                    {
+                        if (option == 0)
+                        {
+                            option = 2;
+                        }
+                        else if (option == 2)
+                        {
+                            option = 1;
+                        }
+                        else
+                        {
+                            option = 0;
+                        }
+                    }
+                    if (Game1.input.back)
+                    {
+                        if (option == 2)
+                        {
+                            return 0;
+                        }
+                        else
+                        {
+                            option = 2;
+                        }
+                    }
                 }
-                if (Game1.input.up)
-                {
-                    if (option == 0)
-                    {
-                        option = 2;
-                    }
-                    else if (option == 2)
-                    {
-                        option = 1;
-                    }
-                    else
-                    {
-                        option = 0;
-                    }
-                }
-                if (Game1.input.back)
-                {
-                    if (option == 2)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        option = 2;
-                    }
-                }
+                return 1;
             }
-            return 1;
         }
         public void draw(SpriteBatch spriteBatch)
         {
             Game1.graphics.GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
-            if (!deadScreen)
+            if (!deadScreen&&!loadScreen)
             {
                 if (option == 0)
                 {
@@ -119,11 +125,16 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
                 }
             }
-            else
+            else if(deadScreen)
             {
                 spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
                 spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 60, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
-                  
+
+            }
+            else
+            {
+                spriteBatch.DrawString(font, "Game loading ...", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
+                
             }
             spriteBatch.End();
         }
