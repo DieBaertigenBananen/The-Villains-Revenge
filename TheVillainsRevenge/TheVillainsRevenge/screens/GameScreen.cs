@@ -193,11 +193,7 @@ namespace TheVillainsRevenge
 
             //-----Spielebene-----
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
-            foreach (Enemy enemy in enemies) //Enemies
-            {
-                enemy.Draw(spriteBatch);
-            }
-            hero.Draw(spriteBatch); //Ashbrett
+            hero.Draw(gameTime,camera); //Ashbrett
             spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
             if (Game1.debug) //Boundingbox Bonepuker
             {
@@ -215,7 +211,7 @@ namespace TheVillainsRevenge
             coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
             coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
             coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
-            coverEyes.Parameters["left"].SetValue(spieler.skeleton.FlipX);
+            coverEyes.Parameters["left"].SetValue(spieler.spine.skeleton.FlipX);
             if (spieler.coverEyes)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
@@ -245,12 +241,12 @@ namespace TheVillainsRevenge
                 spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y), new Vector2(Game1.resolution.X - 300, 230), Color.White);
                 spriteBatch.DrawString(font, "Skeleton: " + (spieler.spine.skeleton.X + " " + spieler.spine.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
                 spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + background_0.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
-                spriteBatch.DrawString(font, "Skeleton: " + (spieler.skeleton.X + " " + spieler.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
+                spriteBatch.DrawString(font, "Skeleton: " + (spieler.spine.skeleton.X + " " + spieler.spine.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
                 spriteBatch.DrawString(font, "Planes.Size.X: " + background_0.size.X + " " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
-                spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.White);
+                //spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.White);
                 Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
-                spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: "+slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
+                spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                 spriteBatch.DrawString(font, "Test: " + hero.test, new Vector2(Game1.resolution.X - 300, 350), Color.White);
                 //for (int i = 0; i < karte.background.Width; i++)
                 //{
@@ -259,6 +255,7 @@ namespace TheVillainsRevenge
                 //        spriteBatch.DrawString(font, karte.pixelRGBA[i, t, 0] + "," + karte.pixelRGBA[i, t, 1] + "," + karte.pixelRGBA[i, t, 2], new Vector2(i * 60, (t - 15) * 30), Color.Black);
                 //    }
                 //}*/
+            }
             else
             {
                 gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
