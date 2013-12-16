@@ -56,6 +56,12 @@ namespace TheVillainsRevenge
                  Trigger trigger = triggers.ElementAt(i);
                  trigger.Update(gameTime, blocks,sbox);
              }
+             for (int i = 0; i < blocks.Count(); ++i)
+             {
+                 Block block = blocks.ElementAt(i);
+                 if(block.move != 0)
+                    block.Update(gameTime, blocks, sbox);
+             }
          }
 
          public void Draw(SpriteBatch spriteBatch)
@@ -103,6 +109,10 @@ namespace TheVillainsRevenge
                          String color = pixelRGBA[i, t, 0] + "," + pixelRGBA[i, t, 1] + "," + pixelRGBA[i, t, 2];
                          switch (color)
                          {
+                             case "255,138,36":
+                                 type = "moving";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 break;
                              case "104,60,17":
                                  type = "underground_earth";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));

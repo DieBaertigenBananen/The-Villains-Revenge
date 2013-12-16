@@ -58,6 +58,8 @@ namespace TheVillainsRevenge
             luaInstance["planeTilesBackground2"] = "";
             luaInstance["planeTilesBackground3"] = "";
 
+            luaInstance["blockSpeed"] = "";
+
             luaInstance["heroScale"] = "";
             luaInstance["heroStartTime"] = "";
             luaInstance["heroCollisionOffsetX"] = "";

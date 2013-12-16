@@ -14,6 +14,35 @@ namespace TheVillainsRevenge
         public Rectangle cbox = new Rectangle(0,0,48,48); //Collisionsbox
         public Rectangle cuttexture = new Rectangle(0,0,48,48);
         public bool block;
+        public int move;
+        public int movespeed;
+        public void Update(GameTime gameTime, List<Block> list, Rectangle sbox)
+        {
+            movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
+            if (move == 2)
+                movespeed = -movespeed;
+            bool collide = false;
+            Rectangle cboxnew = new Rectangle((int)position.X + movespeed, (int)position.Y, cbox.Width, cbox.Height);
+            for (int i = 0; i < list.Count(); ++i)
+            {
+                Block block = list.ElementAt(i);
+                if (cboxnew.Intersects(block.cbox)&&block.move != move)
+                {
+                    if (move == 1)
+                        move = 2;
+                    else
+                        move = 1;
+                    collide = true;
+                    break;
+                }
+            }
+            if (!collide)
+            {
+                cbox = cboxnew;
+                position.X = cbox.X;
+            }
+
+        }
         public Block(Vector2 npos, string type)
         {
             //Setze Position und Collisionsbox
@@ -24,6 +53,11 @@ namespace TheVillainsRevenge
             //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
             switch (type)
             {
+                case "moving":
+                    cuttexture.X = 0;
+                    cuttexture.Y = 0;
+                    move = 1;
+                    break;
                 case "trigger": //Triggerblock, nur zum blocken
                     cuttexture.X = 0;
                     cuttexture.Y = 0;

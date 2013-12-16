@@ -11,8 +11,10 @@ planeTilesBackground1 = 4 --Wald
 planeTilesBackground2 = 2 --Berg
 planeTilesBackground3 = 1 --Himmel
 
+blockSpeed = 2
+
 heroScale = 2
-heroStartTime = 5
+heroStartTime = 10
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45

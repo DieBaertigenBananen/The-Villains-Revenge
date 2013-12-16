@@ -176,6 +176,24 @@ namespace TheVillainsRevenge
                 {
                     Jump(gameTime, map);
                 }
+
+                foreach (Block block in map.blocks)
+                {
+                    if (block.move != 0)
+                    {
+                        Rectangle collide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                        //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                        if (collide.Intersects(block.cbox))
+                        {
+                            int movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
+                            if (block.move == 1)
+                                Move(movespeed, 0, map);
+                            else
+                                Move(-movespeed, 0, map);
+                            break;
+                        }
+                    }
+                }
             }
             else
             {

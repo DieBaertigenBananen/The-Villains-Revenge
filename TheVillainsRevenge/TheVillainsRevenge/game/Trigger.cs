@@ -57,9 +57,7 @@ namespace TheVillainsRevenge
                     for (int i = 0; i < blocks.Count(); ++i)
                     {
                         Block block = blocks.ElementAt(i);
-                        {
-                            list.Remove(block);
-                        }
+                        list.Remove(block);
                     }
                     blocks.Clear();
                     active = false;
