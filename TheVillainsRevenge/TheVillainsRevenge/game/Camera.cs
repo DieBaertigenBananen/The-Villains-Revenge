@@ -14,12 +14,10 @@ namespace TheVillainsRevenge
         public Rectangle screenViewport = new Rectangle();
         public Matrix viewportTransform;
         public Matrix screenTransform;
-        public bool stretchScreen;
         int camerabewegung;
         public Camera()
         {
             viewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
-            stretchScreen = false;
         }
 
         public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
@@ -91,7 +89,7 @@ namespace TheVillainsRevenge
 
             int width = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
             int height = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
-            if (stretchScreen) //Viewport screenfüllend
+            if (Game1.stretch) //Viewport screenfüllend
             {
                 screenViewport.X = 0;
                 screenViewport.Y = 0;

@@ -19,6 +19,7 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         GameScreen game;
         MenuScreen menu;
+        public static bool stretch;
         public static Input input;
         public static Lua luaInstance = new Lua();
         public static bool debug = false;
