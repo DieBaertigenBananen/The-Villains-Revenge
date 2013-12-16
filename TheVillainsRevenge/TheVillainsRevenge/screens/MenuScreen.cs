@@ -52,7 +52,7 @@ namespace TheVillainsRevenge
                         if (option == 2)
                         {
                             optionScreen = false;
-                            option = 2;
+                            option = 1;
                         }
                         //Option = 1 ist stretch
                         else if (option == 1)
