@@ -59,9 +59,9 @@ cloudPlane3SizeMin = 20
 cloudPlane3SizeMax = 40
 
 --Update
-playerSpeed = 45
+playerSpeed = 25
 playerAirspeed = playerSpeed - 2
-playerJumppower = 60
+playerJumppower = 70
 playerGravitation = 60
 
 heroSpeed = 10

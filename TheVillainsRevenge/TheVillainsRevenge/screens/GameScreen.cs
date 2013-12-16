@@ -137,6 +137,7 @@ namespace TheVillainsRevenge
                 {
                     spieler.lifes = 0;
                 }
+                camera.Update(Game1.graphics, spieler, karte);
                 background_0.Update(karte, camera);
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
@@ -154,7 +155,6 @@ namespace TheVillainsRevenge
                     }
                 }
             }
-            camera.Update(Game1.graphics, spieler, karte);
             if (spieler.lifes != 0)
             {
                 return 1;
