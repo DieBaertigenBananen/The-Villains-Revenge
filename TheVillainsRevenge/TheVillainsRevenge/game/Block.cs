@@ -19,6 +19,10 @@ namespace TheVillainsRevenge
         public void Update(GameTime gameTime, List<Block> list, Rectangle sbox)
         {
             movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
+            if (GameScreen.slow != 0)
+            {
+                movespeed = movespeed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
+            }
             if (move == 2)
                 movespeed = -movespeed;
             bool collide = false;

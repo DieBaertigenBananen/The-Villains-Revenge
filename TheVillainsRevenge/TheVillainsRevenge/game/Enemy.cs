@@ -91,6 +91,10 @@ namespace TheVillainsRevenge
                     if (collide.Intersects(block.cbox))
                     {
                         int movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
+                        if (GameScreen.slow != 0)
+                        {
+                            movespeed = movespeed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
+                        }
                         if (block.move == 1)
                             Move(movespeed, 0, map);
                         else
