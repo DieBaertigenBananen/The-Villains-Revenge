@@ -49,10 +49,10 @@ namespace TheVillainsRevenge
             hero.Load(Content, Game1.graphics);
             karte.Load(Content);
             karte.Generate();
-            background_0.Load(Content, "background_0", 7);
-            background_1.Load(Content, "background_1", 4);
-            background_2.Load(Content, "background_2", 2);
-            background_3.Load(Content, "background_3", 1);
+            background_0.Load(Content, "background_0", Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]));
+            background_1.Load(Content, "background_1", Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]));
+            background_2.Load(Content, "background_2", Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]));
+            background_3.Load(Content, "background_3", Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground3"]));
             clouds_1.Load(Content, "clouds_1");
             clouds_2.Load(Content, "clouds_2");
             clouds_3.Load(Content, "clouds_3");
