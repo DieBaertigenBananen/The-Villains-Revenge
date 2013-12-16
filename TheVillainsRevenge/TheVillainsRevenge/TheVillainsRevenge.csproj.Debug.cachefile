@@ -1,10 +1,11 @@
 Content\fonts\schrift.xnb
-Content\sprites\block.xnb
-Content\sprites\bunny.xnb
-Content\sprites\gui.xnb
-Content\sprites\itemslot.xnb
-Content\sprites\player.xnb
 Content\sprites\tiles.xnb
+Content\sprites\player.xnb
+Content\sprites\bunny.xnb
+Content\sprites\items.xnb
+Content\sprites\itemslot.xnb
+Content\sprites\block.xnb
+Content\sprites\gui.xnb
 Content\sprites\Level_1\map.xnb
 Content\sprites\Level_1\Planes\background_1_1.xnb
 Content\sprites\Level_1\Planes\background_1_2.xnb
@@ -13,7 +14,6 @@ Content\sprites\Level_1\Planes\background_1_4.xnb
 Content\sprites\Level_1\Planes\background_2_1.xnb
 Content\sprites\Level_1\Planes\background_2_2.xnb
 Content\sprites\Level_1\Planes\background_3_1.xnb
-Content\sprites\items.xnb
 Content\CoverEyes.xnb
 Content\sprites\Level_1\Planes\background_0_1.xnb
 Content\sprites\Level_1\Planes\background_0_2.xnb

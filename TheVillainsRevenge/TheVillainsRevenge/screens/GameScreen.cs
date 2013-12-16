@@ -53,9 +53,9 @@ namespace TheVillainsRevenge
             background_1.Load(Content, "background_1", Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]));
             background_2.Load(Content, "background_2", Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]));
             background_3.Load(Content, "background_3", Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground3"]));
-            clouds_1.Load(Content, "clouds_1");
-            clouds_2.Load(Content, "clouds_2");
-            clouds_3.Load(Content, "clouds_3");
+            clouds_1.Load(Content, "clouds_1", karte, camera);
+            clouds_2.Load(Content, "clouds_2", karte, camera);
+            clouds_3.Load(Content, "clouds_3", karte, camera);
             gui.Load(Content);
             coverEyes = Content.Load<Effect>("CoverEyes");
         }

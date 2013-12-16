@@ -11,9 +11,9 @@ namespace TheVillainsRevenge
     class Cloud
     {
         public int type;
-        Rectangle cuttexture;
+        public Rectangle cuttexture;
         public Vector2 position;
-        float size;
+        public float size;
         
         public Cloud(int t, Vector2 pos, float s)
         {
@@ -23,10 +23,10 @@ namespace TheVillainsRevenge
             switch (type)
             {
                 case 1:
-                    cuttexture = new Rectangle(0, 0, 200, 100);
+                    cuttexture = new Rectangle(0, 0, 500, 500);
                     break;
                 case 2:
-                    cuttexture = new Rectangle(0, 100, 200, 100);
+                    cuttexture = new Rectangle(0, 500, 600, 600);
                     break;
             }
         }

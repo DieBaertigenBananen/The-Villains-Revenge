@@ -6,7 +6,7 @@ playerCollisionOffsetY = -250
 playerCollisionWidth = 140
 playerCollisionHeight = 170
 
-planeTilesBackground0 = 7 --Baueme
+planeTilesBackground0 = 5 --Baueme
 planeTilesBackground1 = 4 --Wald
 planeTilesBackground2 = 2 --Berg
 planeTilesBackground3 = 1 --Himmel
@@ -14,7 +14,7 @@ planeTilesBackground3 = 1 --Himmel
 blockSpeed = 2
 
 heroScale = 2
-heroStartTime = 10
+heroStartTime = 1000
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45
@@ -26,9 +26,9 @@ enemyCollisionWidth = 64
 enemyCollisionHeight = 64
 
 --Update
-playerSpeed = 15
+playerSpeed = 45
 playerAirspeed = playerSpeed - 2
-playerJumppower = 30
+playerJumppower = 60
 playerGravitation = 60
 
 heroSpeed = 10
@@ -51,38 +51,38 @@ minimapOffsetX = 300
 
 itemSlowTime = 10
 itemSlowReduce = 2
-cloudPlane1Width = 1920
-cloudPlane1Height = 1080
-cloudPlane1Top = 930
+cloudPlane1Width = 13440
+cloudPlane1Height = 1850
+cloudPlane1Top = 100
 cloudPlane1Bottom = 1500
 cloudPlane1Amount = 96000
 cloudPlane1Chaos = 0
 cloudPlane1Type = 5
 cloudPlane1Wind = 3
-cloudPlane1SizeMin = 60
-cloudPlane1SizeMax = 160
+cloudPlane1SizeMin = 30
+cloudPlane1SizeMax = 50
 
-cloudPlane2Width = 2100
-cloudPlane2Height = 1150
-cloudPlane2Top = 920
-cloudPlane2Bottom = 1500
+cloudPlane2Width = 9600
+cloudPlane2Height = 1550
+cloudPlane2Top = 80
+cloudPlane2Bottom = 1200
 cloudPlane2Amount = 96000
 cloudPlane2Chaos = 0
 cloudPlane2Type = 5
 cloudPlane2Wind = 2
-cloudPlane2SizeMin = 50
-cloudPlane2SizeMax = 140
+cloudPlane2SizeMin = 25
+cloudPlane2SizeMax = 45
 
-cloudPlane3Width = 2500
-cloudPlane3Height = 1300
-cloudPlane3Top = 940
-cloudPlane3Bottom = 1500
+cloudPlane3Width = 5760
+cloudPlane3Height = 1250
+cloudPlane3Top = 50
+cloudPlane3Bottom = 1000
 cloudPlane3Amount = 96000
 cloudPlane3Chaos = 0
 cloudPlane3Type = 5
 cloudPlane3Wind = 1
 cloudPlane3SizeMin = 20
-cloudPlane3SizeMax = 100
+cloudPlane3SizeMax = 40
 
 --Enter
 playerLifes = playerStartLifes
