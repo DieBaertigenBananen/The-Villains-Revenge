@@ -32,10 +32,7 @@ namespace TheVillainsRevenge
         int testPosition;
         int testSize;
 
-        Random randomSpawn = new Random();
-        Random randomType = new Random();
-        Random randomPosition = new Random();
-        Random randomSize = new Random();
+        Random randomNumber = new Random();
 
         public CloudPlane(int planeNumber)
         {
@@ -57,16 +54,22 @@ namespace TheVillainsRevenge
         {
             cloudTexture = Content.Load<Texture2D>("sprites/Level_1/Planes/" + textureName);
             spawnTimer = 0;
-            for (int i = 0; i <= karte.size.X / luaWind; i++)
+            for (int i = 0; i <= size.X / luaWind; i++)
             {
                 if (spawnTimer > (((100000 - (float)luaAmount) * ((100 - (float)luaChaos) / 100)) / 60))
                 {
                     spawnTimer = 0;
                     SpawnCloud(karte, camera);
                 }
-                foreach (Cloud cloud in clouds)
+                //Wolken updaten
+                for (int t = 0; t < clouds.Count(); t++)
                 {
+                    Cloud cloud = clouds.ElementAt(t);
                     cloud.Update(luaWind);
+                    if (cloud.position.X < -cloud.cuttexture.Width)
+                    {
+                        clouds.Remove(cloud);
+                    }
                 }
                 spawnTimer++;
             }
@@ -93,16 +96,13 @@ namespace TheVillainsRevenge
             }
 
             //Wolken updaten
-            foreach (Cloud cloud in clouds)
+            for (int i = 0; i < clouds.Count(); i++)
             {
+                Cloud cloud = clouds.ElementAt(i);
                 cloud.Update(luaWind);
-            }
-            foreach (Cloud cloud in clouds)
-            {
                 if (cloud.position.X < -cloud.cuttexture.Width)
                 {
                     clouds.Remove(cloud);
-                    break;
                 }
             }
         }
@@ -110,21 +110,21 @@ namespace TheVillainsRevenge
         public void SpawnCloud(Map karte, Camera camera)
         {
             //Entscheiden ob Wolke gespawned werden soll
-            testSpawn = randomSpawn.Next(0, 100);
+            testSpawn = randomNumber.Next(0, 100);
             if (testSpawn >= luaChaos)
             {
                 //Wolkentyp bestimmen
-                testType = randomType.Next(0, 10);
+                testType = randomNumber.Next(0, 10);
                 int type = 1;
                 if (testType < luaType)
                 {
                     type = 2;
                 }
                 //Wolkenposition bestimmen
-                testPosition = randomPosition.Next(0, 100);
+                testPosition = randomNumber.Next(0, 100);
                 int spawnPosition = ((int)((luaBottom - luaTop) * ((float)testPosition / 100))) + luaTop;
                 //Wolke erstellen
-                testSize = randomSize.Next(luaSizeMin, luaSizeMax);
+                testSize = randomNumber.Next(luaSizeMin, luaSizeMax);
                 clouds.Add(new Cloud(type, new Vector2(size.X, spawnPosition), (float)testSize / 100));
             }
         }

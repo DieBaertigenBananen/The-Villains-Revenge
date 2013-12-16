@@ -40,7 +40,7 @@ namespace TheVillainsRevenge
                 }
                 else
                 {
-                    if (Game1.input.enter)
+                    if (Game1.input.enter || Game1.input.sprung)
                     {
                         if (option == 2)
                         {
