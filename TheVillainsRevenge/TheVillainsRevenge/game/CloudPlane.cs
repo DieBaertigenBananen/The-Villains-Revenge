@@ -62,7 +62,7 @@ namespace TheVillainsRevenge
                 if (spawnTimer > (((100000 - (float)luaAmount) * ((100 - (float)luaChaos) / 100)) / 60))
                 {
                     spawnTimer = 0;
-                    SpawnCloud(karte);
+                    SpawnCloud(karte, camera);
                 }
                 foreach (Cloud cloud in clouds)
                 {
@@ -82,14 +82,14 @@ namespace TheVillainsRevenge
 
         public void Update(Map karte, GameTime gameTime, Camera camera)
         {
-            position.X = -((size.X - camera.viewport.Width) * (camera.viewport.X / (karte.size.X - camera.viewport.Width)));
-            position.Y = -((size.Y - camera.viewport.Height) * (camera.viewport.Y / (karte.size.Y - camera.viewport.Height)));
+            position.X = camera.viewport.X - ((size.X - camera.viewport.Width) * (camera.viewport.X / (karte.size.X - camera.viewport.Width)));
+            position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (karte.size.Y - camera.viewport.Height)));
 
             //Spawntimer
             if (gameTime.TotalGameTime.TotalMilliseconds > spawnTimer + ((100000 - (float)luaAmount) * ((100 - (float)luaChaos) / 100)))
             {
                 spawnTimer = gameTime.TotalGameTime.TotalMilliseconds;
-                SpawnCloud(karte);
+                SpawnCloud(karte, camera);
             }
 
             //Wolken updaten
@@ -107,7 +107,7 @@ namespace TheVillainsRevenge
             }
         }
 
-        public void SpawnCloud(Map karte)
+        public void SpawnCloud(Map karte, Camera camera)
         {
             //Entscheiden ob Wolke gespawned werden soll
             testSpawn = randomSpawn.Next(0, 100);
@@ -125,7 +125,7 @@ namespace TheVillainsRevenge
                 int spawnPosition = ((int)((luaBottom - luaTop) * ((float)testPosition / 100))) + luaTop;
                 //Wolke erstellen
                 testSize = randomSize.Next(luaSizeMin, luaSizeMax);
-                clouds.Add(new Cloud(type, new Vector2(karte.size.X, spawnPosition), (float)testSize / 100));
+                clouds.Add(new Cloud(type, new Vector2(size.X, spawnPosition), (float)testSize / 100));
             }
         }
     }

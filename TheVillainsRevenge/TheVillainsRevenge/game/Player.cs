@@ -84,7 +84,11 @@ namespace TheVillainsRevenge
             }
 
             //Geschwindigkeit festlegen
-            int actualspeed = speed; 
+            int actualspeed = speed;
+            if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X != 0)
+            {
+                actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
+            }
             if (jump || fall)
             {
                 actualspeed = airspeed;
