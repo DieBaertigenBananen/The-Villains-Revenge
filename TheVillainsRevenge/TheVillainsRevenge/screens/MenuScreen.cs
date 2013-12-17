@@ -98,7 +98,8 @@ namespace TheVillainsRevenge
                         //Setze auf Exit
                         if (option == 2)
                         {
-                            return 0;
+                            optionScreen = false;
+                            option = 1;
                         }
                         else
                         {
