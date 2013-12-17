@@ -33,15 +33,11 @@ namespace TheVillainsRevenge
             {
                 if (camerabewegung != maxbewegung)
                     camerabewegung += bewegungsteps;
-                rightspace += camerabewegung;
-                leftspace -= camerabewegung;
             }
             else if (Game1.input.cameral)
             {
                 if (camerabewegung != -maxbewegung)
                     camerabewegung -= bewegungsteps;
-                rightspace += camerabewegung;
-                leftspace -= camerabewegung;
             }
             else
             {
@@ -49,8 +45,6 @@ namespace TheVillainsRevenge
                     camerabewegung -= bewegungsteps;
                 else if (camerabewegung < 0)
                     camerabewegung += bewegungsteps;
-                rightspace += camerabewegung;
-                leftspace -= camerabewegung;
             }
             
 
@@ -70,6 +64,12 @@ namespace TheVillainsRevenge
             {
                 viewport.X = (int)karte.size.X - viewport.Width;
             }
+            if (viewport.X + camerabewegung > 0 && viewport.X + camerabewegung < karte.size.X - viewport.Width)
+                viewport.X += camerabewegung;
+            else if (viewport.X + camerabewegung > karte.size.X-viewport.Width) //Rechter Maprand
+                viewport.X = (int)karte.size.X - viewport.Width;
+            else if(viewport.X + camerabewegung < 0)
+                viewport.X = 0;
             if (viewport.Y + topspace > spieler.position.Y) //Scrolling nach oben
             {
                 viewport.Y = (int)spieler.position.Y - topspace;
