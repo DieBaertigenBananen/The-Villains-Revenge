@@ -33,6 +33,10 @@ namespace TheVillainsRevenge
 
         public void Update(int wind)
         {
+            if (GameScreen.slow != 0)
+            {
+                wind = wind / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
+            }
             position.X -= wind;
         }
 
