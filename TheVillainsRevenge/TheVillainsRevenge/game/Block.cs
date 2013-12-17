@@ -27,6 +27,13 @@ namespace TheVillainsRevenge
             //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
             switch (type)
             {
+                case "movingend":
+                    cuttexture.X = 0;
+                    cuttexture.Y = 0;
+                    cuttexture.Width = 0;
+                    cuttexture.Height = 0;
+                    block = false;
+                    break;
                 case "moving":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;

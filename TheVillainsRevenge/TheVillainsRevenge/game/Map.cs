@@ -120,6 +120,10 @@ namespace TheVillainsRevenge
                                  }
                                  moving_last = i;
                                  break;
+                             case "255,119,0":
+                                 type = "movingend";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 break;
                              case "104,60,17":
                                  type = "underground_earth";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));

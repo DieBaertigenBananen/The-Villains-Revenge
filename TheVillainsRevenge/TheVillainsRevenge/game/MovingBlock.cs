@@ -59,7 +59,7 @@ namespace TheVillainsRevenge
             for (int i = 0; i < list.Count(); ++i)
             {
                 Block block = list.ElementAt(i);
-                if (cboxnew.Intersects(block.cbox) &&!block.inlist)
+                if (cboxnew.Intersects(block.cbox) &&block.type == "movingend")
                 {
                     if (move == 1)
                         move = 2;
