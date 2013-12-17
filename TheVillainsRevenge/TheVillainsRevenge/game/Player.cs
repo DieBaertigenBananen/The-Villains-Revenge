@@ -151,11 +151,8 @@ namespace TheVillainsRevenge
             {
                 Jump(gameTime, map);
             }
-
-            foreach (Block block in map.blocks)
+            foreach (MovingBlock block in map.mblocks)
             {
-                if (block.move != 0)
-                {
                     Rectangle collide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
                     int movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
@@ -190,7 +187,6 @@ namespace TheVillainsRevenge
                             break;
                         }
                     }
-                }
             }
             position.Y = spine.skeleton.Y;
             position.X = spine.skeleton.X;

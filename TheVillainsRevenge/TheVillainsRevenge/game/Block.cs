@@ -14,44 +14,12 @@ namespace TheVillainsRevenge
         public Rectangle cbox = new Rectangle(0,0,48,48); //Collisionsbox
         public Rectangle cuttexture = new Rectangle(0,0,48,48);
         public bool block;
-        public int move;
-        public int movespeed;
-        public void Update(GameTime gameTime, List<Block> list, Rectangle sbox)
-        {
-            movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
-            if (GameScreen.slow != 0)
-            {
-                movespeed = movespeed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
-            }
-            if (move == 2)
-                movespeed = -movespeed;
-            //problem: er liest von links nach rechts
-            // 1 2 3 4 5 ,  1-4 bewegen sich in 5 rein da dieser noch nicht "move" umgesetzt hat
-            bool collide = false;
-            Rectangle cboxnew = new Rectangle((int)position.X + movespeed, (int)position.Y, cbox.Width, cbox.Height);
-            for (int i = 0; i < list.Count(); ++i)
-            {
-                Block block = list.ElementAt(i);
-                if (cboxnew.Intersects(block.cbox)&&block.move != move)
-                {
-                    if (move == 1)
-                        move = 2;
-                    else
-                        move = 1;
-                    collide = true;
-                    break;
-                }
-            }
-            if (!collide)
-            {
-                cbox = cboxnew;
-                position.X = cbox.X;
-            }
-
-        }
+        public string type;
+        public bool inlist;
         public Block(Vector2 npos, string type)
         {
             //Setze Position und Collisionsbox
+            this.type = type;
             position = npos;
             cbox.X = (int)position.X;
             cbox.Y = (int)position.Y;
@@ -62,7 +30,6 @@ namespace TheVillainsRevenge
                 case "moving":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
-                    move = 1;
                     break;
                 case "trigger": //Triggerblock, nur zum blocken
                     cuttexture.X = 0;

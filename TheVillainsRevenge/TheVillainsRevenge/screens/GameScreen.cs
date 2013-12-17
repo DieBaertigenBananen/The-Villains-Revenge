@@ -128,7 +128,6 @@ namespace TheVillainsRevenge
                     }
                 }
                 hero.Update(gameTime, karte, spieler.position);
-                test = 0;
                 spieler.Update(gameTime, karte);
                 if (spieler.position.Y >= (karte.size.Y))
                 {

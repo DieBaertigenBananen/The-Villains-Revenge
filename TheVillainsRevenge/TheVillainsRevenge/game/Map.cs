@@ -20,6 +20,7 @@ namespace TheVillainsRevenge
          public List<Checkpoint> checkpoints = new List<Checkpoint>(); //Erstelle Blocks als List
          public List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
          public List<Trigger> triggers = new List<Trigger>(); //Erstelle Blocks als List
+         public List<MovingBlock> mblocks = new List<MovingBlock>(); //Erstelle Blocks als List
 
          public Map()
          {
@@ -56,11 +57,10 @@ namespace TheVillainsRevenge
                  Trigger trigger = triggers.ElementAt(i);
                  trigger.Update(gameTime, blocks,sbox);
              }
-             for (int i = 0; i < blocks.Count(); ++i)
+             for (int i = 0; i < mblocks.Count(); ++i)
              {
-                 Block block = blocks.ElementAt(i);
-                 if(block.move != 0)
-                    block.Update(gameTime, blocks, sbox);
+                 MovingBlock mblock = mblocks.ElementAt(i);
+                 mblock.Update(gameTime, blocks);
              }
          }
 
@@ -96,6 +96,8 @@ namespace TheVillainsRevenge
          public void Generate()
          {
              //generiere Das Level (erzeuge neue Objekte in der List) anhand der Levelmap
+             int moving_last = 0;
+             int moving_anzahl = 0;
              for (int i = 0; i < levelMap.Width; i++)
              {
                  for (int t = 0; t < levelMap.Height; t++)
@@ -112,6 +114,11 @@ namespace TheVillainsRevenge
                              case "255,138,36":
                                  type = "moving";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 if (moving_last + 1 != i)
+                                 {
+                                     moving_anzahl++;
+                                 }
+                                 moving_last = i;
                                  break;
                              case "104,60,17":
                                  type = "underground_earth";
@@ -151,8 +158,13 @@ namespace TheVillainsRevenge
                      }
                  }
              }
+             GameScreen.test = moving_anzahl;
+             for (int i = 0; i < moving_anzahl; i++)
+             {
+                 mblocks.Add(new MovingBlock(blocks));
+             }
              checkpoints.Add(new Checkpoint(4000, false));
-             checkpoints.Add(new Checkpoint((int)size.X-100, true));
+             checkpoints.Add(new Checkpoint((int)size.X - 100, true));
          }
     }
 }
