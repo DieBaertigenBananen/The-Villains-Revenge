@@ -156,7 +156,7 @@ namespace TheVillainsRevenge
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if (cboxnew.box.Intersects(block.cbox))
+                    if (cboxnew.box.Intersects(block.cbox)&&block.block)
                     {
                         stop = true;
                         break;

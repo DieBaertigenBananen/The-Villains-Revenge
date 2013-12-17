@@ -111,7 +111,11 @@ namespace TheVillainsRevenge
                          String color = pixelRGBA[i, t, 0] + "," + pixelRGBA[i, t, 1] + "," + pixelRGBA[i, t, 2];
                          switch (color)
                          {
-                             case "255,138,36":
+                             case "147,17,126":
+                                 type = "checkpoint";
+                                 checkpoints.Add(new Checkpoint(i * 48, false));
+                                 break;
+                             case "39,118,33":
                                  type = "moving";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  if (moving_last + 1 != i)
@@ -120,7 +124,7 @@ namespace TheVillainsRevenge
                                  }
                                  moving_last = i;
                                  break;
-                             case "255,119,0":
+                             case "180,165,0":
                                  type = "movingend";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
@@ -162,13 +166,11 @@ namespace TheVillainsRevenge
                      }
                  }
              }
-             GameScreen.test = moving_anzahl;
              for (int i = 0; i < moving_anzahl; i++)
              {
                  mblocks.Add(new MovingBlock(blocks));
              }
-             checkpoints.Add(new Checkpoint(4000, false));
-             checkpoints.Add(new Checkpoint((int)size.X - 100, true));
+             checkpoints.Add(new Checkpoint((int)size.X - 100, true)); //Ende
          }
     }
 }
