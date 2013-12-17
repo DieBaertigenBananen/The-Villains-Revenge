@@ -27,6 +27,7 @@ namespace TheVillainsRevenge
         CloudPlane clouds_1 = new CloudPlane(1);
         CloudPlane clouds_2 = new CloudPlane(2);
         CloudPlane clouds_3 = new CloudPlane(3);
+        Sound bgmusic = new Sound("sounds/Level_1/background");
         RenderTarget2D renderTarget;
         RenderTarget2D renderSpine;
         SpriteFont font;
@@ -59,6 +60,8 @@ namespace TheVillainsRevenge
             clouds_3.Load(Content, "clouds_3", karte, camera);
             gui.Load(Content);
             coverEyes = Content.Load<Effect>("CoverEyes");
+            if(Game1.sound)
+                bgmusic.Load(Content);
         }
 
         public int Update(GameTime gameTime)

@@ -49,12 +49,19 @@ namespace TheVillainsRevenge
                     if (Game1.input.enter)
                     {
                         //Option == 2 ist Exit
-                        if (option == 2)
+                        if (option == 3)
                         {
                             optionScreen = false;
                             option = 1;
                         }
                         //Option = 1 ist stretch
+                        else if (option == 2)
+                        {
+                            if (Game1.sound)
+                                Game1.sound = false;
+                            else
+                                Game1.sound = true;
+                        }
                         else if (option == 1)
                         {
                             if(Game1.stretch)
@@ -74,6 +81,8 @@ namespace TheVillainsRevenge
                             option = 1;
                         else if (option == 1)
                             option = 2;
+                        else if (option == 2)
+                            option = 3;
                         else
                             option = 0;
                     }
@@ -81,6 +90,10 @@ namespace TheVillainsRevenge
                     {
                         //Wechsel
                         if (option == 0)
+                        {
+                            option = 3;
+                        }
+                        else if (option == 3)
                         {
                             option = 2;
                         }
@@ -96,14 +109,14 @@ namespace TheVillainsRevenge
                     if (Game1.input.back)
                     {
                         //Setze auf Exit
-                        if (option == 2)
+                        if (option == 3)
                         {
                             optionScreen = false;
                             option = 1;
                         }
                         else
                         {
-                            option = 2;
+                            option = 3;
                         }
                     }
                 }
@@ -244,11 +257,25 @@ namespace TheVillainsRevenge
                 }
                 if (option == 2)
                 {
-                    spriteBatch.DrawString(font, "Return", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
+                    if (Game1.sound)
+                        spriteBatch.DrawString(font, "Sound on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
+                    else
+                        spriteBatch.DrawString(font, "Sound off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
                 }
                 else
                 {
-                    spriteBatch.DrawString(font, "Return", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
+                    if (Game1.sound)
+                        spriteBatch.DrawString(font, "Sound on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
+                    else
+                        spriteBatch.DrawString(font, "Sound off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
+                }
+                if (option == 3)
+                {
+                    spriteBatch.DrawString(font, "Return", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 100), Color.Black);
+                }
+                else
+                {
+                    spriteBatch.DrawString(font, "Return", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 100), Color.Gray);
                 }
             }
             spriteBatch.End();
