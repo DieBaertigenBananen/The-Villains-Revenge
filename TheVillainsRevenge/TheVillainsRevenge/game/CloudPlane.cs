@@ -38,7 +38,16 @@ namespace TheVillainsRevenge
         {
             number = planeNumber;
 
-            
+            luaTop = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Top"]);
+            luaBottom = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Bottom"]);
+            luaAmount = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Amount"]);
+            luaChaos = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Chaos"]);
+            luaType = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Type"]);
+            luaWind = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Wind"]);
+            luaSizeMin = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "SizeMin"]);
+            luaSizeMax = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "SizeMax"]);
+            size.X = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Width"]);
+            size.Y = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Height"]);
         }
 
         public void Load(ContentManager Content, string textureName, Map karte, Camera camera)
@@ -76,7 +85,6 @@ namespace TheVillainsRevenge
 
         public void Update(Map karte, GameTime gameTime, Camera camera)
         {
-
             luaTop = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Top"]);
             luaBottom = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Bottom"]);
             luaAmount = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Amount"]);
@@ -87,7 +95,6 @@ namespace TheVillainsRevenge
             luaSizeMax = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "SizeMax"]);
             size.X = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Width"]);
             size.Y = Convert.ToInt32((double)Game1.luaInstance["cloudPlane" + number.ToString() + "Height"]);
-
 
             position.X = camera.viewport.X - ((size.X - camera.viewport.Width) * (camera.viewport.X / (karte.size.X - camera.viewport.Width)));
             position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (karte.size.Y - camera.viewport.Height)));
