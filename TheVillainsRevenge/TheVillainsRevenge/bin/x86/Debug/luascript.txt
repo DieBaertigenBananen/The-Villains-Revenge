@@ -25,6 +25,35 @@ enemyCollisionOffsetY = 0
 enemyCollisionWidth = 64
 enemyCollisionHeight = 64
 
+--Update
+playerSpeed = 25
+playerAirspeed = playerSpeed - 2
+playerJumppower = 25
+playerGravitation = 60
+playerJumpCutoff = 50
+
+heroSpeed = 10
+heroAirspeed = heroSpeed - 2
+heroJumppower = 30
+heroGravitation = 60
+
+enemySpeed = 2
+enemyGravitation = 60
+
+cameraLeftspace = 1100
+cameraRightspace = 1920 - cameraLeftspace
+cameraBottomspace = 700
+cameraTopspace = 1080 - cameraBottomspace
+cameraMaxBewegung = 400
+cameraBewegungSteps = 20
+
+minimapWidth = 1000
+minimapOffsetX = 1920 / 2 - minimapWidth / 2
+
+itemSlowTime = 10
+itemSlowReduce = 2
+
+
 cloudPlane1Width = 13440
 cloudPlane1Height = 1850
 cloudPlane1Top = 100
@@ -57,33 +86,6 @@ cloudPlane3Type = 5
 cloudPlane3Wind = 1
 cloudPlane3SizeMin = 20
 cloudPlane3SizeMax = 40
-
---Update
-playerSpeed = 25
-playerAirspeed = playerSpeed - 2
-playerJumppower = 25
-playerGravitation = 60
-
-heroSpeed = 10
-heroAirspeed = heroSpeed - 2
-heroJumppower = 30
-heroGravitation = 60
-
-enemySpeed = 2
-enemyGravitation = 60
-
-cameraLeftspace = 1100
-cameraRightspace = 1920 - cameraLeftspace
-cameraBottomspace = 700
-cameraTopspace = 1080 - cameraBottomspace
-cameraMaxBewegung = 400
-cameraBewegungSteps = 20
-
-minimapWidth = 1000
-minimapOffsetX = 1920 / 2 - minimapWidth / 2
-
-itemSlowTime = 10
-itemSlowReduce = 2
 
 --Enter
 playerLifes = playerStartLifes

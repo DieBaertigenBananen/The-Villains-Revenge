@@ -121,6 +121,13 @@ namespace TheVillainsRevenge
                     Jump(gameTime, map); //Springen!
                 }
             }
+            else
+            {
+                if (jump)
+                {
+                    jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
+                }
+            }
             if (Game1.input.itemu)
             {
                 if (item1 == 1)
