@@ -101,7 +101,7 @@ namespace TheVillainsRevenge
                 collide.X = cbox.box.X - movespeed;
                 if (collide.Intersects(block.cbox))
                 {
-                    if (CollisionCheckedVector(movespeed, 0, map.blocks).X != 0)
+                    if (CollisionCheckedVector(movespeed, 0, map.blocks).X == movespeed)
                     {
                         Move(movespeed, 0, map);
                         break;
