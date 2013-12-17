@@ -25,12 +25,10 @@ namespace TheVillainsRevenge
         public double herotime;
         bool start = false;
         int heroStartTime;
-        public float test;
         public Spine spine;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
-            test = 0.0f;
             checkpoint = new Vector2(x, y);
             position.X = x;
             position.Y = y;

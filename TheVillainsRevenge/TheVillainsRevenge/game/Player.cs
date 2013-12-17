@@ -158,18 +158,37 @@ namespace TheVillainsRevenge
                 {
                     Rectangle collide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                    int movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
+                    if (block.move == 2)
+                        movespeed = -movespeed;
                     if (collide.Intersects(block.cbox))
                     {
-                        int movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
                         if (GameScreen.slow != 0)
                         {
                             movespeed = movespeed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
                         }
-                        if (block.move == 1)
-                            Move(movespeed, 0, map);
-                        else
-                            Move(-movespeed, 0, map);
+                        Move(movespeed, 0, map);
                         break;
+                    }
+
+                    collide.Y = cbox.box.Y;
+                    collide.X = cbox.box.X - movespeed;
+                    if (collide.Intersects(block.cbox))
+                    {
+                        if (CollisionCheckedVector(movespeed, 0, map.blocks).X != 0)
+                        {
+                            Move(movespeed, 0, map);
+                            break;
+                        }
+                        else
+                        {
+                            GameScreen.test = 1;
+                            if (block.move == 1)
+                                block.move = 2;
+                            else
+                                block.move = 1;
+                            break;
+                        }
                     }
                 }
             }

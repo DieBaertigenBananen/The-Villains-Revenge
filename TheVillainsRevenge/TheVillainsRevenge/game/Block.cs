@@ -25,6 +25,8 @@ namespace TheVillainsRevenge
             }
             if (move == 2)
                 movespeed = -movespeed;
+            //problem: er liest von links nach rechts
+            // 1 2 3 4 5 ,  1-4 bewegen sich in 5 rein da dieser noch nicht "move" umgesetzt hat
             bool collide = false;
             Rectangle cboxnew = new Rectangle((int)position.X + movespeed, (int)position.Y, cbox.Width, cbox.Height);
             for (int i = 0; i < list.Count(); ++i)

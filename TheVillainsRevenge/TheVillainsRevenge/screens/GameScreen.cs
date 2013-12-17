@@ -13,6 +13,7 @@ namespace TheVillainsRevenge
 {
     class GameScreen
     {
+        public static int test;
         Texture2D texture;
         Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
@@ -127,6 +128,7 @@ namespace TheVillainsRevenge
                     }
                 }
                 hero.Update(gameTime, karte, spieler.position);
+                test = 0;
                 spieler.Update(gameTime, karte);
                 if (spieler.position.Y >= (karte.size.Y))
                 {
@@ -247,7 +249,7 @@ namespace TheVillainsRevenge
                 Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
-                spriteBatch.DrawString(font, "Test: " + hero.test, new Vector2(Game1.resolution.X - 300, 350), Color.White);
+                spriteBatch.DrawString(font, "Test: " + test, new Vector2(Game1.resolution.X - 300, 350), Color.White);
                 //for (int i = 0; i < karte.background.Width; i++)
                 //{
                 //    for (int t = 15; t < karte.background.Height; t++)
