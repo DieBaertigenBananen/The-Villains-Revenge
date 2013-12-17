@@ -159,6 +159,8 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0f
                     || 
+                    GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Pressed
+                    ||
                     keyState.IsKeyDown(Keys.Down) 
                     || 
                     keyState.IsKeyDown(Keys.S))
@@ -172,7 +174,11 @@ namespace TheVillainsRevenge
                 down = false;
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y >= 0f
                     &&
-                    keyState.IsKeyUp(Keys.Down) && keyState.IsKeyUp(Keys.S))
+                    GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Released
+                    &&
+                    keyState.IsKeyUp(Keys.Down)
+                    &&
+                    keyState.IsKeyUp(Keys.S))
                 {
                     downp = false;
                 }
@@ -180,6 +186,8 @@ namespace TheVillainsRevenge
             if (!upp)
             {
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
+                    ||
+                    GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Pressed 
                     ||
                     keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
                 {
@@ -191,6 +199,8 @@ namespace TheVillainsRevenge
             {
                 up = false;
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y <= 0f
+                    &&
+                    GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Released 
                     &&
                     keyState.IsKeyUp(Keys.Up) && keyState.IsKeyUp(Keys.W))
                 {
@@ -221,7 +231,7 @@ namespace TheVillainsRevenge
             {
                 if (keyState.IsKeyDown(Keys.Tab) == true
                     ||
-                    GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed)
+                    GamePad.GetState(PlayerIndex.One).Buttons.RightStick == ButtonState.Pressed)
                 {
                     debug = true;
                     debugp = true;
@@ -232,7 +242,7 @@ namespace TheVillainsRevenge
                 debug = false;
                 if (keyState.IsKeyUp(Keys.Tab) == true
                     &&
-                    GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Released)
+                    GamePad.GetState(PlayerIndex.One).Buttons.RightStick == ButtonState.Released)
                 {
                     debugp = false;
                 }

@@ -38,7 +38,7 @@ namespace TheVillainsRevenge
             {
                 if (deadScreen)
                 {
-                    if (Game1.input.enter)
+                    if (Game1.input.enter || Game1.input.sprung)
                     {
                         deadScreen = false;
                     }

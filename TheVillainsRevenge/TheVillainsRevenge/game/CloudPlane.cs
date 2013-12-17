@@ -56,7 +56,7 @@ namespace TheVillainsRevenge
             spawnTimer = 0;
             for (int i = 0; i <= size.X / luaWind; i++)
             {
-                if (spawnTimer > (((100000 - (float)luaAmount) * ((100 - (float)luaChaos) / 100)) / 60))
+                if (spawnTimer > (((100000 - (float)luaAmount) * ((100 - (float)luaChaos) / 100)) / 30))
                 {
                     spawnTimer = 0;
                     SpawnCloud(karte, camera);
