@@ -247,6 +247,7 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                 spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
+                spriteBatch.Draw(texture, hero.collide, null, Color.Red);
             }
             spriteBatch.End();
 
@@ -295,7 +296,7 @@ namespace TheVillainsRevenge
                 Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
-                spriteBatch.DrawString(font, "Test: " + test, new Vector2(Game1.resolution.X - 300, 350), Color.White);
+                spriteBatch.DrawString(font, "Test: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
                 //for (int i = 0; i < karte.background.Width; i++)
                 //{
                 //    for (int t = 15; t < karte.background.Height; t++)

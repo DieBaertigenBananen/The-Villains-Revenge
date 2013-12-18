@@ -23,6 +23,8 @@ namespace TheVillainsRevenge
         {
             position.Y = checkpoint.Y;
             position.X = checkpoint.X;
+            cbox.Y = (int)position.Y;
+            cbox.X = (int)position.X;
         }
         public void Save()
         {

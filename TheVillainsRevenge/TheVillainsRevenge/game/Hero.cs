@@ -16,7 +16,7 @@ namespace TheVillainsRevenge
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
-        public bool fall = false;
+        public bool fall = true;
         public double falltimer;
         public double jumptimer;
         public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
@@ -25,12 +25,14 @@ namespace TheVillainsRevenge
         bool start = false;
         int heroStartTime;
         public Spine spine;
+        public int kistate; //State der KI Berechnung
         //Checkpoint//
         Vector2 checkpoint;
         bool checkjump;
         double checkjumpt;
         double checktime;
         bool checkstart;
+        public Rectangle collide;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -101,74 +103,203 @@ namespace TheVillainsRevenge
                 if (position.X + 50 < sposition.X || position.X - 50 > sposition.X)
                 {
 
-                    //Schaue ob an nächster Position ein Block ist
-                    if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
+                    if (kistate == 0)
                     {
-                        //kein Block, also bewege
-                        Move(actualspeed, 0, map);
-                        //Schau ob unten ein Block ist
-                        if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                        //KI befindet sich auf den Boden und kann normal laufen
+                        //Schaue ob er sich nach rechts bewegen kann
+                        if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
                         {
-                            /*
-                            //Schau ob er tief fällt, wenn ja, beweg mal zurück
-                            if (fall || jump)
+                            //Scheint zu funktionieren, laufe einfach mal rechts
+                            //Aber vielleicht ist es eine Falle?
+                            //Gibt es ein Abgrund T_T??
+                            //Wir müssen uns einfach mal hinbewegen und schauen ob wir Fallen!
+                            Move(actualspeed, 0, map);
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
                             {
-                                //Schaue ob an nächster Position ein Block wär wo er drauf könnte
+                                //AAAAHHH WIR fallen T_T
+                                //Hmm vielleicht ist da ja ein Block der für die bewegenden Plattformen zuständig ist?
+                                bool bewegblock = false;
+                                collide = new Rectangle(cbox.box.X, cbox.box.Y+1, cbox.box.Width, cbox.box.Height);
+                                foreach (Block block in map.blocks)
+                                {
+                                    if (collide.Intersects(block.cbox) && block.type == "movingend")
+                                    {
+                                        bewegblock = true;
+                                        //TATSACHE!!
+                                        //Schaue ob rechts ein Block ist
+                                    }
+                                }
+                                if (bewegblock)
+                                {
+                                    //Warten wir einfach mal ...
+                                    Move(-actualspeed, 0, map);
+                                    kistate = 4;
+                                }
+                                //Beginne den Drüberspringmodus für Abgründe!!!HA!
+                                else
+                                {
+                                    if (!fall && !jump)
+                                    {
+                                        Jump(gameTime, map); //Springen!
+                                        kistate = 2;
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                //Hmmm wir sind auf Grund ... Alles klar
+                                //Was ist wenn aber bald über uns ein Block ist?
+                                //Schau ob oben ein Block ist
                                 if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
                                 {
                                     Move(actualspeed, 0, map);
-                                    //Schau ob er direkt auf nen Block steht, wenn ja bewege
-                                    if (CollisionCheckedVector(0, gravitation, map.blocks).Y != gravitation)
+                                    //Schaue ob an nächster Position ein Block über ihn sein wird
+                                    if (CollisionCheckedVector(0, -200, map.blocks).Y != -200)
                                     {
                                         Move(-actualspeed, 0, map);
+                                        //Block ist oben, bewege zurück und spring
+                                        Jump(gameTime, map); //Springen!
+                                        kistate = 3;
                                     }
                                     else
                                     {
                                         Move(-actualspeed, 0, map);
-                                        //Schaue ob er wenn er fällt auf einen block stehen würd, wenn ja, bewege garnicht
-                                        test = CollisionCheckedVector(0, gravitation, map.blocks).Y;
-                                        if (CollisionCheckedVector(0, gravitation, map.blocks).Y != gravitation)
-                                        {
-                                            Move(-actualspeed, 0, map);
-                                        }
                                     }
                                 }
+                                
                             }
-                             * */
-                            //Kein Block unten, kann also fallen, daher spring mal lieber
-                            if (!jump && !fall)
+                        }
+                        else
+                        {
+                            //Da scheint was ihm im Weg zu sein, daher springe drüber
+                            //Aktiviere Springmodus!!
+                            if (!fall && !jump)
                             {
                                 Jump(gameTime, map); //Springen!
+                                kistate = 1;
                             }
-                        }
-                        //Schau ob oben ein Block ist
-                        if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
-                        {
-                            Move(actualspeed, 0, map);
-                            //Schaue ob an nächster Position ein Block über ihn sein wird
-                            if (CollisionCheckedVector(0, -jumppower, map.blocks).Y != -jumppower)
-                            {
-                                Move(-actualspeed, 0, map);
-                                //Block ist oben, bewege zurück und spring
-                                if (!jump && !fall)
-                                {
-                                    Jump(gameTime, map); //Springen!
-                                }
-                            }
-                            else
-                            {
-                                Move(-actualspeed, 0, map);
 
-                            }
                         }
-
                     }
-                    else
+                    else if (kistate == 1)
                     {
-                        //Doch ein Block, also spring
-                        if (!jump && !fall)
+                        //KI befindet sich im Drüberspringmodus!!
+                        //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
+                        //Überprüfe ob rechts immernoch etwas ist
+                        if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
+                        {
+                            //Rechts ist nichts mehr! Kann mit dem Springen aufhören und sich draufbewegen
+                            Move(actualspeed, 0, map);
+                            jumptimer = 0;
+                            kistate = 0;
+                        }
+                    }
+                    else if (kistate == 2)
+                    {
+                        //KI befindet sich im Drüberspringmodus bei Abgründen!!
+                        //Gucke ob er Grund haben könnte
+                        float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                        if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
+                        {
+                            //Kein Grund T_T Beweg mich mal
+                            Move(actualspeed, 0, map);
+                        }
+                        else
+                        {
+                            jumptimer = 0;
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                            {
+                                //Grund!!!! Wir sind unten!!! Starte normalen Modus
+                                kistate = 0;
+                            }
+                        }
+                    }
+                    else if (kistate == 3)
+                    {
+                        //KI befindet sich im Aufspringmodus!!
+                        //Er will auf etwas draufspringen
+                        //Schaue ob er noch springt
+                        if (fall)
+                        {
+                            //Fällt, gucke ob er sich rechts bewegen kann
+                            if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
+                            {
+                                //Rechts ist nichts mehr! Kann mit dem Springen aufhören und sich draufbewegen
+                                Move(actualspeed, 0, map);
+                                jumptimer = 0;
+                                kistate = 0;
+                            }
+                        }
+                    }
+                    else if (kistate == 4)
+                    {
+                        //KI befindet sich im Wartemodus!!
+                        //Überprüfe ob die Plattform bald da ist
+                        bool bewegblock = false;
+                        collide = new Rectangle(cbox.box.X+48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                        foreach (MovingBlock mblock in map.mblocks)
+                        {
+                            if (collide.Intersects(mblock.cbox))
+                            {
+                                bewegblock = true;
+                                //TATSACHE!! Er ist da!!
+                            }
+                        }
+                        if (bewegblock)
                         {
                             Jump(gameTime, map); //Springen!
+                            kistate = 5;
+                        }
+                    }
+                    else if (kistate == 5)
+                    {
+                        //Er springt auf die Plattform! YEA
+                        float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                        if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
+                        {
+                            //Kein Grund T_T Beweg mich mal
+                            Move(actualspeed, 0, map);
+                        }
+                        else
+                        {
+                            jumptimer = 0;
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                            {
+                                //Grund!!!! Wir sind unten!!! Starte nächsten Modus
+                                kistate = 6;
+                            }
+                        }
+                    }
+                    else if (kistate == 6)
+                    {
+                        //Befindet sich auf der Plattform
+                        //Beweg mich mal nach Forme und schau ob ich da falle T_T
+                        Move(actualspeed, 0, map);
+                        if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                        {
+                            //Ah wir fallen! Schnell zurück!
+                            Move(-actualspeed, 0, map);
+                            kistate = 7;
+                        }
+                    }
+                    else if (kistate == 7)
+                    {
+                        //Ki Wartet nun am Ende und wartet auf einen movingend
+                        bool bewegblock = false;
+                        collide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                        foreach (Block block in map.blocks)
+                        {
+                            if (collide.Intersects(block.cbox)&&block.type == "movingend")
+                            {
+                                bewegblock = true;
+                                //TATSACHE!! Er ist da!!
+                            }
+                        }
+                        if (bewegblock)
+                        {
+                            Jump(gameTime, map); //Springen!
+                            kistate = 3;
                         }
                     }
                 }
@@ -305,7 +436,7 @@ namespace TheVillainsRevenge
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if (cboxnew.box.Intersects(block.cbox))
+                    if (cboxnew.box.Intersects(block.cbox)&&block.block)
                     {
                         stop = true;
                         break;
