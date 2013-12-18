@@ -18,7 +18,7 @@ namespace TheVillainsRevenge
         Block b;
         //Checkpoint//
         bool checkactive;
-        int checkactiveTime;
+        double checkactiveTime;
         public Trigger(Vector2 npos,Block b)
         {
             //Setze Position und Collisionsbox
@@ -38,7 +38,7 @@ namespace TheVillainsRevenge
             if (!active && checkactive)
             {
                 Pushed(list);
-                activeTime = checkactiveTime;
+                time = checkactiveTime;
             }
             else if (active && !checkactive)
             {
@@ -56,7 +56,7 @@ namespace TheVillainsRevenge
         public void Save()
         {
             active = checkactive;
-            activeTime = checkactiveTime;
+            time = checkactiveTime;
         }
         public void Pushed(List<Block> list)
         {
@@ -122,7 +122,7 @@ namespace TheVillainsRevenge
                     b.block = false;
                 }
             }
-            activeTime = 10;
+            activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTime"]);
             time = 0;
             active = true;
         }

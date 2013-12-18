@@ -12,6 +12,7 @@ planeTilesBackground2 = 2 --Berg
 planeTilesBackground3 = 1 --Himmel
 
 blockSpeed = 2
+triggerTime = 10
 
 heroScale = 2
 heroStartTime = 1000

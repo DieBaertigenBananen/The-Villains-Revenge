@@ -14,6 +14,7 @@ namespace TheVillainsRevenge
         public Rectangle cbox =  new Rectangle(0, 0, 48, 48);
         //Checkpoint//
         Rectangle checkcbox = new Rectangle(0, 0, 48, 48);
+        int checkmove;
 
         public MovingBlock(List<Block> list)
         {
@@ -51,6 +52,7 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
+            move = checkmove;
             cbox = checkcbox;
             for (int i = 0; i < blocks.Count(); ++i)
             {
@@ -60,6 +62,7 @@ namespace TheVillainsRevenge
         }
         public void Save()
         {
+            checkmove = move;
             checkcbox = cbox;
             for (int i = 0; i < blocks.Count(); ++i)
             {

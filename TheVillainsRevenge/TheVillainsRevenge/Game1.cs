@@ -63,6 +63,8 @@ namespace TheVillainsRevenge
 
             luaInstance["blockSpeed"] = "";
 
+            luaInstance["triggerTime"] = "";
+
             luaInstance["heroScale"] = "";
             luaInstance["heroStartTime"] = "";
             luaInstance["heroCollisionOffsetX"] = "";

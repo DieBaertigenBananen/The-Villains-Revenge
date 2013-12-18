@@ -29,6 +29,8 @@ namespace TheVillainsRevenge
         Vector2 checkpoint;
         bool checkjump;
         double checkjumpt;
+        double checktime;
+        bool checkstart;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -53,6 +55,8 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
+            start = checkstart;
+            herotime = checktime;
             jump = checkjump;
             jumptimer = checkjumpt;
             spine.skeleton.x = checkpoint.X;
@@ -63,6 +67,8 @@ namespace TheVillainsRevenge
         }
         public void Save()
         {
+            checkstart = start;
+            checktime = herotime;
             checkpoint.X = position.X;
             checkpoint.Y = position.Y;
             checkjump = jump;
