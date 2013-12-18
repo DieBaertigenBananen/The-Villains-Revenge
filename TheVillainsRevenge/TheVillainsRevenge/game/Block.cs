@@ -35,8 +35,15 @@ namespace TheVillainsRevenge
                     block = false;
                     break;
                 case "moving":
+                    cuttexture.X = 48;
+                    cuttexture.Y = 0;
+                    break;
+                case "triggerend":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
+                    cuttexture.Width = 0;
+                    cuttexture.Height = 0;
+                    block = false;
                     break;
                 case "trigger": //Triggerblock, nur zum blocken
                     cuttexture.X = 0;

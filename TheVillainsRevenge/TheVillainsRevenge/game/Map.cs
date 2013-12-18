@@ -149,18 +149,26 @@ namespace TheVillainsRevenge
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "0,0,0":
+                                 type = "hase";
                                  enemies.Add(new Enemy(new Vector2(i * 48, (t * 48)-64), 1));
                                  break;
                              case "255,255,0":
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), "zeit"));
+                                 type = "zeit";
+                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "171,140,188":
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), "herz"));
+                                 type = "herz";
+                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "255,0,0":
-                                 Block b = new Block(new Vector2(i * 48, t * 48), "trigger");
+                                 type = "trigger";
+                                 Block b = new Block(new Vector2(i * 48, t * 48), type);
                                  blocks.Add(b);
                                  triggers.Add(new Trigger(new Vector2(i * 48, t * 48),b));
+                                 break;
+                             case "153,0,0":
+                                 type = "triggerend";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                          }
                      }

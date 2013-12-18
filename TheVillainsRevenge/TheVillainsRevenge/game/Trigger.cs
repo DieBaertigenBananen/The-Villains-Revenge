@@ -16,9 +16,6 @@ namespace TheVillainsRevenge
         public Rectangle cbox = new Rectangle(0, 0, 48, 48); //Collisionsbox
         public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
         Block b;
-        int blocka;
-        int blocky;
-        int blockx;
         public Trigger(Vector2 npos,Block b)
         {
             //Setze Position und Collisionsbox
@@ -28,20 +25,71 @@ namespace TheVillainsRevenge
             cbox.Y = (int)position.Y;
             cuttexture.X = 3 * 48;
             cuttexture.Y = 48;
-            blocka = 11;
-            blocky = 5;
-            blockx = 6;
             active = false;
         }
         public void Pushed(List<Block> list)
         {
-             //generiere Das Level (erzeuge neue Objekte in der List) anhand der Levelmap
-            for (int i = 0; i < blocka; i++)
+            //Schaue wo die Blöcke sind
+            Rectangle cboxnew = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
+            for (int i = 0; i < 20; i++)
             {
-                Block block = new Block(new Vector2(position.X - (blockx * 48), position.Y - (blocky * 48) + i * 48), "underground_earth");
-                list.Add(block);
-                blocks.Add(block);
-                b.block = false;
+                cboxnew.X = cboxnew.X - 48;
+                bool hat = false;
+                for (int j = 0; j < list.Count(); ++j)
+                {
+                    Block block = list.ElementAt(j);
+                    if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
+                    {
+                        //Wir haben den Block, jetzt hole die Höhe
+                        hat = true;
+                        break;
+                    }
+                }
+                if (hat)
+                    break;
+            }
+            //Gehe nach Oben
+            for (int i = 0; i < 20; i++)
+            {
+                cboxnew.Y = cboxnew.Y - 48;
+                bool hat = false;
+                for (int j = 0; j < list.Count(); ++j)
+                {
+                    Block block = list.ElementAt(j);
+                    if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
+                    {
+                        //Wir haben alle Daten
+                        hat = true;
+                        break;
+                    }
+                }
+                if (hat)
+                    break;
+            }
+            //Haben nun alle Daten, nun platziere Blöcke bis unten ne Kollision ist
+            for (int i = 0; i < 20; i++)
+            {
+                cboxnew.Y = cboxnew.Y + 48;
+                bool collide = false;
+                for (int j = 0; j < list.Count(); ++j)
+                {
+                    Block block = list.ElementAt(j);
+                    if (cboxnew.Intersects(block.cbox) &&block.block)
+                    {
+                        //Wir haben alle Daten
+                        collide = true;
+                        break;
+                    }
+                }
+                if (collide)
+                    break;
+                else
+                {
+                    Block block = new Block(new Vector2(cboxnew.X, cboxnew.Y), "underground_earth");
+                    list.Add(block);
+                    blocks.Add(block);
+                    b.block = false;
+                }
             }
             activeTime = 10;
             time = 0;
