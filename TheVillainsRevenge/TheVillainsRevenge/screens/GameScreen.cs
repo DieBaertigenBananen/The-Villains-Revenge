@@ -15,6 +15,7 @@ namespace TheVillainsRevenge
     {
         public static int test;
         Texture2D texture;
+        Texture2D debug;
         Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
         Map karte = new Map();
@@ -60,8 +61,11 @@ namespace TheVillainsRevenge
             clouds_3.Load(Content, "clouds_3", karte, camera);
             gui.Load(Content);
             coverEyes = Content.Load<Effect>("CoverEyes");
-            if(Game1.sound)
+            if (Game1.sound)
+            {
                 bgmusic.Load(Content);
+            }
+            debug = Content.Load<Texture2D>("sprites/Level_1/Planes/background_0_debug");
         }
         public void Save(int x)
         {
@@ -217,16 +221,23 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
 
             //-----Hintergrundebenen-----
-            if (!Game1.debug)
-            {
+            //if (!Game1.debug)
+            //{
                 background_3.Draw(spriteBatch); //Himmel
                 clouds_3.Draw(spriteBatch);
                 background_2.Draw(spriteBatch); //Berge
                 clouds_2.Draw(spriteBatch);
                 background_1.Draw(spriteBatch); //Wald
                 clouds_1.Draw(spriteBatch);
-                background_0.Draw(spriteBatch); //Bäume
-            }
+                if (!Game1.debug)
+                {
+                    background_0.Draw(spriteBatch); //Bäume
+                }
+                else
+                {
+                    spriteBatch.Draw(debug, new Vector2(background_0.position.X, background_0.position.Y), Color.White);
+                }
+            //}
 
             //-----Spielebene-----
             karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene

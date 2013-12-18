@@ -27,7 +27,7 @@ namespace TheVillainsRevenge
         public static int startLifes = Convert.ToInt32((double)Game1.luaInstance["playerStartLifes"]);
         public int item1;
         public int item2;
-        public bool coverEyes = true;
+        public bool coverEyes = false;
         public Spine spine;
         //Checkpoint Speicherng//
         public Vector2 checkpoint;
@@ -79,14 +79,14 @@ namespace TheVillainsRevenge
 
         public void Update(GameTime gameTime, Map map)
         {
-            if (Game1.debug)
-            {
-                coverEyes = true;
-            }
-            else
-            {
-                coverEyes = false;
-            }
+            //if (Game1.debug)
+            //{
+            //    coverEyes = true;
+            //}
+            //else
+            //{
+            //    coverEyes = false;
+            //}
             speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
             airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
             jumppower = Convert.ToInt32((double)Game1.luaInstance["playerJumppower"]);
