@@ -13,7 +13,8 @@ namespace TheVillainsRevenge
         public int movespeed = 0;
         public Rectangle cbox =  new Rectangle(0, 0, 48, 48);
         //Checkpoint//
-        public Rectangle checkcbox = new Rectangle(0, 0, 48, 48);
+        Rectangle checkcbox = new Rectangle(0, 0, 48, 48);
+
         public MovingBlock(List<Block> list)
         {
             int x = 0;

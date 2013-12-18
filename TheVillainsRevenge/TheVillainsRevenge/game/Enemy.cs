@@ -19,8 +19,8 @@ namespace TheVillainsRevenge
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public bool mover = false;
         //Checkpoint//
-        public Vector2 checkpoint;
-        public bool checkmover;
+        Vector2 checkpoint;
+        bool checkmover;
         public void Reset()
         {
             position.Y = checkpoint.Y;

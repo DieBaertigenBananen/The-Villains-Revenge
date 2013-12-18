@@ -17,8 +17,8 @@ namespace TheVillainsRevenge
         public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
         Block b;
         //Checkpoint//
-        public bool checkactive;
-        public int checkactiveTime;
+        bool checkactive;
+        int checkactiveTime;
         public Trigger(Vector2 npos,Block b)
         {
             //Setze Position und Collisionsbox

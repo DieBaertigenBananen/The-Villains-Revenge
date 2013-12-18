@@ -31,8 +31,8 @@ namespace TheVillainsRevenge
         public Spine spine;
         //Checkpoint Speicherng//
         public Vector2 checkpoint;
-        public bool checkjump;
-        public double checkjumpt;
+        bool checkjump;
+        double checkjumpt;
 
 
 

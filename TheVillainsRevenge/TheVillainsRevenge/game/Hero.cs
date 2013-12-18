@@ -26,9 +26,9 @@ namespace TheVillainsRevenge
         int heroStartTime;
         public Spine spine;
         //Checkpoint//
-        public Vector2 checkpoint;
-        public bool checkjump;
-        public double checkjumpt;
+        Vector2 checkpoint;
+        bool checkjump;
+        double checkjumpt;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {

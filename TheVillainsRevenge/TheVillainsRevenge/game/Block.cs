@@ -17,7 +17,8 @@ namespace TheVillainsRevenge
         public string type;
         public bool inlist;
         //Checkpoint//
-        public Vector2 checkpoint;
+        Vector2 checkpoint;
+
         public void Reset()
         {
             position.Y = checkpoint.Y;
