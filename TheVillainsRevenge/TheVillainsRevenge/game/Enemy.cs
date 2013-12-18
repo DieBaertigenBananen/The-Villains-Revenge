@@ -18,8 +18,26 @@ namespace TheVillainsRevenge
         public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public bool mover = false;
+        //Checkpoint//
+        public Vector2 checkpoint;
+        public bool checkmover;
+        public void Reset()
+        {
+            position.Y = checkpoint.Y;
+            position.X = checkpoint.X;
+            cbox.Update(position);
+            mover = checkmover;
+        }
+        public void Save()
+        {
+            checkpoint.X = position.X;
+            checkpoint.Y = position.Y;
+            checkmover = mover;
+        }
         public Enemy(Vector2 pos, int t) //Konstruktor, setzt Anfangsposition
         {
+            checkpoint = new Vector2(pos.X,pos.Y);
+            checkmover = mover;
             position = pos;
             type = t;
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["enemyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionHeight"]));

@@ -63,6 +63,43 @@ namespace TheVillainsRevenge
             if(Game1.sound)
                 bgmusic.Load(Content);
         }
+        public void Save(int x)
+        {
+            spieler.Save(x);
+            hero.Save();
+            foreach (Enemy enemy in karte.enemies)
+            {
+                enemy.Save();
+            }
+            foreach (Trigger trigger in karte.triggers)
+            {
+                trigger.Save();
+            }
+            foreach (MovingBlock mblock in karte.mblocks)
+            {
+                mblock.Save();
+            }
+        }
+        public void Reset()
+        {
+            if (spieler.lifes != 0)
+            {
+                spieler.Reset();
+                hero.Reset();
+                foreach (Enemy enemy2 in karte.enemies)
+                {
+                    enemy2.Reset();
+                }
+                foreach (Trigger trigger in karte.triggers)
+                {
+                    trigger.Reset(karte.blocks);
+                }
+                foreach (MovingBlock mblock in karte.mblocks)
+                {
+                    mblock.Reset();
+                }
+            }
+        }
 
         public int Update(GameTime gameTime)
         {
@@ -80,8 +117,7 @@ namespace TheVillainsRevenge
                     if (spieler.cbox.box.Intersects(enemy.cbox.box))
                      {
                          spieler.getHit();
-                         hero.Reset();
-                         karte.enemies.Remove(enemy);
+                         Reset();
                          break;
                      }
                 }
@@ -114,10 +150,7 @@ namespace TheVillainsRevenge
                             levelend = true;
                         else
                         {
-                            spieler.checkpoint.X = cpoint.x;
-                            spieler.checkpoint.Y = spieler.position.Y;
-                            hero.checkpoint.X = hero.position.X;
-                            hero.checkpoint.Y = hero.position.Y;
+                            Save(cpoint.x);
                         }
                         break;
                     }
@@ -135,7 +168,7 @@ namespace TheVillainsRevenge
                 if (spieler.position.Y >= (karte.size.Y))
                 {
                     spieler.getHit();
-                    hero.Reset();
+                    Reset();
                 }
                 if (spieler.cbox.box.Intersects(hero.cbox.box))
                 {

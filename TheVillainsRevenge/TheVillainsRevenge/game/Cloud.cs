@@ -14,7 +14,6 @@ namespace TheVillainsRevenge
         public Rectangle cuttexture;
         public Vector2 position;
         public float size;
-        
         public Cloud(int t, Vector2 pos, float s)
         {
             type = t;

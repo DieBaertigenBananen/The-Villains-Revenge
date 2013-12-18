@@ -27,9 +27,14 @@ namespace TheVillainsRevenge
         public static int startLifes = Convert.ToInt32((double)Game1.luaInstance["playerStartLifes"]);
         public int item1;
         public int item2;
-        public Vector2 checkpoint;
         public bool coverEyes = true;
         public Spine spine;
+        //Checkpoint Speicherng//
+        public Vector2 checkpoint;
+        public bool checkjump;
+        public double checkjumpt;
+
+
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -42,6 +47,25 @@ namespace TheVillainsRevenge
             spine = new Spine();
 
         }
+        public void Save(int x)
+        {
+            checkpoint.X = x;
+            checkpoint.Y = position.Y;
+            checkjump = jump;
+            checkjumpt = jumptimer;
+
+        }
+        public void Reset()
+        {
+            jump = checkjump;
+            jumptimer = checkjumpt;
+            spine.skeleton.x = checkpoint.X;
+            spine.skeleton.y = checkpoint.Y;
+            position.Y = spine.skeleton.Y;
+            position.X = spine.skeleton.X;
+            cbox.Update(position);
+            lastPosition = new Vector2(spine.skeleton.X, spine.skeleton.Y);
+        }
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
@@ -51,15 +75,6 @@ namespace TheVillainsRevenge
         public void getHit()
         {
             lifes--;
-            if (lifes > 0)
-            {
-                spine.skeleton.x = checkpoint.X;
-                spine.skeleton.y = checkpoint.Y;
-                position.Y = spine.skeleton.Y;
-                position.X = spine.skeleton.X;
-                cbox.Update(position);
-                lastPosition = new Vector2(spine.skeleton.X, spine.skeleton.Y);
-            }
         }
 
         public void Update(GameTime gameTime, Map map)

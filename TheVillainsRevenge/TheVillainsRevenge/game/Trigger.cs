@@ -16,6 +16,9 @@ namespace TheVillainsRevenge
         public Rectangle cbox = new Rectangle(0, 0, 48, 48); //Collisionsbox
         public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
         Block b;
+        //Checkpoint//
+        public bool checkactive;
+        public int checkactiveTime;
         public Trigger(Vector2 npos,Block b)
         {
             //Setze Position und Collisionsbox
@@ -26,6 +29,34 @@ namespace TheVillainsRevenge
             cuttexture.X = 3 * 48;
             cuttexture.Y = 48;
             active = false;
+            checkactive = false;
+            activeTime = 0;
+            checkactiveTime = 0;
+        }
+        public void Reset(List<Block> list)
+        {
+            if (!active && checkactive)
+            {
+                Pushed(list);
+                activeTime = checkactiveTime;
+            }
+            else if (active && !checkactive)
+            {
+                activeTime = 0;
+                for (int i = 0; i < blocks.Count(); ++i)
+                {
+                    Block block = blocks.ElementAt(i);
+                    list.Remove(block);
+                }
+                blocks.Clear();
+                active = false;
+                b.block = true;
+            }
+        }
+        public void Save()
+        {
+            active = checkactive;
+            activeTime = checkactiveTime;
         }
         public void Pushed(List<Block> list)
         {

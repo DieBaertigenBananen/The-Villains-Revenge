@@ -16,6 +16,18 @@ namespace TheVillainsRevenge
         public bool block;
         public string type;
         public bool inlist;
+        //Checkpoint//
+        public Vector2 checkpoint;
+        public void Reset()
+        {
+            position.Y = checkpoint.Y;
+            position.X = checkpoint.X;
+        }
+        public void Save()
+        {
+            checkpoint.X = position.X;
+            checkpoint.Y = position.Y;
+        }
         public Block(Vector2 npos, string type)
         {
             //Setze Position und Collisionsbox
@@ -23,6 +35,8 @@ namespace TheVillainsRevenge
             position = npos;
             cbox.X = (int)position.X;
             cbox.Y = (int)position.Y;
+            checkpoint.X = position.X;
+            checkpoint.Y = position.Y;
             block = true;
             //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
             switch (type)

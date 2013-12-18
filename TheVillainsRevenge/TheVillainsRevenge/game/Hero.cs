@@ -13,7 +13,6 @@ namespace TheVillainsRevenge
     {
         public Vector2 position; //Position
         public CollisionBox cbox;
-        public Vector2 checkpoint;
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
@@ -26,6 +25,10 @@ namespace TheVillainsRevenge
         bool start = false;
         int heroStartTime;
         public Spine spine;
+        //Checkpoint//
+        public Vector2 checkpoint;
+        public bool checkjump;
+        public double checkjumpt;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -50,11 +53,20 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
+            jump = checkjump;
+            jumptimer = checkjumpt;
             spine.skeleton.x = checkpoint.X;
             spine.skeleton.y = checkpoint.Y;
             position.Y = spine.skeleton.Y;
             position.X = spine.skeleton.X;
             cbox.Update(position);
+        }
+        public void Save()
+        {
+            checkpoint.X = position.X;
+            checkpoint.Y = position.Y;
+            checkjump = jump;
+            checkjumpt = jumptimer;
         }
         public void Update(GameTime gameTime, Map map,Vector2 sposition)
         {

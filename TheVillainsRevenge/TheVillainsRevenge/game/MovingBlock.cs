@@ -12,6 +12,8 @@ namespace TheVillainsRevenge
         public int move = 1;
         public int movespeed = 0;
         public Rectangle cbox =  new Rectangle(0, 0, 48, 48);
+        //Checkpoint//
+        public Rectangle checkcbox = new Rectangle(0, 0, 48, 48);
         public MovingBlock(List<Block> list)
         {
             int x = 0;
@@ -44,6 +46,25 @@ namespace TheVillainsRevenge
             }
             this.cbox.Width = blocks.Count * 48;
             this.cbox.X = x;
+            checkcbox = cbox;
+        }
+        public void Reset()
+        {
+            cbox = checkcbox;
+            for (int i = 0; i < blocks.Count(); ++i)
+            {
+                Block block = blocks.ElementAt(i);
+                block.Reset();
+            }
+        }
+        public void Save()
+        {
+            checkcbox = cbox;
+            for (int i = 0; i < blocks.Count(); ++i)
+            {
+                Block block = blocks.ElementAt(i);
+                block.Save();
+            }
         }
         public void Update(GameTime gameTime, List<Block> list)
         {
