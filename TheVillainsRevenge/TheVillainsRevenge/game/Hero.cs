@@ -28,6 +28,7 @@ namespace TheVillainsRevenge
         public int kistate; //State der KI Berechnung
         public Rectangle kicollide;
         //Checkpoint//
+        int checkkistate;
         Vector2 checkpoint;
         bool checkjump;
         double checkjumpt;
@@ -57,6 +58,7 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
+            kistate = checkkistate;
             start = checkstart;
             herotime = checktime;
             jump = checkjump;
@@ -69,6 +71,7 @@ namespace TheVillainsRevenge
         }
         public void Save()
         {
+            checkkistate = kistate;
             checkstart = start;
             checktime = herotime;
             checkpoint.X = position.X;
@@ -262,6 +265,10 @@ namespace TheVillainsRevenge
                                 jumptimer = 0;
                                 kistate = 0;
                             }
+                        }
+                        if (!fall && !jump)
+                        {
+                            kistate = 0;
                         }
                     }
                     else if (kistate == 4)
