@@ -151,6 +151,38 @@ namespace TheVillainsRevenge
                                 //Hmmm wir sind auf Grund ... Alles klar
                                 //Was ist wenn aber bald über uns ein Block ist?
                                 //Schau ob oben ein Block ist
+
+                                if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != actualspeed)
+                                {
+                                    //Block ist oben, bewege zurück und spring
+                                    Jump(gameTime, map); //Springen!
+                                    kistate = 3;
+                                }
+                                else
+                                {
+                                    bool b = false;
+                                    int deltay = 0;
+                                    for (int i = 0; i < 7; i++)
+                                    {
+                                        float t = (float)(i / 15);
+                                        deltay = deltay + (int)(-jumppower + (gravitation * t));
+                                        collide = new Rectangle(cbox.box.X + (i * cbox.box.Width), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
+                                    }
+                                    foreach (Block block in map.blocks)
+                                    {
+                                        if (collide.Intersects(block.cbox) && block.block)
+                                        {
+                                            b = true;
+                                            break;
+                                        }
+                                    }
+                                    if (b)
+                                    {
+                                        Jump(gameTime, map); //Springen!
+                                        kistate = 8;
+                                    }
+                                }
+                                /*
                                 if (CollisionCheckedVector(actualspeed, 0, map.blocks).X != 0)
                                 {
                                     Move(actualspeed, 0, map);
@@ -166,7 +198,7 @@ namespace TheVillainsRevenge
                                     {
                                         Move(-actualspeed, 0, map);
                                     }
-                                }
+                                }*/
                                 
                             }
                         }
@@ -299,7 +331,54 @@ namespace TheVillainsRevenge
                         if (bewegblock)
                         {
                             Jump(gameTime, map); //Springen!
-                            kistate = 3;
+                            kistate = 9;
+                        }
+                    }
+                    else if (kistate == 8)
+                    {
+                        if(jump)
+                        Move(actualspeed, 0, map);
+                        //KI befindet sich im Drüberspringmodus!!
+                        //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
+                        //Überprüfe ob rechts immernoch etwas ist
+                        if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                        {
+                            jumptimer = 0;
+                            kistate = 0;
+                        }
+                    }
+                    else if (kistate == 9)
+                    {
+                        //Er springt auf die Plattform! YEA
+                        float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                        if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
+                        {
+                            //Kein Grund T_T Beweg mich mal
+                            Move(actualspeed, 0, map);
+                        }
+                        else
+                        {
+                            bool b = false;
+                            // + 96 weil bei 48 der Block ist vom movingend, also nochmal 48 
+                            collide = new Rectangle(cbox.box.X + 96, cbox.box.Y, cbox.box.Width, cbox.box.Height);
+                            
+                            foreach (Block block in map.blocks)
+                            {
+                                if (collide.Intersects(block.cbox) && block.block)
+                                {
+                                    b = true;
+                                    break;
+                                }
+                            }
+                            if (!b)
+                            {
+                                jumptimer = 0;
+                            }
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                            {
+                                //Grund!!!! Wir sind unten!!! Starte nächsten Modus
+                                kistate = 0;
+                            }
                         }
                     }
                 }
@@ -323,6 +402,7 @@ namespace TheVillainsRevenge
                 {
                     Jump(gameTime, map);
                 }
+                if (position.Y > map.size.Y) Reset();
                 foreach (MovingBlock block in map.mblocks)
                 {
                     Rectangle collide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);

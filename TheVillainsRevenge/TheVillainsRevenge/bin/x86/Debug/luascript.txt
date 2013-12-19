@@ -15,7 +15,7 @@ blockSpeed = 5
 triggerTime = 5
 
 heroScale = 2
-heroStartTime = 10
+heroStartTime = 3
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45

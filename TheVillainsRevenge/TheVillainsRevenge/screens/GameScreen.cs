@@ -305,10 +305,7 @@ namespace TheVillainsRevenge
                 //    }
                 //}*/
             }
-            else
-            {
-                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
-            }
+            gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             spriteBatch.End();
         }
     }
