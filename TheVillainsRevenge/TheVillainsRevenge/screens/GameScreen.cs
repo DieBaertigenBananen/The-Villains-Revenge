@@ -247,7 +247,7 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                 spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
-                spriteBatch.Draw(texture, hero.collide, null, Color.Red);
+                spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
             }
             spriteBatch.End();
 

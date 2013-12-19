@@ -26,13 +26,13 @@ namespace TheVillainsRevenge
         int heroStartTime;
         public Spine spine;
         public int kistate; //State der KI Berechnung
+        public Rectangle kicollide;
         //Checkpoint//
         Vector2 checkpoint;
         bool checkjump;
         double checkjumpt;
         double checktime;
         bool checkstart;
-        public Rectangle collide;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -119,10 +119,10 @@ namespace TheVillainsRevenge
                                 //AAAAHHH WIR fallen T_T
                                 //Hmm vielleicht ist da ja ein Block der für die bewegenden Plattformen zuständig ist?
                                 bool bewegblock = false;
-                                collide = new Rectangle(cbox.box.X, cbox.box.Y+1, cbox.box.Width, cbox.box.Height);
+                                kicollide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
                                 foreach (Block block in map.blocks)
                                 {
-                                    if (collide.Intersects(block.cbox) && block.type == "movingend")
+                                    if (kicollide.Intersects(block.cbox) && block.type == "movingend")
                                     {
                                         bewegblock = true;
                                         //TATSACHE!!
@@ -166,11 +166,11 @@ namespace TheVillainsRevenge
                                     {
                                         float t = (float)(i / 15);
                                         deltay = deltay + (int)(-jumppower + (gravitation * t));
-                                        collide = new Rectangle(cbox.box.X + (i * cbox.box.Width), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
+                                        kicollide = new Rectangle(cbox.box.X + (i * cbox.box.Width), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
                                     }
                                     foreach (Block block in map.blocks)
                                     {
-                                        if (collide.Intersects(block.cbox) && block.block)
+                                        if (kicollide.Intersects(block.cbox) && block.block)
                                         {
                                             b = true;
                                             break;
@@ -269,10 +269,10 @@ namespace TheVillainsRevenge
                         //KI befindet sich im Wartemodus!!
                         //Überprüfe ob die Plattform bald da ist
                         bool bewegblock = false;
-                        collide = new Rectangle(cbox.box.X+48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                        kicollide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
                         foreach (MovingBlock mblock in map.mblocks)
                         {
-                            if (collide.Intersects(mblock.cbox))
+                            if (kicollide.Intersects(mblock.cbox))
                             {
                                 bewegblock = true;
                                 //TATSACHE!! Er ist da!!
@@ -319,10 +319,10 @@ namespace TheVillainsRevenge
                     {
                         //Ki Wartet nun am Ende und wartet auf einen movingend
                         bool bewegblock = false;
-                        collide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                        kicollide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
                         foreach (Block block in map.blocks)
                         {
-                            if (collide.Intersects(block.cbox)&&block.type == "movingend")
+                            if (kicollide.Intersects(block.cbox) && block.type == "movingend")
                             {
                                 bewegblock = true;
                                 //TATSACHE!! Er ist da!!
@@ -360,11 +360,11 @@ namespace TheVillainsRevenge
                         {
                             bool b = false;
                             // + 96 weil bei 48 der Block ist vom movingend, also nochmal 48 
-                            collide = new Rectangle(cbox.box.X + 96, cbox.box.Y, cbox.box.Width, cbox.box.Height);
+                            kicollide = new Rectangle(cbox.box.X + 96, cbox.box.Y, cbox.box.Width, cbox.box.Height);
                             
                             foreach (Block block in map.blocks)
                             {
-                                if (collide.Intersects(block.cbox) && block.block)
+                                if (kicollide.Intersects(block.cbox) && block.block)
                                 {
                                     b = true;
                                     break;
