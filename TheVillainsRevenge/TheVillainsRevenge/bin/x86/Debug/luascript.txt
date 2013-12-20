@@ -1,10 +1,10 @@
 --Loading
 playerStartLifes = 4
 playerScale = 3
-playerCollisionWidth = 140
-playerCollisionHeight = 170
+playerCollisionWidth = 100
+playerCollisionHeight = 125
 playerCollisionOffsetX = -playerCollisionWidth / 2
-playerCollisionOffsetY = -250
+playerCollisionOffsetY = -210
 
 planeTilesBackground0 = 4 --Baueme
 planeTilesBackground1 = 2 --Wald
@@ -13,9 +13,9 @@ planeTilesBackground3 = 1 --Himmel
 
 blockSpeed = 5
 triggerTime = 5
-
+ 
 heroScale = 2
-heroStartTime = 3
+heroStartTime = 4
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45
@@ -27,7 +27,7 @@ enemyCollisionWidth = 64
 enemyCollisionHeight = 64
 
 --Update
-playerSpeed = 12
+playerSpeed = 11
 playerAirspeed = playerSpeed - 2
 playerJumppower = 30
 playerGravitation = 60
@@ -59,18 +59,18 @@ cloudPlane1Width = 13440
 cloudPlane1Height = 1850
 cloudPlane1Top = 600
 cloudPlane1Bottom = 800
-cloudPlane1Amount = 96000
+cloudPlane1Amount = 93000
 cloudPlane1Chaos = 0
 cloudPlane1Type = 5
 cloudPlane1Wind = 3
-cloudPlane1SizeMin = 50
-cloudPlane1SizeMax = 70
+cloudPlane1SizeMin = 70
+cloudPlane1SizeMax = 90
 
 cloudPlane2Width = 5760
 cloudPlane2Height = 1350
 cloudPlane2Top = 80
 cloudPlane2Bottom = 850
-cloudPlane2Amount = 96000
+cloudPlane2Amount = 94000
 cloudPlane2Chaos = 0
 cloudPlane2Type = 5
 cloudPlane2Wind = 2
@@ -81,7 +81,7 @@ cloudPlane3Width = 2880
 cloudPlane3Height = 1150
 cloudPlane3Top = 50
 cloudPlane3Bottom = 1250
-cloudPlane3Amount = 96000
+cloudPlane3Amount = 95000
 cloudPlane3Chaos = 0
 cloudPlane3Type = 5
 cloudPlane3Wind = 1
