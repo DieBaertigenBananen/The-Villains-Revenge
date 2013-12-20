@@ -14,7 +14,7 @@ namespace TheVillainsRevenge
         public Skeleton skeleton;
         public AnimationState animationState;
         public SkeletonBounds bounds = new SkeletonBounds();
-        public void anim(string newanim,int flip)
+        public void anim(string newanim,int flip,bool loop)
         {
             if(flip == 1)
                 skeleton.flipX = true;
@@ -22,7 +22,7 @@ namespace TheVillainsRevenge
                 skeleton.flipX = false;
             if (animation != newanim)
             {
-                animationState.SetAnimation(0, newanim, true);
+                animationState.SetAnimation(0, newanim, loop);
                 animation = newanim;
             }
         }

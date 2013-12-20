@@ -118,16 +118,16 @@ namespace TheVillainsRevenge
             if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
             {
                 Move(actualspeed, 0, map); //Bewege Rechts
-                spine.anim("run", 2);
+                spine.anim("run", 2,true);
             }
             else if (Game1.input.links) //Wenn Rechte Pfeiltaste
             {
                 Move(-actualspeed, 0, map);//Bewege Links
-                spine.anim("run", 1);
+                spine.anim("run", 1,true);
             }
             else
             {
-                spine.anim("idle", 0);
+                spine.anim("idle", 0,true);
             }
             if (Game1.input.sprung)
             {

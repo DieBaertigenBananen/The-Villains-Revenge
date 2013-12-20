@@ -109,7 +109,7 @@ namespace TheVillainsRevenge
         {
             if (!levelend)
             {
-                karte.Update(gameTime,spieler.cbox.box);
+                karte.Update(gameTime, spieler.cbox.box);
                 foreach (Enemy enemy in karte.enemies)
                 {
                     enemy.Update(gameTime, karte);
@@ -119,11 +119,11 @@ namespace TheVillainsRevenge
                         break;
                     }
                     if (spieler.cbox.box.Intersects(enemy.cbox.box))
-                     {
-                         spieler.getHit();
-                         Reset();
-                         break;
-                     }
+                    {
+                        spieler.getHit();
+                        Reset();
+                        break;
+                    }
                 }
                 foreach (Item item in karte.items)
                 {
@@ -131,13 +131,13 @@ namespace TheVillainsRevenge
                     {
                         if (item.type == "herz")
                         {
-                            if(spieler.lifes != 4)
+                            if (spieler.lifes != 4)
                                 spieler.lifes++;
                             karte.items.Remove(item);
                         }
                         else if (item.type == "zeit")
                         {
-                            if(spieler.item1 != 0)
+                            if (spieler.item1 != 0)
                                 spieler.item2 = spieler.item1;
                             spieler.item1 = 1;
                             karte.items.Remove(item);
@@ -151,7 +151,10 @@ namespace TheVillainsRevenge
                     {
                         //TODO: Speichern aller dynamischen Objekte in der Welt um diesen Zustand bei zurücksetzen an Checkpoint exakt zu rekonstruieren.
                         if (cpoint.end)
+                        {
+                            spieler.spine.anim("idle", 0,false);
                             levelend = true;
+                        }
                         else
                         {
                             Save(cpoint.x);
@@ -161,14 +164,15 @@ namespace TheVillainsRevenge
                 }
                 foreach (Trigger trigger in karte.triggers)
                 {
-                    if (spieler.cbox.box.Intersects(trigger.cbox)&&spieler.fall)
+                    if (spieler.cbox.box.Intersects(trigger.cbox) && spieler.fall)
                     {
                         trigger.Pushed(karte.blocks);
                         break;
                     }
                 }
                 hero.Update(gameTime, karte, spieler.position);
-                spieler.Update(gameTime, karte);
+                if(!levelend)
+                    spieler.Update(gameTime, karte);
                 if (spieler.position.Y >= (karte.size.Y))
                 {
                     spieler.getHit();
@@ -276,7 +280,7 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
             if (levelend)
             {
-                spriteBatch.DrawString(font, "Finished level!", new Vector2(Game1.resolution.X - 300, Game1.resolution.Y / 2), Color.Black);
+                spriteBatch.DrawString(font, "Finished level!", new Vector2((Game1.resolution.X /2)-200, (Game1.resolution.Y / 2) -200), Color.Black,0.0f,Vector2.Zero,4.0f,SpriteEffects.None,0f);
             }
             if (Game1.debug)
             {
