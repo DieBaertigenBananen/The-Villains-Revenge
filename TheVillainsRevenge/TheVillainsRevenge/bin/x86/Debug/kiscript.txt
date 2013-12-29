@@ -1,0 +1,35 @@
+------------------------------------------------
+
+-- Dieser Code holt die Daten aus dem Spiel
+-- Bitte verändere hier nichts!
+
+--Erzeuge eine Tabelle
+p_id = {}
+p_time = {}
+--Nun schaue wieviele Points es bisher gibt
+points = getPoints()-1;
+--Führe nur aus wenn man überhaupt weitergekommen ist
+if points > 0 then
+--Nun gehe die vorhandenen Punkte durch
+	for i=0,points,1 do
+		p_id[i] = getPointID(i);
+		p_time[i] = getPointTime(i);
+	end
+--Nun sind in den Tabellen Daten drin
+------------------------------------------------
+-- Hier wird dein KI-Code ausgeführt
+-- Legende:
+-- p_id = die Tabelle mit den IDs der Points
+-- p_time = die Zeit der IDs
+-- points = Maximalen Points, wird für eine Schleife benötigt
+-- changekipoint(WERT); Gibt den neuen Punkt an, wo die KI hin soll
+
+
+changekipoint(p_id[points]);
+
+-- Ende deines Ki-Codes
+------------------------------------------------
+-- Dieser End hier ist auch noch wichtig, da er dafür sorgt, dass das Skript nur ausgeführt wird,
+-- wenn man auch schon ein Punkt hat, ansonsten gäbe es nämlich nen Error
+end
+------------------------------------------------

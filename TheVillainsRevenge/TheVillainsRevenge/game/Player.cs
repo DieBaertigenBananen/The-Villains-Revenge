@@ -29,6 +29,7 @@ namespace TheVillainsRevenge
         public int item2;
         public bool coverEyes = false;
         public Spine spine;
+        public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
         //Checkpoint Speicherng//
         public Vector2 checkpoint;
         bool checkjump;

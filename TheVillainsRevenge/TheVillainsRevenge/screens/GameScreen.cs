@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using LuaInterface;
 
 namespace TheVillainsRevenge
 {
@@ -36,11 +37,35 @@ namespace TheVillainsRevenge
         Effect coverEyes;
         public static int slow = 0;
         double slowTime;
+        public static Lua LuaKI = new Lua();
+
+        //KIDaten
+        public int kpoint = 0;
+        public int getPoints()
+        {
+            return spieler.kicheck.Count();
+        }
+        public int getPointID(int s)
+        {
+            return spieler.kicheck.ElementAt(s).id;
+        }
+        public int getPointTime(int s)
+        {
+            return spieler.kicheck.ElementAt(s).time;
+        }
+        public void changekipoint(int s)
+        {
+            kpoint = s;
+        }
 
         public GameScreen()
         {
             texture = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             texture.SetData<Color>(new Color[] { Color.White });
+            LuaKI.RegisterFunction("getPoints", this, this.GetType().GetMethod("getPoints"));
+            LuaKI.RegisterFunction("getPointID", this, this.GetType().GetMethod("getPointID"));
+            LuaKI.RegisterFunction("getPointTime", this, this.GetType().GetMethod("getPointTime"));
+            LuaKI.RegisterFunction("changekipoint", this, this.GetType().GetMethod("changekipoint")); 
         }
 
         public void Load(ContentManager Content)
@@ -170,7 +195,30 @@ namespace TheVillainsRevenge
                         break;
                     }
                 }
-                hero.Update(gameTime, karte, spieler.position);
+                foreach (KIPoint kipoint in karte.kipoints)
+                {
+                    if (spieler.cbox.box.Intersects(kipoint.cbox))
+                    {
+                        bool geht = true;
+                        if (spieler.kicheck.Count() > 0)
+                        {
+                            KICheck check = spieler.kicheck.ElementAt(spieler.kicheck.Count()-1);
+                            if(check.id == kipoint.id)
+                                geht = false;
+                        }
+                        if (geht)
+                        {
+                            if (spieler.kicheck.Count() >= 10)
+                            {
+                                spieler.kicheck.RemoveAt(0);
+                            }
+                            spieler.kicheck.Add(new KICheck((int)gameTime.TotalGameTime.TotalSeconds, kipoint.id));
+                        }
+                        break;
+                    }
+                }
+                LuaKI.DoFile("kiscript.txt");
+                hero.Update(gameTime, karte,kpoint,spieler.position);
                 if(!levelend)
                     spieler.Update(gameTime, karte);
                 if (spieler.position.Y >= (karte.size.Y))
@@ -300,7 +348,13 @@ namespace TheVillainsRevenge
                 Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
-                spriteBatch.DrawString(font, "Test: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
+                spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
+                spriteBatch.DrawString(font, "KIPoint: " + kpoint, new Vector2(Game1.resolution.X - 300, 370), Color.White);
+                for (int i = 0; i < spieler.kicheck.Count(); i++)
+                {
+                    KICheck kicheck = spieler.kicheck.ElementAt(i);
+                    spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: "+kicheck.time, new Vector2(Game1.resolution.X - 300, 390+i*20), Color.White);
+                }
                 //for (int i = 0; i < karte.background.Width; i++)
                 //{
                 //    for (int t = 15; t < karte.background.Height; t++)

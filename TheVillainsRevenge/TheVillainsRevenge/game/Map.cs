@@ -21,6 +21,7 @@ namespace TheVillainsRevenge
          public List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
          public List<Trigger> triggers = new List<Trigger>(); //Erstelle Blocks als List
          public List<MovingBlock> mblocks = new List<MovingBlock>(); //Erstelle Blocks als List
+         public List<KIPoint> kipoints = new List<KIPoint>(); //Erstelle Blocks als List
 
          public Map()
          {
@@ -109,6 +110,10 @@ namespace TheVillainsRevenge
                      else
                      {
                          String color = pixelRGBA[i, t, 0] + "," + pixelRGBA[i, t, 1] + "," + pixelRGBA[i, t, 2];
+                         if (pixelRGBA[i, t, 1] == 255 && pixelRGBA[i, t, 2] == 255)
+                         {
+                             kipoints.Add(new KIPoint(new Vector2(i * 48, t * 48), pixelRGBA[i, t, 0]));
+                         }
                          switch (color)
                          {
                              case "147,17,126":

@@ -79,7 +79,7 @@ namespace TheVillainsRevenge
             checkjump = jump;
             checkjumpt = jumptimer;
         }
-        public void Update(GameTime gameTime, Map map,Vector2 sposition)
+        public void Update(GameTime gameTime, Map map,int kipoint,Vector2 sposition)
         {
             if (start)
             {
@@ -98,6 +98,8 @@ namespace TheVillainsRevenge
                     actualspeed = airspeed;
                 }
                 //sposition.X = map.size.X;
+                //Vector2 Punkt = map.kipoints.ElementAt(kipoint).position;
+               // sposition.X = Punkt.X;
                 //Wenn Spieler ist hinten bewege zurück
                 if (sposition.X < position.X)
                 {

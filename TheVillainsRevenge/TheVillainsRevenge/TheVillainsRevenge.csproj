@@ -124,6 +124,8 @@
     <Compile Include="game\Enemy.cs" />
     <Compile Include="game\GUI.cs" />
     <Compile Include="game\Hero.cs" />
+    <Compile Include="game\KICheck.cs" />
+    <Compile Include="game\KIPoint.cs" />
     <Compile Include="game\Map.cs" />
     <Compile Include="game\MovingBlock.cs" />
     <Compile Include="game\ParallaxPlane.cs" />
