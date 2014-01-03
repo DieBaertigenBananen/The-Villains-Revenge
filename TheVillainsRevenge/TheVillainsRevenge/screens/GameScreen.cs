@@ -54,7 +54,17 @@ namespace TheVillainsRevenge
         }
         public void addPoint(int s, int t)
         {
-            hero.kicheck.Add(new KICheck(t, s));
+            bool geht = true;
+            if (hero.kicheck.Count() != 0)
+            {
+                if (hero.kicheck.ElementAt(hero.kicheck.Count() - 1).id == s)
+                {
+                    geht = false;
+                }
+
+            }
+            if(geht)
+                hero.kicheck.Add(new KICheck(t, s));
         }
 
         public GameScreen()

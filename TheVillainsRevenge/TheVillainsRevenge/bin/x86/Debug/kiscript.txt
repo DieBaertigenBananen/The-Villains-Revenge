@@ -26,7 +26,7 @@ end
 -- points = Maximalen Points, wird für eine Schleife benötigt
 -- addPoint(id,time); Gibt den neuen Punkt an, wo die KI hin soll
 ------------------------------------------------
-
+--Levelbedingt
 if points > 0 then
 	if p_id[points-1] == 2 and p_id[points] == 6 then
 		addPoint(1,p_time[points]);
@@ -55,5 +55,53 @@ if points > 0 then
 	if p_id[points-1] == 16 and p_id[points] == 19 then
 		addPoint(18,p_time[points]);
 	end
+	if p_id[points-1] == 18 and p_id[points] == 20 then
+		addPoint(19,p_time[points]);
+	end
+
+	if p_id[points-1] == 19 and p_id[points] == 21 then
+		addPoint(20,p_time[points]);
+	end
+	if p_id[points-1] == 21 and p_id[points] == 24 then
+		addPoint(23,p_time[points]);
+	end
+	if p_id[points-1] == 30 and p_id[points] == 36 then
+		addPoint(29,p_time[points]);
+	end
+	if p_id[points-1] == 36 and p_id[points] == 30 then
+		addPoint(29,p_time[points]);
+	end
+	if p_id[points-1] == 30 and p_id[points] == 37 then
+		addPoint(31,p_time[points]);
+	end
+	if p_id[points-1] == 37 and p_id[points] == 30 then
+		addPoint(31,p_time[points]);
+	end
+	if p_id[points-1] == 32 and p_id[points] == 38 then
+		addPoint(31,p_time[points]);
+	end
+	if p_id[points-1] == 38 and p_id[points] == 32 then
+		addPoint(31,p_time[points]);
+	end
+	if p_id[points-1] == 32 and p_id[points] == 39 then
+		addPoint(33,p_time[points]);
+	end
+	if p_id[points-1] == 39 and p_id[points] == 32 then
+		addPoint(33,p_time[points]);
+	end
+	if p_id[points-1] == 41 and p_id[points] == 34 then
+		addPoint(35,p_time[points]);
+	end
+	if p_id[points-1] == 40 and p_id[points] == 34 then
+		addPoint(33,p_time[points]);
+	end
 end
+--Fügt den neuen Punkt hinzu
 addPoint(p_id[points],p_time[points]);
+--Weitere Levelbedingte Sachen
+if p_id[points] == 20 then
+	addPoint(21,p_time[points]);
+end
+if p_id[points] == 35 then
+	addPoint(36,p_time[points]);
+end
