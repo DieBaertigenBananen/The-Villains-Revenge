@@ -40,10 +40,9 @@ namespace TheVillainsRevenge
         public static Lua LuaKI = new Lua();
 
         //KIDaten
-        public int kpoint = 0;
         public int getPoints()
         {
-            return spieler.kicheck.Count();
+            return spieler.kicheck.Count()-1;
         }
         public int getPointID(int s)
         {
@@ -53,9 +52,9 @@ namespace TheVillainsRevenge
         {
             return spieler.kicheck.ElementAt(s).time;
         }
-        public void changekipoint(int s)
+        public void addPoint(int s, int t)
         {
-            kpoint = s;
+            hero.kicheck.Add(new KICheck(t, s));
         }
 
         public GameScreen()
@@ -65,7 +64,7 @@ namespace TheVillainsRevenge
             LuaKI.RegisterFunction("getPoints", this, this.GetType().GetMethod("getPoints"));
             LuaKI.RegisterFunction("getPointID", this, this.GetType().GetMethod("getPointID"));
             LuaKI.RegisterFunction("getPointTime", this, this.GetType().GetMethod("getPointTime"));
-            LuaKI.RegisterFunction("changekipoint", this, this.GetType().GetMethod("changekipoint")); 
+            LuaKI.RegisterFunction("addPoint", this, this.GetType().GetMethod("addPoint")); 
         }
 
         public void Load(ContentManager Content)
@@ -194,9 +193,11 @@ namespace TheVillainsRevenge
                         trigger.Pushed(karte.blocks);
                         break;
                     }
-                }
-                foreach (KIPoint kipoint in karte.kipoints)
+                }         
+                                
+                for (int i = 0; i <karte.kipoints.Count(); i++)
                 {
+                    KIPoint kipoint = karte.kipoints.ElementAt(i);
                     if (spieler.cbox.box.Intersects(kipoint.cbox))
                     {
                         bool geht = true;
@@ -213,12 +214,18 @@ namespace TheVillainsRevenge
                                 spieler.kicheck.RemoveAt(0);
                             }
                             spieler.kicheck.Add(new KICheck((int)gameTime.TotalGameTime.TotalSeconds, kipoint.id));
+                            LuaKI.DoFile("kiscript.txt");
                         }
-                        break;
+                    }
+                    if (hero.cbox.box.Intersects(kipoint.cbox)&&hero.kicheck.Count() != 0)
+                    {
+                        if (hero.kicheck.ElementAt(0).id == kipoint.id)
+                        {
+                            hero.kicheck.RemoveAt(0);
+                        }
                     }
                 }
-                LuaKI.DoFile("kiscript.txt");
-                hero.Update(gameTime, karte,kpoint,spieler.position);
+                hero.Update(gameTime, karte,spieler.cbox.box);
                 if(!levelend)
                     spieler.Update(gameTime, karte);
                 if (spieler.position.Y >= (karte.size.Y))
@@ -349,11 +356,15 @@ namespace TheVillainsRevenge
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                 spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
-                spriteBatch.DrawString(font, "KIPoint: " + kpoint, new Vector2(Game1.resolution.X - 300, 370), Color.White);
                 for (int i = 0; i < spieler.kicheck.Count(); i++)
                 {
                     KICheck kicheck = spieler.kicheck.ElementAt(i);
                     spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: "+kicheck.time, new Vector2(Game1.resolution.X - 300, 390+i*20), Color.White);
+                }
+                for (int i = 0; i < hero.kicheck.Count(); i++)
+                {
+                    KICheck kicheck = hero.kicheck.ElementAt(i);
+                    spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(Game1.resolution.X - 400, 390 + i * 20), Color.White);
                 }
                 //for (int i = 0; i < karte.background.Width; i++)
                 //{

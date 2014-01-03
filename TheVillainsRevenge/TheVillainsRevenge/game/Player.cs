@@ -31,6 +31,7 @@ namespace TheVillainsRevenge
         public Spine spine;
         public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
         //Checkpoint Speicherng//
+        public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         public Vector2 checkpoint;
         bool checkjump;
         double checkjumpt;
@@ -54,6 +55,12 @@ namespace TheVillainsRevenge
             checkpoint.Y = position.Y;
             checkjump = jump;
             checkjumpt = jumptimer;
+            kicheckcp.Clear();
+            foreach (KICheck kc in kicheck)
+            {
+                kicheckcp.Add(kc);
+            }
+            
 
         }
         public void Reset()
@@ -66,6 +73,11 @@ namespace TheVillainsRevenge
             position.X = spine.skeleton.X;
             cbox.Update(position);
             lastPosition = new Vector2(spine.skeleton.X, spine.skeleton.Y);
+            kicheck.Clear();
+            foreach (KICheck kc in kicheckcp)
+            {
+                kicheck.Add(kc);
+            }
         }
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen

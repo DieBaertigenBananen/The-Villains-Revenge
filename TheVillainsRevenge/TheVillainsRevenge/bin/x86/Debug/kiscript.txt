@@ -7,29 +7,53 @@
 p_id = {}
 p_time = {}
 --Nun schaue wieviele Points es bisher gibt
-points = getPoints()-1;
+points = getPoints();
 --Führe nur aus wenn man überhaupt weitergekommen ist
-if points > 0 then
 --Nun gehe die vorhandenen Punkte durch
-	for i=0,points,1 do
-		p_id[i] = getPointID(i);
-		p_time[i] = getPointTime(i);
-	end
+for i=0,points,1 do
+	p_id[i] = getPointID(i);
+	p_time[i] = getPointTime(i);
+end
 --Nun sind in den Tabellen Daten drin
+------------------------------------------------
+
+
 ------------------------------------------------
 -- Hier wird dein KI-Code ausgeführt
 -- Legende:
 -- p_id = die Tabelle mit den IDs der Points
 -- p_time = die Zeit der IDs
 -- points = Maximalen Points, wird für eine Schleife benötigt
--- changekipoint(WERT); Gibt den neuen Punkt an, wo die KI hin soll
-
-
-changekipoint(p_id[points]);
-
--- Ende deines Ki-Codes
+-- addPoint(id,time); Gibt den neuen Punkt an, wo die KI hin soll
 ------------------------------------------------
--- Dieser End hier ist auch noch wichtig, da er dafür sorgt, dass das Skript nur ausgeführt wird,
--- wenn man auch schon ein Punkt hat, ansonsten gäbe es nämlich nen Error
+
+if points > 0 then
+	if p_id[points-1] == 2 and p_id[points] == 6 then
+		addPoint(1,p_time[points]);
+	end
+	if p_id[points-1] == 2 and p_id[points] == 7 then
+		addPoint(3,p_time[points]);
+	end
+	if p_id[points-1] == 6 and p_id[points] == 2 then
+		addPoint(1,p_time[points]);
+	end
+	if p_id[points-1] == 7 and p_id[points] == 2 then
+		addPoint(3,p_time[points]);
+	end
+	if p_id[points-1] == 4 and p_id[points] == 8 then
+		addPoint(3,p_time[points]);
+	end
+	if p_id[points-1] == 4 and p_id[points] == 9 then
+		addPoint(5,p_time[points]);
+	end
+	if p_id[points-1] == 8 and p_id[points] == 4 then
+		addPoint(3,p_time[points]);
+	end
+	if p_id[points-1] == 9 and p_id[points] == 4 then
+		addPoint(5,p_time[points]);
+	end
+	if p_id[points-1] == 16 and p_id[points] == 19 then
+		addPoint(18,p_time[points]);
+	end
 end
-------------------------------------------------
+addPoint(p_id[points],p_time[points]);
