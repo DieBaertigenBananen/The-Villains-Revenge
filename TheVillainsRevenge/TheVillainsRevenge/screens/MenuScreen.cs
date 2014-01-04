@@ -14,207 +14,136 @@ namespace TheVillainsRevenge
     class MenuScreen
     {
         SpriteFont font;
-        int option = 0;
         bool deadScreen;
         bool loadScreen;
-        bool optionScreen;
+        SubMenu mainMenu;
+        SubMenu optionMenu;
         public MenuScreen(bool playerDied)
         {
             deadScreen = playerDied;
         }
-        public void load(ContentManager Content)
+        public void Load(ContentManager Content)
         {
             font = Content.Load<SpriteFont>("fonts/schrift");
+            mainMenu = new SubMenu(3, "main", font);
+            optionMenu = new SubMenu(4, "option", font);
+            mainMenu.visible = true;
         }
-        public int update()
+        public int Update()
         {
-            //Wenn ladet
-            if (loadScreen)
+            if (optionMenu.visible)
+            {
+                optionMenu.Update();
+            }
+            else if (mainMenu.visible)
+            {
+                mainMenu.Update();
+            }
+            if (deadScreen)
+            {
+                if (Game1.input.enter || Game1.input.sprung)
+                {
+                    deadScreen = false;
+                }
+            }
+            else if (loadScreen)
             {
                 return 2;
             }
-            //Wenn nicht laden
-            else
+            else if (optionMenu.visible)
             {
-                if (deadScreen)
+                //Enter wählt Menüfelder
+                if (Game1.input.enter)
                 {
-                    if (Game1.input.enter || Game1.input.sprung)
+                    //Option == 2 ist Exit
+                    if (optionMenu.option == 3)
                     {
-                        deadScreen = false;
+                        optionMenu.visible = false;
+                        mainMenu.option = 1;
+                    }
+                    //Option = 1 ist stretch
+                    else if (optionMenu.option == 2)
+                    {
+                        if (Game1.sound)
+                            Game1.sound = false;
+                        else
+                            Game1.sound = true;
+                    }
+                    else if (optionMenu.option == 1)
+                    {
+                        if(Game1.stretch)
+                            Game1.stretch = false;
+                        else
+                            Game1.stretch = true;
+                    }
+                    else //Fullscreentoogle
+                    {
+                        return 3;
                     }
                 }
-                else if (optionScreen)
+                if (Game1.input.back)
                 {
-                    //Enter wählt Menüfelder
-                    if (Game1.input.enter)
+                    //Setze auf Exit
+                    if (optionMenu.option == 3)
                     {
-                        //Option == 2 ist Exit
-                        if (option == 3)
-                        {
-                            optionScreen = false;
-                            option = 1;
-                        }
-                        //Option = 1 ist stretch
-                        else if (option == 2)
-                        {
-                            if (Game1.sound)
-                                Game1.sound = false;
-                            else
-                                Game1.sound = true;
-                        }
-                        else if (option == 1)
-                        {
-                            if(Game1.stretch)
-                                Game1.stretch = false;
-                            else
-                                Game1.stretch = true;
-                        }
-                        else //Fullscreentoogle
-                        {
-                            return 3;
-                        }
+                        optionMenu.visible = false;
+                        mainMenu.option = 1;
                     }
-                    if (Game1.input.down)
+                    else
                     {
-                        //Wechsel
-                        if (option == 0)
-                            option = 1;
-                        else if (option == 1)
-                            option = 2;
-                        else if (option == 2)
-                            option = 3;
-                        else
-                            option = 0;
-                    }
-                    if (Game1.input.up)
-                    {
-                        //Wechsel
-                        if (option == 0)
-                        {
-                            option = 3;
-                        }
-                        else if (option == 3)
-                        {
-                            option = 2;
-                        }
-                        else if (option == 2)
-                        {
-                            option = 1;
-                        }
-                        else
-                        {
-                            option = 0;
-                        }
-                    }
-                    if (Game1.input.back)
-                    {
-                        //Setze auf Exit
-                        if (option == 3)
-                        {
-                            optionScreen = false;
-                            option = 1;
-                        }
-                        else
-                        {
-                            option = 3;
-                        }
+                        optionMenu.option = 3;
                     }
                 }
-                else
-                {
-                    if (Game1.input.enter || Game1.input.sprung)
-                    {
-                        //Option == 2 ist Exit
-                        if (option == 2)
-                        {
-                            return 0;
-                        }
-                            //Option = 1 ist Fullscreen
-                        else if (option == 1)
-                        {
-                            optionScreen = true;
-                            option = 0;
-                        }
-                        else
-                        {
-                            //Game Start
-                            loadScreen = true;
-                        }
-                    }
-                    if (Game1.input.down)
-                    {
-                        //Wechsel
-                        if (option == 0)
-                            option = 1;
-                        else if (option == 1)
-                            option = 2;
-                        else
-                            option = 0;
-                    }
-                    if (Game1.input.up)
-                    {
-                        //Wechsel
-                        if (option == 0)
-                        {
-                            option = 2;
-                        }
-                        else if (option == 2)
-                        {
-                            option = 1;
-                        }
-                        else
-                        {
-                            option = 0;
-                        }
-                    }
-                    if (Game1.input.back)
-                    {
-                        //Setze auf Exit
-                        if (option == 2)
-                        {
-                            return 0;
-                        }
-                        else
-                        {
-                            option = 2;
-                        }
-                    }
-                }
-                return 1;
             }
+            else if (mainMenu.visible)
+            {
+                if (Game1.input.enter || Game1.input.sprung)
+                {
+                    //Option == 2 ist Exit
+                    if (mainMenu.option == 2)
+                    {
+                        return 0;
+                    }
+                        //Option = 1 ist Fullscreen
+                    else if (mainMenu.option == 1)
+                    {
+                        optionMenu.visible = true;
+                        optionMenu.option = 0;
+                    }
+                    else
+                    {
+                        //Game Start
+                        loadScreen = true;
+                    }
+                }
+                if (Game1.input.back)
+                {
+                    //Setze auf Exit
+                    if (mainMenu.option == 2)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        mainMenu.option = 2;
+                    }
+                }
+            }
+            return 1;
         }
-        public void draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             Game1.graphics.GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
-            if (!deadScreen&&!loadScreen&&!optionScreen)
+            if (mainMenu.visible)
             {
-                if (option == 0)
-                {
-                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
-                }
-                else
-                {
-                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Gray);
-                }
-                if (option == 1)
-                {
-                    spriteBatch.DrawString(font, "Options", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Black);
-                }
-                else
-                {
-                    spriteBatch.DrawString(font, "Options", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Gray);
-                }
-                if (option == 2)
-                {
-                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
-                }
-                else
-                {
-                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
-                }
+                mainMenu.Draw(spriteBatch);
             }
-            else if(deadScreen)
+            if (optionMenu.visible)
+            {
+                optionMenu.Draw(spriteBatch);
+            }
+            if (deadScreen)
             {
                 spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
                 spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 60, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
@@ -224,59 +153,6 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.DrawString(font, "Game loading ...", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
 
-            }
-            else
-            {
-                if (option == 0)
-                {
-                    if (Game1.graphics.IsFullScreen)
-                        spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
-                    else
-                        spriteBatch.DrawString(font, "Windowmode", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
-                }
-                else
-                {
-                    if (Game1.graphics.IsFullScreen)
-                        spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Gray);
-                    else
-                        spriteBatch.DrawString(font, "Windowmode", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Gray);
-                }
-                if (option == 1)
-                {
-                    if(Game1.stretch)
-                        spriteBatch.DrawString(font, "Stretch on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Black);
-                    else 
-                        spriteBatch.DrawString(font, "Stretch off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Black);
-                }
-                else
-                {
-                    if (Game1.stretch)
-                        spriteBatch.DrawString(font, "Stretch on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Gray);
-                    else
-                        spriteBatch.DrawString(font, "Stretch off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Gray);
-                }
-                if (option == 2)
-                {
-                    if (Game1.sound)
-                        spriteBatch.DrawString(font, "Sound on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
-                    else
-                        spriteBatch.DrawString(font, "Sound off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
-                }
-                else
-                {
-                    if (Game1.sound)
-                        spriteBatch.DrawString(font, "Sound on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
-                    else
-                        spriteBatch.DrawString(font, "Sound off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
-                }
-                if (option == 3)
-                {
-                    spriteBatch.DrawString(font, "Return", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 100), Color.Black);
-                }
-                else
-                {
-                    spriteBatch.DrawString(font, "Return", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 100), Color.Gray);
-                }
             }
             spriteBatch.End();
         }

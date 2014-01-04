@@ -155,7 +155,7 @@ namespace TheVillainsRevenge
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            menu.load(Content);
+            menu.Load(Content);
             //game.load(Content);
         }
 
@@ -179,7 +179,7 @@ namespace TheVillainsRevenge
             if (menu != null)
             {
                 //Update und hole Wert vom Menü
-                menuOption = menu.update();
+                menuOption = menu.Update();
                 if (menuOption == 3)
                 {
                     if (graphics.IsFullScreen)
@@ -211,7 +211,7 @@ namespace TheVillainsRevenge
                     game = null;
                     Content.Unload();
                     menu = new MenuScreen(false);
-                    menu.load(Content);
+                    menu.Load(Content);
                     menuOption = 1;
                 }
                 else
@@ -222,7 +222,7 @@ namespace TheVillainsRevenge
                         game = null;
                         Content.Unload();
                         menu = new MenuScreen(true);
-                        menu.load(Content);
+                        menu.Load(Content);
                     }
                 }
             }
@@ -234,7 +234,7 @@ namespace TheVillainsRevenge
         protected override void Draw(GameTime gameTime)
         {
             if (menu != null)
-                menu.draw(spriteBatch);
+                menu.Draw(spriteBatch);
             else if (game != null)
                 game.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
