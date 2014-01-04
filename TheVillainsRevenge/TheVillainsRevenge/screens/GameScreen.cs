@@ -35,6 +35,7 @@ namespace TheVillainsRevenge
         SpriteFont font;
         bool levelend = false;
         Effect coverEyes;
+        Effect outline;
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
@@ -95,6 +96,7 @@ namespace TheVillainsRevenge
             clouds_3.Load(Content, "clouds_3", karte, camera);
             gui.Load(Content);
             coverEyes = Content.Load<Effect>("CoverEyes");
+            outline = Content.Load<Effect>("Outline");
             if (Game1.sound)
             {
                 bgmusic.Load(Content);
@@ -273,6 +275,11 @@ namespace TheVillainsRevenge
             {
                 return 2;
             }
+            //-----Shader-----
+            coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
+            coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
+            coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
+            coverEyes.Parameters["left"].SetValue(spieler.spine.skeleton.FlipX);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -287,11 +294,8 @@ namespace TheVillainsRevenge
             //--------------------Draw to Texture--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderTarget);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, outline, camera.viewportTransform);
             //-----Hintergrundebenen-----
-            //if (!Game1.debug)
-            //{
                 background_3.Draw(spriteBatch); //Himmel
                 clouds_3.Draw(spriteBatch);
                 background_2.Draw(spriteBatch); //Berge
@@ -306,18 +310,18 @@ namespace TheVillainsRevenge
                 {
                     spriteBatch.Draw(debug, new Vector2(background_0.position.X, background_0.position.Y), Color.White);
                 }
-            //}
-
+            spriteBatch.End();
             //-----Spielebene-----
-            karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
-            hero.Draw(gameTime,camera); //Ashbrett
-            spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
-            if (Game1.debug) //Boundingbox Bonepuker
-            {
-                spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
-                spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
-                spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
-            }
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
+                hero.Draw(gameTime,camera); //Ashbrett
+                spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
+                if (Game1.debug) //Boundingbox Bonepuker
+                {
+                    spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
+                    spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
+                    spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
+                }
             spriteBatch.End();
 
 
@@ -326,10 +330,6 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
             
             //-----renderTarget-----
-            coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
-            coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
-            coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
-            coverEyes.Parameters["left"].SetValue(spieler.spine.skeleton.FlipX);
             if (spieler.coverEyes)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
