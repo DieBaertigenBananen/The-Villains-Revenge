@@ -203,8 +203,8 @@ namespace TheVillainsRevenge
                         trigger.Pushed(karte.blocks);
                         break;
                     }
-                }         
-                                
+                }
+                hero.Update(gameTime, karte, spieler.cbox.box);    
                 for (int i = 0; i <karte.kipoints.Count(); i++)
                 {
                     KIPoint kipoint = karte.kipoints.ElementAt(i);
@@ -235,7 +235,6 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
-                hero.Update(gameTime, karte,spieler.cbox.box);
                 if(!levelend)
                     spieler.Update(gameTime, karte);
                 if (spieler.position.Y >= (karte.size.Y))

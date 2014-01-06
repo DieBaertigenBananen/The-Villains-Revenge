@@ -275,10 +275,26 @@ namespace TheVillainsRevenge
                         float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
                         if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
                         {
+                            if(fall)
+                            {
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                    foreach (Block block in map.blocks)
+                                    {
+                                        if (kicollide.Intersects(block.cbox) && block.block)
+                                        {
+                                            geht = true;
+                                            break;
+                                        }
+
+                                    }
+                                }
+                            }
                             //Kein Grund T_T Beweg mich mal
                             for (int i = 0; i < 10; i++)
                             {
-                                kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                //kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
                                 if (kicollide.Intersects(spieler))
                                     geht = true;
                             }
