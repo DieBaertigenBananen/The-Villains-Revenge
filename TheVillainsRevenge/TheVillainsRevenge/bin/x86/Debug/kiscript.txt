@@ -57,12 +57,18 @@ end
 if p_id[points] == 6 then -- wenn aktuell ist 6 dann setze nächsten 7
  addPoint(7,p_time[points]);
 end
-if p_id[points] == 9 then
+if p_id[points] == 9 and p_id[points-1]==7 then
  addPoint(8,p_time[points]);
 end
-
 if p_id[points] == 11 then
  addPoint(12,p_time[points]);
 end
-
-
+if p_id[points] == 18 and p_id[points-1]==17 then
+ addPoint(19,p_time[points]);
+end
+if p_id[points] == 16 and p_id[points-1]==15 then 
+ addPoint(17,p_time[points]);
+end
+if p_id[points] == 20 then
+ addPoint(21,p_time[points]);
+end
