@@ -132,15 +132,27 @@ namespace TheVillainsRevenge
                     {
                         //KI ist auf den Boden und alles ist gut
                         //Schaue ob der Block rechts ist
-                        for (int i = 0; i < 200; i++)
+                        if (kicheck.Count() != 0)
                         {
-                            kicollide = new Rectangle(cbox.box.X+ i*actualspeed, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-                            if(kicollide.Intersects(spieler))
-                                geht = true;
+                            for (int i = 0; i < 200; i++)
+                            {
+                                kicollide = new Rectangle(cbox.box.X + i * actualspeed, cbox.box.Y, cbox.box.Width, cbox.box.Height);
+
+                                foreach (KIPoint kipoint in map.kipoints)
+                                {
+                                    if (kicollide.Intersects(kipoint.cbox) && kipoint.id == kicheck.ElementAt(0).id)
+                                    {
+                                        geht = true;
+                                        i = 200;
+                                        break;
+                                    }
+                                }
+                            }
                         }
                         //Block ist auf gleicher Höhe, bewege nur drauf zu
                         if (geht)
                         {
+                            GameScreen.test = 1;
                             if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
                             {
                                 Move(actualspeed, 0, map);
@@ -156,6 +168,7 @@ namespace TheVillainsRevenge
                             }
                             if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
                             {
+                                GameScreen.test = 3;
                                 //AAAAHHH WIR fallen T_T
                                 //Hmm vielleicht ist da ja ein Block der für die bewegenden Plattformen zuständig ist?
                                 bool bewegblock = false;
@@ -169,7 +182,7 @@ namespace TheVillainsRevenge
                                         //Schaue ob rechts ein Block ist
                                     }
                                 }
-                                if (bewegblock)
+                                if (bewegblock&&!fall&&!jump)
                                 {
                                     //Warten wir einfach mal ...
                                     Move(-actualspeed, 0, map);
@@ -178,6 +191,7 @@ namespace TheVillainsRevenge
                                 //Beginne den Drüberspringmodus für Abgründe!!!HA!
                                 else
                                 {
+                                    GameScreen.test = 4;
                                     if (!fall && !jump)
                                     {
                                         Jump(gameTime, map); //Springen!
@@ -189,6 +203,7 @@ namespace TheVillainsRevenge
                         }
                         else
                         {
+                            GameScreen.test = 2;
                             if (spieler.Y < position.Y)
                             {
                                 if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)

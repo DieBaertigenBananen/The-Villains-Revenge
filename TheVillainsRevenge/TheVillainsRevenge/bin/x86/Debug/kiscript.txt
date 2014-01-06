@@ -26,82 +26,43 @@ end
 -- points = Maximalen Points, wird für eine Schleife benötigt
 -- addPoint(id,time); Gibt den neuen Punkt an, wo die KI hin soll
 ------------------------------------------------
---Levelbedingt
-if points > 0 then
-	if p_id[points-1] == 2 and p_id[points] == 6 then
-		addPoint(1,p_time[points]);
-	end
-	if p_id[points-1] == 2 and p_id[points] == 7 then
-		addPoint(3,p_time[points]);
-	end
-	if p_id[points-1] == 6 and p_id[points] == 2 then
-		addPoint(1,p_time[points]);
-	end
-	if p_id[points-1] == 7 and p_id[points] == 2 then
-		addPoint(3,p_time[points]);
-	end
-	if p_id[points-1] == 4 and p_id[points] == 8 then
-		addPoint(3,p_time[points]);
-	end
-	if p_id[points-1] == 4 and p_id[points] == 9 then
-		addPoint(5,p_time[points]);
-	end
-	if p_id[points-1] == 8 and p_id[points] == 4 then
-		addPoint(3,p_time[points]);
-	end
-	if p_id[points-1] == 9 and p_id[points] == 4 then
-		addPoint(5,p_time[points]);
-	end
-	if p_id[points-1] == 16 and p_id[points] == 19 then
-		addPoint(18,p_time[points]);
-	end
-	if p_id[points-1] == 18 and p_id[points] == 20 then
-		addPoint(19,p_time[points]);
-	end
 
-	if p_id[points-1] == 19 and p_id[points] == 21 then
-		addPoint(20,p_time[points]);
-	end
-	if p_id[points-1] == 21 and p_id[points] == 24 then
-		addPoint(23,p_time[points]);
-	end
-	if p_id[points-1] == 30 and p_id[points] == 36 then
-		addPoint(29,p_time[points]);
-	end
-	if p_id[points-1] == 36 and p_id[points] == 30 then
-		addPoint(29,p_time[points]);
-	end
-	if p_id[points-1] == 30 and p_id[points] == 37 then
-		addPoint(31,p_time[points]);
-	end
-	if p_id[points-1] == 37 and p_id[points] == 30 then
-		addPoint(31,p_time[points]);
-	end
-	if p_id[points-1] == 32 and p_id[points] == 38 then
-		addPoint(31,p_time[points]);
-	end
-	if p_id[points-1] == 38 and p_id[points] == 32 then
-		addPoint(31,p_time[points]);
-	end
-	if p_id[points-1] == 32 and p_id[points] == 39 then
-		addPoint(33,p_time[points]);
-	end
-	if p_id[points-1] == 39 and p_id[points] == 32 then
-		addPoint(33,p_time[points]);
-	end
-	if p_id[points-1] == 41 and p_id[points] == 34 then
-		addPoint(35,p_time[points]);
-	end
-	if p_id[points-1] == 40 and p_id[points] == 34 then
-		addPoint(33,p_time[points]);
-	end
+-- Es folgt, dein Code! 
+-- BANANATIME
+
+-----------------------------------------------
+--Fügt einen Punkt vor dem aktuellen hinzu
+-----------------------------------------------
+
+if p_id[points-1] == 9 and p_id[points] == 6 then -- wenn vorher 9 und jetzt 6 setze dazwischen 7
+ addPoint(7,p_time[points]);
 end
---Fügt den neuen Punkt hinzu
+if p_id[points-1] == 4 and p_id[points] == 3 then
+ addPoint(5,p_time[points]);
+end
+
+-----------------------------------------------
+--Fügt den Punkt hinzu, den der Spieler aktuell überläuft
+-----------------------------------------------
+
 addPoint(p_id[points],p_time[points]);
---Weitere Levelbedingte Sachen
-if p_id[points] == 20 then
-	addPoint(21,p_time[points]);
+
+-----------------------------------------------
+--Fügt einen Punkt nach dem aktuellen hinzu
+-----------------------------------------------
+
+if p_id[points] == 0 then
+ addPoint(1,p_time[points]);
 end
-if p_id[points] == 35 then
-	addPoint(36,p_time[points]);
+if p_id[points] == 6 then -- wenn aktuell ist 6 dann setze nächsten 7
+ addPoint(7,p_time[points]);
 end
+if p_id[points] == 9 then
+ addPoint(8,p_time[points]);
+end
+
+if p_id[points] == 11 then
+ addPoint(12,p_time[points]);
+end
+
+

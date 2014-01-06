@@ -31,7 +31,7 @@ namespace TheVillainsRevenge
             this.Window.AllowUserResizing = true;
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = graphics.PreferredBackBufferWidth / 16 * 9;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             if (graphics.IsFullScreen)
             {
                 graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
