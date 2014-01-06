@@ -34,10 +34,12 @@ namespace TheVillainsRevenge
             size.Y = texture[0].Height;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Effect outline, Player spieler)
         {
             for (int i = 0; i < tilesCount; i++)
             {
+                outline.Parameters["playerX"].SetValue((spieler.position.X - position.X + (i * 3840)) / texture[i].Width);
+                outline.Parameters["playerY"].SetValue((spieler.position.Y - position.Y) / texture[i].Height);
                 spriteBatch.Draw(texture[i], new Vector2(position.X + (i * 3840), position.Y), Color.White);
             }
         }

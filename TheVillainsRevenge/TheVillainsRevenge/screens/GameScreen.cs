@@ -297,33 +297,30 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, outline, camera.viewportTransform);
             //-----Hintergrundebenen-----
-            outline.Parameters["playerX"].SetValue((spieler.position.X - background_3.position.X) / 3840);
-            outline.Parameters["playerY"].SetValue((spieler.position.Y - background_3.position.Y) / background_3.size.Y);
                     outline.Parameters["lineSize"].SetValue(10);
                     outline.Parameters["lineBrightness"].SetValue(4);
                     outline.Parameters["aura"].SetValue(200);
-                background_3.Draw(spriteBatch); //Himmel
+                background_3.Draw(spriteBatch, outline, spieler); //Himmel
                     outline.Parameters["aura"].SetValue(0);
                 clouds_3.Draw(spriteBatch);
-            outline.Parameters["playerX"].SetValue((spieler.position.X - background_2.position.X) / 3840);
-            outline.Parameters["playerY"].SetValue((spieler.position.Y - background_2.position.Y) / background_2.size.Y);
                     outline.Parameters["lineSize"].SetValue(15);
-                    outline.Parameters["lineBrightness"].SetValue(2);
+                    outline.Parameters["lineBrightness"].SetValue(3);
                     outline.Parameters["aura"].SetValue(200);
-                background_2.Draw(spriteBatch); //Berge
+                background_2.Draw(spriteBatch, outline, spieler); //Berge
                     outline.Parameters["aura"].SetValue(0);
                 clouds_2.Draw(spriteBatch);
-            outline.Parameters["playerX"].SetValue((spieler.position.X - background_1.position.X) / 3840);
-            outline.Parameters["playerY"].SetValue((spieler.position.Y - background_1.position.Y) / background_1.size.Y);
+                    outline.Parameters["lineSize"].SetValue(20);
+                    outline.Parameters["lineBrightness"].SetValue(2);
+                    outline.Parameters["aura"].SetValue(200);
+                background_1.Draw(spriteBatch, outline, spieler); //Wald
+                    outline.Parameters["aura"].SetValue(0);
+                clouds_1.Draw(spriteBatch);
                     outline.Parameters["lineSize"].SetValue(20);
                     outline.Parameters["lineBrightness"].SetValue(0);
                     outline.Parameters["aura"].SetValue(200);
-                background_1.Draw(spriteBatch); //Wald
-                    outline.Parameters["aura"].SetValue(0);
-                clouds_1.Draw(spriteBatch);
                 if (!Game1.debug)
                 {
-                    background_0.Draw(spriteBatch); //Bäume
+                    background_0.Draw(spriteBatch, outline, spieler); //Bäume
                 }
                 else
                 {
