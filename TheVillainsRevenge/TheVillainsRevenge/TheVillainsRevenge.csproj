@@ -130,6 +130,7 @@
     <Compile Include="game\MovingBlock.cs" />
     <Compile Include="game\ParallaxPlane.cs" />
     <Compile Include="game\Player.cs" />
+    <Compile Include="game\Princess.cs" />
     <Compile Include="game\Sound.cs" />
     <Compile Include="game\Spine.cs" />
     <Compile Include="game\Trigger.cs" />

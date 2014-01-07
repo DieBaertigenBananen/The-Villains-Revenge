@@ -27,7 +27,6 @@ namespace TheVillainsRevenge
         public static int startLifes = Convert.ToInt32((double)Game1.luaInstance["playerStartLifes"]);
         public int item1;
         public int item2;
-        public bool coverEyes = false;
         public Spine spine;
         public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
         //Checkpoint Speicherng//

@@ -19,6 +19,7 @@ namespace TheVillainsRevenge
         Texture2D debug;
         Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
+        Princess princess = new Princess();
         Map karte = new Map();
         Camera camera = new Camera();
         GUI gui = new GUI();
@@ -85,6 +86,7 @@ namespace TheVillainsRevenge
             font = Content.Load<SpriteFont>("fonts/schrift");
             spieler.Load(Content, Game1.graphics);
             hero.Load(Content, Game1.graphics);
+            princess.Load(Content, Game1.graphics);
             karte.Load(Content);
             karte.Generate();
             background_0.Load(Content, "background_0", Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]));
@@ -103,10 +105,11 @@ namespace TheVillainsRevenge
             }
             debug = Content.Load<Texture2D>("sprites/Level_1/Planes/background_0_debug");
         }
-        public void Save(int x)
+        public void Save(int checkpointX)
         {
-            spieler.Save(x);
+            spieler.Save(checkpointX);
             hero.Save();
+            princess.Save();
             foreach (Enemy enemy in karte.enemies)
             {
                 enemy.Save();
@@ -237,6 +240,7 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
+                princess.Update();
                 hero.Update(gameTime, karte,spieler.cbox.box);
                 if(!levelend)
                     spieler.Update(gameTime, karte);
@@ -346,7 +350,7 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
             
             //-----renderTarget-----
-            if (spieler.coverEyes)
+            if (princess.coverEyes)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
             }
