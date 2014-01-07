@@ -15,119 +15,167 @@ namespace TheVillainsRevenge
     class SubMenu
     {
         public bool visible;
+        public List<Button> buttons = new List<Button>();
         int optionCount;
         public int option;
         string name;
         SpriteFont font;
-        public SubMenu(int options, string menuName, SpriteFont menuFont)
+        float fontScale;
+        public bool exit;
+        int optionSpace;
+        Vector2 offset;
+        Effect buttonShader;
+
+        public SubMenu(int options, string menuName, SpriteFont menuFont, Vector2 menuOffset, int optSpace, float textScale)
         {
             optionCount = options;
             name = menuName;
             font = menuFont;
+            optionSpace = optSpace;
+            offset = menuOffset;
+            fontScale = textScale;
+        }
+
+        public void Load(ContentManager Content)
+        {
+            buttonShader = Content.Load<Effect>("Button");
         }
 
         public void Update()
         {
-            if (Game1.input.down)
+            exit = false;
+            if (Game1.input.down) //Nach unten
             {
                 option++;
             }
-            if (Game1.input.up)
+            if (Game1.input.up) //Nach oben
             {
                 option--;
             }
-            if (option > optionCount - 1)
+            if (option > optionCount - 1) //Von unten nach oben springen
             {
                 option = 0;
             }
-            else if (option < 0)
+            else if (option < 0) //Von oben nach unten springen
             {
                 option = optionCount - 1;
             }
+            if (Game1.input.back) //Esc (Untere/Letzte Option muss immer Exit/Return sein)
+            {
+                //Setze auf Exit
+                if (option == optionCount - 1)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    option = optionCount - 1;
+                }
+            }
+            //ButtonStates an aktuelle Option anpassen
+            for (int i = 0; i < buttons.Count(); ++i)
+            {
+                Button button = buttons.ElementAt(i);
+                button.activated = false;
+                if (i == option)
+                {
+                    button.activated = true;
+                }
+            }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Camera camera)
         {
-            if (name == "main")
+            buttonShader.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, buttonShader, camera.viewportTransform);
+            for (int i = 0; i < buttons.Count(); ++i)
             {
-                if (option == 0)
-                {
-                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 250, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
-                }
-                else
-                {
-                    spriteBatch.DrawString(font, "Start Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 250, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Gray);
-                }
-                if (option == 1)
-                {
-                    spriteBatch.DrawString(font, "Options", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 250, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Black);
-                }
-                else
-                {
-                    spriteBatch.DrawString(font, "Options", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 250, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Gray);
-                }
-                if (option == 2)
-                {
-                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 250, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
-                }
-                else
-                {
-                    spriteBatch.DrawString(font, "Exit Game", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 250, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
-                }
+                Button button = buttons.ElementAt(i);
+                button.Draw(spriteBatch, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (i * optionSpace) + offset.Y), MenuScreen.menuButtons, buttonShader); 
             }
-            else if (name == "option")
-            {
-                if (option == 0)
-                {
-                    if (Game1.graphics.IsFullScreen)
-                        spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
-                    else
-                        spriteBatch.DrawString(font, "Windowmode", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
-                }
-                else
-                {
-                    if (Game1.graphics.IsFullScreen)
-                        spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Gray);
-                    else
-                        spriteBatch.DrawString(font, "Windowmode", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Gray);
-                }
-                if (option == 1)
-                {
-                    if (Game1.stretch)
-                        spriteBatch.DrawString(font, "Stretch on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Black);
-                    else
-                        spriteBatch.DrawString(font, "Stretch off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Black);
-                }
-                else
-                {
-                    if (Game1.stretch)
-                        spriteBatch.DrawString(font, "Stretch on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Gray);
-                    else
-                        spriteBatch.DrawString(font, "Stretch off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2)), Color.Gray);
-                }
-                if (option == 2)
-                {
-                    if (Game1.sound)
-                        spriteBatch.DrawString(font, "Sound on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
-                    else
-                        spriteBatch.DrawString(font, "Sound off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
-                }
-                else
-                {
-                    if (Game1.sound)
-                        spriteBatch.DrawString(font, "Sound on", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
-                    else
-                        spriteBatch.DrawString(font, "Sound off", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Gray);
-                }
-                if (option == 3)
-                {
-                    spriteBatch.DrawString(font, "Return", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 100), Color.Black);
-                }
-                else
-                {
-                    spriteBatch.DrawString(font, "Return", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 100), Color.Gray);
-                }
-            }
+            spriteBatch.End();
+
+
+            //if (name == "main")
+            //{
+            //    if (option == 0)
+            //    {
+            //        spriteBatch.Draw(MenuScreen.menuButtons, , new Rectangle(300,0,300,100), Color.White);
+            //    }
+            //    else
+            //    {
+            //        spriteBatch.Draw(MenuScreen.menuButtons, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (0 * optionSpace) + offset.Y), new Rectangle(0, 0, 300, 100), Color.White);
+            //    }
+            //    if (option == 1)
+            //    {
+            //        spriteBatch.Draw(MenuScreen.menuButtons, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (1 * optionSpace) + offset.Y), new Rectangle(300, 100, 300, 100), Color.White);
+            //    }
+            //    else
+            //    {
+            //        spriteBatch.Draw(MenuScreen.menuButtons, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (1 * optionSpace) + offset.Y), new Rectangle(0, 100, 300, 100), Color.White);
+            //    }
+            //    if (option == 2)
+            //    {
+            //        spriteBatch.Draw(MenuScreen.menuButtons, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (2 * optionSpace) + offset.Y), new Rectangle(300, 200, 300, 100), Color.White);
+            //    }
+            //    else
+            //    {
+            //        spriteBatch.Draw(MenuScreen.menuButtons, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (2 * optionSpace) + offset.Y), new Rectangle(0, 200, 300, 100), Color.White);
+            //    }
+            //}
+            //else if (name == "option")
+            //{
+            //    if (option == 0)
+            //    {
+            //        if (Game1.graphics.IsFullScreen)
+            //            spriteBatch.Draw(MenuScreen.menuButtons, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (0 * optionSpace) + offset.Y), new Rectangle(300, 300, 300, 100), Color.White);
+            //        else
+            //            spriteBatch.Draw(MenuScreen.menuButtons, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (0 * optionSpace) + offset.Y), new Rectangle(0, 300, 300, 100), Color.White);
+            //    }
+            //    else
+            //    {
+            //        if (Game1.graphics.IsFullScreen)
+            //            spriteBatch.DrawString(font, "Fullscreen", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (0 * optionSpace) + offset.Y), MenuScreen.activeColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //        else
+            //            spriteBatch.DrawString(font, "Windowmode", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (0 * optionSpace) + offset.Y), MenuScreen.activeColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //    }
+            //    if (option == 1)
+            //    {
+            //        if (Game1.stretch)
+            //            spriteBatch.DrawString(font, "Stretch on", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (1 * optionSpace) + offset.Y), MenuScreen.textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //        else
+            //            spriteBatch.DrawString(font, "Stretch off", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (1 * optionSpace) + offset.Y), MenuScreen.textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //    }
+            //    else
+            //    {
+            //        if (Game1.stretch)
+            //            spriteBatch.DrawString(font, "Stretch on", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (1 * optionSpace) + offset.Y), MenuScreen.activeColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //        else
+            //            spriteBatch.DrawString(font, "Stretch off", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (1 * optionSpace) + offset.Y), MenuScreen.activeColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //    }
+            //    if (option == 2)
+            //    {
+            //        if (Game1.sound)
+            //            spriteBatch.DrawString(font, "Sound on", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (2 * optionSpace) + offset.Y), MenuScreen.textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //        else
+            //            spriteBatch.DrawString(font, "Sound off", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (2 * optionSpace) + offset.Y), MenuScreen.textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //    }
+            //    else
+            //    {
+            //        if (Game1.sound)
+            //            spriteBatch.DrawString(font, "Sound on", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (2 * optionSpace) + offset.Y), MenuScreen.activeColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //        else
+            //            spriteBatch.DrawString(font, "Sound off", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (2 * optionSpace) + offset.Y), MenuScreen.activeColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //    }
+            //    if (option == 3)
+            //    {
+            //        spriteBatch.DrawString(font, "Return", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (3 * optionSpace) + offset.Y), MenuScreen.textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //    }
+            //    else
+            //    {
+            //        spriteBatch.DrawString(font, "Return", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (3 * optionSpace) + offset.Y), MenuScreen.activeColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+            //    }
+            //}
 
 
         }

@@ -86,7 +86,11 @@ namespace TheVillainsRevenge
             {
                 viewport.Y = (int)karte.size.Y - viewport.Height;
             }
+            UpdateTransformation(graphics); //Abgekapselt damit Camera für Menü ohne Spieler verwendbar ist.
+        }
 
+        public void UpdateTransformation(GraphicsDeviceManager graphics)
+        {
             int width = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
             int height = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
             if (Game1.stretch) //Viewport screenfüllend

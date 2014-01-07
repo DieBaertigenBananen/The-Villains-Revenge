@@ -40,7 +40,7 @@ float4 outline(float2 coords: TEXCOORD) : COLOR
 	{
 		count++;
 	}
-	if (count < 4 && count > 0)
+	if (count < 4 && count > 0 && color.a == 0)
 	{
 		color.rgb = ((float)lineBrightness / 10);
 		color.a = 1;

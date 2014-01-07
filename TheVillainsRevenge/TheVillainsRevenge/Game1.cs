@@ -19,7 +19,7 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         GameScreen game;
         MenuScreen menu;
-        public static bool sound = true;
+        public static bool sound = false;
         public static bool stretch;
         public static Input input;
         public static Lua luaInstance = new Lua();
@@ -142,13 +142,6 @@ namespace TheVillainsRevenge
             luaInstance["cloudPlane3SizeMin"] = "";
             luaInstance["cloudPlane3SizeMax"] = "";
 
-            /*
-            luaInstance.RegisterFunction("getPlayerHitpoints", this, this.GetType().GetMethod("getPlayerHitpoints"));
-            public int getPlayerHitpoints()
-                {
-                    return (int)
-                }
-            */
             base.Initialize();
         }
 
@@ -180,23 +173,7 @@ namespace TheVillainsRevenge
             {
                 //Update und hole Wert vom Menü
                 menuOption = menu.Update();
-                if (menuOption == 3)
-                {
-                    if (graphics.IsFullScreen)
-                    {
-                        graphics.IsFullScreen = false;
-                        graphics.PreferredBackBufferWidth = 1024;
-                        graphics.PreferredBackBufferHeight = graphics.PreferredBackBufferWidth / 16 * 9;
-                    }
-                    else
-                    {
-                        graphics.IsFullScreen = true;
-                        graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                        graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                    }
-                    graphics.ApplyChanges();
-                }
-                else if (menuOption == 2)
+                if (menuOption == 2)
                 {
                     menu = null; //entlädt das menü
                     Content.Unload(); //entlädt den Content
@@ -226,6 +203,10 @@ namespace TheVillainsRevenge
                     }
                 }
             }
+            if (input.fullscreen) //F11 = Toggle Fullscreen
+            {
+                Game1.toggleFullscreen();
+            }
             if (menuOption == 0 || input.end)
                 this.Exit();
             base.Update(gameTime);
@@ -234,10 +215,27 @@ namespace TheVillainsRevenge
         protected override void Draw(GameTime gameTime)
         {
             if (menu != null)
-                menu.Draw(spriteBatch);
+                menu.Draw(spriteBatch, gameTime);
             else if (game != null)
                 game.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
+        }
+
+        public static void toggleFullscreen()
+        {
+            if (graphics.IsFullScreen)
+            {
+                graphics.IsFullScreen = false;
+                graphics.PreferredBackBufferWidth = 1024;
+                graphics.PreferredBackBufferHeight = graphics.PreferredBackBufferWidth / 16 * 9;
+            }
+            else
+            {
+                graphics.IsFullScreen = true;
+                graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            }
+            graphics.ApplyChanges();
         }
     }
 }

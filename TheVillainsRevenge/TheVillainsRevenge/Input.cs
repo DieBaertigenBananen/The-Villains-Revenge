@@ -24,6 +24,8 @@ namespace TheVillainsRevenge
         bool backp;
         public bool debug;
         bool debugp;
+        public bool fullscreen;
+        bool fullscreenp;
         public bool links, rechts, sprung, end;
         public void Update()
         {
@@ -247,7 +249,22 @@ namespace TheVillainsRevenge
                     debugp = false;
                 }
             }
-            
+            if (!fullscreenp)
+            {
+                if (keyState.IsKeyDown(Keys.F11) == true)
+                {
+                    fullscreen = true;
+                    fullscreenp = true;
+                }
+            }
+            else
+            {
+                fullscreen = false;
+                if (keyState.IsKeyUp(Keys.F11) == true)
+                {
+                    fullscreenp = false;
+                }
+            }
         }
 
     }

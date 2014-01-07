@@ -13,20 +13,42 @@ namespace TheVillainsRevenge
 {
     class MenuScreen
     {
+        Camera camera;
+        RenderTarget2D renderTarget;
         SpriteFont font;
+        float fontScale;
         bool deadScreen;
         bool loadScreen;
         SubMenu mainMenu;
         SubMenu optionMenu;
+        public static Color textColor;
+        public static Color activeColor;
+        public static Texture2D menuButtons;
+
         public MenuScreen(bool playerDied)
         {
             deadScreen = playerDied;
+            textColor = Color.Red;
+            activeColor = Color.DarkRed;
+            fontScale = 2.0f;
         }
         public void Load(ContentManager Content)
         {
+            camera = new Camera();
+            renderTarget = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            menuButtons = Content.Load<Texture2D>("sprites/menu_buttons");
             font = Content.Load<SpriteFont>("fonts/schrift");
-            mainMenu = new SubMenu(3, "main", font);
-            optionMenu = new SubMenu(4, "option", font);
+            mainMenu = new SubMenu(3, "main", font, new Vector2(-500,0), 100, fontScale);
+            mainMenu.Load(Content);
+                mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 300, 100), new Rectangle(300, 0, 300, 100)));
+                mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 300, 100), new Rectangle(300, 100, 300, 100)));
+                mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 300, 100), new Rectangle(300, 200, 300, 100)));
+            optionMenu = new SubMenu(4, "option", font, new Vector2(-100,0), 100, fontScale);
+            optionMenu.Load(Content);
+                optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 300, 300, 100), new Rectangle(300, 300, 300, 100)));
+                optionMenu.buttons.Add(new Button("stretch", new Rectangle(0, 400, 300, 100), new Rectangle(300, 400, 300, 100)));
+                optionMenu.buttons.Add(new Button("sound", new Rectangle(0, 500, 300, 100), new Rectangle(300, 500, 300, 100)));
+                optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 600, 300, 100), new Rectangle(300, 600, 300, 100)));
             mainMenu.visible = true;
         }
         public int Update()
@@ -34,10 +56,18 @@ namespace TheVillainsRevenge
             if (optionMenu.visible)
             {
                 optionMenu.Update();
+                if (optionMenu.exit)
+                {
+                    optionMenu.visible = false;
+                }
             }
             else if (mainMenu.visible)
             {
                 mainMenu.Update();
+                if (mainMenu.exit)
+                {
+                    return 0;
+                }
             }
             if (deadScreen)
             {
@@ -78,20 +108,7 @@ namespace TheVillainsRevenge
                     }
                     else //Fullscreentoogle
                     {
-                        return 3;
-                    }
-                }
-                if (Game1.input.back)
-                {
-                    //Setze auf Exit
-                    if (optionMenu.option == 3)
-                    {
-                        optionMenu.visible = false;
-                        mainMenu.option = 1;
-                    }
-                    else
-                    {
-                        optionMenu.option = 3;
+                        Game1.toggleFullscreen();
                     }
                 }
             }
@@ -116,44 +133,41 @@ namespace TheVillainsRevenge
                         loadScreen = true;
                     }
                 }
-                if (Game1.input.back)
-                {
-                    //Setze auf Exit
-                    if (mainMenu.option == 2)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        mainMenu.option = 2;
-                    }
-                }
             }
+            camera.UpdateTransformation(Game1.graphics);
             return 1;
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
+            //--------------------Draw to Texture--------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderTarget);
             Game1.graphics.GraphicsDevice.Clear(Color.White);
-            spriteBatch.Begin();
-            if (mainMenu.visible)
-            {
-                mainMenu.Draw(spriteBatch);
-            }
-            if (optionMenu.visible)
-            {
-                optionMenu.Draw(spriteBatch);
-            }
-            if (deadScreen)
-            {
-                spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
-                spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 60, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) + 50), Color.Black);
+                if (mainMenu.visible && !deadScreen && !loadScreen)
+                {
+                    mainMenu.Draw(spriteBatch, gameTime, camera);
+                }
+                if (optionMenu.visible)
+                {
+                    optionMenu.Draw(spriteBatch, gameTime, camera);
+                }
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                if (deadScreen)
+                {
+                    spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.resolution.X / 2) - 50, (Game1.resolution.Y / 2) - 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+                    spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.resolution.X / 2) - 60, (Game1.resolution.Y / 2) + 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
 
-            }
-            else if (loadScreen)
-            {
-                spriteBatch.DrawString(font, "Game loading ...", new Vector2((Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferWidth / 2) - 50, (Game1.graphics.GraphicsDevice.PresentationParameters.BackBufferHeight / 2) - 50), Color.Black);
+                }
+                else if (loadScreen)
+                {
+                    spriteBatch.DrawString(font, "Game loading ...", new Vector2((Game1.resolution.X / 2) - 50, (Game1.resolution.Y / 2) - 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
 
-            }
+                }
+            spriteBatch.End();
+            //--------------------Draw to Screen--------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(null);
+            Game1.graphics.GraphicsDevice.Clear(Color.Black);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+                spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
         }
     }
