@@ -18,26 +18,44 @@ namespace TheVillainsRevenge
         Rectangle cuttexturePassive;
         Rectangle cuttextureActive;
         public bool activated;
+        public bool selected;
+        public bool blinkable;
+        public bool blink;
 
-        public Button(string buttonName, Rectangle cutPassive, Rectangle cutActive)
+        public Button(string buttonName, Rectangle cutPassive, Rectangle cutActive, bool blinkABLE)
         {
             name = buttonName;
             cuttexturePassive = cutPassive;
             cuttextureActive = cutActive;
+            blinkable = blinkABLE;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Texture2D texture, Effect buttonShader)
         {
             Rectangle cut;
-            if (!activated)
+            if (!blinkable)
             {
-                cut = cuttexturePassive;
-                buttonShader.Parameters["activated"].SetValue(false);
+                if (!activated)
+                {
+                    cut = cuttexturePassive;
+                    buttonShader.Parameters["activated"].SetValue(false);
+                }
+                else //Wenn Button aktiviert ist entsprechend darstellen
+                {
+                    cut = cuttextureActive;
+                    buttonShader.Parameters["activated"].SetValue(true);
+                }
             }
-            else //Wenn Button aktiviert ist entsprechend darstellen
+            else
             {
-                cut = cuttextureActive;
-                buttonShader.Parameters["activated"].SetValue(true);
+                if (!activated)
+                {
+                    cut = cuttexturePassive;
+                }
+                else //Wenn Button aktiviert ist entsprechend darstellen
+                {
+                    cut = cuttextureActive;
+                }
             }
             spriteBatch.Draw(texture, position, cut, Color.White);
         }

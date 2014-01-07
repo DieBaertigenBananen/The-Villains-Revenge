@@ -40,15 +40,15 @@ namespace TheVillainsRevenge
             font = Content.Load<SpriteFont>("fonts/schrift");
             mainMenu = new SubMenu(3, "main", font, new Vector2(-500,0), 100, fontScale);
             mainMenu.Load(Content);
-                mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 300, 100), new Rectangle(300, 0, 300, 100)));
-                mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 300, 100), new Rectangle(300, 100, 300, 100)));
-                mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 300, 100), new Rectangle(300, 200, 300, 100)));
+                mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 300, 100), new Rectangle(300, 0, 300, 100), false));
+                mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 300, 100), new Rectangle(300, 100, 300, 100), false));
+                mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 300, 100), new Rectangle(300, 200, 300, 100), false));
             optionMenu = new SubMenu(4, "option", font, new Vector2(-100,0), 100, fontScale);
             optionMenu.Load(Content);
-                optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 300, 300, 100), new Rectangle(300, 300, 300, 100)));
-                optionMenu.buttons.Add(new Button("stretch", new Rectangle(0, 400, 300, 100), new Rectangle(300, 400, 300, 100)));
-                optionMenu.buttons.Add(new Button("sound", new Rectangle(0, 500, 300, 100), new Rectangle(300, 500, 300, 100)));
-                optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 600, 300, 100), new Rectangle(300, 600, 300, 100)));
+            optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 300, 300, 100), new Rectangle(300, 300, 300, 100), true));
+            optionMenu.buttons.Add(new Button("stretch", new Rectangle(0, 400, 300, 100), new Rectangle(300, 400, 300, 100), true));
+            optionMenu.buttons.Add(new Button("sound", new Rectangle(0, 500, 300, 100), new Rectangle(300, 500, 300, 100), true));
+            optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 600, 300, 100), new Rectangle(300, 600, 300, 100), false));
             mainMenu.visible = true;
         }
         public int Update()

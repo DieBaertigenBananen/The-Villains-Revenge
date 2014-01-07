@@ -6,11 +6,11 @@ float4 outline(float2 coords: TEXCOORD) : COLOR
 	float4 color = tex2D(textureSampler, coords);
 	if (activated)
 	{
-		color.b = 1;
+		color.rgb = 0.5;
 	}
 	else
 	{
-		color.r = 1;
+		color.rgb = color.rgb;
 	}
 	
 	return color;
