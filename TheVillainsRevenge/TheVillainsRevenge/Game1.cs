@@ -172,7 +172,7 @@ namespace TheVillainsRevenge
             if (menu != null)
             {
                 //Update und hole Wert vom Menü
-                menuOption = menu.Update();
+                menuOption = menu.Update(gameTime);
                 if (menuOption == 2)
                 {
                     menu = null; //entlädt das menü

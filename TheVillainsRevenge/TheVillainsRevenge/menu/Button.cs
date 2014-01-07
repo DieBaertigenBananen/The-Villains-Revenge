@@ -18,9 +18,9 @@ namespace TheVillainsRevenge
         Rectangle cuttexturePassive;
         Rectangle cuttextureActive;
         public bool activated;
-        public bool selected;
         public bool blinkable;
-        public bool blink;
+        public bool blinking;
+        public bool previousState;
 
         public Button(string buttonName, Rectangle cutPassive, Rectangle cutActive, bool blinkABLE)
         {
@@ -33,8 +33,9 @@ namespace TheVillainsRevenge
         public void Draw(SpriteBatch spriteBatch, Vector2 position, Texture2D texture, Effect buttonShader)
         {
             Rectangle cut;
-            if (!blinkable)
+            if (!blinkable) //Standardbutton
             {
+                buttonShader.Parameters["nofx"].SetValue(false);
                 if (!activated)
                 {
                     cut = cuttexturePassive;
@@ -46,18 +47,57 @@ namespace TheVillainsRevenge
                     buttonShader.Parameters["activated"].SetValue(true);
                 }
             }
-            else
+            else //Button, der einen Status anzeigt, ergo bei Anwahl blinkt
             {
-                if (!activated)
+                buttonShader.Parameters["nofx"].SetValue(true);
+                if (blinking) //Button soll blinken
                 {
-                    cut = cuttexturePassive;
+                    if (MenuScreen.blinkingState)
+                    {
+                        if (!activated)
+                        {
+                            cut = cuttextureActive;
+                        }
+                        else //Wenn Button aktiviert ist entsprechend darstellen
+                        {
+                            cut = cuttexturePassive;
+                        }
+                    }
+                    else
+                    {
+                        if (!activated)
+                        {
+                            cut = cuttexturePassive;
+                        }
+                        else //Wenn Button aktiviert ist entsprechend darstellen
+                        {
+                            cut = cuttextureActive;
+                        }
+                    }
                 }
-                else //Wenn Button aktiviert ist entsprechend darstellen
+                else
                 {
-                    cut = cuttextureActive;
+                    if (!activated)
+                    {
+                        cut = cuttexturePassive;
+                    }
+                    else //Wenn Button aktiviert ist entsprechend darstellen
+                    {
+                        cut = cuttextureActive;
+                    }
+
                 }
             }
             spriteBatch.Draw(texture, position, cut, Color.White);
+        }
+
+        public void ChangeState(bool activate)
+        {
+            if (activate != activated)
+            {
+                previousState = activated;
+            }
+            activated = activate;
         }
     }
 }

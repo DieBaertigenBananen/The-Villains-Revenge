@@ -24,6 +24,9 @@ namespace TheVillainsRevenge
         public static Color textColor;
         public static Color activeColor;
         public static Texture2D menuButtons;
+        public static double blinkingTimer;
+        public static int blinkingDelay = 500;
+        public static bool blinkingState = false;
 
         public MenuScreen(bool playerDied)
         {
@@ -51,11 +54,12 @@ namespace TheVillainsRevenge
             optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 600, 300, 100), new Rectangle(300, 600, 300, 100), false));
             mainMenu.visible = true;
         }
-        public int Update()
+        public int Update(GameTime gameTime)
         {
+            UpdateBlinkingTimer(gameTime, false);
             if (optionMenu.visible)
             {
-                optionMenu.Update();
+                optionMenu.Update(gameTime);
                 if (optionMenu.exit)
                 {
                     optionMenu.visible = false;
@@ -63,7 +67,7 @@ namespace TheVillainsRevenge
             }
             else if (mainMenu.visible)
             {
-                mainMenu.Update();
+                mainMenu.Update(gameTime);
                 if (mainMenu.exit)
                 {
                     return 0;
@@ -137,6 +141,20 @@ namespace TheVillainsRevenge
             camera.UpdateTransformation(Game1.graphics);
             return 1;
         }
+
+        public static void UpdateBlinkingTimer(GameTime gameTime, bool reset)
+        {
+            if (gameTime.TotalGameTime.TotalMilliseconds > (blinkingTimer + (float)blinkingDelay) || reset)
+            {
+                blinkingTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                blinkingState = !blinkingState;
+                if (reset)
+                {
+                    blinkingState = true;
+                }
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
             //--------------------Draw to Texture--------------------

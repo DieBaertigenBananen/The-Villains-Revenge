@@ -1,18 +1,24 @@
 sampler textureSampler;
 float gameTime;
 bool activated;
+bool nofx;
+
 float4 outline(float2 coords: TEXCOORD) : COLOR
-{  
+{
 	float4 color = tex2D(textureSampler, coords);
-	if (activated)
+	if (!nofx) 
 	{
-		color.rgb = 0.5;
+		if (activated)
+		{
+			color.r = 1;
+			color.gb = 0;
+		}
+		else
+		{
+			color.b = 1;
+			color.rg = 0;
+		}
 	}
-	else
-	{
-		color.rgb = color.rgb;
-	}
-	
 	return color;
 }
   

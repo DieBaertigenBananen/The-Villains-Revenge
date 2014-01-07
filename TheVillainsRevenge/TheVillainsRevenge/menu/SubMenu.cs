@@ -41,16 +41,18 @@ namespace TheVillainsRevenge
             buttonShader = Content.Load<Effect>("Button");
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             exit = false;
             if (Game1.input.down) //Nach unten
             {
                 option++;
+                MenuScreen.UpdateBlinkingTimer(gameTime, true);
             }
             if (Game1.input.up) //Nach oben
             {
                 option--;
+                MenuScreen.UpdateBlinkingTimer(gameTime, true);
             }
             if (option > optionCount - 1) //Von unten nach oben springen
             {
@@ -76,10 +78,66 @@ namespace TheVillainsRevenge
             for (int i = 0; i < buttons.Count(); ++i)
             {
                 Button button = buttons.ElementAt(i);
-                button.activated = false;
-                if (i == option)
+                if (!button.blinkable) //Standardbutton
                 {
-                    button.activated = true;
+                    button.ChangeState(false);
+                    if (i == option)
+                    {
+                        button.ChangeState(true);
+                    }
+                }
+                else //Blinkable Button
+                {
+                    switch (button.name)
+                    {
+                        case "fullscreen":
+                            if (Game1.graphics.IsFullScreen)
+                            {
+                                button.ChangeState(true);
+                            }
+                            else
+                            {
+                                button.ChangeState(false);
+                            }
+                            break;
+                        case "stretch":
+                            if (Game1.stretch)
+                            {
+                                button.ChangeState(true);
+                            }
+                            else
+                            {
+                                button.ChangeState(false);
+                            }
+                            break;
+                        case "sound":
+                            if (Game1.sound)
+                            {
+                                button.ChangeState(true);
+                            }
+                            else
+                            {
+                                button.ChangeState(false);
+                            }
+                            break;
+                    }
+                    if (i == option)
+                    {
+                        if (button.previousState == button.activated)
+                        {
+                            button.blinking = true;
+                            
+                        }
+                        else
+                        {
+                            button.blinking = false;
+                        }
+                    }
+                    else
+                    {
+                        button.blinking = false;
+                        button.previousState = button.activated;
+                    }
                 }
             }
         }
