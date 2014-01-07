@@ -142,6 +142,12 @@ namespace TheVillainsRevenge
             luaInstance["cloudPlane3SizeMin"] = "";
             luaInstance["cloudPlane3SizeMax"] = "";
 
+            luaInstance["princessRageChance"] = "";
+            luaInstance["princessRageWarmup"] = "";
+            luaInstance["princessEnrageSpeed"] = "";
+            luaInstance["princessUnrageSpeed"] = "";
+            luaInstance["princessRageLimit"] = "";
+            
             base.Initialize();
         }
 

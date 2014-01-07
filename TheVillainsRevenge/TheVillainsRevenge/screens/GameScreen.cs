@@ -129,6 +129,7 @@ namespace TheVillainsRevenge
             {
                 spieler.Reset();
                 hero.Reset();
+                princess.Reset();
                 foreach (Enemy enemy2 in karte.enemies)
                 {
                     enemy2.Reset();
@@ -240,7 +241,7 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
-                princess.Update();
+                princess.Update(gameTime);
                 hero.Update(gameTime, karte,spieler.cbox.box);
                 if(!levelend)
                     spieler.Update(gameTime, karte);

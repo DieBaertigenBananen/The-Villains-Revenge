@@ -26,6 +26,12 @@ enemyCollisionOffsetY = 0
 enemyCollisionWidth = 64
 enemyCollisionHeight = 64
 
+princessRageChance = 100
+princessRageWarmup = 10
+princessEnrageSpeed = 2
+princessUnrageSpeed = 10
+princessRageLimit = 100
+
 --Update
 playerSpeed = 11
 playerAirspeed = playerSpeed - 2
