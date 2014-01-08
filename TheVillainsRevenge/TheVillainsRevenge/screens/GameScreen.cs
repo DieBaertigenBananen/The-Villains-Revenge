@@ -382,7 +382,7 @@ namespace TheVillainsRevenge
                 spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + background_0.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
                 spriteBatch.DrawString(font, "Skeleton: " + (spieler.spine.skeleton.X + " " + spieler.spine.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
                 spriteBatch.DrawString(font, "Planes.Size.X: " + background_0.size.X + " " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
-                //spriteBatch.DrawString(font, "Kollision: " + spieler.check, new Vector2(Game1.resolution.X - 300, 290), Color.White);
+                spriteBatch.DrawString(font, "RageMeter: " + princess.rageMeter, new Vector2(Game1.resolution.X - 300, 290), Color.White);
                 Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
