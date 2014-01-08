@@ -29,6 +29,14 @@ namespace TheVillainsRevenge
                     cuttexture.X = 48;
                     cuttexture.Y = 0;
                     break;
+                case "banana":
+                    cuttexture.X = 96;
+                    cuttexture.Y = 0;
+                    break;
+                case "monkey":
+                    cuttexture.X = 144;
+                    cuttexture.Y = 0;
+                    break;
             }
         }
     }

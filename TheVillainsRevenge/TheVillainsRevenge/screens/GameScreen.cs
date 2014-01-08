@@ -52,6 +52,13 @@ namespace TheVillainsRevenge
         {
             return spieler.kicheck.ElementAt(s).time;
         }
+        public void removePoint(int s)
+        {
+            if (hero.kicheck.Count() != 0)
+            {
+                hero.kicheck.RemoveAt(s);
+            }
+        }
         public void addPoint(int s, int t)
         {
             bool geht = true;
@@ -74,7 +81,8 @@ namespace TheVillainsRevenge
             LuaKI.RegisterFunction("getPoints", this, this.GetType().GetMethod("getPoints"));
             LuaKI.RegisterFunction("getPointID", this, this.GetType().GetMethod("getPointID"));
             LuaKI.RegisterFunction("getPointTime", this, this.GetType().GetMethod("getPointTime"));
-            LuaKI.RegisterFunction("addPoint", this, this.GetType().GetMethod("addPoint")); 
+            LuaKI.RegisterFunction("addPoint", this, this.GetType().GetMethod("addPoint"));
+            LuaKI.RegisterFunction("removePoint", this, this.GetType().GetMethod("removePoint")); 
         }
 
         public void Load(ContentManager Content)
@@ -144,18 +152,44 @@ namespace TheVillainsRevenge
             if (!levelend)
             {
                 karte.Update(gameTime, spieler.cbox.box);
+                for (int i = 0; i < karte.objects.Count(); i++)
+                {
+                    Obj obj = karte.objects.ElementAt(i);
+                    obj.Update(gameTime, karte);
+                    if (obj.box.Intersects(hero.cbox.box))
+                    {
+                        hero.slowtime += 10;
+                        karte.objects.Remove(obj);
+                    }
+                    else if (obj.type == 2)
+                    {
+                        foreach (Block block in karte.blocks)
+                        {
+                            if (obj.box.Intersects(block.cbox))
+                            {
+                                karte.objects.Remove(obj);
+                                break;
+                            }
+                        }
+                    }
+                }
                 foreach (Enemy enemy in karte.enemies)
                 {
-                    enemy.Update(gameTime, karte);
+                    enemy.Update(gameTime, karte,hero.position);
                     if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
                     {
                         karte.enemies.Remove(enemy);
                         break;
                     }
-                    if (spieler.cbox.box.Intersects(enemy.cbox.box))
+                    if (spieler.cbox.box.Intersects(enemy.cbox.box)&&enemy.type == 1)
                     {
                         spieler.getHit();
                         Reset();
+                        break;
+                    }
+                    if(enemy.type == 2&&hero.cbox.box.Intersects(enemy.cbox.box))
+                    {
+                        karte.enemies.Remove(enemy);
                         break;
                     }
                 }
@@ -174,6 +208,20 @@ namespace TheVillainsRevenge
                             if (spieler.item1 != 0)
                                 spieler.item2 = spieler.item1;
                             spieler.item1 = 1;
+                            karte.items.Remove(item);
+                        }
+                        else if (item.type == "banana")
+                        {
+                            if (spieler.item1 != 0)
+                                spieler.item2 = spieler.item1;
+                            spieler.item1 = 2;
+                            karte.items.Remove(item);
+                        }
+                        else if (item.type == "monkey")
+                        {
+                            if (spieler.item1 != 0)
+                                spieler.item2 = spieler.item1;
+                            spieler.item1 = 3;
                             karte.items.Remove(item);
                         }
                         break;
@@ -219,7 +267,7 @@ namespace TheVillainsRevenge
                         }
                         if (geht)
                         {
-                            if (spieler.kicheck.Count() >= 10)
+                            if (spieler.kicheck.Count() >= 20)
                             {
                                 spieler.kicheck.RemoveAt(0);
                             }
@@ -365,7 +413,7 @@ namespace TheVillainsRevenge
                 spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                 spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                 spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
-                spriteBatch.DrawString(font, "TEST: " + test, new Vector2(Game1.resolution.X - 300, 370), Color.White);
+                spriteBatch.DrawString(font, "TEST: " + hero.slowtime, new Vector2(Game1.resolution.X - 300, 370), Color.White);
                 for (int i = 0; i < spieler.kicheck.Count(); i++)
                 {
                     KICheck kicheck = spieler.kicheck.ElementAt(i);

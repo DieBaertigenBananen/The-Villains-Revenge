@@ -25,16 +25,28 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(GuiTexture, new Vector2(45, 10), new Rectangle(0, 112, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
             switch (sitem2)
             {
-                case 1:
-                    spriteBatch.Draw(GuiTexture, new Vector2(45 + 9, 18), new Rectangle(64, 112, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    case 1:
+                    spriteBatch.Draw(ItemTexture, new Vector2(45 + 9, 18), new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    break;
+                    case 2:
+                    spriteBatch.Draw(ItemTexture, new Vector2(45 + 9, 18), new Rectangle(96, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    break;
+                    case 3:
+                    spriteBatch.Draw(ItemTexture, new Vector2(45 + 9, 18), new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
             }            
             //Itemslot vorne
             spriteBatch.Draw(GuiTexture, new Vector2(30, 10), new Rectangle(0, 112, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
             switch (sitem1)
             {
-                case 1:
+                    case 1:
                     spriteBatch.Draw(ItemTexture, new Vector2(30 + 9, 18), new Rectangle(48,0,48,48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    break;
+                    case 2:
+                    spriteBatch.Draw(ItemTexture, new Vector2(30 + 9, 18), new Rectangle(96, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    break;
+                    case 3:
+                    spriteBatch.Draw(ItemTexture, new Vector2(30 + 9, 18), new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
             }
             //Leben
