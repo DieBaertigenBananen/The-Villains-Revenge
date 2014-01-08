@@ -147,6 +147,7 @@ namespace TheVillainsRevenge
             luaInstance["princessEnrageSpeed"] = "";
             luaInstance["princessUnrageSpeed"] = "";
             luaInstance["princessRageLimit"] = "";
+            luaInstance["princessCoverTime"] = "";
             
             base.Initialize();
         }
