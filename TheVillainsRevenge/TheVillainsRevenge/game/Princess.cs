@@ -34,7 +34,7 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)
         {
-            rageWarmup = Convert.ToInt32((double)Game1.luaInstance["princessRageWarmup"]);
+            rageWarmup = Convert.ToInt32((double)Game1.luaInstance["princessRageWarmup"]) * 1000;
             rageChance = Convert.ToInt32((double)Game1.luaInstance["princessRageChance"]);
             enrageSpeed = Convert.ToInt32((double)Game1.luaInstance["princessEnrageSpeed"]);
             unrageSpeed = Convert.ToInt32((double)Game1.luaInstance["princessUnrageSpeed"]);
@@ -98,7 +98,11 @@ namespace TheVillainsRevenge
                         //Deine Mudda enraged!
                     }
                 }
-
+                if (rageMeter <= 0)
+                {
+                    rageMode = false;
+                    rageMeter = 0;
+                }
             }
             else if (gameTime.TotalGameTime.TotalMilliseconds > (rageTimer + (float)rageWarmup)) //RageWarmup
             {

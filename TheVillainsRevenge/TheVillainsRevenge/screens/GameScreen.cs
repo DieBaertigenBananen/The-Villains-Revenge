@@ -272,10 +272,10 @@ namespace TheVillainsRevenge
                     }
                 }
                 //-----Shader-----
-                coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
-                coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
+                //coverEyes.Parameters["playerX"].SetValue((spieler.position.X - camera.viewport.X) / camera.viewport.Width);
+                //coverEyes.Parameters["playerY"].SetValue((spieler.position.Y - camera.viewport.Y) / camera.viewport.Height);
+                //coverEyes.Parameters["left"].SetValue(spieler.spine.skeleton.FlipX);
                 coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
-                coverEyes.Parameters["left"].SetValue(spieler.spine.skeleton.FlipX);
                 outline.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
             }
             if (spieler.lifes != 0)
