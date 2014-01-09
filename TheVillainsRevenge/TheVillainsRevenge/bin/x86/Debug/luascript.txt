@@ -11,7 +11,7 @@ planeTilesBackground1 = 2 --Wald
 planeTilesBackground2 = 1 --Berg
 planeTilesBackground3 = 1 --Himmel
 
-blockSpeed = 5
+blockSpeed = 5	
 triggerTime = 5
  
 heroScale = 2
