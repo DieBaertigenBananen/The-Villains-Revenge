@@ -27,11 +27,11 @@ enemyCollisionWidth = 64
 enemyCollisionHeight = 64
 
 princessRageChance = 100
-princessRageWarmup = 5
+princessRageWarmup = 10
 princessEnrageSpeed = 5
 princessUnrageSpeed = 10
 princessRageLimit = 100
-princessCoverTime = 10
+princessCoverTime = 5
 
 --Update
 playerSpeed = 11

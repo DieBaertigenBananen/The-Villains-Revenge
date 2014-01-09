@@ -122,6 +122,8 @@ namespace TheVillainsRevenge
                     rageMode = true;
                 }
             }
+            beating = true;
+            coverEyes = true;
         }
     }
 }

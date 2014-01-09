@@ -4,7 +4,6 @@ float playerY;
 float gameTime;
 int lineSize;
 int lineBrightness;
-int aura;
 
 float4 outline(float2 coords: TEXCOORD) : COLOR
 {  
@@ -13,10 +12,6 @@ float4 outline(float2 coords: TEXCOORD) : COLOR
 	float2 playerPos = float2(playerX, playerY);
 	playerPos.y = playerPos.y - 0.05;
 	float size = ((float)lineSize / 10);
-	if (distance(playerPos, coords) < (float)aura / 1080)
-	{
-		size = size * (distance(playerPos, coords) / ((float)aura / 1080));
-	}
 	float2 thick = float2(size / 1920, size / 1080);
 	
 	int count = 0;

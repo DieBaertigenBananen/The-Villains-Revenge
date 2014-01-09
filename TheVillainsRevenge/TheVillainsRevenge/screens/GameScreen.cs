@@ -31,12 +31,19 @@ namespace TheVillainsRevenge
         CloudPlane clouds_2 = new CloudPlane(2);
         CloudPlane clouds_3 = new CloudPlane(3);
         Sound bgmusic = new Sound("sounds/Level_1/background");
-        RenderTarget2D renderTarget;
+        RenderTarget2D renderScreen;
         RenderTarget2D renderSpine;
+        RenderTarget2D renderForeground;
+        RenderTarget2D renderBackground0;
+        RenderTarget2D renderBackground1;
+        RenderTarget2D renderBackground2;
+        RenderTarget2D renderBackground3;
+        RenderTarget2D renderHud;
         SpriteFont font;
         bool levelend = false;
         Effect coverEyes;
         Effect outline;
+        Effect smash;
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
@@ -81,8 +88,14 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content)
         {
-            renderTarget = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderForeground = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderBackground0 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderBackground1 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderBackground2 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderBackground3 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderHud = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             font = Content.Load<SpriteFont>("fonts/schrift");
             spieler.Load(Content, Game1.graphics);
             hero.Load(Content, Game1.graphics);
@@ -99,6 +112,7 @@ namespace TheVillainsRevenge
             gui.Load(Content);
             coverEyes = Content.Load<Effect>("CoverEyes");
             outline = Content.Load<Effect>("Outline");
+            smash = Content.Load<Effect>("Smash");
             if (Game1.sound)
             {
                 bgmusic.Load(Content);
@@ -277,6 +291,7 @@ namespace TheVillainsRevenge
                 //coverEyes.Parameters["left"].SetValue(spieler.spine.skeleton.FlipX);
                 coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
                 outline.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
+                smash.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
             }
             if (spieler.lifes != 0)
             {
@@ -290,39 +305,38 @@ namespace TheVillainsRevenge
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //--------------------Draw to Spine--------------------
+            //--------------------Draw to renderSpine--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderSpine);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spieler.Draw(gameTime, camera);
             hero.Draw(gameTime, camera);
 
-
-            //--------------------Draw to Texture--------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderTarget);
+            //--------------------Draw to renderBackground--------------------
+            //Background3
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground3);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, outline, camera.viewportTransform);
-            //-----Hintergrundebenen-----
-                    outline.Parameters["lineSize"].SetValue(10);
-                    outline.Parameters["lineBrightness"].SetValue(4);
-                    outline.Parameters["aura"].SetValue(200);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 background_3.Draw(spriteBatch, outline, spieler); //Himmel
-                    outline.Parameters["aura"].SetValue(0);
                 clouds_3.Draw(spriteBatch);
-                    outline.Parameters["lineSize"].SetValue(15);
-                    outline.Parameters["lineBrightness"].SetValue(3);
-                    outline.Parameters["aura"].SetValue(200);
+            spriteBatch.End();
+            //Background2
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground2);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 background_2.Draw(spriteBatch, outline, spieler); //Berge
-                    outline.Parameters["aura"].SetValue(0);
                 clouds_2.Draw(spriteBatch);
-                    outline.Parameters["lineSize"].SetValue(20);
-                    outline.Parameters["lineBrightness"].SetValue(2);
-                    outline.Parameters["aura"].SetValue(200);
+            spriteBatch.End();
+            //Background1
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground1);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 background_1.Draw(spriteBatch, outline, spieler); //Wald
-                    outline.Parameters["aura"].SetValue(0);
                 clouds_1.Draw(spriteBatch);
-                    outline.Parameters["lineSize"].SetValue(20);
-                    outline.Parameters["lineBrightness"].SetValue(0);
-                    outline.Parameters["aura"].SetValue(200);
+            spriteBatch.End();
+            //Background0
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground0);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 if (!Game1.debug)
                 {
                     background_0.Draw(spriteBatch, outline, spieler); //Bäume
@@ -332,12 +346,22 @@ namespace TheVillainsRevenge
                     spriteBatch.Draw(debug, new Vector2(background_0.position.X, background_0.position.Y), Color.White);
                 }
             spriteBatch.End();
+
             //-----Spielebene-----
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                karte.Draw(spriteBatch); //Enthält eine zusätzliche Backgroundebene
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            if (princess.beating || spieler.smash)
+            {
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, smash, camera.viewportTransform);
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            }
+                karte.Draw(spriteBatch); //Plattformen & Co
                 hero.Draw(gameTime,camera); //Ashbrett
                 spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
-                if (Game1.debug) //Boundingbox Bonepuker
+                if (Game1.debug) //Boundingboxen
                 {
                     spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                     spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
@@ -345,6 +369,74 @@ namespace TheVillainsRevenge
                 }
             spriteBatch.End();
 
+
+            //-----HUD-----
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderHud);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                if (levelend)
+                {
+                    spriteBatch.DrawString(font, "Finished level!", new Vector2((Game1.resolution.X / 2) - 200, (Game1.resolution.Y / 2) - 200), Color.Black, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0f);
+                }
+                if (Game1.debug)
+                {
+                    spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);
+                    spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.White);
+                    spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y + " " + camera.viewport.Width + " " + camera.viewport.Height), new Vector2(Game1.resolution.X - 300, 230), Color.White);
+                    spriteBatch.DrawString(font, "Skeleton: " + (spieler.spine.skeleton.X + " " + spieler.spine.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
+                    spriteBatch.DrawString(font, "RageMeter: " + princess.rageMeter, new Vector2(Game1.resolution.X - 300, 290), Color.White);
+                    Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
+                    spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
+                    spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
+                    spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
+                    for (int i = 0; i < spieler.kicheck.Count(); i++)
+                    {
+                        KICheck kicheck = spieler.kicheck.ElementAt(i);
+                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(Game1.resolution.X - 300, 390 + i * 20), Color.White);
+                    }
+                    for (int i = 0; i < hero.kicheck.Count(); i++)
+                    {
+                        KICheck kicheck = hero.kicheck.ElementAt(i);
+                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(Game1.resolution.X - 400, 390 + i * 20), Color.White);
+                    }
+                }
+                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
+            spriteBatch.End();
+
+            //--------------------Draw to renderScreen--------------------
+            //-----Hintergrundebenen-----
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, outline);
+            //Background3
+            outline.Parameters["lineSize"].SetValue(10);
+            outline.Parameters["lineBrightness"].SetValue(4);
+            spriteBatch.Draw(renderBackground3, Vector2.Zero, Color.White);
+            //Background2
+            outline.Parameters["lineSize"].SetValue(15);
+            outline.Parameters["lineBrightness"].SetValue(3);
+            spriteBatch.Draw(renderBackground2, Vector2.Zero, Color.White);
+            //Background1
+            outline.Parameters["lineSize"].SetValue(20);
+            outline.Parameters["lineBrightness"].SetValue(2);
+            spriteBatch.Draw(renderBackground1, Vector2.Zero, Color.White);
+            //Background0
+            outline.Parameters["lineSize"].SetValue(20);
+            outline.Parameters["lineBrightness"].SetValue(0);
+            spriteBatch.Draw(renderBackground0, Vector2.Zero, Color.White);
+            spriteBatch.End();
+
+            //-----Spielebene-----
+            if (princess.beating || spieler.smash)
+            {
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, smash);
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            }
+            spriteBatch.Draw(renderForeground, Vector2.Zero, Color.White);
+            spriteBatch.End();
 
             //--------------------Draw to Screen--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
@@ -359,54 +451,14 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
             }
-            spriteBatch.Draw(renderTarget, new Vector2(), Color.White);
+            spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
             spriteBatch.End();
 
             //-----HUD-----
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
-            if (levelend)
-            {
-                spriteBatch.DrawString(font, "Finished level!", new Vector2((Game1.resolution.X /2)-200, (Game1.resolution.Y / 2) -200), Color.Black,0.0f,Vector2.Zero,4.0f,SpriteEffects.None,0f);
-            }
-            if (Game1.debug)
-            {
-                spriteBatch.DrawString(font, "Speed: " + (spieler.speed), new Vector2(Game1.resolution.X - 300, 90), Color.White);
-                spriteBatch.DrawString(font, "Falltimer: " + (spieler.falltimer), new Vector2(Game1.resolution.X - 300, 110), Color.White);
-                spriteBatch.DrawString(font, "Fall: " + (spieler.fall), new Vector2(Game1.resolution.X - 300, 130), Color.White);
-                spriteBatch.DrawString(font, "Jumptimer: " + (spieler.jumptimer), new Vector2(Game1.resolution.X - 300, 150), Color.White);
-                spriteBatch.DrawString(font, "Jump: " + (spieler.jump), new Vector2(Game1.resolution.X - 300, 170), Color.White);
-                spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);
-                spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.White);
-                spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y + " " + camera.viewport.Width + " " + camera.viewport.Height), new Vector2(Game1.resolution.X - 300, 230), Color.White);
-                spriteBatch.DrawString(font, "Skeleton: " + (spieler.spine.skeleton.X + " " + spieler.spine.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
-                spriteBatch.DrawString(font, "Planes.Size.X: " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X + " " + clouds_1.size.X + " " + clouds_2.size.X + " " + clouds_3.size.X + " " + background_0.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
-                spriteBatch.DrawString(font, "Skeleton: " + (spieler.spine.skeleton.X + " " + spieler.spine.skeleton.Y), new Vector2(Game1.resolution.X - 300, 250), Color.White);
-                spriteBatch.DrawString(font, "Planes.Size.X: " + background_0.size.X + " " + background_1.size.X + " " + background_2.size.X + " " + background_3.size.X, new Vector2(Game1.resolution.X - 700, 270), Color.White);
-                spriteBatch.DrawString(font, "RageMeter: " + princess.rageMeter, new Vector2(Game1.resolution.X - 300, 290), Color.White);
-                Slot bb = spieler.spine.skeleton.FindSlot("bonepuker");
-                spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
-                spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
-                spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
-                for (int i = 0; i < spieler.kicheck.Count(); i++)
-                {
-                    KICheck kicheck = spieler.kicheck.ElementAt(i);
-                    spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: "+kicheck.time, new Vector2(Game1.resolution.X - 300, 390+i*20), Color.White);
-                }
-                for (int i = 0; i < hero.kicheck.Count(); i++)
-                {
-                    KICheck kicheck = hero.kicheck.ElementAt(i);
-                    spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(Game1.resolution.X - 400, 390 + i * 20), Color.White);
-                }
-                //for (int i = 0; i < karte.background.Width; i++)
-                //{
-                //    for (int t = 15; t < karte.background.Height; t++)
-                //    {
-                //        spriteBatch.DrawString(font, karte.pixelRGBA[i, t, 0] + "," + karte.pixelRGBA[i, t, 1] + "," + karte.pixelRGBA[i, t, 2], new Vector2(i * 60, (t - 15) * 30), Color.Black);
-                //    }
-                //}*/
-            }
-            gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
+            spriteBatch.Draw(renderHud, new Vector2(), Color.White);
             spriteBatch.End();
+            
         }
     }
 }
