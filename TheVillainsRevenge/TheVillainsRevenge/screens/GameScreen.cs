@@ -40,17 +40,26 @@ namespace TheVillainsRevenge
         public static Lua LuaKI = new Lua();
 
         //KIDaten
-        public int getPoints()
+        public int getPoints(string w)
         {
-            return spieler.kicheck.Count()-1;
+            if (w == "Spieler")
+                return spieler.kicheck.Count()-1;
+            else
+                return hero.kicheck.Count()-1;
         }
-        public int getPointID(int s)
+        public int getPointID(int s,string w)
         {
-            return spieler.kicheck.ElementAt(s).id;
+            if (w == "Spieler")
+                return spieler.kicheck.ElementAt(s).id;
+            else
+                return hero.kicheck.ElementAt(s).id;
         }
-        public int getPointTime(int s)
+        public int getPointTime(int s,string w)
         {
-            return spieler.kicheck.ElementAt(s).time;
+            if (w == "Spieler")
+                return spieler.kicheck.ElementAt(s).time;
+            else
+                return hero.kicheck.ElementAt(s).time;
         }
         public void removePoint(int s)
         {

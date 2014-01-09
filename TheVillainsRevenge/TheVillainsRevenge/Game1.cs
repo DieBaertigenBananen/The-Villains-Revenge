@@ -19,7 +19,7 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         GameScreen game;
         MenuScreen menu;
-        public static bool sound = true;
+        public static bool sound = false;
         public static bool stretch;
         public static Input input;
         public static Lua luaInstance = new Lua();
@@ -31,7 +31,7 @@ namespace TheVillainsRevenge
             this.Window.AllowUserResizing = true;
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = graphics.PreferredBackBufferWidth / 16 * 9;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             if (graphics.IsFullScreen)
             {
                 graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
