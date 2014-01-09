@@ -60,6 +60,7 @@ namespace TheVillainsRevenge
                 beating = false;
                 rageMode = false;
                 rageMeter = 0;
+                rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
             }
             else if (coverEyes)
             {
@@ -68,20 +69,27 @@ namespace TheVillainsRevenge
                     coverEyes = false;
                     rageMode = false;
                     rageMeter = 0;
+                    rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
             }
             if (rageMode)
             {
                 rageMeter += 100 / ((float)enrageSpeed * 60); //RageUp
-                if (Game1.input.rechts && pressedLeft)
+                if (Game1.input.rechts)
                 {
-                    rageMeter -= unrageSpeed; //RageDown
-                    pressedLeft = false;
+                    if (pressedLeft)
+                    {
+                        rageMeter -= unrageSpeed; //RageDown
+                        pressedLeft = false;
+                    }
                 }
-                else if (Game1.input.links && !pressedLeft)
+                else if (Game1.input.links)
                 {
+                    if (!pressedLeft)
+                    {
                     rageMeter -= unrageSpeed; //RageDown
                     pressedLeft = true;
+                    }
                 }
                 if (rageMeter > rageLimit) //Enrage?!?
                 {
