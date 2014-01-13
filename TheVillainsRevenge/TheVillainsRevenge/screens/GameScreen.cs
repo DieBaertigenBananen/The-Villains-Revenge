@@ -415,14 +415,20 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                karte.Draw(spriteBatch); //Plattformen & Co
+                karte.Draw(spriteBatch,gameTime,camera); //Plattformen & Co
                 hero.Draw(gameTime,camera); //Ashbrett
                 spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
                 if (Game1.debug) //Boundingboxen
                 {
                     spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                     spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
+                    for (int i = 0; i < karte.enemies.Count(); i++)
+                    {
+                        Enemy enemy = karte.enemies.ElementAt(i);
+                        spriteBatch.Draw(texture, enemy.cbox.box, null, Color.White);
+                    }
                     spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
+                      
                 }
             spriteBatch.End();
 

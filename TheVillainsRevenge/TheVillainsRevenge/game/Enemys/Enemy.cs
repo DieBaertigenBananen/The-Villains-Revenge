@@ -10,6 +10,7 @@ namespace TheVillainsRevenge
 {
     class Enemy
     {
+        public Spine spine;
         public Vector2 position; //Position
         public CollisionBox cbox;
         public int type;
@@ -36,6 +37,7 @@ namespace TheVillainsRevenge
         }
         public Enemy(Vector2 pos, int t) //Konstruktor, setzt Anfangsposition
         {
+            spine = new Spine();
             checkmover = mover;
             checkpoint = new Vector2(pos.X, pos.Y);
             position = pos;
@@ -45,6 +47,13 @@ namespace TheVillainsRevenge
         }
         public virtual void Update(GameTime gameTime, Map map, Vector2 heropos)
         {
+        }
+        public virtual void Load(ContentManager Content)
+        {
+        }
+        public virtual void Draw(SpriteBatch spriteBatch, GameTime gameTime, Camera camera)
+        {
+            spine.Draw(gameTime, camera, position);
         }
 
         public void Move(int deltax, int deltay, Map map) //Falls Input, bewegt den Spieler

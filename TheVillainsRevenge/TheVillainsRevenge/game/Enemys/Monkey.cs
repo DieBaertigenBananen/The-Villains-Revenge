@@ -13,9 +13,17 @@ namespace TheVillainsRevenge
         public Monkey(Vector2 pos, int t)
             : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
+            spine.Load(position, "skullmonkey", 0.1f);
         }
         public override void Update(GameTime gameTime, Map map,Vector2 heropos)
         {
+            speed = Convert.ToInt32((double)Game1.luaInstance["monkeySpeed"]);
+            if (GameScreen.slow != 0)
+            {
+                speed = speed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
+            }
+            gravitation = Convert.ToInt32((double)Game1.luaInstance["monkeyGravitation"]);
+            bool move = false;
             if (Math.Abs(position.X - heropos.X) <= Convert.ToInt32((double)Game1.luaInstance["monkeyThrowRange"]))
             {
                 if (position.X > heropos.X)
@@ -33,22 +41,30 @@ namespace TheVillainsRevenge
                         map.objects.Add(new Kacke(new Vector2(cbox.box.X, cbox.box.Y), 2, false));
                     }
                     throwtime = 1;
+                    if (mover)
+                        spine.anim("attack", 2, true);
+                    else
+                        spine.anim("attack", 1, true);
                 }
                 else
                 {
                     throwtime -= gameTime.ElapsedGameTime.TotalSeconds;
+                    if (throwtime < 0.5f)
+                    {
+                        if (mover)
+                            spine.anim("walking", 1, true);
+                        else
+                            spine.anim("walking", 2, true);
+                        move = true;
+                    }
                 }
-                speed = Convert.ToInt32((double)Game1.luaInstance["monkeySpeed"]);
-                if (GameScreen.slow != 0)
+                if (move)
                 {
-                    speed = speed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
-                }
-                gravitation = Convert.ToInt32((double)Game1.luaInstance["monkeyGravitation"]);
-                if (!mover)
-                {
-                    speed = -speed;
-                }
-                if (CollisionCheckedVector(speed, 0, map.blocks).X != 0)
+                    if (!mover)
+                    {
+                        speed = -speed;
+                    }
+                    if (CollisionCheckedVector(speed, 0, map.blocks).X != 0)
                     {
                         Move(speed, 0, map);//Bewege Rechts
                         if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
@@ -56,6 +72,15 @@ namespace TheVillainsRevenge
                             Move(-speed, 0, map);
                         }
                     }
+                }
+            }
+            else
+            {
+                if(mover)
+                    spine.anim("sitting", 1, true);
+                else
+                    spine.anim("sitting", 2, true);
+
             }
 
             //Gravitation

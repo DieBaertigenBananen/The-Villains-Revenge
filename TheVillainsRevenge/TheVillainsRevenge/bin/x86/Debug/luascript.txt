@@ -15,14 +15,14 @@ blockSpeed = 5
 triggerTime = 5
  
 heroScale = 2
-heroStartTime = 500
+heroStartTime = 5
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45
 heroCollisionHeight = 100
 
-enemyCollisionOffsetX = 0
-enemyCollisionOffsetY = 0
+enemyCollisionOffsetX = -32
+enemyCollisionOffsetY = -64
 enemyCollisionWidth = 64
 enemyCollisionHeight = 64
 
