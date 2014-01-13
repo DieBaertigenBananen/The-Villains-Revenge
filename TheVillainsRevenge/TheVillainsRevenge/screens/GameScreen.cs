@@ -473,7 +473,6 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                     spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                     spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
-                    spriteBatch.DrawString(font, "Test: " + test1 + " " + test2, new Vector2(Game1.resolution.X - 300, 370), Color.White);
                     for (int i = 0; i < spieler.kicheck.Count(); i++)
                     {
                         KICheck kicheck = spieler.kicheck.ElementAt(i);

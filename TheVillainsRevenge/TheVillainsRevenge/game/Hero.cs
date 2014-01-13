@@ -122,8 +122,6 @@ namespace TheVillainsRevenge
                 {
                     actualspeed = airspeed;
                 }
-                GameScreen.test1 = spieler.X;
-                GameScreen.test2 = cbox.box.X;
                 if (spieler.X < cbox.box.X + 240 && spieler.X > cbox.box.X - 240 && spieler.Y > cbox.box.Y - 48 && spieler.Y < cbox.box.Y + 48)
                 {
                         kistate = 0;
