@@ -446,7 +446,7 @@ namespace TheVillainsRevenge
                 {
                     //for (int i = 0; i <= 62; i++)
                     //{
-                    spriteBatch.DrawString(font, "" + (spieler.spine.CurrentAnimTime(gameTime)), new Vector2(Game1.resolution.X - 300, 150), Color.White);
+                    spriteBatch.DrawString(font, spieler.acceleration + " " + spieler.spine.animation, new Vector2(Game1.resolution.X - 300, 150), Color.White);
                     //}
                     spriteBatch.DrawString(font, "bg0.tex[0]: " + (background_0.texture[0].Name), new Vector2(Game1.resolution.X - 300, 170), Color.White);
                     spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);

@@ -33,7 +33,7 @@ princessUnrageSpeed = 10
 princessRageLimit = 100
 princessCoverTime = 5
 
-playerAcceleration = 20
+playerAcceleration = 100
 
 --Update
 playerSpeed = 11

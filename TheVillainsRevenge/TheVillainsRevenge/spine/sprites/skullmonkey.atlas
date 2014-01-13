@@ -1,0 +1,110 @@
+
+skullmonkey.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm_left
+  rotate: true
+  xy: 2, 51
+  size: 170, 272
+  orig: 170, 272
+  offset: 0, 0
+  index: -1
+arm_right
+  rotate: false
+  xy: 364, 353
+  size: 160, 238
+  orig: 160, 238
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 2, 593
+  size: 512, 393
+  orig: 512, 393
+  offset: 0, 0
+  index: -1
+calf_left
+  rotate: false
+  xy: 364, 143
+  size: 172, 208
+  orig: 172, 208
+  offset: 0, 0
+  index: -1
+calf_right
+  rotate: false
+  xy: 731, 397
+  size: 181, 208
+  orig: 181, 208
+  offset: 0, 0
+  index: -1
+foot_left
+  rotate: true
+  xy: 919, 809
+  size: 177, 94
+  orig: 177, 94
+  offset: 0, 0
+  index: -1
+foot_right
+  rotate: false
+  xy: 725, 82
+  size: 155, 146
+  orig: 155, 146
+  offset: 0, 0
+  index: -1
+hand_left
+  rotate: true
+  xy: 538, 2
+  size: 146, 153
+  orig: 146, 154
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: true
+  xy: 700, 607
+  size: 128, 146
+  orig: 128, 146
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 223
+  size: 360, 368
+  orig: 360, 368
+  offset: 0, 0
+  index: -1
+shoulder_left
+  rotate: true
+  xy: 731, 230
+  size: 165, 200
+  orig: 165, 200
+  offset: 0, 0
+  index: -1
+shoulder_right
+  rotate: true
+  xy: 516, 593
+  size: 142, 182
+  orig: 142, 182
+  offset: 0, 0
+  index: -1
+tail
+  rotate: true
+  xy: 516, 737
+  size: 249, 401
+  orig: 249, 401
+  offset: 0, 0
+  index: -1
+thigh_left
+  rotate: false
+  xy: 538, 150
+  size: 185, 217
+  orig: 185, 217
+  offset: 0, 0
+  index: -1
+thigh_right
+  rotate: false
+  xy: 526, 369
+  size: 203, 222
+  orig: 203, 222
+  offset: 0, 0
+  index: -1
