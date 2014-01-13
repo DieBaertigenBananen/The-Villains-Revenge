@@ -218,7 +218,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="sprites\menu_buttons.png">
       <Name>menu_buttons</Name>
 	  <Importer>TextureImporter</Importer>
@@ -226,27 +225,28 @@
     </Compile>
     <Compile Include="sprites\monkey.png">
       <Name>monkey</Name>
-=======
+	  <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="sprites\level_1\planes\clouds_2.png">
       <Name>clouds_2</Name>
->>>>>>> origin/Princess
-      <Importer>TextureImporter</Importer>
+	  <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Button.fx">
       <Name>Button</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
-	</Compile>
+    </Compile>
     <Compile Include="sprites\objects.png">
       <Name>objects</Name>
-=======
+	  <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="sprites\level_1\planes\clouds_3.png">
       <Name>clouds_3</Name>
->>>>>>> origin/Princess
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
