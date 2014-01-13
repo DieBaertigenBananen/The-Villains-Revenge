@@ -10,10 +10,12 @@ namespace TheVillainsRevenge
     class Monkey : Enemy
     {
         public double throwtime = 0;
+        float acceleration;
+
         public Monkey(Vector2 pos, int t)
             : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
-            spine.Load(position, "skullmonkey", 0.1f);
+            spine.Load(position, "skullmonkey", 0.1f, acceleration);
         }
         public override void Update(GameTime gameTime, Map map,Vector2 heropos)
         {
@@ -42,9 +44,9 @@ namespace TheVillainsRevenge
                     }
                     throwtime = 1;
                     if (mover)
-                        spine.anim("attack", 2, true);
+                        spine.anim("attack", 2, true, gameTime);
                     else
-                        spine.anim("attack", 1, true);
+                        spine.anim("attack", 1, true, gameTime);
                 }
                 else
                 {
@@ -52,9 +54,9 @@ namespace TheVillainsRevenge
                     if (throwtime < 0.5f)
                     {
                         if (mover)
-                            spine.anim("walking", 1, true);
+                            spine.anim("walking", 1, true, gameTime);
                         else
-                            spine.anim("walking", 2, true);
+                            spine.anim("walking", 2, true, gameTime);
                         move = true;
                     }
                 }
@@ -77,9 +79,9 @@ namespace TheVillainsRevenge
             else
             {
                 if(mover)
-                    spine.anim("sitting", 1, true);
+                    spine.anim("sitting", 1, true, gameTime);
                 else
-                    spine.anim("sitting", 2, true);
+                    spine.anim("sitting", 2, true, gameTime);
 
             }
 

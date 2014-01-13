@@ -22,6 +22,7 @@ namespace TheVillainsRevenge
         //Checkpoint//
         bool checkmover;
         public Vector2 checkpoint;
+
         public void Reset()
         {
             mover = checkmover;

@@ -9,9 +9,11 @@ namespace TheVillainsRevenge
 {
     class Bunny : Enemy
     {
+        float acceleration;
+        
         public Bunny(Vector2 pos, int t) : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
-            spine.Load(position, "skullmonkey", 0.1f);
+            spine.Load(position, "skullmonkey", 0.1f, acceleration);
         }
         public override void Update(GameTime gameTime, Map map, Vector2 heropos)
         {
@@ -54,9 +56,9 @@ namespace TheVillainsRevenge
                 }
             }
             if(mover)
-                spine.anim("walking", 1, true);
+                spine.anim("walking", 1, true, gameTime);
             else
-                spine.anim("walking", 2, true);
+                spine.anim("walking", 2, true, gameTime);
 
             //Gravitation
             if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)

@@ -265,7 +265,7 @@ namespace TheVillainsRevenge
                         //TODO: Speichern aller dynamischen Objekte in der Welt um diesen Zustand bei zurücksetzen an Checkpoint exakt zu rekonstruieren.
                         if (cpoint.end)
                         {
-                            spieler.spine.anim("idle", 0,false);
+                            spieler.spine.anim("idle", 1, false, gameTime);
                             levelend = true;
                         }
                         else
@@ -446,7 +446,7 @@ namespace TheVillainsRevenge
                 {
                     //for (int i = 0; i <= 62; i++)
                     //{
-                    spriteBatch.DrawString(font, "" + (spieler.spine.animationState.Data.SkeletonData.animations.ToString().ElementAt(10)), new Vector2(Game1.resolution.X - 400, 150), Color.White);
+                    spriteBatch.DrawString(font, spieler.acceleration + " " + spieler.spine.animation, new Vector2(Game1.resolution.X - 300, 150), Color.White);
                     //}
                     spriteBatch.DrawString(font, "bg0.tex[0]: " + (background_0.texture[0].Name), new Vector2(Game1.resolution.X - 300, 170), Color.White);
                     spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);
