@@ -9,9 +9,12 @@ namespace TheVillainsRevenge
 {
     class Monkey : Enemy
     {
+<<<<<<< HEAD
         public double throwtime = 0;
         float acceleration;
 
+=======
+>>>>>>> origin/KI-Stuff
         public Monkey(Vector2 pos, int t)
             : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
@@ -32,7 +35,7 @@ namespace TheVillainsRevenge
                     mover = true;
                 else
                     mover = false;
-                if (throwtime <= 0)
+                if (animeTime <= 0)
                 {
                     if (position.X < heropos.X)
                     {
@@ -42,7 +45,7 @@ namespace TheVillainsRevenge
                     {
                         map.objects.Add(new Kacke(new Vector2(cbox.box.X, cbox.box.Y), 2, false));
                     }
-                    throwtime = 1;
+                    animeTime = 1;
                     if (mover)
                         spine.anim("attack", 2, true, gameTime);
                     else
@@ -50,8 +53,8 @@ namespace TheVillainsRevenge
                 }
                 else
                 {
-                    throwtime -= gameTime.ElapsedGameTime.TotalSeconds;
-                    if (throwtime < 0.5f)
+                    animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                    if (animeTime < 0.5f)
                     {
                         if (mover)
                             spine.anim("walking", 1, true, gameTime);

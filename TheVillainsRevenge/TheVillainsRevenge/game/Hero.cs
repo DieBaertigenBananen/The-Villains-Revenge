@@ -123,14 +123,20 @@ namespace TheVillainsRevenge
                 {
                     actualspeed = airspeed;
                 }
-                if (kicheck.Count() != 0)
+                if (spieler.X < cbox.box.X + 240 && spieler.X > cbox.box.X - 240 && spieler.Y > cbox.box.Y - 48 && spieler.Y < cbox.box.Y + 48)
                 {
-                    foreach (KIPoint kipoint in map.kipoints)
-                    {
-                        if (kipoint.id == kicheck.ElementAt(0).id)
-                            spieler = kipoint.cbox;
-                    }
+                        kistate = 0;
                 }
+                else{
+                        if (kicheck.Count() != 0)
+                        {
+                            foreach (KIPoint kipoint in map.kipoints)
+                            {
+                                if (kipoint.id == kicheck.ElementAt(0).id)
+                                    spieler = kipoint.cbox;
+                            }
+                        }
+                    }
                 //sposition.X = map.size.X;
                 //Vector2 Punkt = map.kipoints.ElementAt(kipoint).position;
                // sposition.X = Punkt.X;

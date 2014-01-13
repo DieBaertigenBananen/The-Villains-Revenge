@@ -47,6 +47,7 @@ namespace TheVillainsRevenge
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
+        public static int test1, test2;
 
         //KIDaten
         public int getPoints(string w)
@@ -204,24 +205,38 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
-                foreach (Enemy enemy in karte.enemies)
+                for (int i = 0; i <karte.enemies.Count(); i++)
                 {
-                    enemy.Update(gameTime, karte,hero.position);
-                    if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
+                    Enemy enemy = karte.enemies.ElementAt(i);
+                    if (enemy.dead)
                     {
-                        karte.enemies.Remove(enemy);
-                        break;
+                        if (enemy.animeTime <= 0)
+                        {
+                            karte.enemies.Remove(enemy);
+                        }
+                        else
+                        {
+                            enemy.animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                        }
                     }
-                    if (spieler.cbox.box.Intersects(enemy.cbox.box)&&enemy.type == 1)
+                    else
                     {
-                        spieler.getHit();
-                        Reset();
-                        break;
-                    }
-                    if(enemy.type == 2&&hero.cbox.box.Intersects(enemy.cbox.box))
-                    {
-                        karte.enemies.Remove(enemy);
-                        break;
+                        enemy.Update(gameTime, karte, hero.position);
+                        if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
+                        {
+                            karte.enemies.Remove(enemy);
+                        }
+                        if (spieler.cbox.box.Intersects(enemy.cbox.box) && enemy.type == 1)
+                        {
+                            spieler.getHit();
+                            Reset();
+                        }
+                        if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
+                        {
+                            enemy.spine.anim("dying", 3, false);
+                            enemy.dead = true;
+                            enemy.animeTime = 1;
+                        }
                     }
                 }
                 foreach (Item item in karte.items)
@@ -469,7 +484,7 @@ namespace TheVillainsRevenge
                         spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(Game1.resolution.X - 400, 390 + i * 20), Color.White);
                     }
                 }
-                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
+                    gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             spriteBatch.End();
 
             //----------------------------------------------------------------------

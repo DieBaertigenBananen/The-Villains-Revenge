@@ -10,6 +10,8 @@ namespace TheVillainsRevenge
 {
     class Enemy
     {
+        public double animeTime = 0;
+        public bool dead = false;
         public Spine spine;
         public Vector2 position; //Position
         public CollisionBox cbox;
