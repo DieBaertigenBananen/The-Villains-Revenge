@@ -60,8 +60,16 @@ namespace TheVillainsRevenge
 
             // Define mixing between animations.
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
-            //animationStateData.SetMix("walk", "jump", 0.2f);
-            //animationStateData.SetMix("jump", "walk", 0.4f);
+            switch (name)
+            {
+                case "skeleton":
+                    animationStateData.SetMix("idle", "run", 0.2f);
+                    animationStateData.SetMix("run", "idle", 0.4f);
+                    break;
+                case "ashbrett":
+                    break;
+            }
+            
             animationState = new AnimationState(animationStateData);
 
             // Event handling for all animations.
@@ -72,6 +80,7 @@ namespace TheVillainsRevenge
 
             skeleton.x = position.X;
             skeleton.y = position.Y;
+            skeleton.UpdateWorldTransform();
         }
 
         //----------Spine----------
