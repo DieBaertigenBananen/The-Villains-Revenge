@@ -180,6 +180,8 @@ namespace TheVillainsRevenge
         {
             if (!levelend)
             {
+                spieler.Update(gameTime, karte);
+                //--------------------Map--------------------
                 karte.Update(gameTime, spieler.cbox.box);
                 for (int i = 0; i < karte.objects.Count(); i++)
                 {
@@ -281,6 +283,7 @@ namespace TheVillainsRevenge
                         break;
                     }
                 }
+                //--------------------Hero--------------------
                 hero.Update(gameTime, karte, spieler.cbox.box);    
                 for (int i = 0; i <karte.kipoints.Count(); i++)
                 {
@@ -312,8 +315,8 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
+                //--------------------Princess--------------------
                 princess.Update(gameTime);
-                hero.Update(gameTime, karte,spieler.cbox.box);
                 if (spieler.position.Y >= (karte.size.Y))
                 {
                     spieler.getHit();
@@ -323,7 +326,9 @@ namespace TheVillainsRevenge
                 {
                     spieler.lifes = 0;
                 }
+                //--------------------Camera--------------------
                 camera.Update(Game1.graphics, spieler, karte);
+                //--------------------Backgrounds--------------------
                 background_0.Update(karte, camera);
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
@@ -331,6 +336,7 @@ namespace TheVillainsRevenge
                 clouds_1.Update(karte, gameTime, camera);
                 clouds_2.Update(karte, gameTime, camera);
                 clouds_3.Update(karte, gameTime, camera);
+                //--------------------SlowTimer--------------------
                 if (slow != 0)
                 {
                     slowTime += gameTime.ElapsedGameTime.TotalSeconds;
