@@ -73,13 +73,8 @@ namespace TheVillainsRevenge
             switch (name)
             {
                 case "skeleton":
-<<<<<<< HEAD
-                    animationStateData.SetMix("idle", "run", 0.2f);
-                    animationStateData.SetMix("run", "idle", 0.4f);
-=======
                     animationStateData.SetMix("idle", "run", acceleration);
                     animationStateData.SetMix("run", "idle", acceleration);
->>>>>>> origin/Animation
                     break;
                 case "ashbrett":
                     break;

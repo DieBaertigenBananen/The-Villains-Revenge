@@ -47,7 +47,6 @@ namespace TheVillainsRevenge
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
-        public static int test1, test2;
 
         //KIDaten
         public int getPoints(string w)
@@ -233,7 +232,7 @@ namespace TheVillainsRevenge
                         }
                         if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
                         {
-                            enemy.spine.anim("dying", 3, false);
+                            enemy.spine.anim("dying", 3, false,gameTime);
                             enemy.dead = true;
                             enemy.animeTime = 1;
                         }

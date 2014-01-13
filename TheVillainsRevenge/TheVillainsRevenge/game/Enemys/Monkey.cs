@@ -9,12 +9,7 @@ namespace TheVillainsRevenge
 {
     class Monkey : Enemy
     {
-<<<<<<< HEAD
-        public double throwtime = 0;
         float acceleration;
-
-=======
->>>>>>> origin/KI-Stuff
         public Monkey(Vector2 pos, int t)
             : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
