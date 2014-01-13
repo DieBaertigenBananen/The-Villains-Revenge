@@ -206,22 +206,38 @@ namespace TheVillainsRevenge
                 }
                 foreach (Enemy enemy in karte.enemies)
                 {
-                    enemy.Update(gameTime, karte,hero.position);
-                    if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
+                    if (enemy.dead)
                     {
-                        karte.enemies.Remove(enemy);
-                        break;
+                        if (enemy.animeTime <= 0)
+                        {
+                            karte.enemies.Remove(enemy);
+                            break;
+                        }
+                        else
+                        {
+                            enemy.animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                        }
                     }
-                    if (spieler.cbox.box.Intersects(enemy.cbox.box)&&enemy.type == 1)
+                    else
                     {
-                        spieler.getHit();
-                        Reset();
-                        break;
-                    }
-                    if(enemy.type == 2&&hero.cbox.box.Intersects(enemy.cbox.box))
-                    {
-                        karte.enemies.Remove(enemy);
-                        break;
+                        enemy.Update(gameTime, karte, hero.position);
+                        if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
+                        {
+                            karte.enemies.Remove(enemy);
+                            break;
+                        }
+                        if (spieler.cbox.box.Intersects(enemy.cbox.box) && enemy.type == 1)
+                        {
+                            spieler.getHit();
+                            Reset();
+                            break;
+                        }
+                        if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
+                        {
+                            enemy.spine.anim("dying", 3, false);
+                            enemy.dead = true;
+                            enemy.animeTime = 1;
+                        }
                     }
                 }
                 foreach (Item item in karte.items)
