@@ -47,6 +47,7 @@ namespace TheVillainsRevenge
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
+        public static int test1, test2;
 
         //KIDaten
         public int getPoints(string w)
@@ -204,14 +205,14 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
-                foreach (Enemy enemy in karte.enemies)
+                for (int i = 0; i <karte.enemies.Count(); i++)
                 {
+                    Enemy enemy = karte.enemies.ElementAt(i);
                     if (enemy.dead)
                     {
                         if (enemy.animeTime <= 0)
                         {
                             karte.enemies.Remove(enemy);
-                            break;
                         }
                         else
                         {
@@ -224,13 +225,11 @@ namespace TheVillainsRevenge
                         if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
                         {
                             karte.enemies.Remove(enemy);
-                            break;
                         }
                         if (spieler.cbox.box.Intersects(enemy.cbox.box) && enemy.type == 1)
                         {
                             spieler.getHit();
                             Reset();
-                            break;
                         }
                         if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
                         {
@@ -474,6 +473,7 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                     spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                     spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
+                    spriteBatch.DrawString(font, "Test: " + test1 + " " + test2, new Vector2(Game1.resolution.X - 300, 370), Color.White);
                     for (int i = 0; i < spieler.kicheck.Count(); i++)
                     {
                         KICheck kicheck = spieler.kicheck.ElementAt(i);
@@ -485,7 +485,7 @@ namespace TheVillainsRevenge
                         spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(Game1.resolution.X - 400, 390 + i * 20), Color.White);
                     }
                 }
-                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
+                    gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             spriteBatch.End();
 
             //----------------------------------------------------------------------
