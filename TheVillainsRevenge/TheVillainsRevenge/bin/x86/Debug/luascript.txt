@@ -15,7 +15,7 @@ blockSpeed = 5
 triggerTime = 5
  
 heroScale = 2
-heroStartTime = 5
+heroStartTime = 1000
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45
@@ -38,8 +38,15 @@ heroAirspeed = heroSpeed - 2
 heroJumppower = 30
 heroGravitation = 60
 
-enemySpeed = 2
-enemyGravitation = 60
+bunnySpeed = 2
+bunnyGravitation = 60
+
+monkeySpeed = 12
+monkeyThrowRange = 500
+monkeyGravitation = 60
+
+kackeSpeed = 15
+kackeStartY = -15
 
 cameraLeftspace = 1100
 cameraRightspace = 1920 - cameraLeftspace

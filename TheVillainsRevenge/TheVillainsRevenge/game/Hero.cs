@@ -28,6 +28,7 @@ namespace TheVillainsRevenge
         public int kistate; //State der KI Berechnung
         public Rectangle kicollide;
         public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
+        public double slowtime;
         //Checkpoint//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         int checkkistate;
@@ -95,8 +96,20 @@ namespace TheVillainsRevenge
         {
             if (start)
             {
+                if (slowtime != 0)
+                {
+                    slowtime -= gameTime.ElapsedGameTime.TotalSeconds;
+                    if (slowtime < 0)
+                    {
+                        slowtime = 0;
+                    }
+                }
                 speed = Convert.ToInt32((double)Game1.luaInstance["heroSpeed"]);
                 if (GameScreen.slow != 0)
+                {
+                    speed = speed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
+                }
+                if (slowtime != 0)
                 {
                     speed = speed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
                 }
@@ -132,11 +145,22 @@ namespace TheVillainsRevenge
                     {
                         //KI ist auf den Boden und alles ist gut
                         //Schaue ob der Block rechts ist
-                        for (int i = 0; i < 200; i++)
+                        if (kicheck.Count() != 0)
                         {
-                            kicollide = new Rectangle(cbox.box.X+ i*actualspeed, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-                            if(kicollide.Intersects(spieler))
-                                geht = true;
+                            for (int i = 0; i < 50; i++)
+                            {
+                                kicollide = new Rectangle(cbox.box.X + i * 48, cbox.box.Y, cbox.box.Width, cbox.box.Height);
+
+                                foreach (KIPoint kipoint in map.kipoints)
+                                {
+                                    if (kicollide.Intersects(kipoint.cbox) && kipoint.id == kicheck.ElementAt(0).id)
+                                    {
+                                        geht = true;
+                                        i = 200;
+                                        break;
+                                    }
+                                }
+                            }
                         }
                         //Block ist auf gleicher Höhe, bewege nur drauf zu
                         if (geht)
@@ -169,7 +193,7 @@ namespace TheVillainsRevenge
                                         //Schaue ob rechts ein Block ist
                                     }
                                 }
-                                if (bewegblock)
+                                if (bewegblock&&!fall&&!jump)
                                 {
                                     //Warten wir einfach mal ...
                                     Move(-actualspeed, 0, map);
@@ -260,10 +284,26 @@ namespace TheVillainsRevenge
                         float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
                         if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
                         {
+                            if(fall)
+                            {
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                    foreach (Block block in map.blocks)
+                                    {
+                                        if (kicollide.Intersects(block.cbox) && block.block)
+                                        {
+                                            geht = true;
+                                            break;
+                                        }
+
+                                    }
+                                }
+                            }
                             //Kein Grund T_T Beweg mich mal
                             for (int i = 0; i < 10; i++)
                             {
-                                kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                //kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
                                 if (kicollide.Intersects(spieler))
                                     geht = true;
                             }
@@ -759,7 +799,6 @@ namespace TheVillainsRevenge
                         }
                         else
                         {
-                            GameScreen.test = 1;
                             if (block.move == 1)
                                 block.move = 2;
                             else

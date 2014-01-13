@@ -24,9 +24,14 @@ Content\Smash.xnb
 Content\sprites\trigger.xnb
 Content\sounds\Level_1\background.xnb
 Content\sprites\Level_1\Planes\background_0_debug.xnb
+<<<<<<< HEAD
 Content\sprites\menu_buttons.xnb
 Content\Outline.xnb
 Content\Button.xnb
+=======
+Content\sprites\monkey.xnb
+Content\sprites\objects.xnb
+>>>>>>> origin/ki
 spine\sprites\ashbrett.png
 spine\sprites\skeleton.png
 spine\sprites\ashbrett.atlas

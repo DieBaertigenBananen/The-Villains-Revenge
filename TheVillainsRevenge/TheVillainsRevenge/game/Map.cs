@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
      class Map
      {
-         Texture2D mapTexture,itemTexture,enemyTexture,triggerTexture;
+         Texture2D mapTexture,itemTexture,bunnyTexture,monkeyTexture,triggerTexture,objectTexture;
          public Texture2D levelMap;
          public Vector2 size;
          public Color[] pixelColors;
@@ -22,6 +22,7 @@ namespace TheVillainsRevenge
          public List<Trigger> triggers = new List<Trigger>(); //Erstelle Blocks als List
          public List<MovingBlock> mblocks = new List<MovingBlock>(); //Erstelle Blocks als List
          public List<KIPoint> kipoints = new List<KIPoint>(); //Erstelle Blocks als List
+         public List<Obj> objects = new List<Obj>(); //Erstelle Blocks als List
 
          public Map()
          {
@@ -31,10 +32,12 @@ namespace TheVillainsRevenge
          public void Load(ContentManager Content)
          {
              //Lade Textur, einmal ausgeführt
+             objectTexture = Content.Load<Texture2D>("sprites/objects");
              itemTexture = Content.Load<Texture2D>("sprites/items");
              mapTexture = Content.Load<Texture2D>("sprites/tiles");
              levelMap = Content.Load<Texture2D>("sprites/Level_1/map");
-             enemyTexture = Content.Load<Texture2D>("sprites/bunny");
+             bunnyTexture = Content.Load<Texture2D>("sprites/bunny");
+             monkeyTexture = Content.Load<Texture2D>("sprites/monkey");
              triggerTexture = Content.Load<Texture2D>("sprites/trigger");
              pixelColors = new Color[levelMap.Width * levelMap.Height];
              levelMap.GetData<Color>(pixelColors);
@@ -82,7 +85,10 @@ namespace TheVillainsRevenge
              for (int i = 0; i < enemies.Count(); ++i)
              { 
                  Enemy enemy = enemies.ElementAt(i);
-                 spriteBatch.Draw(enemyTexture, enemy.position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 if(enemy.type == 1)
+                    spriteBatch.Draw(bunnyTexture, enemy.position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 else if (enemy.type == 2)
+                     spriteBatch.Draw(monkeyTexture, enemy.position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
              for (int i = 0; i < triggers.Count(); ++i)
              {
@@ -91,6 +97,14 @@ namespace TheVillainsRevenge
                      spriteBatch.Draw(triggerTexture, trigger.position, new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else
                      spriteBatch.Draw(triggerTexture, trigger.position, new Rectangle(0, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+             }
+             for (int i = 0; i < objects.Count(); ++i)
+             {
+                 Obj obj = objects.ElementAt(i);
+                 if (obj.type == 1)
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(0, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 else if (obj.type == 2)
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
          }
 
@@ -155,7 +169,7 @@ namespace TheVillainsRevenge
                                  break;
                              case "0,0,0":
                                  type = "hase";
-                                 enemies.Add(new Enemy(new Vector2(i * 48, (t * 48)-64), 1));
+                                 enemies.Add(new Bunny(new Vector2(i * 48, (t * 48)-64), 1));
                                  break;
                              case "255,255,0":
                                  type = "zeit";
@@ -163,6 +177,14 @@ namespace TheVillainsRevenge
                                  break;
                              case "171,140,188":
                                  type = "herz";
+                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 break;
+                             case "50,50,50":
+                                 type = "monkey";
+                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 break;
+                             case "255,255,100":
+                                 type = "banana";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "255,0,0":

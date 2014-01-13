@@ -198,6 +198,11 @@
   <ItemGroup>
     <Compile Include="sprites\menu_buttons.png">
       <Name>menu_buttons</Name>
+	  <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\monkey.png">
+      <Name>monkey</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -207,6 +212,11 @@
       <Name>Button</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+	</Compile>
+    <Compile Include="sprites\objects.png">
+      <Name>objects</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
