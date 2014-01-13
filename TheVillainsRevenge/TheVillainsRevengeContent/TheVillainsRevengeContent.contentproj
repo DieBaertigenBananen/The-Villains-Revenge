@@ -82,53 +82,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\Level_1\Planes\background_1_1.png">
-      <Name>background_1_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\background_1_2.png">
-      <Name>background_1_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\background_2_1.png">
-      <Name>background_2_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\background_2_2.png">
-      <Name>background_2_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\background_3_1.png">
-      <Name>background_3_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\background_0_1.png">
-      <Name>background_0_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\background_0_2.png">
-      <Name>background_0_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\background_0_3.png">
-      <Name>background_0_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\background_0_4.png">
-      <Name>background_0_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="sprites\items.png">
       <Name>items</Name>
       <Importer>TextureImporter</Importer>
@@ -143,7 +96,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\Level_1\map.png">
+    <Compile Include="sprites\level_1\map.png">
       <Name>map</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -152,21 +105,6 @@
   <ItemGroup>
     <Compile Include="sprites\trigger.png">
       <Name>trigger</Name>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_1.png">
-      <Name>clouds_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_2.png">
-      <Name>clouds_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\Level_1\Planes\clouds_3.png">
-      <Name>clouds_3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Smash.fx">
       <Name>Smash</Name>
@@ -182,13 +120,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\Level_1\Planes\background_0_debug.png">
-      <Name>background_0_debug</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Outline.fx">
       <Name>Outline</Name>
       <Importer>EffectImporter</Importer>
@@ -198,11 +129,6 @@
   <ItemGroup>
     <Compile Include="sprites\menu_buttons.png">
       <Name>menu_buttons</Name>
-	  <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\monkey.png">
-      <Name>monkey</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -212,9 +138,115 @@
       <Name>Button</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_0_1.png">
+      <Name>background_0_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_0_2.png">
+      <Name>background_0_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_0_3.png">
+      <Name>background_0_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_0_4.png">
+      <Name>background_0_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_0_debug.png">
+      <Name>background_0_debug</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_1_1.png">
+      <Name>background_1_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_1_2.png">
+      <Name>background_1_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_2_1.png">
+      <Name>background_2_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_2_2.png">
+      <Name>background_2_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\background_3_1.png">
+      <Name>background_3_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\clouds_1.png">
+      <Name>clouds_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="sprites\menu_buttons.png">
+      <Name>menu_buttons</Name>
+	  <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\monkey.png">
+      <Name>monkey</Name>
+=======
+    <Compile Include="sprites\level_1\planes\clouds_2.png">
+      <Name>clouds_2</Name>
+>>>>>>> origin/Princess
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="Button.fx">
+      <Name>Button</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
 	</Compile>
     <Compile Include="sprites\objects.png">
       <Name>objects</Name>
+=======
+    <Compile Include="sprites\level_1\planes\clouds_3.png">
+      <Name>clouds_3</Name>
+>>>>>>> origin/Princess
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

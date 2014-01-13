@@ -34,8 +34,7 @@ namespace TheVillainsRevenge
         public Vector2 checkpoint;
         bool checkjump;
         double checkjumpt;
-
-
+        public bool smash = false;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {

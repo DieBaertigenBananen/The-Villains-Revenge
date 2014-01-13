@@ -24,7 +24,6 @@ namespace TheVillainsRevenge
         public static Input input;
         public static Lua luaInstance = new Lua();
         public static bool debug = false;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -149,6 +148,13 @@ namespace TheVillainsRevenge
             luaInstance["cloudPlane3SizeMin"] = "";
             luaInstance["cloudPlane3SizeMax"] = "";
 
+            luaInstance["princessRageChance"] = "";
+            luaInstance["princessRageWarmup"] = "";
+            luaInstance["princessEnrageSpeed"] = "";
+            luaInstance["princessUnrageSpeed"] = "";
+            luaInstance["princessRageLimit"] = "";
+            luaInstance["princessCoverTime"] = "";
+            
             base.Initialize();
         }
 
@@ -200,7 +206,7 @@ namespace TheVillainsRevenge
                 }
                 else
                 {
-                    menuOption = game.Update(gameTime);
+                    menuOption = game.Update(gameTime, Content);
                     if (menuOption == 2) //GameScreen beendet (Spieler tot)
                     {
                         game = null;

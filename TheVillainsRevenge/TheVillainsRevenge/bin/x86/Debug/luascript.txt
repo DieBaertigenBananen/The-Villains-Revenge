@@ -11,11 +11,11 @@ planeTilesBackground1 = 2 --Wald
 planeTilesBackground2 = 1 --Berg
 planeTilesBackground3 = 1 --Himmel
 
-blockSpeed = 5
+blockSpeed = 5	
 triggerTime = 5
  
 heroScale = 2
-heroStartTime = 1000
+heroStartTime = 500
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45
@@ -25,6 +25,13 @@ enemyCollisionOffsetX = 0
 enemyCollisionOffsetY = 0
 enemyCollisionWidth = 64
 enemyCollisionHeight = 64
+
+princessRageChance = 100
+princessRageWarmup = 10
+princessEnrageSpeed = 5
+princessUnrageSpeed = 10
+princessRageLimit = 100
+princessCoverTime = 5
 
 --Update
 playerSpeed = 11

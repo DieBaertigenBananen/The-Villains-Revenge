@@ -7,22 +7,11 @@ Content\sprites\itemslot.xnb
 Content\sprites\block.xnb
 Content\sprites\gui.xnb
 Content\sprites\Level_1\map.xnb
-Content\sprites\Level_1\Planes\background_1_1.xnb
-Content\sprites\Level_1\Planes\background_1_2.xnb
-Content\sprites\Level_1\Planes\background_2_1.xnb
-Content\sprites\Level_1\Planes\background_2_2.xnb
-Content\sprites\Level_1\Planes\background_3_1.xnb
 Content\CoverEyes.xnb
-Content\sprites\Level_1\Planes\background_0_1.xnb
-Content\sprites\Level_1\Planes\background_0_2.xnb
-Content\sprites\Level_1\Planes\background_0_3.xnb
-Content\sprites\Level_1\Planes\background_0_4.xnb
-Content\sprites\Level_1\Planes\clouds_1.xnb
-Content\sprites\Level_1\Planes\clouds_2.xnb
-Content\sprites\Level_1\Planes\clouds_3.xnb
 Content\Smash.xnb
 Content\sprites\trigger.xnb
 Content\sounds\Level_1\background.xnb
+<<<<<<< HEAD
 Content\sprites\Level_1\Planes\background_0_debug.xnb
 <<<<<<< HEAD
 Content\sprites\menu_buttons.xnb
@@ -32,6 +21,24 @@ Content\Button.xnb
 Content\sprites\monkey.xnb
 Content\sprites\objects.xnb
 >>>>>>> origin/ki
+=======
+Content\sprites\menu_buttons.xnb
+Content\Outline.xnb
+Content\Button.xnb
+Content\sprites\level_1\planes\background_0_1.xnb
+Content\sprites\level_1\planes\background_0_2.xnb
+Content\sprites\level_1\planes\background_0_3.xnb
+Content\sprites\level_1\planes\background_0_4.xnb
+Content\sprites\level_1\planes\background_0_debug.xnb
+Content\sprites\level_1\planes\background_1_1.xnb
+Content\sprites\level_1\planes\background_1_2.xnb
+Content\sprites\level_1\planes\background_2_1.xnb
+Content\sprites\level_1\planes\background_2_2.xnb
+Content\sprites\level_1\planes\background_3_1.xnb
+Content\sprites\level_1\planes\clouds_1.xnb
+Content\sprites\level_1\planes\clouds_2.xnb
+Content\sprites\level_1\planes\clouds_3.xnb
+>>>>>>> origin/Princess
 spine\sprites\ashbrett.png
 spine\sprites\skeleton.png
 spine\sprites\ashbrett.atlas
