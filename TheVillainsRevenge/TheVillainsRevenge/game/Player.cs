@@ -35,6 +35,8 @@ namespace TheVillainsRevenge
         bool checkjump;
         double checkjumpt;
         public bool smash = false;
+        bool turning;
+        float acceleration;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -45,6 +47,7 @@ namespace TheVillainsRevenge
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionHeight"]));
             lifes = startLifes;
             spine = new Spine();
+            acceleration = (float)Convert.ToInt32((double)Game1.luaInstance["playerAcceleration"]) / 10;
 
         }
         public void Save(int x)
@@ -80,7 +83,7 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            spine.Load(position, "skeleton", (float)Convert.ToInt32((double)Game1.luaInstance["playerScale"]) / 10);
+            spine.Load(position, "skeleton", (float)Convert.ToInt32((double)Game1.luaInstance["playerScale"]) / 10, acceleration);
         }
 
         public void getHit()
@@ -90,14 +93,6 @@ namespace TheVillainsRevenge
 
         public void Update(GameTime gameTime, Map map)
         {
-            //if (Game1.debug)
-            //{
-            //    coverEyes = true;
-            //}
-            //else
-            //{
-            //    coverEyes = false;
-            //}
             speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
             airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
             jumppower = Convert.ToInt32((double)Game1.luaInstance["playerJumppower"]);
@@ -111,15 +106,25 @@ namespace TheVillainsRevenge
 
             //Geschwindigkeit festlegen
             int actualspeed = speed;
-            if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X != 0)
-            {
-                actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
-            }
             if (jump || fall)
             {
                 actualspeed = airspeed;
             }
-            //Lade Keyboard-Daten
+            //Einfluss Gamepad
+            if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X != 0)
+            {
+                actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
+            }
+            //Einfluss Beschleunigen_Abbremsen
+            if (turning)
+            {
+                actualspeed = actualspeed * (int)(1 - spine.animationState.TimeScale / acceleration);
+                if (actualspeed < 0)
+                {
+                    actualspeed = 0;
+                }
+            }
+            //-----Move-----
             if (Game1.input.itemw) 
             {
                 int i = item1;
@@ -128,17 +133,72 @@ namespace TheVillainsRevenge
             }
             if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
             {
-                Move(actualspeed, 0, map); //Bewege Rechts
-                spine.anim("run", 2,true);
+                if ((spine.animation == "idle" || spine.animation == "run") && spine.CurrentAnimTime(gameTime) < 0.2f)
+                {
+                    turning = true;
+                    if (spine.animation == "idle") //Abbremsen
+                    {
+                        Move(-actualspeed, 0, map); //Bewege Links
+                    }
+                    else //Beschleunigen
+                    {
+                        Move(actualspeed, 0, map); //Bewege Rechts
+                    }
+                }
+                else if (spine.animation == "run" && spine.flipSkel) //Abbremsen beginnen
+                {
+                    turning = true;
+                }
+                else
+                {
+                    turning = false;
+                }
+                if (turning)
+                {
+                    spine.anim("idle", 1, false, gameTime);
+                }
+                else
+                {
+                    spine.anim("run", 2, true, gameTime);
+                    Move(actualspeed, 0, map); //Bewege Rechts
+                }
+                
             }
             else if (Game1.input.links) //Wenn Rechte Pfeiltaste
             {
-                Move(-actualspeed, 0, map);//Bewege Links
-                spine.anim("run", 1,true);
+                if ((spine.animation == "idle" || spine.animation == "run") && spine.CurrentAnimTime(gameTime) < 0.2f)
+                {
+                    turning = true;
+                    if (spine.animation == "idle") //Abbremsen
+                    {
+                        Move(actualspeed, 0, map); //Bewege Links
+                    }
+                    else //Beschleunigen
+                    {
+                        Move(-actualspeed, 0, map); //Bewege Rechts
+                    }
+                }
+                else if (spine.animation == "run" && !spine.flipSkel)
+                {
+                    turning = true;
+                }
+                else
+                {
+                    turning = false;
+                }
+                if (turning)
+                {
+                    spine.anim("idle", 2, false, gameTime);
+                }
+                else
+                {
+                    spine.anim("run", 1, true, gameTime);
+                    Move(-actualspeed, 0, map);//Bewege Links
+                }
             }
             else
             {
-                spine.anim("idle", 0,true);
+                spine.anim("idle", 0, true, gameTime);
             }
             if (Game1.input.sprung)
             {

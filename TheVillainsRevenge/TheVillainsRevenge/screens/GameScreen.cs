@@ -265,7 +265,7 @@ namespace TheVillainsRevenge
                         //TODO: Speichern aller dynamischen Objekte in der Welt um diesen Zustand bei zurücksetzen an Checkpoint exakt zu rekonstruieren.
                         if (cpoint.end)
                         {
-                            spieler.spine.anim("idle", 0,false);
+                            spieler.spine.anim("idle", 1, false, gameTime);
                             levelend = true;
                         }
                         else
@@ -415,14 +415,20 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                karte.Draw(spriteBatch); //Plattformen & Co
+                karte.Draw(spriteBatch,gameTime,camera); //Plattformen & Co
                 hero.Draw(gameTime,camera); //Ashbrett
                 spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
                 if (Game1.debug) //Boundingboxen
                 {
                     spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                     spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
+                    for (int i = 0; i < karte.enemies.Count(); i++)
+                    {
+                        Enemy enemy = karte.enemies.ElementAt(i);
+                        spriteBatch.Draw(texture, enemy.cbox.box, null, Color.White);
+                    }
                     spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
+                      
                 }
             spriteBatch.End();
 
@@ -440,7 +446,7 @@ namespace TheVillainsRevenge
                 {
                     //for (int i = 0; i <= 62; i++)
                     //{
-                    spriteBatch.DrawString(font, "" + (spieler.spine.skeleton.Data.FindAnimation("walk")), new Vector2(Game1.resolution.X - 400, 150), Color.White);
+                    spriteBatch.DrawString(font, "" + (spieler.spine.CurrentAnimTime(gameTime)), new Vector2(Game1.resolution.X - 300, 150), Color.White);
                     //}
                     spriteBatch.DrawString(font, "bg0.tex[0]: " + (background_0.texture[0].Name), new Vector2(Game1.resolution.X - 300, 170), Color.White);
                     spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);

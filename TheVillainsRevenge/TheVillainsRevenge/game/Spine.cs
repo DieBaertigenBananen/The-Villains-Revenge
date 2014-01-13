@@ -9,22 +9,34 @@ namespace TheVillainsRevenge
     class Spine
     {
         //----------Spine----------
-        string animation = "";
+        public string animation = "";
         public SkeletonRenderer skeletonRenderer;
         public Skeleton skeleton;
         public AnimationState animationState;
         public SkeletonBounds bounds = new SkeletonBounds();
-        public void anim(string newanim,int flip,bool loop)
+        public bool flipSkel;
+        public double animationTimer;
+
+        public void anim(string newanim,int flip,bool loop, GameTime gameTime)
         {
             if(flip == 1)
                 skeleton.flipX = true;
+                flipSkel = true;
             if (flip == 2)
                 skeleton.flipX = false;
+                flipSkel = false;
             if (animation != newanim)
             {
+                animationTimer = gameTime.TotalGameTime.TotalMilliseconds;
                 animationState.SetAnimation(0, newanim, loop);
                 animation = newanim;
             }
+        }
+
+        public float CurrentAnimTime(GameTime gameTime)
+        {
+            float time = (float)(gameTime.TotalGameTime.TotalMilliseconds - animationTimer) / 1000;
+            return time;
         }
 
         public void Draw(GameTime gameTime, Camera camera,Vector2 position)
@@ -44,13 +56,11 @@ namespace TheVillainsRevenge
             skeleton.Y = position.Y;
         }
 
-        public void Load(Vector2 position,string name,float scale)
+        public void Load(Vector2 position,string name,float scale, float acceleration)
         {
-
             //----------Spine----------
             skeletonRenderer = new SkeletonRenderer(Game1.graphics.GraphicsDevice);
             skeletonRenderer.PremultipliedAlpha = true;
-
 
             Atlas atlas = new Atlas("spine/sprites/" + name + ".atlas", new XnaTextureLoader(Game1.graphics.GraphicsDevice));
             SkeletonJson json = new SkeletonJson(atlas);
@@ -63,13 +73,12 @@ namespace TheVillainsRevenge
             switch (name)
             {
                 case "skeleton":
-                    animationStateData.SetMix("idle", "run", 0.2f);
-                    animationStateData.SetMix("run", "idle", 0.4f);
+                    animationStateData.SetMix("idle", "run", acceleration);
+                    animationStateData.SetMix("run", "idle", acceleration);
                     break;
                 case "ashbrett":
                     break;
             }
-            
             animationState = new AnimationState(animationStateData);
 
             // Event handling for all animations.
@@ -80,7 +89,6 @@ namespace TheVillainsRevenge
 
             skeleton.x = position.X;
             skeleton.y = position.Y;
-            skeleton.UpdateWorldTransform();
         }
 
         //----------Spine----------

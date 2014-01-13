@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
      class Map
      {
-         Texture2D mapTexture,itemTexture,bunnyTexture,monkeyTexture,triggerTexture,objectTexture;
+         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture;
          public Texture2D levelMap;
          public Vector2 size;
          public Color[] pixelColors;
@@ -36,8 +36,6 @@ namespace TheVillainsRevenge
              itemTexture = Content.Load<Texture2D>("sprites/items");
              mapTexture = Content.Load<Texture2D>("sprites/tiles");
              levelMap = Content.Load<Texture2D>("sprites/Level_1/map");
-             bunnyTexture = Content.Load<Texture2D>("sprites/bunny");
-             monkeyTexture = Content.Load<Texture2D>("sprites/monkey");
              triggerTexture = Content.Load<Texture2D>("sprites/trigger");
              pixelColors = new Color[levelMap.Width * levelMap.Height];
              levelMap.GetData<Color>(pixelColors);
@@ -68,7 +66,7 @@ namespace TheVillainsRevenge
              }
          }
 
-         public void Draw(SpriteBatch spriteBatch)
+         public void Draw(SpriteBatch spriteBatch,GameTime gameTime,Camera camera)
          {
              spriteBatch.Draw(levelMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 2.0f, SpriteEffects.None, 1.0f);
              for (int i = 0; i < blocks.Count(); ++i)
@@ -85,10 +83,7 @@ namespace TheVillainsRevenge
              for (int i = 0; i < enemies.Count(); ++i)
              { 
                  Enemy enemy = enemies.ElementAt(i);
-                 if(enemy.type == 1)
-                    spriteBatch.Draw(bunnyTexture, enemy.position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                 else if (enemy.type == 2)
-                     spriteBatch.Draw(monkeyTexture, enemy.position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 enemy.Draw(spriteBatch,gameTime,camera);
              }
              for (int i = 0; i < triggers.Count(); ++i)
              {
