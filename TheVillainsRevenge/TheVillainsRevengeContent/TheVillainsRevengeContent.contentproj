@@ -220,17 +220,17 @@
   <ItemGroup>
     <Compile Include="sprites\menu_buttons.png">
       <Name>menu_buttons</Name>
-	  <Importer>TextureImporter</Importer>
+      <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="sprites\monkey.png">
       <Name>monkey</Name>
-	  <Importer>TextureImporter</Importer>
+      <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="sprites\level_1\planes\clouds_2.png">
       <Name>clouds_2</Name>
-	  <Importer>TextureImporter</Importer>
+      <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
@@ -242,11 +242,38 @@
     </Compile>
     <Compile Include="sprites\objects.png">
       <Name>objects</Name>
-	  <Importer>TextureImporter</Importer>
+      <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="sprites\level_1\planes\clouds_3.png">
       <Name>clouds_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sprites\level_1\planes\foreground_0_1.png">
+      <Name>foreground_0_1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\level_1\planes\foreground_0_2.png">
+      <Name>foreground_0_2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\level_1\planes\foreground_0_3.png">
+      <Name>foreground_0_3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\level_1\planes\foreground_0_4.png">
+      <Name>foreground_0_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\level_1\planes\foreground_0_5.png">
+      <Name>foreground_0_5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

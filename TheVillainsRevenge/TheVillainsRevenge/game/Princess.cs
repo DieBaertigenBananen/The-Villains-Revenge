@@ -26,6 +26,7 @@ namespace TheVillainsRevenge
         int rageChance;
         int rageLimit;
         float unrageSpeed;
+        //Deine Mutter ist so fett, wenn sie aus dem Bett fällt, dann auf beiden Seiten
 
         public Princess()
         {

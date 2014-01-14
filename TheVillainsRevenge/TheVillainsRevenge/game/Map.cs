@@ -68,6 +68,7 @@ namespace TheVillainsRevenge
 
          public void Draw(SpriteBatch spriteBatch,GameTime gameTime,Camera camera)
          {
+             /*
              spriteBatch.Draw(levelMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 2.0f, SpriteEffects.None, 1.0f);
              for (int i = 0; i < blocks.Count(); ++i)
              { 
@@ -75,6 +76,7 @@ namespace TheVillainsRevenge
                  //Zeichne die Blöcke anhand der Daten der Blöcke
                  spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
              }
+              * */
              for (int i = 0; i < items.Count(); ++i)
              { 
                  Item item = items.ElementAt(i);

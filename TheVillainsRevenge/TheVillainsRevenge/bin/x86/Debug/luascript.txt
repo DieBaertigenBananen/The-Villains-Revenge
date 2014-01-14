@@ -15,7 +15,7 @@ blockSpeed = 5
 triggerTime = 5
  
 heroScale = 2
-heroStartTime = 5
+heroStartTime = 100
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45
@@ -33,7 +33,7 @@ princessUnrageSpeed = 10
 princessRageLimit = 100
 princessCoverTime = 5
 
-playerAcceleration = 30
+playerAcceleration = 100
 
 --Update
 playerSpeed = 11
