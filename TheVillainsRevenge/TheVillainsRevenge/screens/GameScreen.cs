@@ -185,6 +185,19 @@ namespace TheVillainsRevenge
             if (!levelend)
             {
                 spieler.Update(gameTime, karte);
+                Rectangle schlagRECT = new Rectangle(spieler.cbox.box.X, spieler.cbox.box.Y, spieler.cbox.box.Width, spieler.cbox.box.Height);
+                if(spieler.schlag)
+                {
+                    if(spieler.richtung)
+                        schlagRECT.X = schlagRECT.X + schlagRECT.Width;
+                    else
+                        schlagRECT.X = schlagRECT.X - schlagRECT.Width;
+                }
+                else if(spieler.megaschlag)
+                {
+                        schlagRECT.X = schlagRECT.X - 48;
+                        schlagRECT.Width = schlagRECT.Width+96;
+                }
                 //--------------------Map--------------------
                 karte.Update(gameTime, spieler.cbox.box);
                 for (int i = 0; i < karte.objects.Count(); i++)
@@ -225,6 +238,24 @@ namespace TheVillainsRevenge
                     else
                     {
                         enemy.Update(gameTime, karte, hero.position);
+                        if (spieler.schlag)
+                        {
+                            if(schlagRECT.Intersects(enemy.cbox.box)&&enemy.type == 1)
+                            {
+                            enemy.spine.anim("die", 3, false,gameTime);
+                            enemy.dead = true;
+                            enemy.animeTime = 1;
+                            }
+                        }
+                        else if (spieler.megaschlag)
+                        {
+                            if (schlagRECT.Intersects(enemy.cbox.box) && enemy.type == 1)
+                            {
+                                enemy.spine.anim("die", 3, false, gameTime);
+                                enemy.dead = true;
+                                enemy.animeTime = 1;
+                            }
+                        }
                         if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
                         {
                             karte.enemies.Remove(enemy);
@@ -483,6 +514,10 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                     spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                     spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
+                    if (spieler.schlag)
+                    {
+                        spriteBatch.DrawString(font, "SCHLAG", new Vector2(Game1.resolution.X - 500, 350), Color.White);
+                    }
                     for (int i = 0; i < spieler.kicheck.Count(); i++)
                     {
                         KICheck kicheck = spieler.kicheck.ElementAt(i);
@@ -526,7 +561,7 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(renderForeground_0, Vector2.Zero, Color.White);
             spriteBatch.End();
             //-----Spielebene-----
-            if (princess.beating || spieler.smash) //-----[Shader]-----Smash
+            if (princess.beating || spieler.megaschlag) //-----[Shader]-----Smash
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, smash);
             }

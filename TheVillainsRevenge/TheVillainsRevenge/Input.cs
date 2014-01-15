@@ -24,6 +24,8 @@ namespace TheVillainsRevenge
         bool backp;
         public bool debug;
         bool debugp;
+        public bool hit;
+        bool hitp;
         public bool fullscreen;
         bool fullscreenp;
         public bool links, rechts, sprung, end;
@@ -39,8 +41,8 @@ namespace TheVillainsRevenge
             {
                 end = false;
             }
-            //Sprung
-            if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed || keyState.IsKeyDown(Keys.Space) == true)
+            //Schlag
+            if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed || keyState.IsKeyDown(Keys.Space) == true)
             {
                 sprung = true;
             }
@@ -95,6 +97,27 @@ namespace TheVillainsRevenge
            else
            {
                cameral = false;
+           }
+           //Schlag
+           if (!hitp)
+           {
+               if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed
+                   ||
+                   keyState.IsKeyDown(Keys.C))
+               {
+                   hit = true;
+                   hitp = true;
+               }
+           }
+           else
+           {
+               hit = false;
+               if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Released
+                   &&
+                   keyState.IsKeyUp(Keys.C))
+               {
+                   hitp = false;
+               }
            }
             //itemwechsel
             if (!itemwp)
