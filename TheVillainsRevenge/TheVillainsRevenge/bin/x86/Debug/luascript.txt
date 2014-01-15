@@ -1,6 +1,6 @@
 --Loading
 playerStartLifes = 4
-playerScale = 2
+playerScale = 3
 playerCollisionWidth = 100
 playerCollisionHeight = 125
 playerCollisionOffsetX = -playerCollisionWidth / 2
@@ -15,7 +15,7 @@ blockSpeed = 5
 triggerTime = 5
  
 heroScale = 2
-heroStartTime = 5
+heroStartTime = 500
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45
