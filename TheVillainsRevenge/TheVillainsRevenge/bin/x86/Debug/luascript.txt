@@ -47,9 +47,11 @@ heroAirspeed = heroSpeed - 2
 heroJumppower = 30
 heroGravitation = 60
 
+bunnySize = 0.18
 bunnySpeed = 2
 bunnyGravitation = 60
 
+monkeySize = 0.1
 monkeySpeed = 12
 monkeyThrowRange = 500
 monkeyGravitation = 60

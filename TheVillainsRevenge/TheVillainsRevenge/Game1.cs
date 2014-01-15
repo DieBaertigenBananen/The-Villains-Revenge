@@ -88,9 +88,11 @@ namespace TheVillainsRevenge
             luaInstance["heroJumppower"] = "";
             luaInstance["heroGravitation"] = "";
 
+            luaInstance["bunnySize"] = "";
             luaInstance["bunnySpeed"] = "";
             luaInstance["bunnyGravitation"] = "";
 
+            luaInstance["monkeySize"] = "";
             luaInstance["monkeySpeed"] = "";
             luaInstance["monkeyThrowRange"] = "";
             luaInstance["monkeyGravitation"] = "";

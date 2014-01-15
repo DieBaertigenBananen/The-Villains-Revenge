@@ -35,10 +35,13 @@ Content\sprites\level_1\planes\foreground_0_3.xnb
 Content\sprites\level_1\planes\foreground_0_4.xnb
 Content\sprites\level_1\planes\foreground_0_5.xnb
 spine\sprites\ashbrett.png
+spine\sprites\fluffy.png
 spine\sprites\skeleton.png
 spine\sprites\skullmonkey.png
 spine\sprites\ashbrett.atlas
 spine\sprites\ashbrett.json
+spine\sprites\fluffy.atlas
+spine\sprites\fluffy.json
 spine\sprites\skeleton.atlas
 spine\sprites\skeleton.json
 spine\sprites\skullmonkey.atlas

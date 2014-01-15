@@ -1,0 +1,110 @@
+
+fluffy.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: true
+  xy: 0, 56
+  size: 200, 195
+  orig: 200, 195
+  offset: 0, 0
+  index: -1
+ear_left
+  rotate: true
+  xy: 605, 165
+  size: 91, 241
+  orig: 91, 241
+  offset: 0, 0
+  index: -1
+ear_right
+  rotate: true
+  xy: 195, 51
+  size: 205, 132
+  orig: 205, 132
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 460, 90
+  size: 166, 145
+  orig: 166, 145
+  offset: 0, 0
+  index: -1
+helmet
+  rotate: false
+  xy: 846, 151
+  size: 170, 105
+  orig: 170, 105
+  offset: 0, 0
+  index: -1
+left_arm
+  rotate: true
+  xy: 0, 5
+  size: 51, 63
+  orig: 51, 63
+  offset: 0, 0
+  index: -1
+left_foot
+  rotate: true
+  xy: 714, 30
+  size: 135, 111
+  orig: 135, 111
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: false
+  xy: 441, 2
+  size: 59, 63
+  orig: 59, 63
+  offset: 0, 0
+  index: -1
+left_shoulder
+  rotate: true
+  xy: 327, 3
+  size: 62, 114
+  orig: 62, 114
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: false
+  xy: 617, 33
+  size: 57, 60
+  orig: 57, 60
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: false
+  xy: 500, 0
+  size: 117, 90
+  orig: 117, 91
+  offset: 0, 0
+  index: -1
+right_shoulder
+  rotate: true
+  xy: 605, 93
+  size: 72, 109
+  orig: 72, 109
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 825, 17
+  size: 104, 134
+  orig: 104, 134
+  offset: 0, 0
+  index: -1
+sword_hand
+  rotate: false
+  xy: 327, 65
+  size: 133, 191
+  orig: 133, 191
+  offset: 0, 0
+  index: -1
+tail
+  rotate: false
+  xy: 929, 44
+  size: 83, 107
+  orig: 83, 107
+  offset: 0, 0
+  index: -1
