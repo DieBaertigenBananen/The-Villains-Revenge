@@ -10,6 +10,7 @@ planeTilesBackground0 = 4 --Baueme
 planeTilesBackground1 = 2 --Wald
 planeTilesBackground2 = 1 --Berg
 planeTilesBackground3 = 1 --Himmel
+planeForegroundHeightOffset = 46 * 48 - 960
 
 blockSpeed = 5	
 triggerTime = 5
@@ -33,7 +34,7 @@ princessUnrageSpeed = 10
 princessRageLimit = 100
 princessCoverTime = 5
 
-playerAcceleration = 100
+playerAcceleration = 30
 
 --Update
 playerSpeed = 11

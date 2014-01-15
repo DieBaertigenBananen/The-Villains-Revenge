@@ -122,11 +122,11 @@ namespace TheVillainsRevenge
             princess.Load(Content, Game1.graphics);
             karte.Load(Content);
             karte.Generate();
-            foreground_0.Load(Content, 5);
-            background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]));
-            background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]));
-            background_2.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]));
-            background_3.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground3"]));
+            foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForegroundHeightOffset"]));
+            background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]), 0);
+            background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]), 0);
+            background_2.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]), 0);
+            background_3.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground3"]), 0);
             clouds_1.Load(Content, "clouds_1", karte, camera);
             clouds_2.Load(Content, "clouds_2", karte, camera);
             clouds_3.Load(Content, "clouds_3", karte, camera);
@@ -347,11 +347,11 @@ namespace TheVillainsRevenge
                 //--------------------Camera--------------------
                 camera.Update(Game1.graphics, spieler, karte);
                 //--------------------Backgrounds--------------------
-                foreground_0.Update(karte, camera,true);
-                background_0.Update(karte, camera,false);
-                background_1.Update(karte, camera, false);
-                background_2.Update(karte, camera, false);
-                background_3.Update(karte, camera, false);
+                foreground_0.Update(karte, camera);
+                background_0.Update(karte, camera);
+                background_1.Update(karte, camera);
+                background_2.Update(karte, camera);
+                background_3.Update(karte, camera);
                 clouds_1.Update(karte, gameTime, camera);
                 clouds_2.Update(karte, gameTime, camera);
                 clouds_3.Update(karte, gameTime, camera);
@@ -427,7 +427,7 @@ namespace TheVillainsRevenge
                     spriteBatch.Draw(debug, new Vector2(background_0.position.X, background_0.position.Y), Color.White);
                 }
             spriteBatch.End();
-            //Vordergrund
+            //Foreground0
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground_0);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
@@ -520,7 +520,7 @@ namespace TheVillainsRevenge
             outline.Parameters["lineSize"].SetValue(20);
             outline.Parameters["lineBrightness"].SetValue(0);
             spriteBatch.Draw(renderBackground0, Vector2.Zero, Color.White);
-            //-----Foreground-----
+            //Foreground0
             outline.Parameters["lineSize"].SetValue(0);
             outline.Parameters["lineBrightness"].SetValue(0);
             spriteBatch.Draw(renderForeground_0, Vector2.Zero, Color.White);

@@ -15,6 +15,7 @@ namespace TheVillainsRevenge
         public Vector2 size;
         public Vector2 position;
         string textureName;
+        int additionalHeight;
         
 
         public ParallaxPlane(string texName)
@@ -24,8 +25,9 @@ namespace TheVillainsRevenge
             size = new Vector2(0, 0);
         }
 
-        public void Load(ContentManager Content, int tiles)
+        public void Load(ContentManager Content, int tiles, int addHeight)
         {
+            additionalHeight = addHeight;
             tilesCount = tiles;
             //Lade Textur, einmal ausgeführt
             texture = new Texture2D[tilesCount];
@@ -34,7 +36,7 @@ namespace TheVillainsRevenge
                 texture[i] = Content.Load<Texture2D>("sprites/level_1/planes/" + textureName + "_" + (i + 1));
                 size.X += texture[i].Width;
             }
-            size.Y = texture[0].Height;
+            size.Y = texture[0].Height + additionalHeight;
         }
 
         public void Draw(SpriteBatch spriteBatch, Player spieler)
@@ -45,20 +47,12 @@ namespace TheVillainsRevenge
             }
         }
 
-        public void Update(Map karte, Camera camera,bool fest)
+        public void Update(Map karte, Camera camera)
         {
             //Position = Viewportposition - (Position wenn am Ende am Maprand * Positionsfaktor abhängig von Viewportposition/letzte Mapposition)
-            if (fest)
-            {
-                position.X = 0;
-                position.Y = karte.size.Y-size.Y;
-            }
-            else
-            {
-                position.X = camera.viewport.X - ((size.X - camera.viewport.Width) * (camera.viewport.X / (karte.size.X - camera.viewport.Width)));
-                position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (karte.size.Y - camera.viewport.Height)));
-            }
-                //TextureManager(camera);
+            position.X = camera.viewport.X - ((size.X - camera.viewport.Width) * (camera.viewport.X / (karte.size.X - camera.viewport.Width)));
+            position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (karte.size.Y - camera.viewport.Height))) + additionalHeight;
+            //TextureManager(camera);
         }
         //public void TextureManager(Camera camera)
         //{
