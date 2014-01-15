@@ -1,6 +1,6 @@
 --Loading
 playerStartLifes = 4
-playerScale = 10
+playerScale = 2
 playerCollisionWidth = 100
 playerCollisionHeight = 125
 playerCollisionOffsetX = -playerCollisionWidth / 2
@@ -14,7 +14,7 @@ planeTilesBackground3 = 1 --Himmel
 blockSpeed = 5	
 triggerTime = 5
  
-heroScale = 20
+heroScale = 2
 heroStartTime = 5
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
@@ -47,11 +47,11 @@ heroAirspeed = heroSpeed - 2
 heroJumppower = 30
 heroGravitation = 60
 
-bunnySize = 1.00
+bunnySize = 0.18
 bunnySpeed = 2
 bunnyGravitation = 60
 
-monkeySize = 1.00
+monkeySize = 0.1
 monkeySpeed = 12
 monkeyThrowRange = 500
 monkeyGravitation = 60
