@@ -347,11 +347,11 @@ namespace TheVillainsRevenge
                 //--------------------Camera--------------------
                 camera.Update(Game1.graphics, spieler, karte);
                 //--------------------Backgrounds--------------------
-                foreground_0.Update(karte, camera,true);
-                background_0.Update(karte, camera,false);
-                background_1.Update(karte, camera, false);
-                background_2.Update(karte, camera, false);
-                background_3.Update(karte, camera, false);
+                foreground_0.Update(karte, camera);
+                background_0.Update(karte, camera);
+                background_1.Update(karte, camera);
+                background_2.Update(karte, camera);
+                background_3.Update(karte, camera);
                 clouds_1.Update(karte, gameTime, camera);
                 clouds_2.Update(karte, gameTime, camera);
                 clouds_3.Update(karte, gameTime, camera);

@@ -45,19 +45,11 @@ namespace TheVillainsRevenge
             }
         }
 
-        public void Update(Map karte, Camera camera,bool fest)
+        public void Update(Map karte, Camera camera)
         {
             //Position = Viewportposition - (Position wenn am Ende am Maprand * Positionsfaktor abhängig von Viewportposition/letzte Mapposition)
-            if (fest)
-            {
-                position.X = 0;
-                position.Y = karte.size.Y-size.Y;
-            }
-            else
-            {
                 position.X = camera.viewport.X - ((size.X - camera.viewport.Width) * (camera.viewport.X / (karte.size.X - camera.viewport.Width)));
                 position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (karte.size.Y - camera.viewport.Height)));
-            }
                 //TextureManager(camera);
         }
         //public void TextureManager(Camera camera)
