@@ -14,7 +14,6 @@ namespace TheVillainsRevenge
 {
     class GameScreen
     {
-        public static int test;
         Texture2D texture;
         Texture2D debug;
         Player spieler = new Player(40, 1000);
@@ -49,6 +48,7 @@ namespace TheVillainsRevenge
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
+        public int test = 0;
 
         //KIDaten
         public int getPoints(string w)
@@ -188,15 +188,33 @@ namespace TheVillainsRevenge
                 Rectangle schlagRECT = new Rectangle(spieler.cbox.box.X, spieler.cbox.box.Y, spieler.cbox.box.Width, spieler.cbox.box.Height);
                 if(spieler.schlag)
                 {
-                    if(spieler.richtung)
+                    if (spieler.richtung)
+                    {
                         schlagRECT.X = schlagRECT.X + schlagRECT.Width;
+                        schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
+                    }
                     else
+                    {
+                        schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
                         schlagRECT.X = schlagRECT.X - schlagRECT.Width;
+                    }
                 }
                 else if(spieler.megaschlag)
                 {
-                        schlagRECT.X = schlagRECT.X - 48;
-                        schlagRECT.Width = schlagRECT.Width+96;
+                    int Range = Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagRange"]);
+                    schlagRECT.X = schlagRECT.X - Range;
+                    schlagRECT.Width = schlagRECT.Width+(Range*2);
+                    schlagRECT.Y += 1;
+                    for (int i = 0; i < karte.blocks.Count(); i++)
+                    {
+                        Block block = karte.blocks.ElementAt(i);
+                        if (block.cbox.Intersects(schlagRECT)&&block.type == "breakable")
+                        {
+                            karte.objects.Add(new Debris(block.position, 3));
+                            karte.blocks.Remove(block);
+                        }
+                    }
+                    schlagRECT.Y -= 1;
                 }
                 //--------------------Map--------------------
                 karte.Update(gameTime, spieler.cbox.box);
@@ -206,8 +224,15 @@ namespace TheVillainsRevenge
                     obj.Update(gameTime, karte);
                     if (obj.box.Intersects(hero.cbox.box))
                     {
-                        hero.slowtime += 10;
-                        karte.objects.Remove(obj);
+                        if (obj.type != 3)
+                        {
+                            hero.slowtime += 10;
+                            karte.objects.Remove(obj);
+                        }
+                        else
+                        {
+                            hero.slowtime = 1;
+                        }
                     }
                     else if (obj.type == 2)
                     {
@@ -216,6 +241,17 @@ namespace TheVillainsRevenge
                             if (obj.box.Intersects(block.cbox))
                             {
                                 karte.objects.Remove(obj);
+                                break;
+                            }
+                        }
+                    }
+                    else if (obj.type == 3&&obj.fall)
+                    {
+                        foreach (Block block in karte.blocks)
+                        {
+                            if (obj.box.Intersects(block.cbox))
+                            {
+                                obj.fall = false;
                                 break;
                             }
                         }
@@ -262,8 +298,17 @@ namespace TheVillainsRevenge
                         }
                         if (spieler.cbox.box.Intersects(enemy.cbox.box) && enemy.type == 1)
                         {
-                            spieler.getHit();
-                            Reset();
+                            if (spieler.hit&&spieler.fall)
+                            {
+                                enemy.spine.anim("die", 3, false, gameTime);
+                                enemy.dead = true;
+                                enemy.animeTime = 1;
+                            }
+                            else
+                            {
+                                spieler.getHit();
+                                Reset();
+                            }
                         }
                         if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
                         {
@@ -514,9 +559,13 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                     spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                     spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
+                    spriteBatch.DrawString(font, "SmashCooldown: " + spieler.megacooldown, new Vector2(Game1.resolution.X - 300, 370), Color.White);
                     if (spieler.schlag)
                     {
                         spriteBatch.DrawString(font, "SCHLAG", new Vector2(Game1.resolution.X - 500, 350), Color.White);
+                    } else if (spieler.megaschlag)
+                    {
+                        spriteBatch.DrawString(font, "MEGAAA SMAAASH", new Vector2(Game1.resolution.X - 500, 350), Color.White);
                     }
                     for (int i = 0; i < spieler.kicheck.Count(); i++)
                     {

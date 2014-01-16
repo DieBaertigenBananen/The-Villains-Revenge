@@ -68,7 +68,6 @@ namespace TheVillainsRevenge
 
          public void Draw(SpriteBatch spriteBatch,GameTime gameTime,Camera camera)
          {
-             /*
              spriteBatch.Draw(levelMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 2.0f, SpriteEffects.None, 1.0f);
              for (int i = 0; i < blocks.Count(); ++i)
              { 
@@ -76,7 +75,6 @@ namespace TheVillainsRevenge
                  //Zeichne die Blöcke anhand der Daten der Blöcke
                  spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
              }
-              * */
              for (int i = 0; i < items.Count(); ++i)
              { 
                  Item item = items.ElementAt(i);
@@ -102,6 +100,13 @@ namespace TheVillainsRevenge
                      spriteBatch.Draw(objectTexture, obj.position, new Rectangle(0, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else if (obj.type == 2)
                      spriteBatch.Draw(objectTexture, obj.position, new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 else if (obj.type == 3)
+                 {  
+                     if(obj.fall)
+                        spriteBatch.Draw(objectTexture, obj.position, new Rectangle(96, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     else
+                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 }
              }
          }
 
@@ -140,6 +145,10 @@ namespace TheVillainsRevenge
                                  }
                                  moving_last = i;
                                  break;
+                             case "119,0,255":
+                                 type = "breakable";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 break;
                              case "180,165,0":
                                  type = "movingend";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
@@ -152,16 +161,8 @@ namespace TheVillainsRevenge
                                  type = "ground_grass";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
-                             case "02,02,02":
-                                 type = "platform_grass";
-                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
-                                 break;
                              case "0,0,255":
                                  type = "water";
-                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
-                                 break;
-                             case "01,01,01":
-                                 type = "underground_rock";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "0,0,0":

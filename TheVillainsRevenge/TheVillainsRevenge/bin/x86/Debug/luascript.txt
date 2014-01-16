@@ -15,7 +15,7 @@ blockSpeed = 5
 triggerTime = 5
  
 heroScale = 2
-heroStartTime = 500
+heroStartTime = 5
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
 heroCollisionWidth = 45
@@ -33,7 +33,7 @@ princessUnrageSpeed = 10
 princessRageLimit = 100
 princessCoverTime = 5
 
-playerAcceleration = 100
+playerAcceleration = 15
 
 --Update
 playerSpeed = 11
@@ -41,6 +41,10 @@ playerAirspeed = playerSpeed - 2
 playerJumppower = 30
 playerGravitation = 60
 playerJumpCutoff = 50
+playerSchlagRange = 48
+playerMegaSchlagRange = 48
+playerMegaSchlagFall = 2000
+playerMegaSchlagCooldown = 10
 
 heroSpeed = 11
 heroAirspeed = heroSpeed - 2
@@ -58,6 +62,7 @@ monkeyGravitation = 60
 
 kackeSpeed = 15
 kackeStartY = -15
+objectGravitation = 60
 
 cameraLeftspace = 1100
 cameraRightspace = 1920 - cameraLeftspace

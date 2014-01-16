@@ -70,6 +70,9 @@ namespace TheVillainsRevenge
             luaInstance["heroCollisionOffsetY"] = "";
             luaInstance["heroCollisionWidth"] = "";
             luaInstance["heroCollisionHeight"] = "";
+            luaInstance["heroSchlagRange"] = "";
+            luaInstance["heroMegaSchlagRange"] = "";
+            luaInstance["heroMegaSchlagCooldown"] = "";
 
             luaInstance["enemyCollisionOffsetX"] = "";
             luaInstance["enemyCollisionOffsetY"] = "";
@@ -99,6 +102,7 @@ namespace TheVillainsRevenge
 
             luaInstance["kackeSpeed"] = "";
             luaInstance["kackeStartY"] = "";
+            luaInstance["objectGravitation"] = "";
 
             luaInstance["cameraLeftspace"] = "";
             luaInstance["cameraRightspace"] = "";

@@ -131,6 +131,7 @@
     <Compile Include="game\Map.cs" />
     <Compile Include="game\MovingBlock.cs" />
     <Compile Include="game\Objects\Banana.cs" />
+    <Compile Include="game\Objects\Debris.cs" />
     <Compile Include="game\Objects\Kacke.cs" />
     <Compile Include="game\Objects\Obj.cs" />
     <Compile Include="game\ParallaxPlane.cs" />

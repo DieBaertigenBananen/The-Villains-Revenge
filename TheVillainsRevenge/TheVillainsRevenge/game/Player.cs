@@ -36,10 +36,11 @@ namespace TheVillainsRevenge
         double checkjumpt;
         float initAcceleration;
         public float acceleration;
-        bool hit = false;
+        public bool hit = false;
         public bool richtung = false;
         public bool schlag = false;
         public bool megaschlag = false;
+        public double megacooldown = 0;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -119,34 +120,50 @@ namespace TheVillainsRevenge
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
             //-----Schlag-----
-            if (Game1.input.hit||hit)
+            if (Game1.input.hit)
             {
-                hit = true;
-                if (jump)
+                if (jump || fall)
                 {
-                    jump = false;
-                    fall = true;
-                }
-                if (fall)
-                {
-                    if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                    if (megacooldown == 0)
                     {
-                        megaschlag = true;
-                        hit = false;
+                        jump = false;
+                        fall = true;
+                        hit = true;
                     }
                 }
                 else
                 {
+                    hit = false;
                     schlag = true;
+                }
+            }
+            if (hit)
+            {
+                if (megacooldown == 0)
+                {
+                    megacooldown += gameTime.ElapsedGameTime.TotalSeconds;
+                }
+                falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
+                if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                {
+                    megaschlag = true;
                     hit = false;
                 }
             }
-            else
+            else if(!Game1.input.hit)
             {
                 if(schlag)
                     schlag = false;
                 if (megaschlag)
                     megaschlag = false;
+                if (megacooldown != 0)
+                {
+                    megacooldown += gameTime.ElapsedGameTime.TotalSeconds;
+                    if (megacooldown >= Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagCooldown"]))
+                    {
+                        megacooldown = 0;
+                    }
+                }
                 //-----Move-----
                 if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
                 {
@@ -306,7 +323,6 @@ namespace TheVillainsRevenge
                         }
                         else
                         {
-                            GameScreen.test = 1;
                             if (block.move == 1)
                                 block.move = 2;
                             else
