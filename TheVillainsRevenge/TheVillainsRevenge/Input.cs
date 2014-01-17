@@ -42,7 +42,7 @@ namespace TheVillainsRevenge
                 end = false;
             }
             //Schlag
-            if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed || keyState.IsKeyDown(Keys.Space) == true)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed || keyState.IsKeyDown(Keys.Space) == true)
             {
                 sprung = true;
             }
