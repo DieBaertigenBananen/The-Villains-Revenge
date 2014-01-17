@@ -22,7 +22,7 @@ namespace TheVillainsRevenge
         public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int jumppower; //Anfangsgeschwindigkeit in m/s _/60
         public double herotime;
-        bool start = false;
+        public bool start = false;
         int heroStartTime;
         public Spine spine;
         public int kistate; //State der KI Berechnung
@@ -38,6 +38,7 @@ namespace TheVillainsRevenge
         double checktime;
         bool checkstart;
         float acceleration;
+        public double attacktimer = 0;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -48,9 +49,14 @@ namespace TheVillainsRevenge
             heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
             spine = new Spine();
         }
+        public void attack(GameTime gameTime)
+        {
+            attacktimer = 1;
+            spine.anim("attack", 3, false, gameTime);
+        }
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            spine.Load(position, "ashbrett",(float)Convert.ToInt32((double)Game1.luaInstance["heroScale"]) / 20, acceleration);
+            spine.Load(position, "ashbrett", (float)Convert.ToDouble(Game1.luaInstance["heroScale"]), acceleration);
         }
         public void Draw(GameTime gameTime, Camera camera)
         {
@@ -106,6 +112,7 @@ namespace TheVillainsRevenge
                     }
                 }
                 speed = Convert.ToInt32((double)Game1.luaInstance["heroSpeed"]);
+                int realspeed = speed;
                 if (GameScreen.slow != 0)
                 {
                     speed = speed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
@@ -123,9 +130,10 @@ namespace TheVillainsRevenge
                 {
                     actualspeed = airspeed;
                 }
+                float spielerdistanz = spieler.X - position.X;
                 if (spieler.X < cbox.box.X + 240 && spieler.X > cbox.box.X - 240 && spieler.Y > cbox.box.Y - 48 && spieler.Y < cbox.box.Y + 48)
                 {
-                        kistate = 0;
+                    kistate = 0;
                 }
                 else{
                         if (kicheck.Count() != 0)
@@ -140,331 +148,361 @@ namespace TheVillainsRevenge
                 //sposition.X = map.size.X;
                 //Vector2 Punkt = map.kipoints.ElementAt(kipoint).position;
                // sposition.X = Punkt.X;
-                //Wenn Spieler ist hinten bewege zurück
-                if (spieler.X < position.X)
+                if (attacktimer > 0)
                 {
-                    actualspeed = -actualspeed;
+                    attacktimer -= gameTime.ElapsedGameTime.TotalSeconds;
                 }
-                if (!cbox.box.Intersects(spieler))
+                else
                 {
-                    bool geht = false;
-                    if (kistate == 0)
+                    //Wenn Spieler ist hinten bewege zurück
+                    if (spieler.X < position.X)
                     {
-                        //KI ist auf den Boden und alles ist gut
-                        //Schaue ob der Block rechts ist
-                        if (kicheck.Count() != 0)
+                        actualspeed = -actualspeed;
+                    }
+                    if (!cbox.box.Intersects(spieler))
+                    {
+                        bool geht = false;
+                        if (kistate == 0)
                         {
-                            for (int i = 0; i < 50; i++)
+                            if (Math.Abs(spielerdistanz) < Convert.ToInt32((double)Game1.luaInstance["heroCloseWalkRange"]))
                             {
-                                kicollide = new Rectangle(cbox.box.X + i * 48, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-
-                                foreach (KIPoint kipoint in map.kipoints)
-                                {
-                                    if (kicollide.Intersects(kipoint.cbox) && kipoint.id == kicheck.ElementAt(0).id)
-                                    {
-                                        geht = true;
-                                        i = 200;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        //Block ist auf gleicher Höhe, bewege nur drauf zu
-                        if (geht)
-                        {
-                            if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
-                            {
-                                Move(actualspeed, 0, map);
+                                if (actualspeed > 0)
+                                    spine.anim("close", 1, true, gameTime);
+                                else
+                                    spine.anim("close", 2, true, gameTime);
                             }
                             else
                             {
-                                if (!fall && !jump)
-                                {
-                                    Jump(gameTime, map); //Springen!
-                                    kistate = 3;
-                                }
-
-                            }
-                            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
-                            {
-                                //AAAAHHH WIR fallen T_T
-                                //Hmm vielleicht ist da ja ein Block der für die bewegenden Plattformen zuständig ist?
-                                bool bewegblock = false;
-                                kicollide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
-                                foreach (Block block in map.blocks)
-                                {
-                                    if (kicollide.Intersects(block.cbox) && block.type == "movingend")
-                                    {
-                                        bewegblock = true;
-                                        //TATSACHE!!
-                                        //Schaue ob rechts ein Block ist
-                                    }
-                                }
-                                if (bewegblock&&!fall&&!jump)
-                                {
-                                    //Warten wir einfach mal ...
-                                    Move(-actualspeed, 0, map);
-                                    kistate = 4;
-                                }
-                                //Beginne den Drüberspringmodus für Abgründe!!!HA!
+                                if (actualspeed > 0)
+                                    spine.anim("walk", 1, true, gameTime);
                                 else
+                                    spine.anim("walk", 2, true, gameTime);
+                            }
+                            //KI ist auf den Boden und alles ist gut
+                            //Schaue ob der Block rechts ist
+                            if (kicheck.Count() != 0)
+                            {
+                                for (int i = 0; i < 50; i++)
                                 {
-                                    if (!fall && !jump)
+                                    kicollide = new Rectangle(cbox.box.X + i * 48, cbox.box.Y, cbox.box.Width, cbox.box.Height);
+
+                                    foreach (KIPoint kipoint in map.kipoints)
                                     {
-                                        Jump(gameTime, map); //Springen!
-                                        kistate = 1;
+                                        if (kicollide.Intersects(kipoint.cbox) && kipoint.id == kicheck.ElementAt(0).id)
+                                        {
+                                            geht = true;
+                                            i = 200;
+                                            break;
+                                        }
                                     }
                                 }
-
                             }
-                        }
-                        else
-                        {
-                            if (spieler.Y < position.Y)
+                            //Block ist auf gleicher Höhe, bewege nur drauf zu
+                            if (geht)
                             {
                                 if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
                                 {
-                                    //Block ist über den Hero
-                                    bool b = false;
-                                    int deltay = 0;
-                                    for (int i = 0; i < 30; i++)
-                                    {
-                                        float t = (float)(i / 15);
-                                        deltay = deltay + (int)(-jumppower + (gravitation * t));
-                                        kicollide = new Rectangle(cbox.box.X + (i * actualspeed), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
-                                        if (kicollide.Intersects(spieler))
-                                        {
-                                            b = true;
-                                            break;
-                                        }
-                                        /*
-                                        foreach (Block block in map.blocks)
-                                        {
-                                            if (kicollide.Intersects(block.cbox) && block.block)
-                                            {
-                                                b = true;
-                                                break;
-                                            }
-                                        }*/
-                                    }
-                                    if (b)
-                                    {
-                                        if (!fall && !jump)
-                                        {
-                                            Jump(gameTime, map); //Springen!
-                                            kistate = 2;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        Move(actualspeed, 0, map);
-                                    }
+                                    Move(actualspeed, 0, map);
                                 }
                                 else
                                 {
                                     if (!fall && !jump)
                                     {
+                                        spine.anim("jump", 3, false, gameTime);
                                         Jump(gameTime, map); //Springen!
                                         kistate = 3;
                                     }
 
                                 }
+                                if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                                {
+                                    //AAAAHHH WIR fallen T_T
+                                    //Hmm vielleicht ist da ja ein Block der für die bewegenden Plattformen zuständig ist?
+                                    bool bewegblock = false;
+                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                                    foreach (Block block in map.blocks)
+                                    {
+                                        if (kicollide.Intersects(block.cbox) && block.type == "movingend")
+                                        {
+                                            bewegblock = true;
+                                            //TATSACHE!!
+                                            //Schaue ob rechts ein Block ist
+                                        }
+                                    }
+                                    if (bewegblock && !fall && !jump)
+                                    {
+                                        //Warten wir einfach mal ...
+                                        spine.anim("idle", 3, true, gameTime);
+                                        Move(-actualspeed, 0, map);
+                                        kistate = 4;
+                                    }
+                                    //Beginne den Drüberspringmodus für Abgründe!!!HA!
+                                    else
+                                    {
+                                        if (!fall && !jump)
+                                        {
+                                            Jump(gameTime, map); //Springen!
+                                            kistate = 1;
+                                        }
+                                    }
+
+                                }
                             }
                             else
                             {
-                                for (int i = 0; i < 10; i++)
+                                if (spieler.Y < position.Y)
                                 {
-                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y +i*gravitation, cbox.box.Width, cbox.box.Height);
-                                    if (kicollide.Intersects(spieler))
-                                        geht = true;
-                                }
-                                if(!geht)
-                                    Move(actualspeed, 0, map);
-                            }
-
-                        }
-                    }
-                    else if (kistate == 1)
-                    {
-                        //KI befindet sich im Drüberspringmodus bei Abgründen!!
-                        //Gucke ob er Grund haben könnte
-                        float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
-                        if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
-                        {
-                            if(fall)
-                            {
-                                for (int i = 0; i < 10; i++)
-                                {
-                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
-                                    foreach (Block block in map.blocks)
+                                    if (CollisionCheckedVector(realspeed, 0, map.blocks).X == realspeed)
                                     {
-                                        if (kicollide.Intersects(block.cbox) && block.block)
+                                        //Block ist über den Hero
+                                        bool b = false;
+                                        int deltay = 0;
+                                        for (int i = 0; i < 30; i++)
                                         {
-                                            geht = true;
-                                            break;
+                                            float t = (float)(i / 15);
+                                            deltay = deltay + (int)(-jumppower + (gravitation * t));
+                                            kicollide = new Rectangle(cbox.box.X + (i * realspeed), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
+                                            if (kicollide.Intersects(spieler))
+                                            {
+                                                b = true;
+                                                break;
+                                            }
+                                            /*
+                                            foreach (Block block in map.blocks)
+                                            {
+                                                if (kicollide.Intersects(block.cbox) && block.block)
+                                                {
+                                                    b = true;
+                                                    break;
+                                                }
+                                            }*/
+                                        }
+                                        if (b)
+                                        {
+                                            if (!fall && !jump)
+                                            {
+                                                spine.anim("jump", 3, false, gameTime);
+                                                Jump(gameTime, map); //Springen!
+                                                kistate = 2;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Move(actualspeed, 0, map);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (!fall && !jump)
+                                        {
+                                            spine.anim("jump", 3, false, gameTime);
+                                            Jump(gameTime, map); //Springen!
+                                            kistate = 3;
                                         }
 
                                     }
                                 }
-                            }
-                            //Kein Grund T_T Beweg mich mal
-                            for (int i = 0; i < 10; i++)
-                            {
-                                //kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
-                                if (kicollide.Intersects(spieler))
-                                    geht = true;
-                            }
-                            if (!geht)
-                                Move(actualspeed, 0, map);
-                        }
-                        else
-                        {
-                            jumptimer = 0;
-                            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
-                            {
-                                //Grund!!!! Wir sind unten!!! Starte normalen Modus
-                                kistate = 0;
-                            }
-                        }
-                    }
-                    else if (kistate == 2)
-                    {
-                        if (jump)
-                        {
-                            for (int i = 0; i < 10; i++)
-                            {
-                                kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
-                                if (kicollide.Intersects(spieler))
-                                    geht = true;
-                            }
-                            if (!geht)
-                                Move(actualspeed, 0, map);
-                        }
-                        //KI befindet sich im Drüberspringmodus!!
-                        //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
-                        //Überprüfe ob rechts immernoch etwas ist
-                        if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
-                        {
-                            jumptimer = 0;
-                            kistate = 0;
-                        }
-                    }
-
-                    else if (kistate == 3)
-                    {
-                        //KI befindet sich im Drüberspringmodus!!
-                        //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
-                        //Überprüfe ob rechts immernoch etwas ist
-                        if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
-                        {
-                            //Rechts ist nichts mehr! Kann mit dem Springen aufhören und sich draufbewegen
-                            Move(actualspeed, 0, map);
-                            jumptimer = 0;
-                            kistate = 0;
-                        }
-                    }
-
-                    else if (kistate == 4)
-                    {
-                        //KI befindet sich im Wartemodus!!
-                        //Überprüfe ob die Plattform bald da ist
-                        bool bewegblock = false;
-                        kicollide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
-                        foreach (MovingBlock mblock in map.mblocks)
-                        {
-                            if (kicollide.Intersects(mblock.cbox))
-                            {
-                                bewegblock = true;
-                                //TATSACHE!! Er ist da!!
-                            }
-                        }
-                        if (bewegblock)
-                        {
-                            Jump(gameTime, map); //Springen!
-                            kistate = 5;
-                        }
-                    }
-                    else if (kistate == 5)
-                    {
-                        //Er springt auf die Plattform! YEA
-                        float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
-                        if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
-                        {
-                            //Kein Grund T_T Beweg mich mal
-                            Move(actualspeed, 0, map);
-                        }
-                        else
-                        {
-                            jumptimer = 0;
-                            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
-                            {
-                                //Grund!!!! Wir sind unten!!! Starte nächsten Modus
-                                kistate = 6;
-                            }
-                        }
-                    }
-                    else if (kistate == 6)
-                    {
-                        //Befindet sich auf der Plattform
-                        //Beweg mich mal nach Forme und schau ob ich da falle T_T
-                        Move(actualspeed, 0, map);
-                        if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
-                        {
-                            //Ah wir fallen! Schnell zurück!
-                            Move(-actualspeed, 0, map);
-                            kistate = 7;
-                        }
-                    }
-                    else if (kistate == 7)
-                    {
-                        //Ki Wartet nun am Ende und wartet auf einen movingend
-                        bool bewegblock = false;
-                        kicollide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
-                        foreach (Block block in map.blocks)
-                        {
-                            if (kicollide.Intersects(block.cbox) && block.type == "movingend")
-                            {
-                                bewegblock = true;
-                                //TATSACHE!! Er ist da!!
-                            }
-                        }
-                        if (bewegblock)
-                        {
-                            Jump(gameTime, map); //Springen!
-                            kistate = 8;
-                        }
-                    }
-                    else if (kistate == 8)
-                    {
-                        //Er springt auf die Plattform! YEA
-                        float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
-                        if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
-                        {
-                            //Kein Grund T_T Beweg mich mal
-                            Move(actualspeed, 0, map);
-                        }
-                        else
-                        {
-                            bool b = false;
-                            // + 96 weil bei 48 der Block ist vom movingend, also nochmal 48 
-                            kicollide = new Rectangle(cbox.box.X + 96, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-
-                            foreach (Block block in map.blocks)
-                            {
-                                if (kicollide.Intersects(block.cbox) && block.block)
+                                else
                                 {
-                                    b = true;
-                                    break;
+                                    for (int i = 0; i < 10; i++)
+                                    {
+                                        kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                        if (kicollide.Intersects(spieler))
+                                            geht = true;
+                                    }
+                                    if (!geht)
+                                        Move(actualspeed, 0, map);
                                 }
+
                             }
-                            if (!b)
+                        }
+                        else if (kistate == 1)
+                        {
+                            //KI befindet sich im Drüberspringmodus bei Abgründen!!
+                            //Gucke ob er Grund haben könnte
+                            float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                            if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
+                            {
+                                if (fall)
+                                {
+                                    for (int i = 0; i < 10; i++)
+                                    {
+                                        kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                        foreach (Block block in map.blocks)
+                                        {
+                                            if (kicollide.Intersects(block.cbox) && block.block)
+                                            {
+                                                geht = true;
+                                                break;
+                                            }
+
+                                        }
+                                    }
+                                }
+                                //Kein Grund T_T Beweg mich mal
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    //kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                    if (kicollide.Intersects(spieler))
+                                        geht = true;
+                                }
+                                if (!geht)
+                                    Move(actualspeed, 0, map);
+                            }
+                            else
                             {
                                 jumptimer = 0;
+                                if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                                {
+                                    //Grund!!!! Wir sind unten!!! Starte normalen Modus
+                                    kistate = 0;
+                                }
                             }
+                        }
+                        else if (kistate == 2)
+                        {
+                            if (jump)
+                            {
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                    if (kicollide.Intersects(spieler))
+                                        geht = true;
+                                }
+                                if (!geht)
+                                    Move(actualspeed, 0, map);
+                            }
+                            //KI befindet sich im Drüberspringmodus!!
+                            //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
+                            //Überprüfe ob rechts immernoch etwas ist
                             if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
                             {
-                                //Grund!!!! Wir sind unten!!! Starte nächsten Modus
+                                jumptimer = 0;
                                 kistate = 0;
+                            }
+                        }
+
+                        else if (kistate == 3)
+                        {
+                            //KI befindet sich im Drüberspringmodus!!
+                            //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
+                            //Überprüfe ob rechts immernoch etwas ist
+                            if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
+                            {
+                                //Rechts ist nichts mehr! Kann mit dem Springen aufhören und sich draufbewegen
+                                Move(actualspeed, 0, map);
+                                jumptimer = 0;
+                                kistate = 0;
+                            }
+                        }
+
+                        else if (kistate == 4)
+                        {
+                            spine.anim("idle", 3, true, gameTime);
+                            //KI befindet sich im Wartemodus!!
+                            //Überprüfe ob die Plattform bald da ist
+                            bool bewegblock = false;
+                            kicollide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                            foreach (MovingBlock mblock in map.mblocks)
+                            {
+                                if (kicollide.Intersects(mblock.cbox))
+                                {
+                                    bewegblock = true;
+                                    //TATSACHE!! Er ist da!!
+                                }
+                            }
+                            if (bewegblock)
+                            {
+                                spine.anim("jump", 3, false, gameTime);
+                                Jump(gameTime, map); //Springen!
+                                kistate = 5;
+                            }
+                        }
+                        else if (kistate == 5)
+                        {
+                            //Er springt auf die Plattform! YEA
+                            float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                            if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
+                            {
+                                //Kein Grund T_T Beweg mich mal
+                                Move(actualspeed, 0, map);
+                            }
+                            else
+                            {
+                                jumptimer = 0;
+                                if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                                {
+                                    //Grund!!!! Wir sind unten!!! Starte nächsten Modus
+                                    kistate = 6;
+                                }
+                            }
+                        }
+                        else if (kistate == 6)
+                        {
+                            //Befindet sich auf der Plattform
+                            //Beweg mich mal nach Forme und schau ob ich da falle T_T
+                            spine.anim("walk", 3, true, gameTime);
+                            Move(actualspeed, 0, map);
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                            {
+                                //Ah wir fallen! Schnell zurück!
+                                Move(-actualspeed, 0, map);
+                                kistate = 7;
+                            }
+                        }
+                        else if (kistate == 7)
+                        {
+                            //Ki Wartet nun am Ende und wartet auf einen movingend
+                            spine.anim("idle", 3, true, gameTime);
+                            bool bewegblock = false;
+                            kicollide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                            foreach (Block block in map.blocks)
+                            {
+                                if (kicollide.Intersects(block.cbox) && block.type == "movingend")
+                                {
+                                    bewegblock = true;
+                                    //TATSACHE!! Er ist da!!
+                                }
+                            }
+                            if (bewegblock)
+                            {
+                                spine.anim("jump", 3, false, gameTime);
+                                Jump(gameTime, map); //Springen!
+                                kistate = 8;
+                            }
+                        }
+                        else if (kistate == 8)
+                        {
+                            //Er springt auf die Plattform! YEA
+                            float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                            if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
+                            {
+                                //Kein Grund T_T Beweg mich mal
+                                Move(actualspeed, 0, map);
+                            }
+                            else
+                            {
+                                bool b = false;
+                                // + 96 weil bei 48 der Block ist vom movingend, also nochmal 48 
+                                kicollide = new Rectangle(cbox.box.X + 96, cbox.box.Y, cbox.box.Width, cbox.box.Height);
+
+                                foreach (Block block in map.blocks)
+                                {
+                                    if (kicollide.Intersects(block.cbox) && block.block)
+                                    {
+                                        b = true;
+                                        break;
+                                    }
+                                }
+                                if (!b)
+                                {
+                                    jumptimer = 0;
+                                }
+                                if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                                {
+                                    //Grund!!!! Wir sind unten!!! Starte nächsten Modus
+                                    kistate = 0;
+                                }
                             }
                         }
                     }

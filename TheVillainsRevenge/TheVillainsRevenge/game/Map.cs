@@ -24,9 +24,71 @@ namespace TheVillainsRevenge
          public List<KIPoint> kipoints = new List<KIPoint>(); //Erstelle Blocks als List
          public List<Obj> objects = new List<Obj>(); //Erstelle Blocks als List
 
+         public List<Block> saveblocks = new List<Block>(); //Erstelle Blocks als List
+         public List<Enemy> saveenemies = new List<Enemy>(); //Erstelle Blocks als List
+         public List<Obj> saveobjects = new List<Obj>(); //Erstelle Blocks als List
+
+
          public Map()
          {
-
+         }
+         public void Save()
+         {
+             saveenemies.Clear();
+             for (int i = 0; i < enemies.Count(); ++i)
+             {
+                 Enemy enemy = enemies.ElementAt(i);
+                 saveenemies.Add(enemy);
+             }
+             saveblocks.Clear();
+             for (int i = 0; i < blocks.Count(); ++i)
+             {
+                 Block block = blocks.ElementAt(i);
+                 saveblocks.Add(block);
+             }
+             saveobjects.Clear();
+             for (int i = 0; i < objects.Count(); ++i)
+             {
+                 Obj obj = objects.ElementAt(i);
+                 saveobjects.Add(obj);
+             }
+             foreach (Trigger trigger in triggers)
+             {
+                 trigger.Save();
+             }
+             foreach (MovingBlock mblock in mblocks)
+             {
+                 mblock.Save();
+             }
+         }
+         public void Reset()
+         {
+             enemies.Clear();
+             for (int i = 0; i < saveenemies.Count(); ++i)
+             {
+                 Enemy enemy = saveenemies.ElementAt(i);
+                 enemies.Add(enemy);
+             }
+             blocks.Clear();
+             for (int i = 0; i < saveblocks.Count(); ++i)
+             {
+                 Block block = saveblocks.ElementAt(i);
+                 blocks.Add(block);
+             }
+             objects.Clear();
+             for (int i = 0; i < saveobjects.Count(); ++i)
+             {
+                 Obj obj = saveobjects.ElementAt(i);
+                 objects.Add(obj);
+             }
+             foreach (Trigger trigger in triggers)
+             {
+                 trigger.Reset(blocks);
+             }
+             foreach (MovingBlock mblock in mblocks)
+             {
+                 mblock.Reset();
+             }
          }
 
          public void Load(ContentManager Content)
@@ -68,15 +130,18 @@ namespace TheVillainsRevenge
 
          public void Draw(SpriteBatch spriteBatch,GameTime gameTime,Camera camera)
          {
-             /*
              spriteBatch.Draw(levelMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 2.0f, SpriteEffects.None, 1.0f);
              for (int i = 0; i < blocks.Count(); ++i)
              { 
                  Block block = blocks.ElementAt(i);
                  //Zeichne die Blöcke anhand der Daten der Blöcke
-                 spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
+                 if (block.type != "underground_earth" && block.type != "ground_grass")
+                 {
+                     spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
+                 }
+                 else if(Game1.debug)
+                     spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
              }
-              * */
              for (int i = 0; i < items.Count(); ++i)
              { 
                  Item item = items.ElementAt(i);
@@ -102,10 +167,17 @@ namespace TheVillainsRevenge
                      spriteBatch.Draw(objectTexture, obj.position, new Rectangle(0, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else if (obj.type == 2)
                      spriteBatch.Draw(objectTexture, obj.position, new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 else if (obj.type == 3)
+                 {  
+                     if(obj.fall)
+                        spriteBatch.Draw(objectTexture, obj.position, new Rectangle(96, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     else
+                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 }
              }
          }
 
-         public void Generate()
+         public void Generate(Player spieler,Hero hero)
          {
              //generiere Das Level (erzeuge neue Objekte in der List) anhand der Levelmap
              int moving_last = 0;
@@ -127,6 +199,20 @@ namespace TheVillainsRevenge
                          }
                          switch (color)
                          {
+                             case "255,100,255":
+                                 spieler.spine.skeleton.X = i*48;
+                                 spieler.spine.skeleton.Y = t * 48;
+                                 spieler.position.Y = spieler.spine.skeleton.Y;
+                                 spieler.position.X = spieler.spine.skeleton.X;
+                                 spieler.cbox.Update(spieler.position);
+                                 hero.spine.skeleton.X = i*48;
+                                 hero.spine.skeleton.Y = t * 48;
+                                 hero.position.Y = hero.spine.skeleton.Y;
+                                 hero.position.X = hero.spine.skeleton.X;
+                                 hero.cbox.Update(hero.position);
+
+                                 break;
+
                              case "147,17,126":
                                  type = "checkpoint";
                                  checkpoints.Add(new Checkpoint(i * 48, false));
@@ -140,6 +226,10 @@ namespace TheVillainsRevenge
                                  }
                                  moving_last = i;
                                  break;
+                             case "119,0,255":
+                                 type = "breakable";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 break;
                              case "180,165,0":
                                  type = "movingend";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
@@ -152,16 +242,8 @@ namespace TheVillainsRevenge
                                  type = "ground_grass";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
-                             case "02,02,02":
-                                 type = "platform_grass";
-                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
-                                 break;
                              case "0,0,255":
                                  type = "water";
-                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
-                                 break;
-                             case "01,01,01":
-                                 type = "underground_rock";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "0,0,0":
@@ -203,6 +285,7 @@ namespace TheVillainsRevenge
                  mblocks.Add(new MovingBlock(blocks));
              }
              checkpoints.Add(new Checkpoint((int)size.X - 100, true)); //Ende
+             Save();
          }
     }
 }

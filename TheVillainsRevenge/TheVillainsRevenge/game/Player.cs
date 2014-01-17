@@ -34,9 +34,13 @@ namespace TheVillainsRevenge
         public Vector2 checkpoint;
         bool checkjump;
         double checkjumpt;
-        public bool smash = false;
         float initAcceleration;
         public float acceleration;
+        public bool hit = false;
+        public bool richtung = false;
+        public bool schlag = false;
+        public bool megaschlag = false;
+        public double megacooldown = 0;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -61,8 +65,6 @@ namespace TheVillainsRevenge
             {
                 kicheckcp.Add(kc);
             }
-            
-
         }
         public void Reset()
         {
@@ -83,7 +85,7 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            spine.Load(position, "skeleton", (float)Convert.ToInt32((double)Game1.luaInstance["playerScale"]) / 10, initAcceleration);
+            spine.Load(position, "skeleton", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), initAcceleration);
         }
 
         public void getHit()
@@ -115,110 +117,163 @@ namespace TheVillainsRevenge
             {
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
-            //-----Move-----
-            if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
+            //-----Schlag-----
+            if (Game1.input.hit)
             {
-                acceleration += 1 / (60 * initAcceleration);
-                if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
+                if (jump || fall)
                 {
-                    spine.anim("run", 2, true, gameTime);
+                    if (megacooldown == 0)
+                    {
+                        jump = false;
+                        fall = true;
+                        hit = true;
+                    }
                 }
-                else if (spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem beim Abbremsen in idle übergehen
+                else
                 {
-                    spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
-                }
-                if (jump || fall) //Zusätzliche Beschleunigung in der Luft
-                {
-                    acceleration += 2 / (60 * initAcceleration);
+                    hit = false;
+                    schlag = true;
                 }
             }
-            else if (Game1.input.links) //Wenn Rechte Pfeiltaste
+            if (hit)
             {
-                acceleration -= 1 / (60 * initAcceleration);
-                if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
+                if (megacooldown == 0)
                 {
-                    spine.anim("run", 1, true, gameTime);
+                    megacooldown += gameTime.ElapsedGameTime.TotalSeconds;
                 }
-                else if (!spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem in idle übergehen
+                falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
+                if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
                 {
-                    spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
-                }
-                if (jump || fall) //Zusätzliche Beschleunigung in der Luft
-                {
-                    acceleration -= 2 / (60 * initAcceleration);
+                    megaschlag = true;
+                    hit = false;
                 }
             }
-            else
+            else if(!Game1.input.hit)
             {
-                //Auslaufen_Abbremsen
-                if (acceleration < 0)
+                if(schlag)
+                    schlag = false;
+                if (megaschlag)
+                    megaschlag = false;
+                if (megacooldown != 0)
                 {
+                    megacooldown += gameTime.ElapsedGameTime.TotalSeconds;
+                    if (megacooldown >= Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagCooldown"]))
+                    {
+                        megacooldown = 0;
+                    }
+                }
+                //-----Move-----
+                if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
+                {
+                    richtung = true;
                     acceleration += 1 / (60 * initAcceleration);
-                    if (acceleration > 0) //Nicht umdrehen
+                    if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
                     {
-                        acceleration = 0;
+                        spine.anim("run", 2, true, gameTime);
+                    }
+                    else if (spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem beim Abbremsen in idle übergehen
+                    {
+                        spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                    }
+                    if (jump || fall) //Zusätzliche Beschleunigung in der Luft
+                    {
+                        acceleration += 2 / (60 * initAcceleration);
                     }
                 }
-                else if (acceleration > 0)
+                else if (Game1.input.links) //Wenn Rechte Pfeiltaste
                 {
+                    richtung = false;
                     acceleration -= 1 / (60 * initAcceleration);
-                    if (acceleration < 0) //Nicht umdrehen
+                    if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
                     {
-                        acceleration = 0;
+                        spine.anim("run", 1, true, gameTime);
+                    }
+                    else if (!spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem in idle übergehen
+                    {
+                        spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                    }
+                    if (jump || fall) //Zusätzliche Beschleunigung in der Luft
+                    {
+                        acceleration -= 2 / (60 * initAcceleration);
                     }
                 }
-                spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
-            }
-            //Keine Beschleunigungs"vermehrung", durch Beschleunigung wird nur MaxSpeed bei jedem Update absolut vermindert. Fake aber funzt...
-            if (acceleration < -initAcceleration)
-            {
-                acceleration = -initAcceleration;
-            }
-            if (acceleration > initAcceleration)
-            {
-                acceleration = initAcceleration;
-            }
-            if (CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks).X < (int)((acceleration / initAcceleration) * actualspeed))
-            {
-                acceleration = -acceleration / 2;
-            }
-            Move((int)((acceleration / initAcceleration) * actualspeed), 0, map);
-            if (Game1.input.sprung)
-            {
-                if (!jump && !fall)
+                else
                 {
-                    Jump(gameTime, map); //Springen!
+                    //Auslaufen_Abbremsen
+                    if (acceleration < 0)
+                    {
+                        acceleration += 1 / (60 * initAcceleration);
+                        if (acceleration > 0) //Nicht umdrehen
+                        {
+                            acceleration = 0;
+                        }
+                    }
+                    else if (acceleration > 0)
+                    {
+                        acceleration -= 1 / (60 * initAcceleration);
+                        if (acceleration < 0) //Nicht umdrehen
+                        {
+                            acceleration = 0;
+                        }
+                    }
+                    spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
                 }
-            }
-            else
-            {
-                if (jump)
+                //Keine Beschleunigungs"vermehrung", durch Beschleunigung wird nur MaxSpeed bei jedem Update absolut vermindert. Fake aber funzt...
+                if (acceleration < -initAcceleration)
                 {
-                    jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
+                    acceleration = -initAcceleration;
                 }
-            }
-            if (Game1.input.itemw)
-            {
-                int i = item1;
-                item1 = item2;
-                item2 = i;
-            }
-            if (Game1.input.itemu)
-            {
-                if (item1 == 1)
+                if (acceleration > initAcceleration)
                 {
-                    GameScreen.slow = GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["itemSlowTime"]);
-                    item1 = 0;
+                    acceleration = initAcceleration;
                 }
-                else if (item1 == 2 && !fall && !jump)
+                if (CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks).X < (int)((acceleration / initAcceleration) * actualspeed))
                 {
-                    map.objects.Add(new Banana(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 1));
-                    item1 = 0;
+                    acceleration = -acceleration / 2;
                 }
-                else if (item1 == 3 && !fall && !jump)
+                Move((int)((acceleration / initAcceleration) * actualspeed), 0, map);
+                if (Game1.input.sprung)
                 {
-                    map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2));
-                    item1 = 0;
+                    if (!jump && !fall)
+                    {
+                        Jump(gameTime, map); //Springen!
+                    }
+                }
+                else
+                {
+                    if (jump)
+                    {
+                        jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
+                    }
+                }
+                if (Game1.input.itemw)
+                {
+                    int i = item1;
+                    item1 = item2;
+                    item2 = i;
+                }
+                if (Game1.input.itemu)
+                {
+                    if (item1 == 1)
+                    {
+                        GameScreen.slow = GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["itemSlowTime"]);
+                        item1 = 0;
+                    }
+                    else if (item1 == 2 && !fall && !jump)
+                    {
+                        map.objects.Add(new Banana(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 1));
+                        item1 = 0;
+                    }
+                    else if (item1 == 3 && !fall && !jump)
+                    {
+                        map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2));
+                        item1 = 0;
+                    }
+                    if (item1 == 0 && item2 != 0)
+                    {
+                        item1 = item2;
+                        item2 = 0;
+                    }
                 }
             }
 
@@ -271,7 +326,6 @@ namespace TheVillainsRevenge
                         }
                         else
                         {
-                            GameScreen.test = 1;
                             if (block.move == 1)
                                 block.move = 2;
                             else

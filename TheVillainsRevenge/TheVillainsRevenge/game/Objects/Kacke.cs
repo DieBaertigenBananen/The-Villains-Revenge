@@ -10,7 +10,6 @@ namespace TheVillainsRevenge
     class Kacke : Obj
     {
         public bool richtung;
-        public bool fall = false;
         public int y = Convert.ToInt32((double)Game1.luaInstance["kackeStartY"]);
         public Kacke(Vector2 pos, int t,bool richtung)
             : base(pos, t)//Konstruktor, setzt Anfangsposition

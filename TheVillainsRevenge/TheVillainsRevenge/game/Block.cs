@@ -44,6 +44,17 @@ namespace TheVillainsRevenge
             //Je nach Blocktyp Ausschnitt aus Textur und größe der Kollisionsbox anpassen
             switch (type)
             {
+                case "breakable":
+                    cuttexture.X = 0;
+                    cuttexture.Y = 0;
+                    break;
+                case "water":
+                    cuttexture.X = 0;
+                    cuttexture.Y = 0;
+                    cuttexture.Width = 0;
+                    cuttexture.Height = 0;
+                    block = false;
+                    break;
                 case "movingend":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
@@ -70,39 +81,11 @@ namespace TheVillainsRevenge
                     cbox.Height = 46;
                     cbox.Y = (int)position.Y + 2;
                     break;
-                case "underground_earth":
+                default:
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
                     break;
-                case "ground_grass":
-                    cuttexture.X = 48;
-                    cuttexture.Y = 0;
-                    break;
-                case "platform_grass":
-                    cuttexture.X = 2 * 48;
-                    cuttexture.Y = 0;
-                    break;
-                case "water":
-                    cuttexture.X = 3 * 48;
-                    cuttexture.Y = 0;
-                    block = false;
-                    break;
-                case "underground_rock":
-                    cuttexture.X = 0;
-                    cuttexture.Y = 48;
-                    break;
-                case "ground_rock":
-                    cuttexture.X = 48;
-                    cuttexture.Y = 48;
-                    break;
-                case "platform_rock":
-                    cuttexture.X = 2 * 48;
-                    cuttexture.Y = 48;
-                    break;
-                case "lava":
-                    cuttexture.X = 3 * 48;
-                    cuttexture.Y = 48;
-                    break;
+
             }
 
         }

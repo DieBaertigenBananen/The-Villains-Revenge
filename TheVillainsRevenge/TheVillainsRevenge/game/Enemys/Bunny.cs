@@ -13,7 +13,13 @@ namespace TheVillainsRevenge
         
         public Bunny(Vector2 pos, int t) : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
-            spine.Load(position, "skullmonkey", 0.1f, acceleration);
+            spine.Load(position, "fluffy", (float)Convert.ToDouble(Game1.luaInstance["bunnySize"]), acceleration);
+        }
+        public override void die(GameTime gameTime)
+        {
+            spine.anim("die", 3, false, gameTime);
+            dead = true;
+            animeTime = 1;
         }
         public override void Update(GameTime gameTime, Map map, Vector2 heropos)
         {
@@ -56,9 +62,9 @@ namespace TheVillainsRevenge
                 }
             }
             if(mover)
-                spine.anim("walking", 1, true, gameTime);
+                spine.anim("walk", 1, true, gameTime);
             else
-                spine.anim("walking", 2, true, gameTime);
+                spine.anim("walk", 2, true, gameTime);
 
             //Gravitation
             if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)

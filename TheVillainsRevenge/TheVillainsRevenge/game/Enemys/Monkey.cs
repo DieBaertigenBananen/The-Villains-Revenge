@@ -13,7 +13,13 @@ namespace TheVillainsRevenge
         public Monkey(Vector2 pos, int t)
             : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
-            spine.Load(position, "skullmonkey", 0.1f, acceleration);
+            spine.Load(position, "skullmonkey", (float)Convert.ToDouble(Game1.luaInstance["monkeySize"]), acceleration);
+        }
+        public override void die(GameTime gameTime)
+        {
+            spine.anim("dying", 3, false, gameTime);
+            dead = true;
+            animeTime = 1;
         }
         public override void Update(GameTime gameTime, Map map,Vector2 heropos)
         {
