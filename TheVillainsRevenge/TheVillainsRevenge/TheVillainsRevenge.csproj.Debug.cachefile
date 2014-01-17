@@ -1,12 +1,22 @@
 Content\fonts\schrift.xnb
-Content\sprites\block.xnb
-Content\sprites\bunny.xnb
-Content\sprites\gui.xnb
-Content\sprites\itemslot.xnb
-Content\sprites\player.xnb
 Content\sprites\tiles.xnb
+Content\sprites\player.xnb
+Content\sprites\bunny.xnb
 Content\sprites\items.xnb
+<<<<<<< HEAD
+=======
+Content\sprites\itemslot.xnb
+Content\sprites\block.xnb
+Content\sprites\gui.xnb
+Content\sprites\Level_1\map.xnb
+Content\CoverEyes.xnb
+Content\Smash.xnb
+Content\sprites\trigger.xnb
+Content\sounds\Level_1\background.xnb
+>>>>>>> origin/Foreground
 Content\sprites\menu_buttons.xnb
+Content\Outline.xnb
+Content\Button.xnb
 Content\sprites\level_1\planes\background_0_1.xnb
 Content\sprites\level_1\planes\background_0_2.xnb
 Content\sprites\level_1\planes\background_0_3.xnb
@@ -18,15 +28,19 @@ Content\sprites\level_1\planes\background_2_1.xnb
 Content\sprites\level_1\planes\background_2_2.xnb
 Content\sprites\level_1\planes\background_3_1.xnb
 Content\sprites\level_1\planes\clouds_1.xnb
-Content\sprites\monkey.xnb
 Content\sprites\level_1\planes\clouds_2.xnb
-Content\sprites\objects.xnb
 Content\sprites\level_1\planes\clouds_3.xnb
+<<<<<<< HEAD
+=======
+Content\sprites\monkey.xnb
+Content\sprites\objects.xnb
+>>>>>>> origin/Foreground
 Content\sprites\level_1\planes\foreground_0_1.xnb
 Content\sprites\level_1\planes\foreground_0_2.xnb
 Content\sprites\level_1\planes\foreground_0_3.xnb
 Content\sprites\level_1\planes\foreground_0_4.xnb
 Content\sprites\level_1\planes\foreground_0_5.xnb
+<<<<<<< HEAD
 Content\sprites\level_1\map.xnb
 Content\CoverEyes.xnb
 Content\Smash.xnb
@@ -34,6 +48,13 @@ Content\Outline.xnb
 Content\Button.xnb
 Content\sprites\trigger.xnb
 Content\sounds\Level_1\background.xnb
+=======
+Content\sprites\level_1\planes\foreground_1_1.xnb
+Content\sprites\level_1\planes\foreground_1_2.xnb
+Content\sprites\level_1\planes\foreground_1_3.xnb
+Content\sprites\level_1\planes\foreground_1_4.xnb
+Content\sprites\level_1\planes\foreground_1_5.xnb
+>>>>>>> origin/Foreground
 spine\sprites\ashbrett.png
 spine\sprites\fluffy.png
 spine\sprites\skeleton.png
