@@ -22,6 +22,7 @@ namespace TheVillainsRevenge
         Map karte = new Map();
         Camera camera = new Camera();
         GUI gui = new GUI();
+        ParallaxPlane foreground_1 = new ParallaxPlane("foreground_1");
         ParallaxPlane foreground_0 = new ParallaxPlane("foreground_0");
         ParallaxPlane background_0 = new ParallaxPlane("background_0");
         ParallaxPlane background_1 = new ParallaxPlane("background_1");
@@ -123,7 +124,8 @@ namespace TheVillainsRevenge
             princess.Load(Content, Game1.graphics);
             karte.Load(Content);
             karte.Generate(spieler,hero);
-            foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForegroundHeightOffset"]));
+            foreground_1.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground1HeightOffset"]));
+            foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground0HeightOffset"]));
             background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]), 0);
             background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]), 0);
             background_2.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]), 0);
@@ -428,6 +430,7 @@ namespace TheVillainsRevenge
                 //--------------------Camera--------------------
                 camera.Update(Game1.graphics, spieler, karte);
                 //--------------------Backgrounds--------------------
+                foreground_1.Update(karte, camera);
                 foreground_0.Update(karte, camera);
                 background_0.Update(karte, camera);
                 background_1.Update(karte, camera);
@@ -513,6 +516,11 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             foreground_0.Draw(spriteBatch, spieler); //Ebene
+            //Foreground1
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground_0);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            foreground_1.Draw(spriteBatch, spieler); //Ebene
             spriteBatch.End();
 
             //----------------------------------------------------------------------

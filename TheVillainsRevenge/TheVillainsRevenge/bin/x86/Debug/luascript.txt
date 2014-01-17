@@ -10,7 +10,8 @@ planeTilesBackground0 = 4 --Baueme
 planeTilesBackground1 = 2 --Wald
 planeTilesBackground2 = 1 --Berg
 planeTilesBackground3 = 1 --Himmel
-planeForegroundHeightOffset = 46 * 48 - 960
+planeForeground0HeightOffset = 46 * 48 - 960
+planeForeground1HeightOffset = 46 * 48 - 960
 
 blockSpeed = 5	
 triggerTime = 5
