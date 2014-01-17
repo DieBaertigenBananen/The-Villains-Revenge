@@ -588,12 +588,17 @@ namespace TheVillainsRevenge
                     for (int i = 0; i < spieler.kicheck.Count(); i++)
                     {
                         KICheck kicheck = spieler.kicheck.ElementAt(i);
-                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(Game1.resolution.X - 300, 390 + i * 20), Color.White);
+                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(10, 100 + i * 20), Color.White);
                     }
                     for (int i = 0; i < hero.kicheck.Count(); i++)
                     {
                         KICheck kicheck = hero.kicheck.ElementAt(i);
-                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(Game1.resolution.X - 400, 390 + i * 20), Color.White);
+                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 100 + i * 20), Color.White);
+                    }
+                    for (int i = 0; i < karte.saveenemies.Count(); i++)
+                    {
+                        Enemy enemy = karte.saveenemies.ElementAt(i);
+                        spriteBatch.DrawString(font, "Enemy pos:" + enemy.position.X, new Vector2(Game1.resolution.X - 400, 410 + i * 20), Color.White);
                     }
                 }
                     gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);

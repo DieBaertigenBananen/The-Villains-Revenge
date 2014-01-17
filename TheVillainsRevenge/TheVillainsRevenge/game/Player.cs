@@ -32,6 +32,7 @@ namespace TheVillainsRevenge
         //Checkpoint Speicherng//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         public Vector2 checkpoint;
+        double checkmegacooldown = 0;
         bool checkjump;
         double checkjumpt;
         float initAcceleration;
@@ -56,6 +57,7 @@ namespace TheVillainsRevenge
         }
         public void Save(int x)
         {
+            checkmegacooldown = megacooldown;
             checkpoint.X = x;
             checkpoint.Y = position.Y;
             checkjump = jump;
@@ -68,6 +70,7 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
+            megacooldown = checkmegacooldown;
             jump = checkjump;
             jumptimer = checkjumpt;
             spine.skeleton.x = checkpoint.X;

@@ -38,19 +38,28 @@ namespace TheVillainsRevenge
              for (int i = 0; i < enemies.Count(); ++i)
              {
                  Enemy enemy = enemies.ElementAt(i);
-                 saveenemies.Add(enemy);
+                 if(enemy.type == 1)
+                     saveenemies.Add(new Bunny(enemy.position, enemy.type, enemy.mover));
+                 else if (enemy.type == 2)
+                     saveenemies.Add(new Monkey(enemy.position, enemy.type));
              }
              saveblocks.Clear();
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
-                 saveblocks.Add(block);
+                 if (block.type == "breakable")
+                     saveblocks.Add(new Block(block.position, block.type));
              }
              saveobjects.Clear();
              for (int i = 0; i < objects.Count(); ++i)
              {
                  Obj obj = objects.ElementAt(i);
-                 saveobjects.Add(obj);
+                 if(obj.type == 1)
+                     saveobjects.Add(new Banana(obj.position, 1));
+                 else if (obj.type == 2)
+                     saveobjects.Add(new Kacke(obj.position, 2,obj.richtung));
+                 else if (obj.type == 3)
+                     saveobjects.Add(new Debris(obj.position, 3));
              }
              foreach (Trigger trigger in triggers)
              {
@@ -67,19 +76,32 @@ namespace TheVillainsRevenge
              for (int i = 0; i < saveenemies.Count(); ++i)
              {
                  Enemy enemy = saveenemies.ElementAt(i);
-                 enemies.Add(enemy);
+                 if (enemy.type == 1)
+                     enemies.Add(new Bunny(enemy.position, enemy.type, enemy.mover));
+                 if (enemy.type == 2)
+                     enemies.Add(new Monkey(enemy.position, enemy.type));
              }
-             blocks.Clear();
+             for (int i = 0; i < blocks.Count(); ++i)
+             {
+                 Block block = blocks.ElementAt(i);
+                 if (block.type == "breakable")
+                     blocks.RemoveAt(i);
+             }
              for (int i = 0; i < saveblocks.Count(); ++i)
              {
                  Block block = saveblocks.ElementAt(i);
-                 blocks.Add(block);
+                 blocks.Add(new Block(block.position, block.type));
              }
              objects.Clear();
              for (int i = 0; i < saveobjects.Count(); ++i)
              {
                  Obj obj = saveobjects.ElementAt(i);
-                 objects.Add(obj);
+                 if (obj.type == 1)
+                     objects.Add(new Banana(obj.position, 1));
+                 else if (obj.type == 2)
+                     objects.Add(new Kacke(obj.position, 2, obj.richtung));
+                 else if (obj.type == 3)
+                     objects.Add(new Debris(obj.position, 3));
              }
              foreach (Trigger trigger in triggers)
              {
@@ -248,7 +270,7 @@ namespace TheVillainsRevenge
                                  break;
                              case "0,0,0":
                                  type = "hase";
-                                 enemies.Add(new Bunny(new Vector2(i * 48, (t * 48)-64), 1));
+                                 enemies.Add(new Bunny(new Vector2(i * 48, (t * 48)-64), 1,true));
                                  break;
                              case "255,255,0":
                                  type = "zeit";

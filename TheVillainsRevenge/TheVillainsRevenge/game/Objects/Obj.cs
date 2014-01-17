@@ -10,6 +10,7 @@ namespace TheVillainsRevenge
     class Obj
     {
         //Objekte wie banana/geworfenes womit der Ashbrett kollidiert
+        public bool richtung;
         public bool fall = true;
         public Vector2 position; //Position
         public Rectangle box; //Kollisionsbox

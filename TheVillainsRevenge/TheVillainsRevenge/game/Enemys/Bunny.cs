@@ -11,8 +11,9 @@ namespace TheVillainsRevenge
     {
         float acceleration;
         
-        public Bunny(Vector2 pos, int t) : base(pos, t)//Konstruktor, setzt Anfangsposition
+        public Bunny(Vector2 pos, int t,bool mover) : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
+            this.mover = mover;
             spine.Load(position, "fluffy", (float)Convert.ToDouble(Game1.luaInstance["bunnySize"]), acceleration);
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["bunnyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["bunnyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["bunnyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["bunnyCollisionHeight"]));
         }
