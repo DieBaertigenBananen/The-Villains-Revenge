@@ -34,8 +34,9 @@ namespace TheVillainsRevenge
         Sound bgmusic = new Sound("sounds/Level_1/background");
         RenderTarget2D renderScreen;
         RenderTarget2D renderSpine;
-        RenderTarget2D renderForeground;
+        RenderTarget2D renderGame;
         RenderTarget2D renderForeground_0;
+        RenderTarget2D renderForeground_1;
         RenderTarget2D renderBackground0;
         RenderTarget2D renderBackground1;
         RenderTarget2D renderBackground2;
@@ -111,7 +112,8 @@ namespace TheVillainsRevenge
         {
             renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderForeground = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderForeground_1 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderForeground_0 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderBackground0 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderBackground1 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
@@ -511,22 +513,25 @@ namespace TheVillainsRevenge
                     spriteBatch.Draw(debug, new Vector2(background_0.position.X, background_0.position.Y), Color.White);
                 }
             spriteBatch.End();
+            //----------------------------------------------------------------------
+            //----------------------------------------Draw to renderForeground
+            //----------------------------------------------------------------------
             //Foreground0
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground_0);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             foreground_0.Draw(spriteBatch, spieler); //Ebene
+            spriteBatch.End();
             //Foreground1
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground_0);
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground_1);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             foreground_1.Draw(spriteBatch, spieler); //Ebene
             spriteBatch.End();
-
             //----------------------------------------------------------------------
-            //----------------------------------------Draw to RenderForeground
+            //----------------------------------------Draw to RenderGame
             //----------------------------------------------------------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground);
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderGame);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 karte.Draw(spriteBatch,gameTime,camera); //Plattformen & Co
@@ -617,10 +622,6 @@ namespace TheVillainsRevenge
             outline.Parameters["lineSize"].SetValue(20);
             outline.Parameters["lineBrightness"].SetValue(0);
             spriteBatch.Draw(renderBackground0, Vector2.Zero, Color.White);
-            //Foreground0
-            outline.Parameters["lineSize"].SetValue(0);
-            outline.Parameters["lineBrightness"].SetValue(0);
-            spriteBatch.Draw(renderForeground_0, Vector2.Zero, Color.White);
             spriteBatch.End();
             //-----Spielebene-----
             if (princess.beating || spieler.megaschlag) //-----[Shader]-----Smash
@@ -631,7 +632,9 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             }
-            spriteBatch.Draw(renderForeground, Vector2.Zero, Color.White);
+            spriteBatch.Draw(renderForeground_0, Vector2.Zero, Color.White);
+            spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
+            spriteBatch.Draw(renderForeground_1, Vector2.Zero, Color.White);
             spriteBatch.End();
 
             //----------------------------------------------------------------------

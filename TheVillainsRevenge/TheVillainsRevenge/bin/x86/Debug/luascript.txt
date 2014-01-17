@@ -1,6 +1,6 @@
 --Loading
 playerStartLifes = 4
-playerScale = 3
+playerScale = 0.3
 playerCollisionWidth = 100
 playerCollisionHeight = 125
 playerCollisionOffsetX = -playerCollisionWidth / 2
@@ -10,13 +10,13 @@ planeTilesBackground0 = 4 --Baueme
 planeTilesBackground1 = 2 --Wald
 planeTilesBackground2 = 1 --Berg
 planeTilesBackground3 = 1 --Himmel
-planeForeground0HeightOffset = 46 * 48 - 960
-planeForeground1HeightOffset = 46 * 48 - 960
+planeForeground0HeightOffset = 46 * 48 - 2208
+planeForeground1HeightOffset = 46 * 48 - 2208
 
 blockSpeed = 5	
 triggerTime = 5
  
-heroScale = 6
+heroScale = 0.6
 heroStartTime = 5
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
