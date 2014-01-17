@@ -230,7 +230,7 @@ namespace TheVillainsRevenge
                 {
                     acceleration = initAcceleration;
                 }
-                if (CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks).X < (int)((acceleration / initAcceleration) * actualspeed))
+                if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
                 {
                     acceleration = -acceleration / 2;
                 }
