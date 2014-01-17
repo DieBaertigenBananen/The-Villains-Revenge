@@ -30,7 +30,7 @@ namespace TheVillainsRevenge
             }
         }
 
-        public void Update(int wind)
+        public void Update(float wind)
         {
             if (GameScreen.slow != 0)
             {
