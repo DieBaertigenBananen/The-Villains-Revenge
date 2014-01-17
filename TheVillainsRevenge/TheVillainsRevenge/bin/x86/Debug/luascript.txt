@@ -1,37 +1,37 @@
 --Loading
-playerStartLifes = 4
-playerScale = 0.3
-playerCollisionWidth = 100
-playerCollisionHeight = 125
-playerCollisionOffsetX = -playerCollisionWidth / 2
-playerCollisionOffsetY = -210
-
 planeTilesBackground0 = 4 --Baueme
 planeTilesBackground1 = 2 --Wald
 planeTilesBackground2 = 1 --Berg
 planeTilesBackground3 = 1 --Himmel
 planeForegroundHeightOffset = 46 * 48 - 960
 
-blockSpeed = 5	
-triggerTime = 5
+playerAcceleration = 15
+playerStartLifes = 4
+playerScale = 0.35
+playerCollisionWidth = 100
+playerCollisionHeight = 185
+playerCollisionOffsetX = -playerCollisionWidth / 2
+playerCollisionOffsetY = -285
  
-heroScale = 0.3
-heroStartTime = 5
+heroScale = 0.32
+heroStartTime = 4000
 heroCollisionOffsetX = -20
-heroCollisionOffsetY = -100
+heroCollisionOffsetY = -150
 heroCollisionWidth = 45
-heroCollisionHeight = 100
+heroCollisionHeight = 150
 heroCloseWalkRange = 500
 
+bunnySize = 0.25
 bunnyCollisionOffsetX = -32
-bunnyCollisionOffsetY = -64
+bunnyCollisionOffsetY = -84
 bunnyCollisionWidth = 64
-bunnyCollisionHeight = 64
+bunnyCollisionHeight = 84
 
+monkeySize = 0.19
 monkeyCollisionOffsetX = -32
-monkeyCollisionOffsetY = -64
-monkeyCollisionWidth = 64
-monkeyCollisionHeight = 64
+monkeyCollisionOffsetY = -119
+monkeyCollisionWidth = 84
+monkeyCollisionHeight = 119
 
 princessRageChance = 100
 princessRageWarmup = 10
@@ -40,10 +40,12 @@ princessUnrageSpeed = 10
 princessRageLimit = 100
 princessCoverTime = 5
 
-playerAcceleration = 15
+blockSpeed = 5	
+triggerTime = 5
+
 
 --Update
-playerSpeed = 11
+playerSpeed = 12
 playerAirspeed = playerSpeed - 2
 playerJumppower = 30
 playerGravitation = 60
@@ -53,17 +55,15 @@ playerMegaSchlagRange = 48
 playerMegaSchlagFall = 2000
 playerMegaSchlagCooldown = 10
 
-heroSpeed = 11
+heroSpeed = 12
 heroAirspeed = heroSpeed - 2
 heroJumppower = 30
 heroGravitation = 60
 
-bunnySize = 0.18
-bunnySpeed = 2
+bunnySpeed = 4
 bunnyGravitation = 60
 
-monkeySize = 0.1
-monkeySpeed = 12
+monkeySpeed = 13
 monkeyThrowRange = 500
 monkeyGravitation = 60
 
@@ -84,15 +84,14 @@ minimapOffsetX = 1920 / 2 - minimapWidth / 2
 itemSlowTime = 5
 itemSlowReduce = 2
 
-
 cloudPlane1Width = 13440
 cloudPlane1Height = 1850
 cloudPlane1Top = 600
 cloudPlane1Bottom = 800
-cloudPlane1Amount = 93000
+cloudPlane1Amount = 83000
 cloudPlane1Chaos = 0
 cloudPlane1Type = 5
-cloudPlane1Wind = 3
+cloudPlane1Wind = 1
 cloudPlane1SizeMin = 70
 cloudPlane1SizeMax = 90
 
@@ -100,7 +99,7 @@ cloudPlane2Width = 5760
 cloudPlane2Height = 1350
 cloudPlane2Top = 80
 cloudPlane2Bottom = 850
-cloudPlane2Amount = 94000
+cloudPlane2Amount = 84000
 cloudPlane2Chaos = 0
 cloudPlane2Type = 5
 cloudPlane2Wind = 2
@@ -111,10 +110,10 @@ cloudPlane3Width = 2880
 cloudPlane3Height = 1150
 cloudPlane3Top = 50
 cloudPlane3Bottom = 1250
-cloudPlane3Amount = 95000
+cloudPlane3Amount = 85000
 cloudPlane3Chaos = 0
 cloudPlane3Type = 5
-cloudPlane3Wind = 1
+cloudPlane3Wind = 1 
 cloudPlane3SizeMin = 20
 cloudPlane3SizeMax = 40
 
