@@ -85,7 +85,7 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            spine.Load(position, "skeleton", (float)Convert.ToInt32((double)Game1.luaInstance["playerScale"]) / 10, initAcceleration);
+            spine.Load(position, "skeleton", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), initAcceleration);
         }
 
         public void getHit()

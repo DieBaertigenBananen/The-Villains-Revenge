@@ -56,7 +56,7 @@ namespace TheVillainsRevenge
         }
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            spine.Load(position, "ashbrett",(float)Convert.ToInt32((double)Game1.luaInstance["heroScale"]) / 20, acceleration);
+            spine.Load(position, "ashbrett", (float)Convert.ToDouble(Game1.luaInstance["heroScale"]), acceleration);
         }
         public void Draw(GameTime gameTime, Camera camera)
         {
