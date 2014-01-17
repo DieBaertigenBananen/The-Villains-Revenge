@@ -172,7 +172,7 @@ namespace TheVillainsRevenge
              }
          }
 
-         public void Generate()
+         public void Generate(Player spieler,Hero hero)
          {
              //generiere Das Level (erzeuge neue Objekte in der List) anhand der Levelmap
              int moving_last = 0;
@@ -194,6 +194,20 @@ namespace TheVillainsRevenge
                          }
                          switch (color)
                          {
+                             case "255,100,255":
+                                 spieler.spine.skeleton.X = i*48;
+                                 spieler.spine.skeleton.Y = t * 48;
+                                 spieler.position.Y = spieler.spine.skeleton.Y;
+                                 spieler.position.X = spieler.spine.skeleton.X;
+                                 spieler.cbox.Update(spieler.position);
+                                 hero.spine.skeleton.X = i*48;
+                                 hero.spine.skeleton.Y = t * 48;
+                                 hero.position.Y = hero.spine.skeleton.Y;
+                                 hero.position.X = hero.spine.skeleton.X;
+                                 hero.cbox.Update(hero.position);
+
+                                 break;
+
                              case "147,17,126":
                                  type = "checkpoint";
                                  checkpoints.Add(new Checkpoint(i * 48, false));

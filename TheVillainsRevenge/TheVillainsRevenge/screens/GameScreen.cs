@@ -122,7 +122,7 @@ namespace TheVillainsRevenge
             hero.Load(Content, Game1.graphics);
             princess.Load(Content, Game1.graphics);
             karte.Load(Content);
-            karte.Generate();
+            karte.Generate(spieler,hero);
             foreground_0.Load(Content, 5);
             background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]));
             background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]));
@@ -353,7 +353,6 @@ namespace TheVillainsRevenge
                 {
                     if (spieler.position.X > cpoint.x && spieler.checkpoint.X < cpoint.x)
                     {
-                        //TODO: Speichern aller dynamischen Objekte in der Welt um diesen Zustand bei zurücksetzen an Checkpoint exakt zu rekonstruieren.
                         if (cpoint.end)
                         {
                             spieler.spine.anim("idle", 1, false, gameTime);
@@ -422,7 +421,7 @@ namespace TheVillainsRevenge
                     Reset();
                 }
                 //Held hat den Spieler eingeholt
-                if (spieler.cbox.box.Intersects(hero.cbox.box))
+                if (spieler.cbox.box.Intersects(hero.cbox.box)&&hero.start)
                 {
                     spieler.lifes = 0;
                 }

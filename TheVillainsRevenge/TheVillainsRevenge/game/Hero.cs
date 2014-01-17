@@ -22,7 +22,7 @@ namespace TheVillainsRevenge
         public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int jumppower; //Anfangsgeschwindigkeit in m/s _/60
         public double herotime;
-        bool start = false;
+        public bool start = false;
         int heroStartTime;
         public Spine spine;
         public int kistate; //State der KI Berechnung
