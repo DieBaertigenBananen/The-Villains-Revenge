@@ -51,6 +51,7 @@ namespace TheVillainsRevenge
         public int test = 0;
 
         //KIDaten
+        //Dies sind Luafunktionen für den netten GD
         public int getPoints(string w)
         {
             if (w == "Spieler")
@@ -149,14 +150,7 @@ namespace TheVillainsRevenge
             {
                 enemy.Save();
             }
-            foreach (Trigger trigger in karte.triggers)
-            {
-                trigger.Save();
-            }
-            foreach (MovingBlock mblock in karte.mblocks)
-            {
-                mblock.Save();
-            }
+            karte.Save();
         }
         public void Reset()
         {
@@ -169,14 +163,7 @@ namespace TheVillainsRevenge
                 {
                     enemy2.Reset();
                 }
-                foreach (Trigger trigger in karte.triggers)
-                {
-                    trigger.Reset(karte.blocks);
-                }
-                foreach (MovingBlock mblock in karte.mblocks)
-                {
-                    mblock.Reset();
-                }
+                karte.Reset();
             }
         }
 
@@ -184,8 +171,11 @@ namespace TheVillainsRevenge
         {
             if (!levelend)
             {
+                //Update Spieler
                 spieler.Update(gameTime, karte);
+                //erstelle den SchlagRectangle
                 Rectangle schlagRECT = new Rectangle(spieler.cbox.box.X, spieler.cbox.box.Y, spieler.cbox.box.Width, spieler.cbox.box.Height);
+                //Definiere den SchlagRectangle falls der Spieler schlägt
                 if(spieler.schlag)
                 {
                     if (spieler.richtung)
@@ -216,25 +206,28 @@ namespace TheVillainsRevenge
                     }
                     schlagRECT.Y -= 1;
                 }
+
                 //--------------------Map--------------------
                 karte.Update(gameTime, spieler.cbox.box);
+                //Objekte updaten
                 for (int i = 0; i < karte.objects.Count(); i++)
                 {
                     Obj obj = karte.objects.ElementAt(i);
                     obj.Update(gameTime, karte);
                     if (obj.box.Intersects(hero.cbox.box))
                     {
-                        if (obj.type != 3)
+                        if (obj.type != 3) //Obj
                         {
+                            //Banane oder Kacke, verlangsame und entferne sich selber
                             hero.slowtime += 10;
                             karte.objects.Remove(obj);
                         }
                         else
-                        {
-                            hero.slowtime = 1;
+                        { //obj ist geröll, verlangsame den Held ohne entfernt zu werden
+                            hero.slowtime += 0.1;
                         }
                     }
-                    else if (obj.type == 2)
+                    else if (obj.type == 2) // Kacke
                     {
                         foreach (Block block in karte.blocks)
                         {
@@ -245,7 +238,7 @@ namespace TheVillainsRevenge
                             }
                         }
                     }
-                    else if (obj.type == 3&&obj.fall)
+                    else if (obj.type == 3&&obj.fall) //Geröll/Debris
                     {
                         foreach (Block block in karte.blocks)
                         {
@@ -257,10 +250,12 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
+                //Update Enemies
                 for (int i = 0; i <karte.enemies.Count(); i++)
                 {
                     Enemy enemy = karte.enemies.ElementAt(i);
-                    if (enemy.dead)
+                    //Wenn Enemy tot ist update die Animation
+                    if (enemy.dead) 
                     {
                         if (enemy.animeTime <= 0)
                         {
@@ -271,78 +266,79 @@ namespace TheVillainsRevenge
                             enemy.animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
                         }
                     }
-                    else
+                    else //Enemy lebt
                     {
                         enemy.Update(gameTime, karte, hero.position);
+                        //Wenn Spieler schlägt
                         if (spieler.schlag)
                         {
-                            if(schlagRECT.Intersects(enemy.cbox.box)&&enemy.type == 1)
+                            if(schlagRECT.Intersects(enemy.cbox.box)&&enemy.type == 1) //Töte Kanninchen
                             {
-                            enemy.spine.anim("die", 3, false,gameTime);
-                            enemy.dead = true;
-                            enemy.animeTime = 1;
+                                enemy.die(gameTime);
                             }
                         }
+                            //Megaschlag
                         else if (spieler.megaschlag)
                         {
-                            if (schlagRECT.Intersects(enemy.cbox.box) && enemy.type == 1)
+                            if (schlagRECT.Intersects(enemy.cbox.box) && enemy.type == 1) //Töte Kanninchen
                             {
-                                enemy.spine.anim("die", 3, false, gameTime);
-                                enemy.dead = true;
-                                enemy.animeTime = 1;
+                                enemy.die(gameTime);
                             }
                         }
+                        //Wenn Enemy aus der Map läuft
                         if (enemy.position.X < -enemy.cbox.box.Width || enemy.position.Y < -enemy.cbox.box.Height || enemy.position.X > karte.size.X || enemy.position.Y > karte.size.Y)
                         {
                             karte.enemies.Remove(enemy);
                         }
+                        //Wenn Spieler von enemy getroffen wird
                         if (spieler.cbox.box.Intersects(enemy.cbox.box) && enemy.type == 1)
                         {
                             if (spieler.hit&&spieler.fall)
                             {
-                                enemy.spine.anim("die", 3, false, gameTime);
-                                enemy.dead = true;
-                                enemy.animeTime = 1;
+                                //Falls Megaschlag
+                                enemy.die(gameTime);
                             }
                             else
                             {
+                                //Kein Megaschlag, Spieler stirbt
                                 spieler.getHit();
                                 Reset();
                             }
                         }
+                        //Falls hero den Monkey erreicht
                         if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
                         {
-                            enemy.spine.anim("dying", 3, false,gameTime);
-                            enemy.dead = true;
-                            enemy.animeTime = 1;
+                            enemy.die(gameTime);
+                            hero.attack(gameTime);
                         }
                     }
                 }
+                //Update Items
                 foreach (Item item in karte.items)
                 {
                     if (spieler.cbox.box.Intersects(item.cbox))
                     {
-                        if (item.type == "herz")
+                        if (item.type == "herz") //Wird sofort ausgeführt
                         {
                             if (spieler.lifes != 4)
                                 spieler.lifes++;
                             karte.items.Remove(item);
                         }
-                        else if (item.type == "zeit")
+                        else if (item.type == "zeit") //Setze in Slot
                         {
                             if (spieler.item1 != 0)
                                 spieler.item2 = spieler.item1;
                             spieler.item1 = 1;
                             karte.items.Remove(item);
                         }
-                        else if (item.type == "banana")
+                        else if (item.type == "banana")//Setze in Slot
                         {
                             if (spieler.item1 != 0)
                                 spieler.item2 = spieler.item1;
                             spieler.item1 = 2;
                             karte.items.Remove(item);
                         }
-                        else if (item.type == "monkey")
+                        else if (item.type == "monkey")//Setze in Slot
                         {
                             if (spieler.item1 != 0)
                                 spieler.item2 = spieler.item1;
@@ -352,6 +348,7 @@ namespace TheVillainsRevenge
                         break;
                     }
                 }
+                //Update Checkpoints
                 foreach (Checkpoint cpoint in karte.checkpoints)
                 {
                     if (spieler.position.X > cpoint.x && spieler.checkpoint.X < cpoint.x)
@@ -369,6 +366,7 @@ namespace TheVillainsRevenge
                         break;
                     }
                 }
+                //Update Trigger
                 foreach (Trigger trigger in karte.triggers)
                 {
                     if (spieler.cbox.box.Intersects(trigger.cbox) && spieler.fall)
@@ -378,31 +376,37 @@ namespace TheVillainsRevenge
                     }
                 }
                 //--------------------Hero--------------------
-                hero.Update(gameTime, karte, spieler.cbox.box);    
+                hero.Update(gameTime, karte, spieler.cbox.box);  
+                //KiPunkte
                 for (int i = 0; i <karte.kipoints.Count(); i++)
                 {
                     KIPoint kipoint = karte.kipoints.ElementAt(i);
+                    //Wenn Spieler sie übertritt
                     if (spieler.cbox.box.Intersects(kipoint.cbox))
                     {
                         bool geht = true;
                         if (spieler.kicheck.Count() > 0)
                         {
+                            //Falls es der selbe Punkt ist mache nicht weiter
                             KICheck check = spieler.kicheck.ElementAt(spieler.kicheck.Count()-1);
                             if(check.id == kipoint.id)
                                 geht = false;
                         }
-                        if (geht)
+                        if (geht) //Ist nicht der selbe Punkt wie vorher, speichere
                         {
-                            if (spieler.kicheck.Count() >= 20)
+                            if (spieler.kicheck.Count() >= 20) //Nicht mehr als 20 punkte
                             {
                                 spieler.kicheck.RemoveAt(0);
                             }
+                            //Adde die Punkte und führ Skript aus
                             spieler.kicheck.Add(new KICheck((int)gameTime.TotalGameTime.TotalSeconds, kipoint.id));
                             LuaKI.DoFile("kiscript.txt");
                         }
                     }
+                    //Wenn held ein Kipoint übertritt
                     if (hero.cbox.box.Intersects(kipoint.cbox)&&hero.kicheck.Count() != 0)
                     {
+                        //Lösche diesen
                         if (hero.kicheck.ElementAt(0).id == kipoint.id)
                         {
                             hero.kicheck.RemoveAt(0);
@@ -411,11 +415,13 @@ namespace TheVillainsRevenge
                 }
                 //--------------------Princess--------------------
                 princess.Update(gameTime);
+                //Wenn Spieler über den Maprand tritt (zu tief fällt)
                 if (spieler.position.Y >= (karte.size.Y))
                 {
                     spieler.getHit();
                     Reset();
                 }
+                //Held hat den Spieler eingeholt
                 if (spieler.cbox.box.Intersects(hero.cbox.box))
                 {
                     spieler.lifes = 0;
@@ -604,10 +610,6 @@ namespace TheVillainsRevenge
             outline.Parameters["lineSize"].SetValue(20);
             outline.Parameters["lineBrightness"].SetValue(0);
             spriteBatch.Draw(renderBackground0, Vector2.Zero, Color.White);
-            //-----Foreground-----
-            outline.Parameters["lineSize"].SetValue(0);
-            outline.Parameters["lineBrightness"].SetValue(0);
-            spriteBatch.Draw(renderForeground_0, Vector2.Zero, Color.White);
             spriteBatch.End();
             //-----Spielebene-----
             if (princess.beating || spieler.megaschlag) //-----[Shader]-----Smash
@@ -618,6 +620,7 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
             }
+            spriteBatch.Draw(renderForeground_0, Vector2.Zero, Color.White);
             spriteBatch.Draw(renderForeground, Vector2.Zero, Color.White);
             spriteBatch.End();
 

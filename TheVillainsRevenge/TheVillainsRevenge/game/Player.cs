@@ -65,8 +65,6 @@ namespace TheVillainsRevenge
             {
                 kicheckcp.Add(kc);
             }
-            
-
         }
         public void Reset()
         {
@@ -270,6 +268,11 @@ namespace TheVillainsRevenge
                     {
                         map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2));
                         item1 = 0;
+                    }
+                    if (item1 == 0 && item2 != 0)
+                    {
+                        item1 = item2;
+                        item2 = 0;
                     }
                 }
             }

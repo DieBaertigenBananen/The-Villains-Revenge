@@ -3,10 +3,108 @@ ashbrett.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-ashbrett_vorlage
+body
   rotate: false
-  xy: 2, 2
-  size: 531, 1010
-  orig: 1024, 1024
-  offset: 247, 8
+  xy: 565, 318
+  size: 160, 162
+  orig: 160, 162
+  offset: 0, 0
+  index: -1
+foot_left
+  rotate: false
+  xy: 945, 427
+  size: 69, 53
+  orig: 69, 53
+  offset: 0, 0
+  index: -1
+foot_right
+  rotate: false
+  xy: 871, 418
+  size: 64, 62
+  orig: 64, 62
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 201, 179
+  size: 174, 196
+  orig: 174, 197
+  offset: 0, 1
+  index: -1
+helmet
+  rotate: true
+  xy: 385, 186
+  size: 189, 170
+  orig: 189, 170
+  offset: 0, 0
+  index: -1
+hip
+  rotate: false
+  xy: 201, 81
+  size: 168, 88
+  orig: 168, 88
+  offset: 0, 0
+  index: -1
+left_arm
+  rotate: false
+  xy: 805, 384
+  size: 56, 96
+  orig: 56, 97
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: true
+  xy: 130, 10
+  size: 56, 63
+  orig: 56, 63
+  offset: 0, 0
+  index: -1
+left_shoulder
+  rotate: true
+  xy: 10, 14
+  size: 52, 110
+  orig: 52, 110
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: true
+  xy: 281, 19
+  size: 52, 63
+  orig: 52, 64
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: true
+  xy: 203, 18
+  size: 53, 68
+  orig: 53, 68
+  offset: 0, 0
+  index: -1
+right_shoulder
+  rotate: false
+  xy: 735, 380
+  size: 60, 100
+  orig: 60, 100
+  offset: 0, 0
+  index: -1
+schweif
+  rotate: false
+  xy: 10, 76
+  size: 181, 404
+  orig: 181, 404
+  offset: 0, 0
+  index: -1
+shield
+  rotate: true
+  xy: 565, 204
+  size: 104, 134
+  orig: 104, 134
+  offset: 0, 0
+  index: -1
+sword
+  rotate: false
+  xy: 201, 385
+  size: 317, 95
+  orig: 317, 95
+  offset: 0, 0
   index: -1

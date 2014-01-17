@@ -24,9 +24,71 @@ namespace TheVillainsRevenge
          public List<KIPoint> kipoints = new List<KIPoint>(); //Erstelle Blocks als List
          public List<Obj> objects = new List<Obj>(); //Erstelle Blocks als List
 
+         public List<Block> saveblocks = new List<Block>(); //Erstelle Blocks als List
+         public List<Enemy> saveenemies = new List<Enemy>(); //Erstelle Blocks als List
+         public List<Obj> saveobjects = new List<Obj>(); //Erstelle Blocks als List
+
+
          public Map()
          {
-
+         }
+         public void Save()
+         {
+             saveenemies.Clear();
+             for (int i = 0; i < enemies.Count(); ++i)
+             {
+                 Enemy enemy = enemies.ElementAt(i);
+                 saveenemies.Add(enemy);
+             }
+             saveblocks.Clear();
+             for (int i = 0; i < blocks.Count(); ++i)
+             {
+                 Block block = blocks.ElementAt(i);
+                 saveblocks.Add(block);
+             }
+             saveobjects.Clear();
+             for (int i = 0; i < objects.Count(); ++i)
+             {
+                 Obj obj = objects.ElementAt(i);
+                 saveobjects.Add(obj);
+             }
+             foreach (Trigger trigger in triggers)
+             {
+                 trigger.Save();
+             }
+             foreach (MovingBlock mblock in mblocks)
+             {
+                 mblock.Save();
+             }
+         }
+         public void Reset()
+         {
+             enemies.Clear();
+             for (int i = 0; i < saveenemies.Count(); ++i)
+             {
+                 Enemy enemy = saveenemies.ElementAt(i);
+                 enemies.Add(enemy);
+             }
+             blocks.Clear();
+             for (int i = 0; i < saveblocks.Count(); ++i)
+             {
+                 Block block = saveblocks.ElementAt(i);
+                 blocks.Add(block);
+             }
+             objects.Clear();
+             for (int i = 0; i < saveobjects.Count(); ++i)
+             {
+                 Obj obj = saveobjects.ElementAt(i);
+                 objects.Add(obj);
+             }
+             foreach (Trigger trigger in triggers)
+             {
+                 trigger.Reset(blocks);
+             }
+             foreach (MovingBlock mblock in mblocks)
+             {
+                 mblock.Reset();
+             }
          }
 
          public void Load(ContentManager Content)
@@ -204,6 +266,7 @@ namespace TheVillainsRevenge
                  mblocks.Add(new MovingBlock(blocks));
              }
              checkpoints.Add(new Checkpoint((int)size.X - 100, true)); //Ende
+             Save();
          }
     }
 }

@@ -15,6 +15,12 @@ namespace TheVillainsRevenge
         {
             spine.Load(position, "skullmonkey", (float)Convert.ToDouble(Game1.luaInstance["monkeySize"]), acceleration);
         }
+        public override void die(GameTime gameTime)
+        {
+            spine.anim("dying", 3, false, gameTime);
+            dead = true;
+            animeTime = 1;
+        }
         public override void Update(GameTime gameTime, Map map,Vector2 heropos)
         {
             speed = Convert.ToInt32((double)Game1.luaInstance["monkeySpeed"]);

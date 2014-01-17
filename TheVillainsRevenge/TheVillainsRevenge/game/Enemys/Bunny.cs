@@ -15,6 +15,12 @@ namespace TheVillainsRevenge
         {
             spine.Load(position, "fluffy", (float)Convert.ToDouble(Game1.luaInstance["bunnySize"]), acceleration);
         }
+        public override void die(GameTime gameTime)
+        {
+            spine.anim("die", 3, false, gameTime);
+            dead = true;
+            animeTime = 1;
+        }
         public override void Update(GameTime gameTime, Map map, Vector2 heropos)
         {
             speed = Convert.ToInt32((double)Game1.luaInstance["bunnySpeed"]);

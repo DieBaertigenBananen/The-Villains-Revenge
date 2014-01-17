@@ -48,6 +48,9 @@ namespace TheVillainsRevenge
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["enemyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionHeight"]));
        
         }
+        public virtual void die(GameTime gameTime)
+        {
+        }
         public virtual void Update(GameTime gameTime, Map map, Vector2 heropos)
         {
         }
