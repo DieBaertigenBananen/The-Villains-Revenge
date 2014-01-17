@@ -84,8 +84,6 @@ namespace TheVillainsRevenge
                 default:
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
-                    cuttexture.Width = 0;
-                    cuttexture.Height = 0;
                     break;
 
             }

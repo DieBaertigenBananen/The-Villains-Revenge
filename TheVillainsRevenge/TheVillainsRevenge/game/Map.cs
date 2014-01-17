@@ -135,7 +135,12 @@ namespace TheVillainsRevenge
              { 
                  Block block = blocks.ElementAt(i);
                  //Zeichne die Blöcke anhand der Daten der Blöcke
-                 spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
+                 if (block.type != "underground_earth" && block.type != "ground_grass")
+                 {
+                     spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
+                 }
+                 else if(Game1.debug)
+                     spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
              }
              for (int i = 0; i < items.Count(); ++i)
              { 

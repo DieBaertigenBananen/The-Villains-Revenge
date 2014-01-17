@@ -15,7 +15,7 @@ namespace TheVillainsRevenge
     class GameScreen
     {
         Texture2D texture;
-        Texture2D debug;
+        public static Texture2D debug;
         Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
         Princess princess = new Princess();
