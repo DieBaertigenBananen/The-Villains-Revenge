@@ -1,6 +1,6 @@
 --Loading
 playerStartLifes = 4
-playerScale = 3
+playerScale = 0.3
 playerCollisionWidth = 100
 playerCollisionHeight = 125
 playerCollisionOffsetX = -playerCollisionWidth / 2
@@ -15,7 +15,7 @@ planeForegroundHeightOffset = 46 * 48 - 960
 blockSpeed = 5	
 triggerTime = 5
  
-heroScale = 6
+heroScale = 0.3
 heroStartTime = 5
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -100
@@ -23,10 +23,15 @@ heroCollisionWidth = 45
 heroCollisionHeight = 100
 heroCloseWalkRange = 500
 
-enemyCollisionOffsetX = -32
-enemyCollisionOffsetY = -64
-enemyCollisionWidth = 64
-enemyCollisionHeight = 64
+bunnyCollisionOffsetX = -32
+bunnyCollisionOffsetY = -64
+bunnyCollisionWidth = 64
+bunnyCollisionHeight = 64
+
+monkeyCollisionOffsetX = -32
+monkeyCollisionOffsetY = -64
+monkeyCollisionWidth = 64
+monkeyCollisionHeight = 64
 
 princessRageChance = 100
 princessRageWarmup = 10

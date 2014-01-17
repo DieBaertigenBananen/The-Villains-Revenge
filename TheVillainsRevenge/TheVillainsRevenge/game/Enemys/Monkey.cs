@@ -14,6 +14,7 @@ namespace TheVillainsRevenge
             : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
             spine.Load(position, "skullmonkey", (float)Convert.ToDouble(Game1.luaInstance["monkeySize"]), acceleration);
+            cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionHeight"]));
         }
         public override void die(GameTime gameTime)
         {

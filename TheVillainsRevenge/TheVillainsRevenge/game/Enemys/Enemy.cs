@@ -45,8 +45,7 @@ namespace TheVillainsRevenge
             checkpoint = new Vector2(pos.X, pos.Y);
             position = pos;
             type = t;
-            cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["enemyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["enemyCollisionHeight"]));
-       
+        
         }
         public virtual void die(GameTime gameTime)
         {
