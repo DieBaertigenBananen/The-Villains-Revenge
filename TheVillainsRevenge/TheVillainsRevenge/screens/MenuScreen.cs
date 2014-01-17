@@ -14,7 +14,15 @@ namespace TheVillainsRevenge
     class MenuScreen
     {
         Camera camera;
-        RenderTarget2D renderTarget;
+        Character character = new Character(1250, 2100);
+        RenderTarget2D renderScreen;
+        RenderTarget2D renderSpine;
+        RenderTarget2D renderMenu;
+        RenderTarget2D renderTitle;
+        RenderTarget2D renderLogo;
+        RenderTarget2D renderOverlay;
+        Texture2D bg_texture;
+        Texture2D title_texture;
         SpriteFont font;
         float fontScale;
         bool deadScreen;
@@ -28,6 +36,7 @@ namespace TheVillainsRevenge
         public static int blinkingDelay = 500;
         public static bool blinkingState = false;
 
+
         public MenuScreen(bool playerDied)
         {
             deadScreen = playerDied;
@@ -38,15 +47,23 @@ namespace TheVillainsRevenge
         public void Load(ContentManager Content)
         {
             camera = new Camera();
-            renderTarget = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            character.Load(Content, Game1.graphics, "skeleton", 2.5f, 0.5f);
+            renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderMenu = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderTitle = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderLogo = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderOverlay = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            bg_texture = Content.Load<Texture2D>("sprites/menu_bg");
+            title_texture = Content.Load<Texture2D>("sprites/menu_titles");
             menuButtons = Content.Load<Texture2D>("sprites/menu_buttons");
             font = Content.Load<SpriteFont>("fonts/schrift");
-            mainMenu = new SubMenu(3, "main", font, new Vector2(-600,0), 200, fontScale);
+            mainMenu = new SubMenu(3, "main", font, new Vector2(-850,100), 100, fontScale);
             mainMenu.Load(Content);
                 mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 300, 100), new Rectangle(300, 0, 300, 100), false));
                 mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 300, 100), new Rectangle(300, 100, 300, 100), false));
                 mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 300, 100), new Rectangle(300, 200, 300, 100), false));
-            optionMenu = new SubMenu(4, "option", font, new Vector2(-100,0), 200, fontScale);
+            optionMenu = new SubMenu(4, "option", font, new Vector2(-500,100), 100, fontScale);
             optionMenu.Load(Content);
             optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 300, 300, 100), new Rectangle(300, 300, 300, 100), true));
             optionMenu.buttons.Add(new Button("stretch", new Rectangle(0, 400, 300, 100), new Rectangle(300, 400, 300, 100), true));
@@ -56,6 +73,11 @@ namespace TheVillainsRevenge
         }
         public int Update(GameTime gameTime)
         {
+            if (character.spine.animation != "idle")
+            {
+                character.spine.anim("idle", 0, true, gameTime);
+            }
+
             UpdateBlinkingTimer(gameTime, false);
             if (optionMenu.visible)
             {
@@ -157,9 +179,14 @@ namespace TheVillainsRevenge
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            //--------------------Draw to Texture--------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderTarget);
-            Game1.graphics.GraphicsDevice.Clear(Color.White);
+            //--------------------Draw to renderSpine--------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderSpine);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            character.Draw(gameTime, camera);
+
+            //--------------------Draw to renderMenu--------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderMenu);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 if (mainMenu.visible && !deadScreen && !loadScreen)
                 {
                     mainMenu.Draw(spriteBatch, gameTime, camera);
@@ -181,11 +208,44 @@ namespace TheVillainsRevenge
 
                 }
             spriteBatch.End();
+
+            //--------------------Draw to renderTitle--------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderTitle);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                spriteBatch.Draw(title_texture, new Vector2(50, 100), new Rectangle(0,0,600,300), Color.White);
+            spriteBatch.End();
+
+            //--------------------Draw to renderLogo--------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderLogo);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                spriteBatch.Draw(title_texture, new Vector2(1800, 950), new Rectangle(0, 300, 100, 100), Color.White);
+            spriteBatch.End();
+
+            //--------------------Draw to renderOverlay--------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderOverlay);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                spriteBatch.Draw(renderTitle, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderLogo, Vector2.Zero, Color.White);
+            spriteBatch.End();
+
+            //--------------------Draw to renderScreen--------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
+            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
+                spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderMenu, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderOverlay, Vector2.Zero, Color.White);
+            spriteBatch.End();
+
             //--------------------Draw to Screen--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
-                spriteBatch.Draw(renderTarget, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderScreen, Vector2.Zero, Color.White);
             spriteBatch.End();
         }
     }
