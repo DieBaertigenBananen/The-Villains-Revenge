@@ -48,6 +48,10 @@ namespace TheVillainsRevenge
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
                     break;
+                case "breakable_verticale":
+                    cuttexture.X = 0;
+                    cuttexture.Y = 0;
+                    break;
                 case "water":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;

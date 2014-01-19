@@ -15,7 +15,7 @@ playerCollisionOffsetX = -playerCollisionWidth / 2
 playerCollisionOffsetY = -285
  
 heroScale = 0.32
-heroStartTime = 4000
+heroStartTime = 5
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -150
 heroCollisionWidth = 45

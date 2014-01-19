@@ -38,10 +38,7 @@ namespace TheVillainsRevenge
              for (int i = 0; i < enemies.Count(); ++i)
              {
                  Enemy enemy = enemies.ElementAt(i);
-                 if(enemy.type == 1)
-                     saveenemies.Add(new Bunny(enemy.position, enemy.type, enemy.mover));
-                 else if (enemy.type == 2)
-                     saveenemies.Add(new Monkey(enemy.position, enemy.type));
+                 saveenemies.Add(new Enemy(enemy.position, enemy.type, enemy.mover));
              }
              saveblocks.Clear();
              for (int i = 0; i < blocks.Count(); ++i)
@@ -79,7 +76,7 @@ namespace TheVillainsRevenge
                  if (enemy.type == 1)
                      enemies.Add(new Bunny(enemy.position, enemy.type, enemy.mover));
                  if (enemy.type == 2)
-                     enemies.Add(new Monkey(enemy.position, enemy.type));
+                     enemies.Add(new Monkey(enemy.position, enemy.type,enemy.mover));
              }
              for (int i = 0; i < blocks.Count(); ++i)
              {
@@ -250,6 +247,10 @@ namespace TheVillainsRevenge
                                  break;
                              case "119,0,255":
                                  type = "breakable";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 break;
+                             case "119,20,255":
+                                 type = "breakable_verticale";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                              case "180,165,0":

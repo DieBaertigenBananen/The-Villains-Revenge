@@ -192,6 +192,15 @@ namespace TheVillainsRevenge
                         schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
                         schlagRECT.X = schlagRECT.X - schlagRECT.Width;
                     }
+                    for (int i = 0; i < karte.blocks.Count(); i++)
+                    {
+                        Block block = karte.blocks.ElementAt(i);
+                        if (block.cbox.Intersects(schlagRECT) && block.type == "breakable_verticale")
+                        {
+                            karte.objects.Add(new Debris(block.position, 3));
+                            karte.blocks.Remove(block);
+                        }
+                    }
                 }
                 else if(spieler.megaschlag)
                 {

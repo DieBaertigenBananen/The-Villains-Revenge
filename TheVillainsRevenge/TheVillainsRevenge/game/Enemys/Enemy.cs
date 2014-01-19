@@ -38,9 +38,10 @@ namespace TheVillainsRevenge
             checkpoint.X = position.X;
             checkpoint.Y = position.Y;
         }
-        public Enemy(Vector2 pos, int t) //Konstruktor, setzt Anfangsposition
+        public Enemy(Vector2 pos, int t,bool mover) //Konstruktor, setzt Anfangsposition
         {
             spine = new Spine();
+            this.mover = mover;
             checkmover = mover;
             checkpoint = new Vector2(pos.X, pos.Y);
             position = pos;

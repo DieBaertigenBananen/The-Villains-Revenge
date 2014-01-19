@@ -10,8 +10,8 @@ namespace TheVillainsRevenge
     class Monkey : Enemy
     {
         float acceleration;
-        public Monkey(Vector2 pos, int t)
-            : base(pos, t)//Konstruktor, setzt Anfangsposition
+        public Monkey(Vector2 pos, int t,bool mover)
+            : base(pos, t,mover)//Konstruktor, setzt Anfangsposition
         {
             spine.Load(position, "skullmonkey", (float)Convert.ToDouble(Game1.luaInstance["monkeySize"]), acceleration);
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionHeight"]));

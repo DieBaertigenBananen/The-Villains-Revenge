@@ -269,7 +269,7 @@ namespace TheVillainsRevenge
                     }
                     else if (item1 == 3 && !fall && !jump)
                     {
-                        map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2));
+                        map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2,false));
                         item1 = 0;
                     }
                     if (item1 == 0 && item2 != 0)

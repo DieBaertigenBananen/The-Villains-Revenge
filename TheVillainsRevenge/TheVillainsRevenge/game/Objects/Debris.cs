@@ -25,6 +25,14 @@ namespace TheVillainsRevenge
                 int gravitation = Convert.ToInt32((double)Game1.luaInstance["objectGravitation"]);
                 position.Y += (gravitation * t);
                 box.Y = (int)position.Y;
+                foreach (Debris debri in map.objects)
+                {
+                    if(debri.box.Intersects(box)&&debri != this)
+                    {
+                        map.objects.Remove(debri);
+                        break;
+                    }
+                }
             }
         }
     }

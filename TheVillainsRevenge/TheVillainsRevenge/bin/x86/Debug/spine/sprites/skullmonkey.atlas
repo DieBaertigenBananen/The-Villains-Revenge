@@ -3,122 +3,108 @@ skullmonkey.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-baendchen
+arm_left
   rotate: true
-  xy: 749, 220
-  size: 80, 125
-  orig: 80, 125
+  xy: 2, 51
+  size: 170, 272
+  orig: 170, 272
+  offset: 0, 0
+  index: -1
+arm_right
+  rotate: false
+  xy: 364, 353
+  size: 160, 238
+  orig: 160, 238
   offset: 0, 0
   index: -1
 body
   rotate: false
-  xy: 0, 625
+  xy: 2, 593
   size: 512, 393
   orig: 512, 393
   offset: 0, 0
   index: -1
-fez
+calf_left
   rotate: false
-  xy: 815, 300
-  size: 152, 190
-  orig: 152, 190
+  xy: 364, 143
+  size: 172, 208
+  orig: 172, 208
   offset: 0, 0
   index: -1
-head
+calf_right
   rotate: false
-  xy: 512, 708
-  size: 334, 310
-  orig: 334, 310
+  xy: 731, 397
+  size: 181, 208
+  orig: 181, 208
   offset: 0, 0
   index: -1
-left_arm
-  rotate: false
-  xy: 249, 325
-  size: 171, 300
-  orig: 171, 300
-  offset: 0, 0
-  index: -1
-left_food
+foot_left
   rotate: true
-  xy: 351, 6
-  size: 177, 98
-  orig: 177, 98
+  xy: 919, 809
+  size: 177, 94
+  orig: 177, 94
   offset: 0, 0
   index: -1
-left_hand
+foot_right
   rotate: false
-  xy: 205, 30
-  size: 146, 153
-  orig: 146, 154
-  offset: 0, 0
-  index: -1
-left_leg
-  rotate: false
-  xy: 603, 490
-  size: 185, 218
-  orig: 185, 218
-  offset: 0, 0
-  index: -1
-left_lower_leg
-  rotate: true
-  xy: 603, 318
-  size: 172, 212
-  orig: 172, 212
-  offset: 0, 0
-  index: -1
-left_shoulder
-  rotate: false
-  xy: 788, 490
-  size: 165, 218
-  orig: 165, 218
-  offset: 0, 0
-  index: -1
-right_arm
-  rotate: false
-  xy: 846, 754
-  size: 160, 264
-  orig: 160, 264
-  offset: 0, 0
-  index: -1
-right_foot
-  rotate: false
-  xy: 448, 256
+  xy: 725, 82
   size: 155, 146
   orig: 155, 146
   offset: 0, 0
   index: -1
-right_hand
+hand_left
   rotate: true
-  xy: 603, 190
+  xy: 538, 2
+  size: 146, 153
+  orig: 146, 154
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: true
+  xy: 700, 607
   size: 128, 146
   orig: 128, 146
   offset: 0, 0
   index: -1
-right_leg
+head
   rotate: false
-  xy: 0, 0
-  size: 205, 224
-  orig: 205, 224
+  xy: 2, 223
+  size: 360, 368
+  orig: 360, 368
   offset: 0, 0
   index: -1
-right_lower_leg
-  rotate: false
-  xy: 420, 402
-  size: 183, 223
-  orig: 183, 223
-  offset: 0, 0
-  index: -1
-right_shoulder
+shoulder_left
   rotate: true
-  xy: 249, 183
-  size: 142, 199
-  orig: 142, 199
+  xy: 731, 230
+  size: 165, 200
+  orig: 165, 200
+  offset: 0, 0
+  index: -1
+shoulder_right
+  rotate: true
+  xy: 516, 593
+  size: 142, 182
+  orig: 142, 182
   offset: 0, 0
   index: -1
 tail
-  rotate: false
-  xy: 0, 224
+  rotate: true
+  xy: 516, 737
   size: 249, 401
   orig: 249, 401
+  offset: 0, 0
+  index: -1
+thigh_left
+  rotate: false
+  xy: 538, 150
+  size: 185, 217
+  orig: 185, 217
+  offset: 0, 0
+  index: -1
+thigh_right
+  rotate: false
+  xy: 526, 369
+  size: 203, 222
+  orig: 203, 222
   offset: 0, 0
   index: -1

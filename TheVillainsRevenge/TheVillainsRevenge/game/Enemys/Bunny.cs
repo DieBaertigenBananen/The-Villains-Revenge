@@ -11,7 +11,7 @@ namespace TheVillainsRevenge
     {
         float acceleration;
         
-        public Bunny(Vector2 pos, int t,bool mover) : base(pos, t)//Konstruktor, setzt Anfangsposition
+        public Bunny(Vector2 pos, int t,bool mover) : base(pos, t,mover)//Konstruktor, setzt Anfangsposition
         {
             this.mover = mover;
             spine.Load(position, "fluffy", (float)Convert.ToDouble(Game1.luaInstance["bunnySize"]), acceleration);
