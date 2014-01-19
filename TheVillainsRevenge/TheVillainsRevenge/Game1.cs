@@ -182,6 +182,10 @@ namespace TheVillainsRevenge
         }
         protected override void Update(GameTime gameTime)
         {
+            if (this.IsMouseVisible == graphics.IsFullScreen)
+            {
+                this.IsMouseVisible = !graphics.IsFullScreen;
+            }
             if (input.debug)
             {
                 debug = !debug;

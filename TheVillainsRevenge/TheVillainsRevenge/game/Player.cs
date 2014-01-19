@@ -265,7 +265,7 @@ namespace TheVillainsRevenge
                 }
                 if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
                 {
-                    acceleration = -acceleration / 2;
+                    acceleration = -acceleration * 0.8f;
                 }
                 Move((int)((acceleration / initAcceleration) * actualspeed), 0, map);
                 if (Game1.input.itemw)

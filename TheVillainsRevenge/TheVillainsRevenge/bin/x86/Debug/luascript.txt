@@ -6,7 +6,7 @@ planeTilesBackground3 = 1 --Himmel
 planeForeground0HeightOffset = 46 * 48 - 2208
 planeForeground1HeightOffset = 46 * 48 - 2208
 
-playerAcceleration = 15
+playerAcceleration = 35
 playerStartLifes = 4
 playerScale = 0.35
 playerCollisionWidth = 100
@@ -16,7 +16,7 @@ playerCollisionOffsetY = -285
 playerSmashIntensity = 15
 
 heroScale = 0.32
-heroStartTime = 500
+heroStartTime = 5
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -150
 heroCollisionWidth = 45
@@ -74,7 +74,7 @@ kackeStartY = -15
 objectGravitation = 60
 
 cameraLeftspace = 1100
-cameraRightspace = 1920 - cameraLeftspace
+cameraRightspace = 1920 - cameraLeftspace - 100
 cameraBottomspace = 700
 cameraTopspace = 1080 - cameraBottomspace
 cameraMaxBewegung = 400
