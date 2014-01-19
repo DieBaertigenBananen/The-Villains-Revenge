@@ -55,7 +55,7 @@ playerJumpCutoff = 50
 playerSchlagRange = 48
 playerMegaSchlagRange = 48
 playerMegaSchlagFall = 1500
-playerMegaSchlagCooldown = 0
+playerMegaSchlagCooldown = 5
 
 heroSpeed = 12
 heroAirspeed = heroSpeed - 2
