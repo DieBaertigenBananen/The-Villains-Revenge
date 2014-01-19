@@ -235,8 +235,11 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
-                spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
-                spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);
+                if (!loadScreen && !deadScreen)
+                {
+                    spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
+                    spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);
+                }
                 spriteBatch.Draw(renderMenu, Vector2.Zero, Color.White);
                 spriteBatch.Draw(renderOverlay, Vector2.Zero, Color.White);
             spriteBatch.End();
