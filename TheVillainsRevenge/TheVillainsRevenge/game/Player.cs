@@ -18,6 +18,7 @@ namespace TheVillainsRevenge
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
+        bool savejump = false;
         public bool fall = false;
         public double falltimer;
         public double jumptimer;
@@ -235,16 +236,25 @@ namespace TheVillainsRevenge
                     acceleration = -acceleration / 2;
                 }
                 Move((int)((acceleration / initAcceleration) * actualspeed), 0, map);
-                if (Game1.input.sprung)
+                if (Game1.input.sprung || savejump)
                 {
-                    if (!jump && !fall)
+                    if (!jump && !fall && Game1.input.sprungp)
                     {
                         Jump(gameTime, map); //Springen!
+                        savejump = false;
+                    }
+                    else if (fall)
+                    {
+                        savejump = true;
+                    }
+                    else
+                    {
+                        savejump = false;
                     }
                 }
                 else
                 {
-                    if (jump)
+                    if (jump && !Game1.input.sprungp)
                     {
                         jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
                     }
