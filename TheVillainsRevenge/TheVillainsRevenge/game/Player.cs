@@ -43,6 +43,8 @@ namespace TheVillainsRevenge
         public bool schlag = false;
         public bool megaschlag = false;
         public double megacooldown = 0;
+        public int smashIntensity;
+        int smashInitIntensity;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -54,6 +56,7 @@ namespace TheVillainsRevenge
             lifes = startLifes;
             spine = new Spine();
             initAcceleration = (float)Convert.ToInt32((double)Game1.luaInstance["playerAcceleration"]) / 100;
+            smashInitIntensity = Convert.ToInt32((double)Game1.luaInstance["playerSmashIntensity"]);
 
         }
         public void Save(int x)
@@ -99,6 +102,10 @@ namespace TheVillainsRevenge
 
         public void Update(GameTime gameTime, Map map)
         {
+            if (smashIntensity > -1) //Nachzittern Smash
+            {
+                smashIntensity--;
+            } 
             speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
             airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
             jumppower = Convert.ToInt32((double)Game1.luaInstance["playerJumppower"]);
@@ -120,6 +127,30 @@ namespace TheVillainsRevenge
             if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X != 0)
             {
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
+            }
+            //-----Sprung-----
+            if (Game1.input.sprung || savejump)
+            {
+                if (!jump && !fall && Game1.input.sprungp)
+                {
+                    Jump(gameTime, map); //Springen!
+                    savejump = false;
+                }
+                else if (fall)
+                {
+                    savejump = true;
+                }
+                else
+                {
+                    savejump = false;
+                }
+            }
+            else
+            {
+                if (jump && !Game1.input.sprungp)
+                {
+                    jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
+                }
             }
             //-----Schlag-----
             if (Game1.input.hit)
@@ -150,6 +181,7 @@ namespace TheVillainsRevenge
                 {
                     megaschlag = true;
                     hit = false;
+                    smashIntensity = smashInitIntensity;
                 }
             }
             else if(!Game1.input.hit)
@@ -236,29 +268,6 @@ namespace TheVillainsRevenge
                     acceleration = -acceleration / 2;
                 }
                 Move((int)((acceleration / initAcceleration) * actualspeed), 0, map);
-                if (Game1.input.sprung || savejump)
-                {
-                    if (!jump && !fall && Game1.input.sprungp)
-                    {
-                        Jump(gameTime, map); //Springen!
-                        savejump = false;
-                    }
-                    else if (fall)
-                    {
-                        savejump = true;
-                    }
-                    else
-                    {
-                        savejump = false;
-                    }
-                }
-                else
-                {
-                    if (jump && !Game1.input.sprungp)
-                    {
-                        jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
-                    }
-                }
                 if (Game1.input.itemw)
                 {
                     int i = item1;

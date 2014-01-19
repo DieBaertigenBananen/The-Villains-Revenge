@@ -461,9 +461,9 @@ namespace TheVillainsRevenge
                     }
                 }
                 //-----Update Shader-----
-                coverEyes.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
-                outline.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
-                smash.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
+                coverEyes.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                outline.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                smash.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
             }
             if (spieler.lifes != 0)
             {
@@ -638,9 +638,17 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(renderBackground0, Vector2.Zero, Color.White);
             spriteBatch.End();
             //-----Spielebene-----
-            if (princess.beating || spieler.megaschlag) //-----[Shader]-----Smash
+            if (princess.beating || spieler.megaschlag || spieler.smashIntensity > 0) //-----[Shader]-----Smash
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, smash);
+                if (spieler.smashIntensity >= 0)
+                {
+                    smash.Parameters["intensity"].SetValue(spieler.smashIntensity);
+                }
+                else
+                {
+                    smash.Parameters["intensity"].SetValue(20); //SmashIntensity für Princess.Beating
+                }
             }
             else
             {
