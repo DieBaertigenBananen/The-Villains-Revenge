@@ -205,11 +205,21 @@ namespace TheVillainsRevenge
                     acceleration += 1 / (60 * initAcceleration);
                     if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
                     {
-                        spine.anim("run", 2, true, gameTime);
+                        if (!jump && !fall)
+                        {
+                            spine.anim("run", 2, true, gameTime);
+                        }
+                        else
+                        {
+                            spine.anim("jump", 2, false, gameTime);
+                        }
                     }
                     else if (spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem beim Abbremsen in idle übergehen
                     {
-                        spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                        if (!jump && !fall)
+                        {
+                            spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                        }
                     }
                     if (jump || fall) //Zusätzliche Beschleunigung in der Luft
                     {
@@ -222,11 +232,21 @@ namespace TheVillainsRevenge
                     acceleration -= 1 / (60 * initAcceleration);
                     if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
                     {
-                        spine.anim("run", 1, true, gameTime);
+                        if (!jump && !fall)
+                        {
+                            spine.anim("run", 1, true, gameTime);
+                        }
+                        else
+                        {
+                            spine.anim("jump", 1, false, gameTime);
+                        }
                     }
                     else if (!spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem in idle übergehen
                     {
-                        spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                        if (!jump && !fall)
+                        {
+                            spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                        }
                     }
                     if (jump || fall) //Zusätzliche Beschleunigung in der Luft
                     {
@@ -252,7 +272,10 @@ namespace TheVillainsRevenge
                             acceleration = 0;
                         }
                     }
-                    spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                    if (!jump && !fall)
+                    {
+                        spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                    }
                 }
                 //Keine Beschleunigungs"vermehrung", durch Beschleunigung wird nur MaxSpeed bei jedem Update absolut vermindert. Fake aber funzt...
                 if (acceleration < -initAcceleration)
@@ -309,6 +332,7 @@ namespace TheVillainsRevenge
                 }
                 float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
                 Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
+                spine.anim("jump", 0, false, gameTime);
             }
             else
             {
@@ -369,9 +393,10 @@ namespace TheVillainsRevenge
         {
             if (CollisionCheckedVector(0, -1, map.blocks).Y < 0)
             {
+                
                 if (!jump)
                 {
-                //    animationState.SetAnimation(0, "jump", false);
+                    spine.anim("jump", 0, false, gameTime);
                     jump = true;
                     jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }

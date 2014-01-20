@@ -75,6 +75,20 @@ namespace TheVillainsRevenge
                 case "bonepuker":
                     animationStateData.SetMix("idle", "run", acceleration);
                     animationStateData.SetMix("run", "idle", acceleration);
+                    animationStateData.SetMix("idle", "jump", 0.2f);
+                    animationStateData.SetMix("run", "jump", 0.2f);
+                    animationStateData.SetMix("jump", "run", 0.2f);
+                    animationStateData.SetMix("jump", "idle", 0.2f);
+                    //animationStateData.SetMix("run", "attack", 0.0f);
+                    //animationStateData.SetMix("idle", "attack", 0.0f);
+                    //animationStateData.SetMix("jump", "attack", 0.0f);
+                    animationStateData.SetMix("jump", "die", 0.3f);
+                    animationStateData.SetMix("run", "die", 0.1f);
+                    animationStateData.SetMix("idle", "die", 0.1f);
+                    //sc_cover_eyes
+                    //sc_escape
+                    //smash
+
                     break;
                 case "ashbrett":
                     break;

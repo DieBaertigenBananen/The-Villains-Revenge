@@ -8,7 +8,7 @@ planeForeground1HeightOffset = 46 * 48 - 2208
 
 playerAcceleration = 35
 playerStartLifes = 4
-playerScale = 0.35
+playerScale = 0.7
 playerCollisionWidth = 100
 playerCollisionHeight = 185
 playerCollisionOffsetX = -playerCollisionWidth / 2
