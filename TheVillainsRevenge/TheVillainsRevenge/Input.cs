@@ -31,6 +31,7 @@ namespace TheVillainsRevenge
         public bool sprung;
         public bool sprungp;
         public bool links, rechts, end;
+        public float cameraDynR, cameraDynL;
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -90,6 +91,10 @@ namespace TheVillainsRevenge
             {
                 links = false;
             }
+            //Dynamische Camera Rechtsbewegung
+            cameraDynR = GamePad.GetState(PlayerIndex.One).Triggers.Right;
+            //Dynamische Camera Linksbewegung
+            cameraDynL = GamePad.GetState(PlayerIndex.One).Triggers.Left;
             //Camera Rechtsbewegung
            if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed
                     ||
