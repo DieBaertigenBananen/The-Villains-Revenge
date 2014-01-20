@@ -258,9 +258,9 @@ namespace TheVillainsRevenge
                                         //Block ist über den Hero
                                         bool b = false;
                                         int deltay = 0;
-                                        for (int i = 0; i < 30; i++)
+                                        for (int i = 0; i < 60; i++)
                                         {
-                                            float t = (float)(i / 15);
+                                            float t = (float)(i / 20);
                                             deltay = deltay + (int)(-jumppower + (gravitation * t));
                                             kicollide = new Rectangle(cbox.box.X + (i * realspeed), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
                                             if (kicollide.Intersects(spieler))
@@ -372,9 +372,9 @@ namespace TheVillainsRevenge
                                     if (kicollide.Intersects(spieler))
                                         geht = true;
                                 }
-                                if (!geht)
-                                    Move(actualspeed, 0, map);
                             }
+                            if (!geht)
+                                Move(actualspeed, 0, map);
                             //KI befindet sich im Drüberspringmodus!!
                             //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
                             //Überprüfe ob rechts immernoch etwas ist
