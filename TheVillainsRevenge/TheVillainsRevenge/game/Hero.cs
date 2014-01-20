@@ -260,7 +260,7 @@ namespace TheVillainsRevenge
                                         int deltay = 0;
                                         for (int i = 0; i < 50; i++)
                                         {
-                                            float t = (float)(i / 25);
+                                            float t = (float)(i / 20);
                                             deltay = deltay + (int)(-jumppower + (gravitation * t));
                                             kicollide = new Rectangle(cbox.box.X + (i * realspeed), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
                                             if (kicollide.Intersects(spieler))
