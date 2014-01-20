@@ -103,7 +103,7 @@ namespace TheVillainsRevenge
             lifes--;
         }
 
-        public void Update(GameTime gameTime, Map map)
+        public void Update(GameTime gameTime, Map map, Princess princess)
         {
             speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
             airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
@@ -128,7 +128,7 @@ namespace TheVillainsRevenge
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
             //-----Sprung-----
-            if (Game1.input.sprung || savejump)
+            if ((Game1.input.sprung || savejump) && !princess.rageMode)
             {
                 if (!jump && !fall && Game1.input.sprungp)
                 {
@@ -152,7 +152,7 @@ namespace TheVillainsRevenge
                 }
             }
             //-----Schlag / Smash starten-----
-            if (Game1.input.hit)
+            if (Game1.input.hit && !princess.rageMode)
             {
                 if (jump || fall)
                 {
@@ -429,7 +429,7 @@ namespace TheVillainsRevenge
         }
 
 
-        Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
+        public Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
             CollisionBox cboxnew = new CollisionBox((int)cbox.offset.X, (int)cbox.offset.Y, cbox.box.Width, cbox.box.Height);
             cboxnew.Update(cbox.position);

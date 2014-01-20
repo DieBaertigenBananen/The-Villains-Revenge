@@ -176,7 +176,7 @@ namespace TheVillainsRevenge
             if (!levelend)
             {
                 //Update Spieler
-                spieler.Update(gameTime, karte);
+                spieler.Update(gameTime, karte, princess);
                 if(spieler.hit)
                 {
                     //if (spieler.richtung)
@@ -423,7 +423,7 @@ namespace TheVillainsRevenge
                     }
                 }
                 //--------------------Princess--------------------
-                princess.Update(gameTime, spieler);
+                princess.Update(gameTime, spieler, karte);
                 //Wenn Spieler über den Maprand tritt (zu tief fällt)
                 if (spieler.position.Y >= (karte.size.Y))
                 {

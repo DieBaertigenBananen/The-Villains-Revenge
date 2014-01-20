@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
     class Princess
     {
-        bool rageMode;
+        public bool rageMode;
         double rageTimer;
         public float rageMeter;
         int rageWarmup;
@@ -37,7 +37,7 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)
         {
-            spine.Load(Vector2.Zero, "princessCloud", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), 0);
+            spine.Load(Vector2.Zero, "clobbercloud", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), 0);
             rageWarmup = Convert.ToInt32((double)Game1.luaInstance["princessRageWarmup"]) * 1000;
             rageChance = Convert.ToInt32((double)Game1.luaInstance["princessRageChance"]);
             enrageSpeed = Convert.ToInt32((double)Game1.luaInstance["princessEnrageSpeed"]);
@@ -59,7 +59,7 @@ namespace TheVillainsRevenge
             coverEyes = false;
         }
 
-        public void Update(GameTime gameTime, Player player)
+        public void Update(GameTime gameTime, Player player, Map map)
         {
             spine.skeleton.X = player.position.X;
             spine.skeleton.Y = player.position.Y;
@@ -137,12 +137,19 @@ namespace TheVillainsRevenge
             }
             else if (gameTime.TotalGameTime.TotalMilliseconds > (rageTimer + (float)rageWarmup)) //RageWarmup
             {
-                rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
-                randomNumber = randomGen.Next(0, 100);
-                if (randomNumber <= rageChance)
+                if (player.CollisionCheckedVector(0, 1, map.blocks).X == 0) //Nur auf dem Boden enragen
                 {
-                    //Teste Enrage-Bedingungen
-                    rageMode = true;
+                    rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    randomNumber = randomGen.Next(0, 100);
+                    if (randomNumber <= rageChance)
+                    {
+                        //Teste Enrage-Bedingungen
+                        rageMode = true;
+                    }
+                }
+                else
+                {
+                    rageTimer = gameTime.TotalGameTime.TotalMilliseconds - ((float)rageWarmup * 0.2f); //Wenn Spieler wieder auf den Boden kommt nach kurzer Zeit enragen
                 }
             }
         }

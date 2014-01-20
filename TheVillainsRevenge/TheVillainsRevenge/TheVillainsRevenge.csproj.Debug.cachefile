@@ -43,12 +43,15 @@ Content\sprites\menu_bg.xnb
 Content\sprites\menu_titles.xnb
 spine\sprites\ashbrett.png
 spine\sprites\bonepuker.png
+spine\sprites\clobbercloud.png
 spine\sprites\fluffy.png
 spine\sprites\skullmonkey.png
 spine\sprites\ashbrett.atlas
 spine\sprites\ashbrett.json
 spine\sprites\bonepuker.atlas
 spine\sprites\bonepuker.json
+spine\sprites\clobbercloud.atlas
+spine\sprites\clobbercloud.json
 spine\sprites\fluffy.atlas
 spine\sprites\fluffy.json
 spine\sprites\skullmonkey.atlas

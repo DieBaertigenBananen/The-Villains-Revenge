@@ -1,0 +1,187 @@
+
+clobbercloud.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm_left
+  rotate: false
+  xy: 334, 214
+  size: 110, 128
+  orig: 110, 128
+  offset: 0, 0
+  index: -1
+arm_right
+  rotate: false
+  xy: 601, 395
+  size: 140, 142
+  orig: 140, 142
+  offset: 0, 0
+  index: -1
+banana
+  rotate: true
+  xy: 436, 423
+  size: 120, 163
+  orig: 120, 163
+  offset: 0, 0
+  index: -1
+beard
+  rotate: false
+  xy: 2, 8
+  size: 127, 128
+  orig: 127, 128
+  offset: 0, 0
+  index: -1
+explanationmark
+  rotate: false
+  xy: 742, 769
+  size: 200, 252
+  orig: 200, 252
+  offset: 0, 0
+  index: -1
+flash1
+  rotate: true
+  xy: 131, 2
+  size: 123, 197
+  orig: 123, 197
+  offset: 0, 0
+  index: -1
+flash2
+  rotate: true
+  xy: 742, 674
+  size: 93, 162
+  orig: 93, 162
+  offset: 0, 0
+  index: -1
+foot_left
+  rotate: false
+  xy: 377, 18
+  size: 53, 71
+  orig: 53, 71
+  offset: 0, 0
+  index: -1
+foot_right
+  rotate: false
+  xy: 428, 361
+  size: 54, 60
+  orig: 54, 60
+  offset: 0, 0
+  index: -1
+hand_left
+  rotate: false
+  xy: 334, 91
+  size: 122, 121
+  orig: 122, 122
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: false
+  xy: 743, 395
+  size: 138, 162
+  orig: 138, 162
+  offset: 0, 0
+  index: -1
+hat
+  rotate: false
+  xy: 735, 559
+  size: 151, 113
+  orig: 151, 113
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 602, 539
+  size: 131, 181
+  orig: 131, 181
+  offset: 0, 0
+  index: -1
+hip
+  rotate: true
+  xy: 944, 778
+  size: 114, 60
+  orig: 114, 60
+  offset: 0, 0
+  index: -1
+mid
+  rotate: false
+  xy: 2, 640
+  size: 409, 381
+  orig: 409, 381
+  offset: 0, 0
+  index: -1
+num
+  rotate: false
+  xy: 321, 344
+  size: 105, 93
+  orig: 105, 94
+  offset: 0, 1
+  index: -1
+sc_arm_left
+  rotate: false
+  xy: 330, 6
+  size: 45, 83
+  orig: 45, 83
+  offset: 0, 0
+  index: -1
+sc_eyes_panic
+  rotate: true
+  xy: 944, 894
+  size: 127, 74
+  orig: 127, 74
+  offset: 0, 0
+  index: -1
+sc_hair
+  rotate: true
+  xy: 149, 329
+  size: 309, 170
+  orig: 309, 170
+  offset: 0, 0
+  index: -1
+sc_hair_front
+  rotate: true
+  xy: 321, 439
+  size: 199, 113
+  orig: 199, 113
+  offset: 0, 0
+  index: -1
+sc_hand_left
+  rotate: true
+  xy: 539, 381
+  size: 40, 52
+  orig: 40, 52
+  offset: 0, 0
+  index: -1
+sc_head
+  rotate: false
+  xy: 436, 545
+  size: 164, 175
+  orig: 164, 175
+  offset: 0, 0
+  index: -1
+sc_mouth_panic
+  rotate: false
+  xy: 484, 372
+  size: 53, 49
+  orig: 53, 49
+  offset: 0, 0
+  index: -1
+sc_skirt
+  rotate: false
+  xy: 149, 127
+  size: 183, 200
+  orig: 183, 200
+  offset: 0, 0
+  index: -1
+small
+  rotate: false
+  xy: 413, 722
+  size: 327, 299
+  orig: 327, 299
+  offset: 0, 0
+  index: -1
+weapon
+  rotate: true
+  xy: 2, 138
+  size: 500, 145
+  orig: 500, 145
+  offset: 0, 0
+  index: -1
