@@ -197,25 +197,10 @@ namespace TheVillainsRevenge
                                             break;
                                         }
                                     }
-                                    if (!geht)
-                                    {
-                                        for (int j = 0; j < 20; j++)
-                                        {
-                                            kicollide.Y = cbox.box.Y - j * 48;
-                                            foreach (KIPoint kipoint in map.kipoints)
-                                            {
-                                                if (kicollide.Intersects(kipoint.cbox) && kipoint.id == kicheck.ElementAt(0).id)
-                                                {
-                                                    geht = true;
-                                                    j = 20;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
                                 }
                             }
                             //Block ist auf gleicher Höhe, bewege nur drauf zu
+                            GameScreen.test = 1;
                             if (geht)
                             {
                                 if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
@@ -268,49 +253,72 @@ namespace TheVillainsRevenge
                             }
                             else
                             {
+                                GameScreen.test = 3;
                                 if (spieler.Y < position.Y)
                                 {
                                     if (CollisionCheckedVector(realspeed, 0, map.blocks).X == realspeed)
                                     {
-                                        //Block ist über den Hero
-                                        bool b = false;
-                                        int deltay = 0;
-                                        for (int i = 0; i < 50; i++)
+                                        bool bewegblock = false;
+                                        kicollide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                                        foreach (Block block in map.blocks)
                                         {
-                                            float t = (float)(i / 22);
-                                            deltay = deltay + (int)(-jumppower + (gravitation * t));
-                                            kicollide = new Rectangle(cbox.box.X + (i * realspeed), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
-                                            if (kicollide.Intersects(spieler))
+                                            if (kicollide.Intersects(block.cbox) && block.type == "movingend")
                                             {
-                                                b = true;
-                                                break;
+                                                bewegblock = true;
+                                                //TATSACHE!!
+                                                //Schaue ob rechts ein Block ist
                                             }
-                                            /*
-                                            foreach (Block block in map.blocks)
+                                        }
+                                        if (bewegblock && !fall && !jump)
+                                        {
+                                            //Warten wir einfach mal ...
+                                            spine.anim("idle", 3, true, gameTime);
+                                            Move(-actualspeed, 0, map);
+                                            kistate = 4;
+                                        }
+                                        else
+                                        {
+                                            //Block ist über den Hero
+                                            bool b = false;
+                                            int deltay = 0;
+                                            for (int i = 0; i < 50; i++)
                                             {
-                                                if (kicollide.Intersects(block.cbox) && block.block)
+                                                float t = (float)(i / 22);
+                                                deltay = deltay + (int)(-jumppower + (gravitation * t));
+                                                kicollide = new Rectangle(cbox.box.X + (i * realspeed), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
+                                                if (kicollide.Intersects(spieler))
                                                 {
                                                     b = true;
                                                     break;
                                                 }
-                                            }*/
-                                        }
-                                        if (b)
-                                        {
-                                            if (!fall && !jump)
-                                            {
-                                                spine.anim("jump", 3, false, gameTime);
-                                                Jump(gameTime, map); //Springen!
-                                                kistate = 2;
+                                                /*
+                                                foreach (Block block in map.blocks)
+                                                {
+                                                    if (kicollide.Intersects(block.cbox) && block.block)
+                                                    {
+                                                        b = true;
+                                                        break;
+                                                    }
+                                                }*/
                                             }
-                                        }
-                                        else
-                                        {
-                                            Move(actualspeed, 0, map);
+                                            if (b)
+                                            {
+                                                if (!fall && !jump)
+                                                {
+                                                    spine.anim("jump", 3, false, gameTime);
+                                                    Jump(gameTime, map); //Springen!
+                                                    kistate = 2;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Move(actualspeed, 0, map);
+                                            }
                                         }
                                     }
                                     else
                                     {
+
                                         if (!fall && !jump)
                                         {
                                             spine.anim("jump", 3, false, gameTime);
@@ -422,7 +430,7 @@ namespace TheVillainsRevenge
                             //KI befindet sich im Wartemodus!!
                             //Überprüfe ob die Plattform bald da ist
                             bool bewegblock = false;
-                            kicollide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                            kicollide = new Rectangle(cbox.box.X + 64, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
                             foreach (MovingBlock mblock in map.mblocks)
                             {
                                 if (kicollide.Intersects(mblock.cbox))
