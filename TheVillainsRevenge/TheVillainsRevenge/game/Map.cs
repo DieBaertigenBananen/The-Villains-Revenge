@@ -224,11 +224,13 @@ namespace TheVillainsRevenge
                                  spieler.position.Y = spieler.spine.skeleton.Y;
                                  spieler.position.X = spieler.spine.skeleton.X;
                                  spieler.cbox.Update(spieler.position);
+                                 spieler.checkpoint = spieler.position;
                                  hero.spine.skeleton.X = i*48;
                                  hero.spine.skeleton.Y = t * 48;
                                  hero.position.Y = hero.spine.skeleton.Y;
                                  hero.position.X = hero.spine.skeleton.X;
                                  hero.cbox.Update(hero.position);
+                                 hero.checkpoint = hero.position;
 
                                  break;
 

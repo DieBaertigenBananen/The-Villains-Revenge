@@ -32,7 +32,7 @@ namespace TheVillainsRevenge
         //Checkpoint//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         int checkkistate;
-        Vector2 checkpoint;
+        public Vector2 checkpoint;
         bool checkjump;
         double checkjumpt;
         double checktime;
