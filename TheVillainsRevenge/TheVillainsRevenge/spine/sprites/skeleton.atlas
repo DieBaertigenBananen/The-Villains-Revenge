@@ -1,0 +1,152 @@
+
+skeleton.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sprites/beard
+  rotate: false
+  xy: 411, 231
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+sprites/body
+  rotate: false
+  xy: 2, 2
+  size: 202, 354
+  orig: 202, 354
+  offset: 0, 0
+  index: -1
+sprites/chest
+  rotate: false
+  xy: 206, 148
+  size: 203, 208
+  orig: 203, 208
+  offset: 0, 0
+  index: -1
+sprites/eyes
+  rotate: true
+  xy: 362, 51
+  size: 95, 64
+  orig: 95, 64
+  offset: 0, 0
+  index: -1
+sprites/hat
+  rotate: false
+  xy: 822, 393
+  size: 144, 110
+  orig: 144, 110
+  offset: 0, 0
+  index: -1
+sprites/head
+  rotate: true
+  xy: 495, 384
+  size: 119, 155
+  orig: 119, 155
+  offset: 0, 0
+  index: -1
+sprites/hip
+  rotate: false
+  xy: 652, 414
+  size: 168, 89
+  orig: 168, 89
+  offset: 0, 0
+  index: -1
+sprites/left_biceps
+  rotate: false
+  xy: 886, 291
+  size: 84, 100
+  orig: 84, 100
+  offset: 0, 0
+  index: -1
+sprites/left_foot
+  rotate: false
+  xy: 428, 45
+  size: 56, 43
+  orig: 56, 43
+  offset: 0, 0
+  index: -1
+sprites/left_forearm
+  rotate: true
+  xy: 411, 162
+  size: 67, 135
+  orig: 67, 135
+  offset: 0, 0
+  index: -1
+sprites/left_hand
+  rotate: false
+  xy: 548, 163
+  size: 111, 93
+  orig: 111, 93
+  offset: 0, 0
+  index: -1
+sprites/left_leg
+  rotate: false
+  xy: 483, 102
+  size: 51, 58
+  orig: 51, 59
+  offset: 0, 0
+  index: -1
+sprites/left_shoulder
+  rotate: true
+  xy: 783, 303
+  size: 88, 101
+  orig: 88, 101
+  offset: 0, 0
+  index: -1
+sprites/mouth
+  rotate: true
+  xy: 968, 414
+  size: 89, 47
+  orig: 89, 47
+  offset: 0, 0
+  index: -1
+sprites/neck
+  rotate: true
+  xy: 663, 248
+  size: 46, 84
+  orig: 46, 84
+  offset: 0, 0
+  index: -1
+sprites/right_biceps
+  rotate: false
+  xy: 538, 258
+  size: 123, 124
+  orig: 123, 124
+  offset: 0, 0
+  index: -1
+sprites/right_foot
+  rotate: false
+  xy: 661, 180
+  size: 67, 66
+  orig: 67, 66
+  offset: 0, 0
+  index: -1
+sprites/right_forearm
+  rotate: true
+  xy: 206, 35
+  size: 111, 154
+  orig: 111, 154
+  offset: 0, 0
+  index: -1
+sprites/right_hand
+  rotate: false
+  xy: 2, 358
+  size: 491, 145
+  orig: 491, 145
+  offset: 0, 0
+  index: -1
+sprites/right_leg
+  rotate: false
+  xy: 428, 90
+  size: 53, 70
+  orig: 53, 70
+  offset: 0, 0
+  index: -1
+sprites/right_shoulder
+  rotate: false
+  xy: 663, 296
+  size: 118, 116
+  orig: 118, 116
+  offset: 0, 0
+  index: -1
