@@ -273,7 +273,7 @@ namespace TheVillainsRevenge
                                  break;
                              case "0,0,0":
                                  type = "hase";
-                                 enemies.Add(new Bunny(new Vector2(i * 48, (t * 48)-64), 1,true));
+                                 enemies.Add(new Bunny(new Vector2(i * 48, t * 48), 1,true));
                                  break;
                              case "255,255,0":
                                  type = "zeit";
@@ -289,7 +289,7 @@ namespace TheVillainsRevenge
                                  break;
                              case "50,50,50":
                                  type = "monkey";
-                                 enemies.Add(new Monkey(new Vector2(i * 48, (t * 48) - 64), 2, true));
+                                 enemies.Add(new Monkey(new Vector2(i * 48, t * 48), 2, true));
                                  break;
                              case "255,255,100":
                                  type = "banana";
