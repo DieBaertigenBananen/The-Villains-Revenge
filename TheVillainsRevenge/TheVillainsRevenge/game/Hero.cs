@@ -305,11 +305,14 @@ namespace TheVillainsRevenge
                                 }
                                 else
                                 {
-                                    for (int i = 0; i < 10; i++)
+                                    if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
                                     {
-                                        kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
-                                        if (kicollide.Intersects(spieler))
-                                            geht = true;
+                                        for (int i = 0; i < 10; i++)
+                                        {
+                                            kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                            if (kicollide.Intersects(spieler))
+                                                geht = true;
+                                        }
                                     }
                                     if (!geht)
                                         Move(actualspeed, 0, map);
