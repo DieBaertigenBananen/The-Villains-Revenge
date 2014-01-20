@@ -33,7 +33,7 @@ namespace TheVillainsRevenge
         //Checkpoint Speicherng//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         public Vector2 checkpoint;
-        double checkmegacooldown = 0;
+        float checkSmashCooldown = 0;
         bool checkjump;
         double checkjumpt;
         float initAcceleration;
@@ -42,10 +42,10 @@ namespace TheVillainsRevenge
         public bool richtung = false;
         public bool smash = false;
         public bool smashImpact = false;
-        public double smashCooldown = 0;
+        public float smashCooldown = 0;
         public int smashIntensity;
         int smashInitIntensity;
-        public double schlagTimer;
+        public double hitTimer;
         public double smashTimer;
         public Rectangle hitCbox;
 
@@ -60,11 +60,11 @@ namespace TheVillainsRevenge
             spine = new Spine();
             initAcceleration = (float)Convert.ToInt32((double)Game1.luaInstance["playerAcceleration"]) / 100;
             smashInitIntensity = Convert.ToInt32((double)Game1.luaInstance["playerSmashIntensity"]);
-
+            smashCooldown = (float)Convert.ToDouble(Game1.luaInstance["playerMegaSchlagCooldown"]) * 1000;
         }
         public void Save(int x)
         {
-            checkmegacooldown = smashCooldown;
+            checkSmashCooldown = smashCooldown;
             checkpoint.X = x;
             checkpoint.Y = position.Y;
             checkjump = jump;
@@ -77,7 +77,7 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
-            smashCooldown = checkmegacooldown;
+            smashCooldown = checkSmashCooldown;
             jump = checkjump;
             jumptimer = checkjumpt;
             spine.skeleton.x = checkpoint.X;
@@ -105,10 +105,6 @@ namespace TheVillainsRevenge
 
         public void Update(GameTime gameTime, Map map)
         {
-            if (smashIntensity > -1) //Nachzittern Smash
-            {
-                smashIntensity--;
-            } 
             speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
             airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
             jumppower = Convert.ToInt32((double)Game1.luaInstance["playerJumppower"]);
@@ -155,47 +151,51 @@ namespace TheVillainsRevenge
                     jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
                 }
             }
-            //-----Schlag-----
+            //-----Schlag / Smash starten-----
             if (Game1.input.hit)
             {
                 if (jump || fall)
                 {
-                    if (smashCooldown == 0)
+                    if (gameTime.TotalGameTime.TotalMilliseconds > smashTimer + smashCooldown) //Smash beginnen
                     {
                         jump = false;
                         fall = true;
                         smash = true;
+                        smashTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                        smashIntensity = smashInitIntensity;
+                        falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
                     }
                 }
-                if (!smash)
+                if (!smash && !hit) //Schlag beginnen
                 {
                     hit = true;
+                    spine.anim("attack", 0, false, gameTime);
+                    hitTimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
             }
-            if (hit)
+            //Schlag ggf beenden
+            if (hit && gameTime.TotalGameTime.TotalMilliseconds > hitTimer + (spine.skeleton.Data.FindAnimation("attack").Duration * 1000))
             {
-                if (smashCooldown == 0)
+                hit = false;
+                spine.animationState.ClearTrack(1);
+            }
+            //Smash fortführen
+            if (smash)
+            {
+                smashIntensity--;
+                //Smash ggf beenden
+                if (smashIntensity <= 0)
                 {
-                    smashCooldown += gameTime.ElapsedGameTime.TotalSeconds;
+                    smash = false;
+                    smashImpact = false;
                 }
-                falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
-                if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                else if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
                 {
-                    smash = true;
-                    hit = false;
-                    smashIntensity = smashInitIntensity;
+                    smashImpact = true;
                 }
             }
-            else if(!Game1.input.hit)
+            if (!smash)
             {
-                //if (smashCooldown != 0)
-                //{
-                //    smashCooldown += gameTime.ElapsedGameTime.TotalSeconds;
-                //    if (smashCooldown >= Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagCooldown"]))
-                //    {
-                //        smashCooldown = 0;
-                //    }
-                //}
                 //-----Move-----
                 if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
                 {
