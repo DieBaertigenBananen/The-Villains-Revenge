@@ -1,0 +1,96 @@
+
+bonepuker.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+arm_right
+  rotate: false
+  xy: 687, 191
+  size: 140, 142
+  orig: 140, 142
+  offset: 0, 0
+  index: -1
+beard
+  rotate: false
+  xy: 837, 212
+  size: 127, 128
+  orig: 127, 128
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 10, 80
+  size: 246, 350
+  orig: 246, 350
+  offset: 0, 0
+  index: -1
+chest
+  rotate: true
+  xy: 370, 144
+  size: 182, 159
+  orig: 182, 159
+  offset: 0, 0
+  index: -1
+foot_left
+  rotate: false
+  xy: 942, 410
+  size: 53, 71
+  orig: 53, 71
+  offset: 0, 0
+  index: -1
+foot_right
+  rotate: false
+  xy: 134, 10
+  size: 54, 60
+  orig: 54, 60
+  offset: 0, 0
+  index: -1
+hand_right
+  rotate: false
+  xy: 539, 171
+  size: 138, 162
+  orig: 138, 162
+  offset: 0, 0
+  index: -1
+hat
+  rotate: false
+  xy: 370, 21
+  size: 151, 113
+  orig: 151, 113
+  offset: 0, 0
+  index: -1
+head
+  rotate: true
+  xy: 751, 350
+  size: 131, 181
+  orig: 131, 181
+  offset: 0, 0
+  index: -1
+hip
+  rotate: false
+  xy: 10, 10
+  size: 114, 60
+  orig: 114, 60
+  offset: 0, 0
+  index: -1
+neck
+  rotate: false
+  xy: 539, 71
+  size: 97, 90
+  orig: 98, 90
+  offset: 0, 0
+  index: -1
+shoulder_right
+  rotate: true
+  xy: 520, 343
+  size: 138, 221
+  orig: 138, 221
+  offset: 0, 0
+  index: -1
+weapon
+  rotate: false
+  xy: 10, 336
+  size: 500, 145
+  orig: 500, 145
+  offset: 0, 0
+  index: -1

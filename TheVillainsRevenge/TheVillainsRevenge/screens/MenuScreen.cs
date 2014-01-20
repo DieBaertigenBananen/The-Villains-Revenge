@@ -47,7 +47,7 @@ namespace TheVillainsRevenge
         public void Load(ContentManager Content)
         {
             camera = new Camera();
-            character.Load(Content, Game1.graphics, "skeleton", 2.5f, 0.5f);
+            character.Load(Content, Game1.graphics, "bonepuker", 2.5f, 0.5f);
             renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderMenu = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
