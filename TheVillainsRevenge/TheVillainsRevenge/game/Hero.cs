@@ -258,9 +258,9 @@ namespace TheVillainsRevenge
                                         //Block ist über den Hero
                                         bool b = false;
                                         int deltay = 0;
-                                        for (int i = 0; i < 60; i++)
+                                        for (int i = 0; i < 100; i++)
                                         {
-                                            float t = (float)(i / 20);
+                                            float t = (float)(i / 25);
                                             deltay = deltay + (int)(-jumppower + (gravitation * t));
                                             kicollide = new Rectangle(cbox.box.X + (i * realspeed), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
                                             if (kicollide.Intersects(spieler))
