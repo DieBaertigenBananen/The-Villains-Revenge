@@ -181,12 +181,13 @@ namespace TheVillainsRevenge
                             }
                             //KI ist auf den Boden und alles ist gut
                             //Schaue ob der Block rechts ist
+                            kicollide = new Rectangle(cbox.box.X, cbox.box.Y, cbox.box.Width, cbox.box.Height);
                             if (kicheck.Count() != 0)
                             {
                                 for (int i = 0; i < 50; i++)
                                 {
-                                    kicollide = new Rectangle(cbox.box.X + i * 48, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-
+                                    kicollide.X = cbox.box.X + i * 48;
+                                    kicollide.Y = cbox.box.Y;
                                     foreach (KIPoint kipoint in map.kipoints)
                                     {
                                         if (kicollide.Intersects(kipoint.cbox) && kipoint.id == kicheck.ElementAt(0).id)
@@ -194,6 +195,22 @@ namespace TheVillainsRevenge
                                             geht = true;
                                             i = 200;
                                             break;
+                                        }
+                                    }
+                                    if (!geht)
+                                    {
+                                        for (int j = 0; j < 20; j++)
+                                        {
+                                            kicollide.Y = cbox.box.Y - j * 48;
+                                            foreach (KIPoint kipoint in map.kipoints)
+                                            {
+                                                if (kicollide.Intersects(kipoint.cbox) && kipoint.id == kicheck.ElementAt(0).id)
+                                                {
+                                                    geht = true;
+                                                    j = 20;
+                                                    break;
+                                                }
+                                            }
                                         }
                                     }
                                 }
