@@ -283,9 +283,13 @@ namespace TheVillainsRevenge
                                  type = "herz";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));
                                  break;
-                             case "50,50,50":
+                             case "255,200,200":
                                  type = "monkey";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 break;
+                             case "50,50,50":
+                                 type = "monkey";
+                                 enemies.Add(new Monkey(new Vector2(i * 48, (t * 48) - 64), 2, true));
                                  break;
                              case "255,255,100":
                                  type = "banana";

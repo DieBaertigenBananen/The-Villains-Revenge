@@ -258,7 +258,7 @@ namespace TheVillainsRevenge
                                         //Block ist über den Hero
                                         bool b = false;
                                         int deltay = 0;
-                                        for (int i = 0; i < 100; i++)
+                                        for (int i = 0; i < 50; i++)
                                         {
                                             float t = (float)(i / 25);
                                             deltay = deltay + (int)(-jumppower + (gravitation * t));
