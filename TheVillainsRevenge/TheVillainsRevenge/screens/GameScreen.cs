@@ -173,7 +173,7 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime, ContentManager Content)
         {
-            if (!levelend)
+            if (!levelend && !spieler.die)
             {
                 //Update Spieler
                 spieler.Update(gameTime, karte, princess);
@@ -462,7 +462,7 @@ namespace TheVillainsRevenge
                 outline.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 smash.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
             }
-            if (spieler.lifes != 0)
+            if (spieler.lifes != 0 || spieler.die)
             {
                 return 1;
             }

@@ -48,6 +48,7 @@ namespace TheVillainsRevenge
         public double hitTimer;
         public double smashTimer;
         public Rectangle hitCbox;
+        public bool die = false;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -101,6 +102,10 @@ namespace TheVillainsRevenge
         public void getHit()
         {
             lifes--;
+            if (lifes <= 0)
+            {
+                die = true;
+            }
         }
 
         public void Update(GameTime gameTime, Map map, Princess princess)
@@ -161,6 +166,7 @@ namespace TheVillainsRevenge
                         jump = false;
                         fall = true;
                         smash = true;
+                        spine.anim("smash", 0, false, gameTime);
                         smashTimer = gameTime.TotalGameTime.TotalMilliseconds;
                         smashIntensity = smashInitIntensity;
                         falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);

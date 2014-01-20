@@ -93,6 +93,9 @@ namespace TheVillainsRevenge
                     animationStateData.SetMix("jump", "die", 0.3f);
                     animationStateData.SetMix("run", "die", 0.1f);
                     animationStateData.SetMix("idle", "die", 0.1f);
+                    animationStateData.SetMix("smash", "idle", 0.2f);
+                    animationStateData.SetMix("smash", "run", 0.2f);
+                    animationStateData.SetMix("smash", "jump", 0.2f);
                     //sc_cover_eyes
                     //sc_escape
                     //smash
