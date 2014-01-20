@@ -21,20 +21,23 @@ namespace TheVillainsRevenge
         double coverTimer;
         int coverTime;
         public bool beating;
+        double beatingTimer;
         Random randomGen = new Random();
         int randomNumber;
         int rageChance;
         int rageLimit;
         float unrageSpeed;
+        Spine spine;
         //Deine Mutter ist so fett, wenn sie aus dem Bett fällt, dann auf beiden Seiten
 
         public Princess()
         {
-
+            spine = new Spine();
         }
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)
         {
+            spine.Load(Vector2.Zero, "princessCloud", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), 0);
             rageWarmup = Convert.ToInt32((double)Game1.luaInstance["princessRageWarmup"]) * 1000;
             rageChance = Convert.ToInt32((double)Game1.luaInstance["princessRageChance"]);
             enrageSpeed = Convert.ToInt32((double)Game1.luaInstance["princessEnrageSpeed"]);
@@ -50,18 +53,26 @@ namespace TheVillainsRevenge
 
         public void Reset()
         {
-        
+            rageMode = false;
+            rageMeter = 0;
+            beating = false;
+            coverEyes = false;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Player player)
         {
+            spine.skeleton.X = player.position.X;
+            spine.skeleton.Y = player.position.Y;
             if (beating)
             {
-                //Wenn Kloppwolke zu Ende
-                beating = false;
-                rageMode = false;
-                rageMeter = 0;
-                rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                if (gameTime.TotalGameTime.TotalMilliseconds > beatingTimer + (spine.skeleton.Data.FindAnimation("cloud").Duration * 1000)) //Kloppwolke zu Ende?
+                {
+                    beating = false;
+                    rageMode = false;
+                    rageMeter = 0;
+                    rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    spine.animationState.ClearTrack(0);
+                }
             }
             else if (coverEyes)
             {
@@ -98,6 +109,17 @@ namespace TheVillainsRevenge
                     if (randomNumber < 50)
                     {
                         beating = true;
+                        beatingTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                        int tempFlipState;
+                        if (spine.skeleton.FlipX)
+                        {
+                            tempFlipState = 1;
+                        }
+                        else
+                        {
+                            tempFlipState = 2;
+                        }
+                        spine.anim("cloud", tempFlipState, false, gameTime);
                         //ENRAAAAAGGGGEEEE!!!!!!!!!!!!!!!!!
                     }
                     else
@@ -123,8 +145,11 @@ namespace TheVillainsRevenge
                     rageMode = true;
                 }
             }
-            beating = false;
-            coverEyes = false;
+        }
+
+        public void Draw(GameTime gameTime, Camera camera)
+        {
+            spine.Draw(gameTime, camera, new Vector2(spine.skeleton.x, spine.skeleton.y));
         }
     }
 }

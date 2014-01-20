@@ -423,7 +423,7 @@ namespace TheVillainsRevenge
                     }
                 }
                 //--------------------Princess--------------------
-                princess.Update(gameTime);
+                princess.Update(gameTime, spieler);
                 //Wenn Spieler über den Maprand tritt (zu tief fällt)
                 if (spieler.position.Y >= (karte.size.Y))
                 {
@@ -479,9 +479,20 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderSpine);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spieler.Draw(gameTime, camera);
+            for (int i = 0; i < karte.enemies.Count(); ++i)
+            {
+                Enemy enemy = karte.enemies.ElementAt(i);
+                enemy.Draw(spriteBatch, gameTime, camera);
+            }
+            if (princess.beating)
+            {
+                princess.Draw(gameTime, camera);
+            }
+            else
+            {
+                spieler.Draw(gameTime, camera);
+            }
             hero.Draw(gameTime, camera);
-
             //----------------------------------------------------------------------
             //----------------------------------------Draw to renderBackground
             //----------------------------------------------------------------------
@@ -541,7 +552,7 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 karte.Draw(spriteBatch,gameTime,camera); //Plattformen & Co
-                hero.Draw(gameTime,camera); //Ashbrett
+                //hero.Draw(gameTime,camera); //Ashbrett
                 spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
                 if (Game1.debug) //Boundingboxen
                 {

@@ -166,11 +166,6 @@ namespace TheVillainsRevenge
                  Item item = items.ElementAt(i);
                  spriteBatch.Draw(itemTexture, item.position, item.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.9f);
              }
-             for (int i = 0; i < enemies.Count(); ++i)
-             { 
-                 Enemy enemy = enemies.ElementAt(i);
-                 enemy.Draw(spriteBatch,gameTime,camera);
-             }
              for (int i = 0; i < triggers.Count(); ++i)
              {
                  Trigger trigger = triggers.ElementAt(i);
