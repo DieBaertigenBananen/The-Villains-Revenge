@@ -36,7 +36,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 #endif
 
-namespace Spine {
+namespace TheVillainsRevenge {
 
 	static public class Util {
 #if WINDOWS_STOREAPP

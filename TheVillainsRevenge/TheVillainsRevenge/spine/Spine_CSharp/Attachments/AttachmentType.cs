@@ -26,7 +26,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *****************************************************************************/
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public enum AttachmentType {
 		region, regionsequence, boundingbox
 	}

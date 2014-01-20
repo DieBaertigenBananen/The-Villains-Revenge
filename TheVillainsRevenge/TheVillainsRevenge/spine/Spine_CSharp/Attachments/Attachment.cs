@@ -28,7 +28,8 @@
 
 using System;
 
-namespace Spine {
+namespace TheVillainsRevenge
+{
 	abstract public class Attachment {
 		public String Name { get; private set; }
 

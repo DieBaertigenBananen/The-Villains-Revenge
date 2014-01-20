@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class EventData {
 		public String Name { get; private set; }
 		public int Int { get; set; }

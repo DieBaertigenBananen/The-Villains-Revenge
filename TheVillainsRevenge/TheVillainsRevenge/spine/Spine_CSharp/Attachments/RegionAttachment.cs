@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	/// <summary>Attachment that displays a texture region.</summary>
 	public class RegionAttachment : Attachment {
 		public const int X1 = 0;

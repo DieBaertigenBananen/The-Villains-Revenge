@@ -31,7 +31,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class SkeletonRenderer {
 		GraphicsDevice device;
 		SpriteBatcher batcher;

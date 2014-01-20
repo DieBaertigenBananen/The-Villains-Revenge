@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	/// <summary>Stores attachments by slot index and attachment name.</summary>
 	public class Skin {
 		internal String name;

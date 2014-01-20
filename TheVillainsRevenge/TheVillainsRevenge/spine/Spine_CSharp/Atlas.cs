@@ -36,7 +36,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 #endif
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class Atlas {
 		List<AtlasPage> pages = new List<AtlasPage>();
 		List<AtlasRegion> regions = new List<AtlasRegion>();

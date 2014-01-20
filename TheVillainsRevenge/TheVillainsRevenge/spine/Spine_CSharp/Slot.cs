@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class Slot {
 		internal SlotData data;
 		internal Bone bone;

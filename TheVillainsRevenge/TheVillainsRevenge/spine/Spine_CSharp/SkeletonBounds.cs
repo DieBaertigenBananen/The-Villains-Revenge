@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class SkeletonBounds {
 		private List<Polygon> polygonPool = new List<Polygon>();
 		private float minX, minY, maxX, maxY;

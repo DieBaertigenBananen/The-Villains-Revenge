@@ -28,7 +28,8 @@
 
 using System;
 
-namespace Spine {
+namespace TheVillainsRevenge
+{
 	public class AtlasAttachmentLoader : AttachmentLoader {
 		private Atlas atlas;
 

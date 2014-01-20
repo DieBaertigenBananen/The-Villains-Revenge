@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	/// <summary>Attachment that has a polygon for bounds checking.</summary>
 	public class BoundingBoxAttachment : Attachment {
 		public float[] Vertices { get; set; }

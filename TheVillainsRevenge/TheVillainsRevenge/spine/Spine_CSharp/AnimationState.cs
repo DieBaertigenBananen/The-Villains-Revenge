@@ -30,7 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class AnimationState {
 		private AnimationStateData data;
 		private List<TrackEntry> tracks = new List<TrackEntry>();

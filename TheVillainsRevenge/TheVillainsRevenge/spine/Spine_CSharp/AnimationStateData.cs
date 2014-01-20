@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class AnimationStateData {
 		internal SkeletonData skeletonData;
 		private Dictionary<KeyValuePair<Animation, Animation>, float> animationToMixTime = new Dictionary<KeyValuePair<Animation, Animation>, float>();

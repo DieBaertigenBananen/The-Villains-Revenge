@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class Skeleton {
 		internal SkeletonData data;
 		internal List<Bone> bones;

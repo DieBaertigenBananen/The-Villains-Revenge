@@ -35,7 +35,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 #endif
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class SkeletonJson {
 		private AttachmentLoader attachmentLoader;
 		public float Scale { get; set; }

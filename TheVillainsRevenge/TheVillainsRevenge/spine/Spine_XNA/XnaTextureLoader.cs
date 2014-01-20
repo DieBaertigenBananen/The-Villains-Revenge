@@ -31,7 +31,7 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class XnaTextureLoader : TextureLoader {
 		GraphicsDevice device;
 

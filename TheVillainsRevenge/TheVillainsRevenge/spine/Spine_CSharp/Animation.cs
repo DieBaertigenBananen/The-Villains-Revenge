@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class Animation {
 		internal List<Timeline> timelines;
 		internal float duration;

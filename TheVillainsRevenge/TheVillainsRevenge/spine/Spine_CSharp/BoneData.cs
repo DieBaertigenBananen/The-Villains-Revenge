@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Spine {
+namespace TheVillainsRevenge {
 	public class BoneData {
 		internal BoneData parent;
 		internal String name;
