@@ -16,7 +16,7 @@ playerCollisionOffsetY = -285
 playerSmashIntensity = 15
 
 heroScale = 0.32
-heroStartTime = 4
+heroStartTime = 12
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -150
 heroCollisionWidth = 45
@@ -43,7 +43,8 @@ princessRageLimit = 100
 princessCoverTime = 5
 
 blockSpeed = 5	
-triggerTime = 5
+triggerTimeWall = 5
+triggerTimeDoor = 1
 
 
 --Update

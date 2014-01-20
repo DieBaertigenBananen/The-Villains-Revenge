@@ -33,11 +33,11 @@ namespace TheVillainsRevenge
             activeTime = 0;
             checkactiveTime = 0;
         }
-        public void Reset(List<Block> list)
+        public void Reset(List<Block> list, List<Enemy> elist)
         {
             if (!active && checkactive)
             {
-                Pushed(list);
+                Pushed(list,elist);
                 time = checkactiveTime;
             }
             else if (active && !checkactive)
@@ -58,7 +58,7 @@ namespace TheVillainsRevenge
             active = checkactive;
             time = checkactiveTime;
         }
-        public void Pushed(List<Block> list)
+        public void Pushed(List<Block> list,List<Enemy> elist)
         {
             //Schaue wo die Blöcke sind
             Rectangle cboxnew = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
@@ -101,6 +101,7 @@ namespace TheVillainsRevenge
             }
             if (oben)
             {
+                activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeWall"]);
                 //Haben nun alle Daten, nun platziere Blöcke bis unten ne Kollision ist
                 for (int i = 0; i < 20; i++)
                 {
@@ -129,6 +130,7 @@ namespace TheVillainsRevenge
             }
             else
             {
+                activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeDoor"]);
                 //Es ist kein Block oben, daher ist es eine Tür unten
                 cboxnew.Y = triggerend.Y;
                 for (int i = 0; i < 20; i++)
@@ -141,11 +143,25 @@ namespace TheVillainsRevenge
                         {
                             //Wir haben alle Daten
                             list.Remove(block);
+                            triggerend.Y = block.cbox.Y;
+                        }
+                    }
+                }
+                cboxnew.Y = triggerend.Y;
+                for (int i = 0; i < 10; i++)
+                {
+                    cboxnew.X = cboxnew.X + 48;
+                    for (int j = 0; j < elist.Count(); ++j)
+                    {
+                        Enemy enemy = elist.ElementAt(j);
+                        if (cboxnew.Intersects(enemy.cbox.box) && enemy.type == 2)
+                        {
+                            enemy.moving = true;
+                            enemy.mover = false;
                         }
                     }
                 }
             }
-            activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTime"]);
             time = 0;
             active = true;
         }

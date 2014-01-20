@@ -50,7 +50,7 @@ namespace TheVillainsRevenge
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
-        public int test = 0;
+        public static int test = 0;
 
         //KIDaten
         //Dies sind Luafunktionen für den netten GD
@@ -383,7 +383,7 @@ namespace TheVillainsRevenge
                 {
                     if (spieler.cbox.box.Intersects(trigger.cbox) && spieler.fall)
                     {
-                        trigger.Pushed(karte.blocks);
+                        trigger.Pushed(karte.blocks,karte.enemies);
                         break;
                     }
                 }
@@ -604,13 +604,9 @@ namespace TheVillainsRevenge
                         KICheck kicheck = hero.kicheck.ElementAt(i);
                         spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 100 + i * 20), Color.White);
                     }
-                    for (int i = 0; i < karte.saveenemies.Count(); i++)
-                    {
-                        Enemy enemy = karte.saveenemies.ElementAt(i);
-                        spriteBatch.DrawString(font, "Enemy pos:" + enemy.position.X, new Vector2(Game1.resolution.X - 400, 410 + i * 20), Color.White);
-                    }
                 }
-                    gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
+                spriteBatch.DrawString(font, "Test: " + test, new Vector2(Game1.resolution.X - 300, 390), Color.White);
+                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             spriteBatch.End();
 
             //----------------------------------------------------------------------

@@ -30,64 +30,114 @@ namespace TheVillainsRevenge
                 speed = speed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
             }
             gravitation = Convert.ToInt32((double)Game1.luaInstance["monkeyGravitation"]);
-            bool move = false;
-            if (Math.Abs(position.X - heropos.X) <= Convert.ToInt32((double)Game1.luaInstance["monkeyThrowRange"]))
+            if (moving)
             {
-                if (position.X > heropos.X)
-                    mover = true;
-                else
-                    mover = false;
-                if (animeTime <= 0)
+                if (Math.Abs(position.X - heropos.X) <= Convert.ToInt32((double)Game1.luaInstance["monkeyThrowRange"]))
                 {
-                    if (position.X < heropos.X)
-                    {
-                        map.objects.Add(new Kacke(new Vector2(cbox.box.X, cbox.box.Y), 2, true));
-                    }
-                    else
-                    {
-                        map.objects.Add(new Kacke(new Vector2(cbox.box.X, cbox.box.Y), 2, false));
-                    }
-                    animeTime = 1;
+                    moving = false;
+                }
+                else
+                {
+
                     if (mover)
-                        spine.anim("attack", 2, true, gameTime);
-                    else
-                        spine.anim("attack", 1, true, gameTime);
-                }
-                else
-                {
-                    animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
-                    if (animeTime < 0.5f)
                     {
-                        if (mover)
-                            spine.anim("walking", 1, true, gameTime);
-                        else
-                            spine.anim("walking", 2, true, gameTime);
-                        move = true;
-                    }
-                }
-                if (move)
-                {
-                    if (!mover)
-                    {
-                        speed = -speed;
-                    }
-                    if (CollisionCheckedVector(speed, 0, map.blocks).X != 0)
-                    {
-                        Move(speed, 0, map);//Bewege Rechts
-                        if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                        if (CollisionCheckedVector(speed, 0, map.blocks).X != 0)
                         {
-                            Move(-speed, 0, map);
+                            Move(speed, 0, map);//Bewege Rechts
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                            {
+                                mover = false;
+                                Move(-speed, 0, map);
+                            }
+                        }
+                        else
+                        {
+                            mover = false;
+                        }
+                    }
+                    else
+                    {
+                        if (CollisionCheckedVector(-speed, 0, map.blocks).X != 0)
+                        {
+                            Move(-speed, 0, map);//Bewege Links
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                            {
+                                mover = true;
+                                Move(speed, 0, map);
+                            }
+                        }
+                        else
+                        {
+                            mover = true;
+                        }
+                    }
+                    if (mover)
+                        spine.anim("walking", 1, true, gameTime);
+                    else
+                        spine.anim("walking", 2, true, gameTime);
+                }
+            }
+            if (!moving)
+            {
+                bool move = false;
+                if (Math.Abs(position.X - heropos.X) <= Convert.ToInt32((double)Game1.luaInstance["monkeyThrowRange"]))
+                {
+                    if (position.X > heropos.X)
+                        mover = true;
+                    else
+                        mover = false;
+                    if (animeTime <= 0)
+                    {
+                        if (position.X < heropos.X)
+                        {
+                            map.objects.Add(new Kacke(new Vector2(cbox.box.X, cbox.box.Y), 2, true));
+                        }
+                        else
+                        {
+                            map.objects.Add(new Kacke(new Vector2(cbox.box.X, cbox.box.Y), 2, false));
+                        }
+                        animeTime = 1;
+                        if (mover)
+                            spine.anim("attack", 2, true, gameTime);
+                        else
+                            spine.anim("attack", 1, true, gameTime);
+                    }
+                    else
+                    {
+                        animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                        if (animeTime < 0.5f)
+                        {
+                            if (mover)
+                                spine.anim("walking", 1, true, gameTime);
+                            else
+                                spine.anim("walking", 2, true, gameTime);
+                            move = true;
+                        }
+                    }
+                    if (move)
+                    {
+                        if (!mover)
+                        {
+                            speed = -speed;
+                        }
+                        if (CollisionCheckedVector(speed, 0, map.blocks).X != 0)
+                        {
+                            Move(speed, 0, map);//Bewege Rechts
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                            {
+                                Move(-speed, 0, map);
+                            }
                         }
                     }
                 }
-            }
-            else
-            {
-                if(mover)
-                    spine.anim("sitting", 1, true, gameTime);
                 else
-                    spine.anim("sitting", 2, true, gameTime);
+                {
+                    if (mover)
+                        spine.anim("sitting", 1, true, gameTime);
+                    else
+                        spine.anim("sitting", 2, true, gameTime);
 
+                }
             }
 
             //Gravitation

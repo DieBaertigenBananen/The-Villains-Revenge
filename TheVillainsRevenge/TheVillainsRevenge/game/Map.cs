@@ -102,7 +102,7 @@ namespace TheVillainsRevenge
              }
              foreach (Trigger trigger in triggers)
              {
-                 trigger.Reset(blocks);
+                 trigger.Reset(blocks,enemies);
              }
              foreach (MovingBlock mblock in mblocks)
              {
