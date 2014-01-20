@@ -158,6 +158,7 @@ namespace TheVillainsRevenge
                     if (spieler.X < position.X)
                     {
                         actualspeed = -actualspeed;
+                        realspeed = -realspeed;
                     }
                     if (!cbox.box.Intersects(spieler))
                     {
