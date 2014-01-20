@@ -40,11 +40,14 @@ namespace TheVillainsRevenge
         public float acceleration;
         public bool hit = false;
         public bool richtung = false;
-        public bool schlag = false;
-        public bool megaschlag = false;
-        public double megacooldown = 0;
+        public bool smash = false;
+        public bool smashImpact = false;
+        public double smashCooldown = 0;
         public int smashIntensity;
         int smashInitIntensity;
+        public double schlagTimer;
+        public double smashTimer;
+        public Rectangle hitCbox;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -61,7 +64,7 @@ namespace TheVillainsRevenge
         }
         public void Save(int x)
         {
-            checkmegacooldown = megacooldown;
+            checkmegacooldown = smashCooldown;
             checkpoint.X = x;
             checkpoint.Y = position.Y;
             checkjump = jump;
@@ -74,7 +77,7 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
-            megacooldown = checkmegacooldown;
+            smashCooldown = checkmegacooldown;
             jump = checkjump;
             jumptimer = checkjumpt;
             spine.skeleton.x = checkpoint.X;
@@ -157,47 +160,42 @@ namespace TheVillainsRevenge
             {
                 if (jump || fall)
                 {
-                    if (megacooldown == 0)
+                    if (smashCooldown == 0)
                     {
                         jump = false;
                         fall = true;
-                        hit = true;
+                        smash = true;
                     }
                 }
-                else
+                if (!smash)
                 {
-                    hit = false;
-                    schlag = true;
+                    hit = true;
                 }
             }
             if (hit)
             {
-                if (megacooldown == 0)
+                if (smashCooldown == 0)
                 {
-                    megacooldown += gameTime.ElapsedGameTime.TotalSeconds;
+                    smashCooldown += gameTime.ElapsedGameTime.TotalSeconds;
                 }
                 falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
                 if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
                 {
-                    megaschlag = true;
+                    smash = true;
                     hit = false;
                     smashIntensity = smashInitIntensity;
                 }
             }
             else if(!Game1.input.hit)
             {
-                if(schlag)
-                    schlag = false;
-                if (megaschlag)
-                    megaschlag = false;
-                if (megacooldown != 0)
-                {
-                    megacooldown += gameTime.ElapsedGameTime.TotalSeconds;
-                    if (megacooldown >= Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagCooldown"]))
-                    {
-                        megacooldown = 0;
-                    }
-                }
+                //if (smashCooldown != 0)
+                //{
+                //    smashCooldown += gameTime.ElapsedGameTime.TotalSeconds;
+                //    if (smashCooldown >= Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagCooldown"]))
+                //    {
+                //        smashCooldown = 0;
+                //    }
+                //}
                 //-----Move-----
                 if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
                 {

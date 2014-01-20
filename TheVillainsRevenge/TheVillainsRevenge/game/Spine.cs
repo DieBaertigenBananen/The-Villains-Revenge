@@ -19,17 +19,28 @@ namespace TheVillainsRevenge
 
         public void anim(string newanim,int flip,bool loop, GameTime gameTime)
         {
-            if(flip == 1)
+            if (flip == 1)
+            {
                 skeleton.flipX = true;
                 flipSkel = true;
+            }
             if (flip == 2)
+            {
                 skeleton.flipX = false;
                 flipSkel = false;
-            if (animation != newanim)
+            }
+            if (newanim == "attack")
             {
-                animationTimer = gameTime.TotalGameTime.TotalMilliseconds;
-                animationState.SetAnimation(0, newanim, loop);
-                animation = newanim;
+                animationState.SetAnimation(1, newanim, loop);
+            }
+            else
+            {
+                if (animation != newanim)
+                {
+                    animationTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    animationState.SetAnimation(0, newanim, loop);
+                    animation = newanim;
+                }
             }
         }
 
@@ -79,9 +90,6 @@ namespace TheVillainsRevenge
                     animationStateData.SetMix("run", "jump", 0.2f);
                     animationStateData.SetMix("jump", "run", 0.2f);
                     animationStateData.SetMix("jump", "idle", 0.2f);
-                    //animationStateData.SetMix("run", "attack", 0.0f);
-                    //animationStateData.SetMix("idle", "attack", 0.0f);
-                    //animationStateData.SetMix("jump", "attack", 0.0f);
                     animationStateData.SetMix("jump", "die", 0.3f);
                     animationStateData.SetMix("run", "die", 0.1f);
                     animationStateData.SetMix("idle", "die", 0.1f);
@@ -128,6 +136,33 @@ namespace TheVillainsRevenge
         public void Event(object sender, EventTriggeredArgs e)
         {
             Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": event " + e.Event);
+        }
+
+        public bool AttachmentCollision(string attachmentName, Rectangle cbox) //Checken ob Rectangle mit Attachement (z.B. Keule) kollidiert
+        {
+            bool collision = false;
+            if (bounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height)
+                ||
+                bounds.AabbIntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height)
+                ||
+                bounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y)
+                ||
+                bounds.AabbIntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height)
+                )
+            {
+                if (bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height).Name == attachmentName
+                    ||
+                    bounds.IntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height).Name == attachmentName
+                    ||
+                    bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y).Name == attachmentName
+                    ||
+                    bounds.IntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height).Name == attachmentName
+                    )
+                {
+                    collision = true;
+                }
+            }
+            return collision;
         }
     }
 }

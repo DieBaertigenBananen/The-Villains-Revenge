@@ -177,47 +177,44 @@ namespace TheVillainsRevenge
             {
                 //Update Spieler
                 spieler.Update(gameTime, karte);
-                //erstelle den SchlagRectangle
-                Rectangle schlagRECT = new Rectangle(spieler.cbox.box.X, spieler.cbox.box.Y, spieler.cbox.box.Width, spieler.cbox.box.Height);
-                //Definiere den SchlagRectangle falls der Spieler schlägt
-                if(spieler.schlag)
+                if(spieler.hit)
                 {
-                    if (spieler.richtung)
-                    {
-                        schlagRECT.X = schlagRECT.X + schlagRECT.Width;
-                        schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
-                    }
-                    else
-                    {
-                        schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
-                        schlagRECT.X = schlagRECT.X - schlagRECT.Width;
-                    }
+                    //if (spieler.richtung)
+                    //{
+                    //    schlagRECT.X = schlagRECT.X + schlagRECT.Width;
+                    //    schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
+                    //}
+                    //else
+                    //{
+                    //    schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
+                    //    schlagRECT.X = schlagRECT.X - schlagRECT.Width;
+                    //}
                     for (int i = 0; i < karte.blocks.Count(); i++)
                     {
                         Block block = karte.blocks.ElementAt(i);
-                        if (block.cbox.Intersects(schlagRECT) && block.type == "breakable_verticale")
+                        if (block.type == "breakable_verticale" && spieler.spine.AttachmentCollision("weapon", block.cbox))
                         {
                             karte.objects.Add(new Debris(block.position, 3));
                             karte.blocks.Remove(block);
                         }
                     }
                 }
-                else if(spieler.megaschlag)
+                else if(spieler.smashImpact)
                 {
                     int Range = Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagRange"]);
-                    schlagRECT.X = schlagRECT.X - Range;
-                    schlagRECT.Width = schlagRECT.Width+(Range*2);
-                    schlagRECT.Y += 1;
+                    //Definiere SchlagRectangle
+                    spieler.hitCbox = new Rectangle(spieler.cbox.box.X - Range, spieler.cbox.box.Y, spieler.cbox.box.Width + (Range * 2), spieler.cbox.box.Height);
+                    spieler.hitCbox.Y += 1;
                     for (int i = 0; i < karte.blocks.Count(); i++)
                     {
                         Block block = karte.blocks.ElementAt(i);
-                        if (block.cbox.Intersects(schlagRECT)&&block.type == "breakable")
+                        if (block.cbox.Intersects(spieler.hitCbox) && block.type == "breakable")
                         {
                             karte.objects.Add(new Debris(block.position, 3));
                             karte.blocks.Remove(block);
                         }
                     }
-                    schlagRECT.Y -= 1;
+                    spieler.hitCbox.Y -= 1;
                 }
 
                 //--------------------Map--------------------
@@ -283,17 +280,17 @@ namespace TheVillainsRevenge
                     {
                         enemy.Update(gameTime, karte, hero.position);
                         //Wenn Spieler schlägt
-                        if (spieler.schlag)
+                        if (spieler.hit)
                         {
-                            if(schlagRECT.Intersects(enemy.cbox.box)&&enemy.type == 1) //Töte Kanninchen
+                            if (enemy.type == 1 && spieler.spine.AttachmentCollision("weapon", enemy.cbox.box)) //Töte Kanninchen
                             {
                                 enemy.die(gameTime);
                             }
                         }
                             //Megaschlag
-                        else if (spieler.megaschlag)
+                        else if (spieler.smash)
                         {
-                            if (schlagRECT.Intersects(enemy.cbox.box) && enemy.type == 1) //Töte Kanninchen
+                            if (enemy.type == 1 && spieler.hitCbox.Intersects(enemy.cbox.box)) //Töte Kanninchen
                             {
                                 enemy.die(gameTime);
                             }
@@ -304,9 +301,9 @@ namespace TheVillainsRevenge
                             karte.enemies.Remove(enemy);
                         }
                         //Wenn Spieler von enemy getroffen wird
-                        if (spieler.cbox.box.Intersects(enemy.cbox.box) && enemy.type == 1)
+                        if (enemy.type == 1 && spieler.cbox.box.Intersects(enemy.cbox.box))
                         {
-                            if (spieler.hit&&spieler.fall)
+                            if (spieler.smash && spieler.fall)
                             {
                                 //Falls Megaschlag
                                 enemy.die(gameTime);
@@ -586,11 +583,11 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "bb-bonepuker: " + spieler.spine.bounds.BoundingBoxes.FirstOrDefault(), new Vector2(Game1.resolution.X - 300, 310), Color.White);
                     spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                     spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
-                    spriteBatch.DrawString(font, "SmashCooldown: " + spieler.megacooldown, new Vector2(Game1.resolution.X - 300, 370), Color.White);
-                    if (spieler.schlag)
+                    spriteBatch.DrawString(font, "SmashCooldown: " + spieler.smashCooldown, new Vector2(Game1.resolution.X - 300, 370), Color.White);
+                    if (spieler.hit)
                     {
                         spriteBatch.DrawString(font, "SCHLAG", new Vector2(Game1.resolution.X - 500, 350), Color.White);
-                    } else if (spieler.megaschlag)
+                    } else if (spieler.smash)
                     {
                         spriteBatch.DrawString(font, "MEGAAA SMAAASH", new Vector2(Game1.resolution.X - 500, 350), Color.White);
                     }
@@ -638,7 +635,7 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(renderBackground0, Vector2.Zero, Color.White);
             spriteBatch.End();
             //-----Spielebene-----
-            if (princess.beating || spieler.megaschlag || spieler.smashIntensity > 0) //-----[Shader]-----Smash
+            if (princess.beating || spieler.smash || spieler.smashIntensity > 0) //-----[Shader]-----Smash
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, smash);
                 if (spieler.smashIntensity >= 0)
