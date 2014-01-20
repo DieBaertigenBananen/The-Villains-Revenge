@@ -70,6 +70,10 @@ namespace TheVillainsRevenge
                     cuttexture.X = 48;
                     cuttexture.Y = 0;
                     break;
+                case "triggerdoor":
+                    cuttexture.X = 96;
+                    cuttexture.Y = 0;
+                    break;
                 case "triggerend":
                     cuttexture.X = 0;
                     cuttexture.Y = 0;

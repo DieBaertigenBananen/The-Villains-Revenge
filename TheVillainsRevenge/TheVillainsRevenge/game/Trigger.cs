@@ -62,6 +62,7 @@ namespace TheVillainsRevenge
         {
             //Schaue wo die Blöcke sind
             Rectangle cboxnew = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
+            Rectangle triggerend = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
             for (int i = 0; i < 20; i++)
             {
                 cboxnew.X = cboxnew.X - 48;
@@ -72,6 +73,7 @@ namespace TheVillainsRevenge
                     if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
                     {
                         //Wir haben den Block, jetzt hole die Höhe
+                        triggerend.X = block.cbox.X;
                         hat = true;
                         break;
                     }
@@ -80,46 +82,67 @@ namespace TheVillainsRevenge
                     break;
             }
             //Gehe nach Oben
+            bool oben = false;
             for (int i = 0; i < 20; i++)
             {
                 cboxnew.Y = cboxnew.Y - 48;
-                bool hat = false;
                 for (int j = 0; j < list.Count(); ++j)
                 {
                     Block block = list.ElementAt(j);
                     if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
                     {
                         //Wir haben alle Daten
-                        hat = true;
+                        oben = true;
                         break;
                     }
                 }
-                if (hat)
+                if (oben)
                     break;
             }
-            //Haben nun alle Daten, nun platziere Blöcke bis unten ne Kollision ist
-            for (int i = 0; i < 20; i++)
+            if (oben)
             {
-                cboxnew.Y = cboxnew.Y + 48;
-                bool collide = false;
-                for (int j = 0; j < list.Count(); ++j)
+                //Haben nun alle Daten, nun platziere Blöcke bis unten ne Kollision ist
+                for (int i = 0; i < 20; i++)
                 {
-                    Block block = list.ElementAt(j);
-                    if (cboxnew.Intersects(block.cbox) &&block.block)
+                    cboxnew.Y = cboxnew.Y + 48;
+                    bool collide = false;
+                    for (int j = 0; j < list.Count(); ++j)
                     {
-                        //Wir haben alle Daten
-                        collide = true;
+                        Block block = list.ElementAt(j);
+                        if (cboxnew.Intersects(block.cbox) && block.block)
+                        {
+                            //Wir haben alle Daten
+                            collide = true;
+                            break;
+                        }
+                    }
+                    if (collide)
                         break;
+                    else
+                    {
+                        Block block = new Block(new Vector2(cboxnew.X, cboxnew.Y), "underground_earth");
+                        list.Add(block);
+                        blocks.Add(block);
+                        b.block = false;
                     }
                 }
-                if (collide)
-                    break;
-                else
+            }
+            else
+            {
+                //Es ist kein Block oben, daher ist es eine Tür unten
+                cboxnew.Y = triggerend.Y;
+                for (int i = 0; i < 20; i++)
                 {
-                    Block block = new Block(new Vector2(cboxnew.X, cboxnew.Y), "underground_earth");
-                    list.Add(block);
-                    blocks.Add(block);
-                    b.block = false;
+                    cboxnew.Y = cboxnew.Y + 48;
+                    for (int j = 0; j < list.Count(); ++j)
+                    {
+                        Block block = list.ElementAt(j);
+                        if (cboxnew.Intersects(block.cbox) && block.type == "triggerdoor")
+                        {
+                            //Wir haben alle Daten
+                            list.Remove(block);
+                        }
+                    }
                 }
             }
             activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTime"]);
@@ -133,12 +156,84 @@ namespace TheVillainsRevenge
                 time += gameTime.ElapsedGameTime.TotalSeconds;
                 if (time > activeTime)
                 {
-                    for (int i = 0; i < blocks.Count(); ++i)
+
+                    //Schaue wo die Blöcke sind
+                    Rectangle cboxnew = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
+                    Rectangle triggerend = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
+                    for (int i = 0; i < 20; i++)
                     {
-                        Block block = blocks.ElementAt(i);
-                        list.Remove(block);
+                        cboxnew.X = cboxnew.X - 48;
+                        bool hat = false;
+                        for (int j = 0; j < list.Count(); ++j)
+                        {
+                            Block block = list.ElementAt(j);
+                            if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
+                            {
+                                //Wir haben den Block, jetzt hole die Höhe
+                                triggerend.X = block.cbox.X;
+                                hat = true;
+                                break;
+                            }
+                        }
+                        if (hat)
+                            break;
                     }
-                    blocks.Clear();
+                    //Gehe nach Oben
+                    bool oben = false;
+                    for (int i = 0; i < 20; i++)
+                    {
+                        cboxnew.Y = cboxnew.Y - 48;
+                        for (int j = 0; j < list.Count(); ++j)
+                        {
+                            Block block = list.ElementAt(j);
+                            if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
+                            {
+                                //Wir haben alle Daten
+                                oben = true;
+                                break;
+                            }
+                        }
+                        if (oben)
+                            break;
+                    }
+                    if (oben)
+                    {
+                        for (int i = 0; i < blocks.Count(); ++i)
+                        {
+                            Block block = blocks.ElementAt(i);
+                            list.Remove(block);
+                        }
+                        blocks.Clear();
+                    }
+                    else
+                    {
+                        bool start = false;
+                        cboxnew.Y = triggerend.Y;
+                        for (int i = 0; i < 20; i++)
+                        {
+                            cboxnew.Y = cboxnew.Y + 48;
+                            bool istda = false;
+                            for (int j = 0; j < list.Count(); ++j)
+                            {
+                                Block block = list.ElementAt(j);
+                                if (cboxnew.Intersects(block.cbox))
+                                {
+                                    //Wir haben alle Daten
+                                    istda = true;
+                                }
+                            }
+                            if (!istda)
+                            {
+                                start = true;
+                                Block block = new Block(new Vector2(cboxnew.X, cboxnew.Y), "triggerdoor");
+                                list.Add(block);
+                            }
+                            else if (start)
+                            {
+                                break;
+                            }
+                        }
+                    }
                     active = false;
                     b.block = true;
                 }

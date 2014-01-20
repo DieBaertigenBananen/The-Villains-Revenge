@@ -301,6 +301,10 @@ namespace TheVillainsRevenge
                                  type = "triggerend";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
+                             case "155,0,0":
+                                 type = "triggerdoor";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 break;
                          }
                      }
                  }
