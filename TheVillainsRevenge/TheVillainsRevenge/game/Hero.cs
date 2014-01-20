@@ -320,8 +320,7 @@ namespace TheVillainsRevenge
                         {
                             //KI befindet sich im Drüberspringmodus bei Abgründen!!
                             //Gucke ob er Grund haben könnte
-                            float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
-                            if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
+                            if (CollisionCheckedVector(0, (int)((gravitation)), map.blocks).Y == (int)((gravitation)))
                             {
                                 if (fall)
                                 {
@@ -342,7 +341,7 @@ namespace TheVillainsRevenge
                                 //Kein Grund T_T Beweg mich mal
                                 for (int i = 0; i < 10; i++)
                                 {
-                                    //kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
                                     if (kicollide.Intersects(spieler))
                                         geht = true;
                                 }
