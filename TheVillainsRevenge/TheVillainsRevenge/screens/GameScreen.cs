@@ -31,7 +31,7 @@ namespace TheVillainsRevenge
         CloudPlane clouds_1 = new CloudPlane(1);
         CloudPlane clouds_2 = new CloudPlane(2);
         CloudPlane clouds_3 = new CloudPlane(3);
-        Sound bgmusic = new Sound("sounds/Level_1/background");
+        Sound bgmusic = new Sound("sounds/Level_"+Game1.level+"/background");
         RenderTarget2D renderScreen;
         RenderTarget2D renderSpine;
         RenderTarget2D renderGame;
@@ -50,7 +50,7 @@ namespace TheVillainsRevenge
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
-        public int test = 0;
+        public static int test = 0;
 
         //KIDaten
         //Dies sind Luafunktionen für den netten GD
@@ -143,7 +143,7 @@ namespace TheVillainsRevenge
             {
                 bgmusic.Load(Content);
             }
-            debug = Content.Load<Texture2D>("sprites/Level_1/Planes/background_0_debug");
+            debug = Content.Load<Texture2D>("sprites/Level_"+Game1.level+"/Planes/background_0_debug");
         }
         public void Save(int checkpointX)
         {
@@ -248,7 +248,7 @@ namespace TheVillainsRevenge
                             }
                         }
                     }
-                    else if (obj.type == 3&&obj.fall) //Geröll/Debris
+                    else if (obj.type == 3 && obj.fall) //Geröll/Debris
                     {
                         foreach (Block block in karte.blocks)
                         {
@@ -261,11 +261,11 @@ namespace TheVillainsRevenge
                     }
                 }
                 //Update Enemies
-                for (int i = 0; i <karte.enemies.Count(); i++)
+                for (int i = 0; i < karte.enemies.Count(); i++)
                 {
                     Enemy enemy = karte.enemies.ElementAt(i);
                     //Wenn Enemy tot ist update die Animation
-                    if (enemy.dead) 
+                    if (enemy.dead)
                     {
                         if (enemy.animeTime <= 0)
                         {
@@ -380,14 +380,14 @@ namespace TheVillainsRevenge
                 {
                     if (spieler.cbox.box.Intersects(trigger.cbox) && spieler.fall)
                     {
-                        trigger.Pushed(karte.blocks);
+                        trigger.Pushed(karte.blocks, karte.enemies);
                         break;
                     }
                 }
                 //--------------------Hero--------------------
-                hero.Update(gameTime, karte, spieler.cbox.box);  
+                hero.Update(gameTime, karte, spieler.cbox.box);
                 //KiPunkte
-                for (int i = 0; i <karte.kipoints.Count(); i++)
+                for (int i = 0; i < karte.kipoints.Count(); i++)
                 {
                     KIPoint kipoint = karte.kipoints.ElementAt(i);
                     //Wenn Spieler sie übertritt
@@ -397,8 +397,8 @@ namespace TheVillainsRevenge
                         if (spieler.kicheck.Count() > 0)
                         {
                             //Falls es der selbe Punkt ist mache nicht weiter
-                            KICheck check = spieler.kicheck.ElementAt(spieler.kicheck.Count()-1);
-                            if(check.id == kipoint.id)
+                            KICheck check = spieler.kicheck.ElementAt(spieler.kicheck.Count() - 1);
+                            if (check.id == kipoint.id)
                                 geht = false;
                         }
                         if (geht) //Ist nicht der selbe Punkt wie vorher, speichere
@@ -409,11 +409,11 @@ namespace TheVillainsRevenge
                             }
                             //Adde die Punkte und führ Skript aus
                             spieler.kicheck.Add(new KICheck((int)gameTime.TotalGameTime.TotalSeconds, kipoint.id));
-                            LuaKI.DoFile("kiscript.txt");
+                            LuaKI.DoFile("Level_" + Game1.level + "/kiscript.txt");
                         }
                     }
                     //Wenn held ein Kipoint übertritt
-                    if (hero.cbox.box.Intersects(kipoint.cbox)&&hero.kicheck.Count() != 0)
+                    if (hero.cbox.box.Intersects(kipoint.cbox) && hero.kicheck.Count() != 0)
                     {
                         //Lösche diesen
                         if (hero.kicheck.ElementAt(0).id == kipoint.id)
@@ -431,7 +431,7 @@ namespace TheVillainsRevenge
                     Reset();
                 }
                 //Held hat den Spieler eingeholt
-                if (spieler.cbox.box.Intersects(hero.cbox.box)&&hero.start)
+                if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start)
                 {
                     spieler.lifes = 0;
                 }
@@ -461,6 +461,10 @@ namespace TheVillainsRevenge
                 coverEyes.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 outline.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 smash.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+            }
+            else if(levelend)
+            {
+                return 3;
             }
             if (spieler.lifes != 0 || spieler.die)
             {
@@ -613,13 +617,9 @@ namespace TheVillainsRevenge
                         KICheck kicheck = hero.kicheck.ElementAt(i);
                         spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 100 + i * 20), Color.White);
                     }
-                    for (int i = 0; i < karte.saveenemies.Count(); i++)
-                    {
-                        Enemy enemy = karte.saveenemies.ElementAt(i);
-                        spriteBatch.DrawString(font, "Enemy pos:" + enemy.position.X, new Vector2(Game1.resolution.X - 400, 410 + i * 20), Color.White);
-                    }
+                    spriteBatch.DrawString(font, "Test: " + test, new Vector2(Game1.resolution.X - 300, 390), Color.White);
                 }
-                    gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
+                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             spriteBatch.End();
 
             //----------------------------------------------------------------------

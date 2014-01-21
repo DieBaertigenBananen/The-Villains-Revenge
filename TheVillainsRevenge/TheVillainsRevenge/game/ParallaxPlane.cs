@@ -33,7 +33,7 @@ namespace TheVillainsRevenge
             texture = new Texture2D[tilesCount];
             for (int i = 0; i < tilesCount; i++)
             {
-                texture[i] = Content.Load<Texture2D>("sprites/level_1/planes/" + textureName + "_" + (i + 1));
+                texture[i] = Content.Load<Texture2D>("sprites/level_"+Game1.level+"/planes/" + textureName + "_" + (i + 1));
                 size.X += texture[i].Width;
             }
             size.Y = texture[0].Height + additionalHeight;

@@ -315,7 +315,7 @@ namespace TheVillainsRevenge
                     }
                     else if (item1 == 3 && !fall && !jump)
                     {
-                        map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2,false));
+                        map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2, false));
                         item1 = 0;
                     }
                     if (item1 == 0 && item2 != 0)
@@ -350,39 +350,39 @@ namespace TheVillainsRevenge
             }
             foreach (MovingBlock block in map.mblocks)
             {
-                    Rectangle collide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
-                    //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    int movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
-                    if (block.move == 2)
-                        movespeed = -movespeed;
-                    if (collide.Intersects(block.cbox))
+                Rectangle collide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                int movespeed = Convert.ToInt32((double)Game1.luaInstance["blockSpeed"]);
+                if (block.move == 2)
+                    movespeed = -movespeed;
+                if (collide.Intersects(block.cbox))
+                {
+                    if (GameScreen.slow != 0)
                     {
-                        if (GameScreen.slow != 0)
-                        {
-                            movespeed = movespeed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
-                        }
+                        movespeed = movespeed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
+                    }
+                    Move(movespeed, 0, map);
+                    break;
+                }
+
+                collide.Y = cbox.box.Y;
+                collide.X = cbox.box.X - movespeed;
+                if (collide.Intersects(block.cbox))
+                {
+                    if (CollisionCheckedVector(movespeed, 0, map.blocks).X == movespeed)
+                    {
                         Move(movespeed, 0, map);
                         break;
                     }
-
-                    collide.Y = cbox.box.Y;
-                    collide.X = cbox.box.X - movespeed;
-                    if (collide.Intersects(block.cbox))
+                    else
                     {
-                        if (CollisionCheckedVector(movespeed, 0, map.blocks).X == movespeed)
-                        {
-                            Move(movespeed, 0, map);
-                            break;
-                        }
+                        if (block.move == 1)
+                            block.move = 2;
                         else
-                        {
-                            if (block.move == 1)
-                                block.move = 2;
-                            else
-                                block.move = 1;
-                            break;
-                        }
+                            block.move = 1;
+                        break;
                     }
+                }
             }
             position.Y = spine.skeleton.Y;
             position.X = spine.skeleton.X;
@@ -397,7 +397,7 @@ namespace TheVillainsRevenge
         {
             if (CollisionCheckedVector(0, -1, map.blocks).Y < 0)
             {
-                
+
                 if (!jump)
                 {
                     spine.anim("jump", 0, false, gameTime);
@@ -411,7 +411,7 @@ namespace TheVillainsRevenge
                     jump = false;
                     fall = true;
                     falltimer = gameTime.TotalGameTime.TotalMilliseconds;
-                } 
+                }
                 else
                 {
                     Move(0, deltay, map); //v(t)=-g*t

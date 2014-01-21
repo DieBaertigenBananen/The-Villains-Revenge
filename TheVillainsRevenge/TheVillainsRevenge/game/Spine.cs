@@ -83,7 +83,7 @@ namespace TheVillainsRevenge
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
             switch (name)
             {
-                case "bonepuker":
+                case "skeleton":
                     animationStateData.SetMix("idle", "run", acceleration);
                     animationStateData.SetMix("run", "idle", acceleration);
                     animationStateData.SetMix("idle", "jump", 0.2f);
@@ -102,10 +102,6 @@ namespace TheVillainsRevenge
 
                     break;
                 case "ashbrett":
-                    break;
-                case "skullmonkey":
-                    break;
-                case "fluffy":
                     break;
             }
             animationState = new AnimationState(animationStateData);

@@ -10,6 +10,7 @@ namespace TheVillainsRevenge
 {
     class Enemy
     {
+        public bool moving = false;
         public double animeTime = 0;
         public bool dead = false;
         public Spine spine;

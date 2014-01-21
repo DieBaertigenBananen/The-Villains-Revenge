@@ -14,7 +14,7 @@ namespace TheVillainsRevenge
     class MenuScreen
     {
         Camera camera;
-        Character character = new Character(1250, 2100);
+        Character character = new Character(1250, 1000);
         RenderTarget2D renderScreen;
         RenderTarget2D renderSpine;
         RenderTarget2D renderMenu;
@@ -25,6 +25,7 @@ namespace TheVillainsRevenge
         Texture2D title_texture;
         SpriteFont font;
         float fontScale;
+        bool levelendScreen;
         bool deadScreen;
         bool loadScreen;
         SubMenu mainMenu;
@@ -37,17 +38,24 @@ namespace TheVillainsRevenge
         public static bool blinkingState = false;
 
 
-        public MenuScreen(bool playerDied)
+        public MenuScreen(int screen)
         {
-            deadScreen = playerDied;
             textColor = Color.Red;
             activeColor = Color.DarkRed;
             fontScale = 2.0f;
+            if (screen == 1)
+            {
+                deadScreen = true;
+            }
+            else if (screen == 2)
+            {
+                levelendScreen = true;
+            }
         }
         public void Load(ContentManager Content)
         {
             camera = new Camera();
-            character.Load(Content, Game1.graphics, "bonepuker", 2.5f, 0.5f);
+            character.Load(Content, Game1.graphics, "bonepuker", 1.5f, 0.5f);
             renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderMenu = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
@@ -106,6 +114,14 @@ namespace TheVillainsRevenge
             {
                 return 2;
             }
+            else if (levelendScreen)
+            {
+                if (Game1.input.enter || Game1.input.sprung)
+                {
+                    levelendScreen = false;
+                    loadScreen = true;
+                }
+            }
             else if (optionMenu.visible)
             {
                 //Enter wählt Menüfelder
@@ -127,7 +143,7 @@ namespace TheVillainsRevenge
                     }
                     else if (optionMenu.option == 1)
                     {
-                        if(Game1.stretch)
+                        if (Game1.stretch)
                             Game1.stretch = false;
                         else
                             Game1.stretch = true;
@@ -147,7 +163,7 @@ namespace TheVillainsRevenge
                     {
                         return 0;
                     }
-                        //Option = 1 ist Fullscreen
+                    //Option = 1 ist Fullscreen
                     else if (mainMenu.option == 1)
                     {
                         optionMenu.visible = true;
@@ -187,7 +203,7 @@ namespace TheVillainsRevenge
             //--------------------Draw to renderMenu--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderMenu);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-                if (mainMenu.visible && !deadScreen && !loadScreen)
+                if (mainMenu.visible && !deadScreen && !loadScreen && !levelendScreen)
                 {
                     mainMenu.Draw(spriteBatch, gameTime, camera);
                 }
@@ -199,6 +215,12 @@ namespace TheVillainsRevenge
                 if (deadScreen)
                 {
                     spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.resolution.X / 2) - 50, (Game1.resolution.Y / 2) - 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+                    spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.resolution.X / 2) - 60, (Game1.resolution.Y / 2) + 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
+
+                }
+                else if (levelendScreen)
+                {
+                    spriteBatch.DrawString(font, "Level completed!", new Vector2((Game1.resolution.X / 2) - 50, (Game1.resolution.Y / 2) - 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
                     spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.resolution.X / 2) - 60, (Game1.resolution.Y / 2) + 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
 
                 }
@@ -235,7 +257,7 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
-                if (!loadScreen && !deadScreen)
+                if (!loadScreen && !deadScreen&&!levelendScreen)
                 {
                     spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
                     spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);

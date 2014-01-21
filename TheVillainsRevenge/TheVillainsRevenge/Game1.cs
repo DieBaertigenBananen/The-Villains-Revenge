@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.Xml.Serialization;
+using Microsoft.Xna.Framework.Storage;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -19,11 +22,22 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         GameScreen game;
         MenuScreen menu;
-        public static bool sound = false;
+        public static bool sound;
         public static bool stretch;
         public static Input input;
         public static Lua luaInstance = new Lua();
         public static bool debug = false;
+        public static int level = 1;
+        //Save Game Data
+        IAsyncResult result;
+        bool GameSaveRequested = false;
+        public struct SaveData
+        {
+            public bool sound;
+            public bool fullscreen;
+            public bool stretch;
+            public int level;
+        }
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -39,11 +53,12 @@ namespace TheVillainsRevenge
             this.IsMouseVisible = true;
             input = new Input();
             Content.RootDirectory = "Content";
+            this.Components.Add(new GamerServicesComponent(this));
         }
 
         protected override void Initialize()
         {
-            menu = new MenuScreen(false);
+            menu = new MenuScreen(0);
             //game = new GameScreen();
 
             //Loading Stuffs
@@ -173,6 +188,7 @@ namespace TheVillainsRevenge
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             menu.Load(Content);
+            Load();
             //game.load(Content);
         }
 
@@ -190,7 +206,7 @@ namespace TheVillainsRevenge
             {
                 debug = !debug;
             }
-            luaInstance.DoFile("luascript.txt");
+            luaInstance.DoFile("Level_"+level+"/luascript.txt");
             input.Update();
             int menuOption = 0;
             //Wenn Menü existiert
@@ -203,6 +219,7 @@ namespace TheVillainsRevenge
                 menuOption = menu.Update(gameTime);
                 if (menuOption == 2)
                 {
+                    Save();
                     menu = null; //entlädt das menü
                     Content.Unload(); //entlädt den Content
                     game = new GameScreen(); //lädt das Game
@@ -215,7 +232,7 @@ namespace TheVillainsRevenge
                 {
                     game = null;
                     Content.Unload();
-                    menu = new MenuScreen(false);
+                    menu = new MenuScreen(0);
                     menu.Load(Content);
                     menuOption = 1;
                 }
@@ -226,7 +243,16 @@ namespace TheVillainsRevenge
                     {
                         game = null;
                         Content.Unload();
-                        menu = new MenuScreen(true);
+                        menu = new MenuScreen(1);
+                        menu.Load(Content);
+                    }
+                    else if (menuOption == 3) //Level Ende
+                    {
+                        game = null;
+                        Content.Unload();
+                        level = 3;
+                        Save();
+                        menu = new MenuScreen(2);
                         menu.Load(Content);
                     }
                 }
@@ -247,6 +273,89 @@ namespace TheVillainsRevenge
             else if (game != null)
                 game.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
+        }
+        void Load()
+        {
+            if ((!Guide.IsVisible) && (GameSaveRequested == false))
+            {
+                GameSaveRequested = true;
+                result = StorageDevice.BeginShowSelector(
+                        PlayerIndex.One, null, null);
+            }
+            if ((GameSaveRequested) && (result.IsCompleted))
+            {
+                StorageDevice device = StorageDevice.EndShowSelector(result);
+                if (device != null && device.IsConnected)
+                {
+                    result =
+                        device.BeginOpenContainer("SaveFiles", null, null);
+                    result.AsyncWaitHandle.WaitOne();
+
+                    StorageContainer container = device.EndOpenContainer(result);
+                    string filename = "save";
+                    // Check to see whether the save exists.
+                    if (!container.FileExists(filename))
+                    {
+                        // If not, dispose of the container and return.
+                        container.Dispose();
+                        return;
+                    }// Open the file.
+                    Stream stream = container.OpenFile(filename, FileMode.Open);
+                    XmlSerializer serializer = new XmlSerializer(typeof(SaveData));
+                    SaveData data = (SaveData)serializer.Deserialize(stream);
+                    Game1.stretch = data.stretch;
+                    Game1.sound = data.sound;
+                    if (data.fullscreen != graphics.IsFullScreen)
+                        toggleFullscreen();
+                    Game1.level = data.level;
+                    stream.Close();
+                    container.Dispose();
+                    result.AsyncWaitHandle.Close();
+                }
+                // Reset the request flag
+                GameSaveRequested = false;
+            }
+        }
+        void Save()
+        {
+            if ((!Guide.IsVisible) && (GameSaveRequested == false))
+            {
+                GameSaveRequested = true;
+                result = StorageDevice.BeginShowSelector(
+                        PlayerIndex.One, null, null);
+            }
+            if ((GameSaveRequested) && (result.IsCompleted))
+            {
+                StorageDevice device = StorageDevice.EndShowSelector(result);
+                if (device != null && device.IsConnected)
+                {
+                    result =
+                        device.BeginOpenContainer("SaveFiles", null, null);
+                    result.AsyncWaitHandle.WaitOne();
+
+                    StorageContainer container = device.EndOpenContainer(result);
+                    string filename = "save";
+                    if (container.FileExists(filename))
+                    {
+                        container.DeleteFile(filename);
+                    }
+                    Stream stream = container.CreateFile(filename);
+                    XmlSerializer serializer = new XmlSerializer(typeof(SaveData));
+                    SaveData data = new SaveData()
+                    {
+                        sound = Game1.sound,
+                        fullscreen = graphics.IsFullScreen,
+                        stretch = Game1.stretch,
+                        level = Game1.level,
+                    };
+                    serializer.Serialize(stream, data);
+                    stream.Close();
+                    container.Dispose();
+                    result.AsyncWaitHandle.Close();
+                }
+                // Reset the request flag
+                GameSaveRequested = false;
+            }
         }
 
         public static void toggleFullscreen()

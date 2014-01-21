@@ -102,7 +102,7 @@ namespace TheVillainsRevenge
              }
              foreach (Trigger trigger in triggers)
              {
-                 trigger.Reset(blocks);
+                 trigger.Reset(blocks,enemies);
              }
              foreach (MovingBlock mblock in mblocks)
              {
@@ -116,7 +116,7 @@ namespace TheVillainsRevenge
              objectTexture = Content.Load<Texture2D>("sprites/objects");
              itemTexture = Content.Load<Texture2D>("sprites/items");
              mapTexture = Content.Load<Texture2D>("sprites/tiles");
-             levelMap = Content.Load<Texture2D>("sprites/Level_1/map");
+             levelMap = Content.Load<Texture2D>("sprites/Level_"+Game1.level+"/map");
              triggerTexture = Content.Load<Texture2D>("sprites/trigger");
              pixelColors = new Color[levelMap.Width * levelMap.Height];
              levelMap.GetData<Color>(pixelColors);
@@ -219,11 +219,13 @@ namespace TheVillainsRevenge
                                  spieler.position.Y = spieler.spine.skeleton.Y;
                                  spieler.position.X = spieler.spine.skeleton.X;
                                  spieler.cbox.Update(spieler.position);
+                                 spieler.checkpoint = spieler.position;
                                  hero.spine.skeleton.X = i*48;
                                  hero.spine.skeleton.Y = t * 48;
                                  hero.position.Y = hero.spine.skeleton.Y;
                                  hero.position.X = hero.spine.skeleton.X;
                                  hero.cbox.Update(hero.position);
+                                 hero.checkpoint = hero.position;
 
                                  break;
 
@@ -266,7 +268,7 @@ namespace TheVillainsRevenge
                                  break;
                              case "0,0,0":
                                  type = "hase";
-                                 enemies.Add(new Bunny(new Vector2(i * 48, (t * 48)-64), 1,true));
+                                 enemies.Add(new Bunny(new Vector2(i * 48, t * 48), 1,true));
                                  break;
                              case "255,255,0":
                                  type = "zeit";
@@ -276,9 +278,13 @@ namespace TheVillainsRevenge
                                  type = "herz";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));
                                  break;
-                             case "50,50,50":
+                             case "255,200,200":
                                  type = "monkey";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 break;
+                             case "50,50,50":
+                                 type = "monkey";
+                                 enemies.Add(new Monkey(new Vector2(i * 48, t * 48), 2, true));
                                  break;
                              case "255,255,100":
                                  type = "banana";
@@ -292,6 +298,10 @@ namespace TheVillainsRevenge
                                  break;
                              case "153,0,0":
                                  type = "triggerend";
+                                 blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 break;
+                             case "155,0,0":
+                                 type = "triggerdoor";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
                                  break;
                          }
