@@ -276,86 +276,41 @@ namespace TheVillainsRevenge
         }
         void Load()
         {
-            if ((!Guide.IsVisible) && (GameSaveRequested == false))
+            SaveData data = new SaveData();
+            System.Xml.Serialization.XmlSerializer reader = new
+               System.Xml.Serialization.XmlSerializer(data.GetType());
+            // Read the XML file.
+            if (System.IO.File.Exists("save"))
             {
-                GameSaveRequested = true;
-                result = StorageDevice.BeginShowSelector(
-                        PlayerIndex.One, null, null);
-            }
-            if ((GameSaveRequested) && (result.IsCompleted))
-            {
-                StorageDevice device = StorageDevice.EndShowSelector(result);
-                if (device != null && device.IsConnected)
-                {
-                    result =
-                        device.BeginOpenContainer("SaveFiles", null, null);
-                    result.AsyncWaitHandle.WaitOne();
+                System.IO.StreamReader file =
+                   new System.IO.StreamReader("save");
 
-                    StorageContainer container = device.EndOpenContainer(result);
-                    string filename = "save";
-                    // Check to see whether the save exists.
-                    if (!container.FileExists(filename))
-                    {
-                        // If not, dispose of the container and return.
-                        container.Dispose();
-                        return;
-                    }// Open the file.
-                    Stream stream = container.OpenFile(filename, FileMode.Open);
-                    XmlSerializer serializer = new XmlSerializer(typeof(SaveData));
-                    SaveData data = (SaveData)serializer.Deserialize(stream);
-                    Game1.stretch = data.stretch;
-                    Game1.sound = data.sound;
-                    if (data.fullscreen != graphics.IsFullScreen)
-                        toggleFullscreen();
-                    Game1.level = data.level;
-                    stream.Close();
-                    container.Dispose();
-                    result.AsyncWaitHandle.Close();
-                }
-                // Reset the request flag
-                GameSaveRequested = false;
+                // Deserialize the content of the file into a Book object.
+                data = (SaveData)reader.Deserialize(file);
+                file.Close();
+                Game1.stretch = data.stretch;
+                Game1.sound = data.sound;
+                if (data.fullscreen != graphics.IsFullScreen)
+                    toggleFullscreen();
+                Game1.level = data.level;
             }
         }
         void Save()
         {
-            if ((!Guide.IsVisible) && (GameSaveRequested == false))
+            SaveData data = new SaveData()
             {
-                GameSaveRequested = true;
-                result = StorageDevice.BeginShowSelector(
-                        PlayerIndex.One, null, null);
-            }
-            if ((GameSaveRequested) && (result.IsCompleted))
-            {
-                StorageDevice device = StorageDevice.EndShowSelector(result);
-                if (device != null && device.IsConnected)
-                {
-                    result =
-                        device.BeginOpenContainer("SaveFiles", null, null);
-                    result.AsyncWaitHandle.WaitOne();
+                sound = Game1.sound,
+                fullscreen = graphics.IsFullScreen,
+                stretch = Game1.stretch,
+                level = Game1.level,
+            };
+            System.Xml.Serialization.XmlSerializer writer =
+               new System.Xml.Serialization.XmlSerializer(data.GetType());
+            System.IO.StreamWriter file =
+               new System.IO.StreamWriter("save");
 
-                    StorageContainer container = device.EndOpenContainer(result);
-                    string filename = "save";
-                    if (container.FileExists(filename))
-                    {
-                        container.DeleteFile(filename);
-                    }
-                    Stream stream = container.CreateFile(filename);
-                    XmlSerializer serializer = new XmlSerializer(typeof(SaveData));
-                    SaveData data = new SaveData()
-                    {
-                        sound = Game1.sound,
-                        fullscreen = graphics.IsFullScreen,
-                        stretch = Game1.stretch,
-                        level = Game1.level,
-                    };
-                    serializer.Serialize(stream, data);
-                    stream.Close();
-                    container.Dispose();
-                    result.AsyncWaitHandle.Close();
-                }
-                // Reset the request flag
-                GameSaveRequested = false;
-            }
+            writer.Serialize(file, data);
+            file.Close();
         }
 
         public static void toggleFullscreen()
