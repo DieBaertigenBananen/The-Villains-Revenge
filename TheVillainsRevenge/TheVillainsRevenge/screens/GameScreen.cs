@@ -595,6 +595,7 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "SlowTime: " + slow + " Vergangen: " + slowTime, new Vector2(Game1.resolution.X - 300, 330), Color.White);
                     spriteBatch.DrawString(font, "KIState: " + hero.kistate, new Vector2(Game1.resolution.X - 300, 350), Color.White);
                     spriteBatch.DrawString(font, "SmashCooldown: " + spieler.smashCooldown, new Vector2(Game1.resolution.X - 300, 370), Color.White);
+                    spriteBatch.DrawString(font, "CEyes: " + princess.coverEyes + " Beat: " + princess.beating + " RageMode: " + princess.rageMode, new Vector2(Game1.resolution.X - 450, 390), Color.White);
                     if (spieler.hit)
                     {
                         spriteBatch.DrawString(font, "SCHLAG", new Vector2(Game1.resolution.X - 500, 350), Color.White);

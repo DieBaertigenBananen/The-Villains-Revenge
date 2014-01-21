@@ -127,13 +127,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\menu_buttons.png">
-      <Name>menu_buttons</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Button.fx">
       <Name>Button</Name>
       <Importer>EffectImporter</Importer>
@@ -235,11 +228,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Button.fx">
-      <Name>Button</Name>
-      <Importer>EffectImporter</Importer>
-      <Processor>EffectProcessor</Processor>
-    </Compile>
     <Compile Include="sprites\objects.png">
       <Name>objects</Name>
       <Importer>TextureImporter</Importer>

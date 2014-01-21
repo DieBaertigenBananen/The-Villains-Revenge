@@ -71,7 +71,7 @@ namespace TheVillainsRevenge
                     rageMode = false;
                     rageMeter = 0;
                     rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
-                    spine.animationState.ClearTrack(0);
+                    //spine.animationState.ClearTrack(0);
                 }
             }
             else if (coverEyes)
@@ -103,10 +103,10 @@ namespace TheVillainsRevenge
                     pressedLeft = true;
                     }
                 }
-                if (rageMeter > rageLimit) //Enrage?!?
+                if (rageMeter > rageLimit && !coverEyes && !beating) //Enrage?!?
                 {
                     randomNumber = randomGen.Next(0, 100); //Augen zu halten vs hart aufs Maul!
-                    if (randomNumber < 50)
+                    if (randomNumber <= 50)
                     {
                         beating = true;
                         beatingTimer = gameTime.TotalGameTime.TotalMilliseconds;

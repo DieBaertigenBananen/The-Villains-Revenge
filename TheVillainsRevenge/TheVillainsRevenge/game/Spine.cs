@@ -29,7 +29,7 @@ namespace TheVillainsRevenge
                 skeleton.flipX = false;
                 flipSkel = false;
             }
-            if (newanim == "attack")
+            if (newanim == "attack" || newanim == "cloud")
             {
                 animationState.SetAnimation(1, newanim, loop);
             }
