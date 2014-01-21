@@ -28,9 +28,6 @@ namespace TheVillainsRevenge
         public static Lua luaInstance = new Lua();
         public static bool debug = false;
         public static int level = 1;
-        //Save Game Data
-        IAsyncResult result;
-        bool GameSaveRequested = false;
         public struct SaveData
         {
             public bool sound;
@@ -277,13 +274,13 @@ namespace TheVillainsRevenge
         void Load()
         {
             SaveData data = new SaveData();
-            System.Xml.Serialization.XmlSerializer reader = new
-               System.Xml.Serialization.XmlSerializer(data.GetType());
+            XmlSerializer reader = new
+               XmlSerializer(data.GetType());
             // Read the XML file.
-            if (System.IO.File.Exists("save"))
+            if (File.Exists("save"))
             {
-                System.IO.StreamReader file =
-                   new System.IO.StreamReader("save");
+                StreamReader file =
+                   new StreamReader("save");
 
                 // Deserialize the content of the file into a Book object.
                 data = (SaveData)reader.Deserialize(file);
@@ -304,10 +301,10 @@ namespace TheVillainsRevenge
                 stretch = Game1.stretch,
                 level = Game1.level,
             };
-            System.Xml.Serialization.XmlSerializer writer =
-               new System.Xml.Serialization.XmlSerializer(data.GetType());
-            System.IO.StreamWriter file =
-               new System.IO.StreamWriter("save");
+            XmlSerializer writer =
+               new XmlSerializer(data.GetType());
+            StreamWriter file =
+               new StreamWriter("save");
 
             writer.Serialize(file, data);
             file.Close();
