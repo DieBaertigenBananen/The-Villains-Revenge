@@ -24,6 +24,7 @@ namespace TheVillainsRevenge
         public static Input input;
         public static Lua luaInstance = new Lua();
         public static bool debug = false;
+        public static int level = 1;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -43,7 +44,7 @@ namespace TheVillainsRevenge
 
         protected override void Initialize()
         {
-            menu = new MenuScreen(false);
+            menu = new MenuScreen(0);
             //game = new GameScreen();
 
             //Loading Stuffs
@@ -190,7 +191,7 @@ namespace TheVillainsRevenge
             {
                 debug = !debug;
             }
-            luaInstance.DoFile("luascript.txt");
+            luaInstance.DoFile("Level_"+level+"/luascript.txt");
             input.Update();
             int menuOption = 0;
             //Wenn Menü existiert
@@ -215,7 +216,7 @@ namespace TheVillainsRevenge
                 {
                     game = null;
                     Content.Unload();
-                    menu = new MenuScreen(false);
+                    menu = new MenuScreen(0);
                     menu.Load(Content);
                     menuOption = 1;
                 }
@@ -226,7 +227,15 @@ namespace TheVillainsRevenge
                     {
                         game = null;
                         Content.Unload();
-                        menu = new MenuScreen(true);
+                        menu = new MenuScreen(1);
+                        menu.Load(Content);
+                    }
+                    else if (menuOption == 3) //Level Ende
+                    {
+                        game = null;
+                        Content.Unload();
+                        level = 3;
+                        menu = new MenuScreen(2);
                         menu.Load(Content);
                     }
                 }
