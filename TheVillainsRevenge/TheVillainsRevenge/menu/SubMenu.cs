@@ -24,7 +24,7 @@ namespace TheVillainsRevenge
         public bool exit;
         int optionSpace;
         Vector2 offset;
-        Effect buttonShader;
+        Texture2D button_texture;
 
         public SubMenu(int options, string menuName, SpriteFont menuFont, Vector2 menuOffset, int optSpace, float textScale)
         {
@@ -38,7 +38,7 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content)
         {
-            buttonShader = Content.Load<Effect>("Button");
+            button_texture = Content.Load<Texture2D>("sprites/menu/buttons_" + name);
         }
 
         public void Update(GameTime gameTime)
@@ -47,12 +47,10 @@ namespace TheVillainsRevenge
             if (Game1.input.down) //Nach unten
             {
                 option++;
-                MenuScreen.UpdateBlinkingTimer(gameTime, true);
             }
             if (Game1.input.up) //Nach oben
             {
                 option--;
-                MenuScreen.UpdateBlinkingTimer(gameTime, true);
             }
             if (option > optionCount - 1) //Von unten nach oben springen
             {
@@ -74,82 +72,28 @@ namespace TheVillainsRevenge
                     option = optionCount - 1;
                 }
             }
-            //ButtonStates an aktuelle Option anpassen
+            //Buttons updaten
             for (int i = 0; i < buttons.Count(); ++i)
             {
                 Button button = buttons.ElementAt(i);
-                if (!button.blinkable) //Standardbutton
+                if (option == i)
                 {
-                    button.ChangeState(false);
-                    if (i == option)
-                    {
-                        button.ChangeState(true);
-                    }
+                    button.Update(true);
                 }
-                else //Blinkable Button
+                else
                 {
-                    switch (button.name)
-                    {
-                        case "fullscreen":
-                            if (Game1.graphics.IsFullScreen)
-                            {
-                                button.ChangeState(true);
-                            }
-                            else
-                            {
-                                button.ChangeState(false);
-                            }
-                            break;
-                        case "stretch":
-                            if (Game1.stretch)
-                            {
-                                button.ChangeState(true);
-                            }
-                            else
-                            {
-                                button.ChangeState(false);
-                            }
-                            break;
-                        case "sound":
-                            if (Game1.sound)
-                            {
-                                button.ChangeState(true);
-                            }
-                            else
-                            {
-                                button.ChangeState(false);
-                            }
-                            break;
-                    }
-                    if (i == option)
-                    {
-                        if (button.previousState == button.activated)
-                        {
-                            button.blinking = true;
-                            
-                        }
-                        else
-                        {
-                            button.blinking = false;
-                        }
-                    }
-                    else
-                    {
-                        button.blinking = false;
-                        button.previousState = button.activated;
-                    }
+                    button.Update(false);
                 }
             }
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime, Camera camera)
         {
-            buttonShader.Parameters["gameTime"].SetValue(gameTime.TotalGameTime.Milliseconds);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, buttonShader, camera.viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             for (int i = 0; i < buttons.Count(); ++i)
             {
                 Button button = buttons.ElementAt(i);
-                button.Draw(spriteBatch, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (i * optionSpace) + offset.Y), MenuScreen.menuButtons, buttonShader); 
+                button.Draw(spriteBatch, new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (i * optionSpace) + offset.Y), button_texture); 
             }
             spriteBatch.End();
 
@@ -234,8 +178,6 @@ namespace TheVillainsRevenge
             //        spriteBatch.DrawString(font, "Return", new Vector2((Game1.resolution.X / 2) + offset.X, (Game1.resolution.Y / 2) - (((optionCount - 1) * optionSpace) / 2) + (3 * optionSpace) + offset.Y), MenuScreen.activeColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
             //    }
             //}
-
-
         }
     }
 }

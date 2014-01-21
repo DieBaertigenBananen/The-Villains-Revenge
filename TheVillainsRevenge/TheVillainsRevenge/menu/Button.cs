@@ -15,89 +15,69 @@ namespace TheVillainsRevenge
     class Button
     {
         public string name;
-        Rectangle cuttexturePassive;
-        Rectangle cuttextureActive;
-        public bool activated;
-        public bool blinkable;
-        public bool blinking;
-        public bool previousState;
+        Rectangle cuttexture;
+        public bool active;
+        bool activated = false;
+        int spriteStateCount;
+        int spriteState = 1;
 
-        public Button(string buttonName, Rectangle cutPassive, Rectangle cutActive, bool blinkABLE)
+        public Button(string buttonName, Rectangle cuttex, int spriteStates)
         {
             name = buttonName;
-            cuttexturePassive = cutPassive;
-            cuttextureActive = cutActive;
-            blinkable = blinkABLE;
+            cuttexture = cuttex;
+            spriteStateCount = spriteStates;
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 position, Texture2D texture, Effect buttonShader)
+        public void Update(bool isButtonActive)
         {
-            Rectangle cut;
-            if (!blinkable) //Standardbutton
+            active = isButtonActive;
+            if (MenuScreen.changeSprite) //Sprite wechseln
             {
-                buttonShader.Parameters["nofx"].SetValue(false);
-                if (!activated)
+                spriteState++;
+                if (spriteState > spriteStateCount)
                 {
-                    cut = cuttexturePassive;
-                    buttonShader.Parameters["activated"].SetValue(false);
-                }
-                else //Wenn Button aktiviert ist entsprechend darstellen
-                {
-                    cut = cuttextureActive;
-                    buttonShader.Parameters["activated"].SetValue(true);
+                    spriteState = 1;
                 }
             }
-            else //Button, der einen Status anzeigt, ergo bei Anwahl blinkt
+            if (name == "sound") //Soundbutton
             {
-                buttonShader.Parameters["nofx"].SetValue(true);
-                if (blinking) //Button soll blinken
+                if (Game1.sound)
                 {
-                    if (MenuScreen.blinkingState)
-                    {
-                        if (!activated)
-                        {
-                            cut = cuttextureActive;
-                        }
-                        else //Wenn Button aktiviert ist entsprechend darstellen
-                        {
-                            cut = cuttexturePassive;
-                        }
-                    }
-                    else
-                    {
-                        if (!activated)
-                        {
-                            cut = cuttexturePassive;
-                        }
-                        else //Wenn Button aktiviert ist entsprechend darstellen
-                        {
-                            cut = cuttextureActive;
-                        }
-                    }
+                    activated = true;
                 }
                 else
                 {
-                    if (!activated)
-                    {
-                        cut = cuttexturePassive;
-                    }
-                    else //Wenn Button aktiviert ist entsprechend darstellen
-                    {
-                        cut = cuttextureActive;
-                    }
-
+                    activated = false;
                 }
             }
-            spriteBatch.Draw(texture, position, cut, Color.White);
         }
 
-        public void ChangeState(bool activate)
+        public void Draw(SpriteBatch spriteBatch, Vector2 position, Texture2D texture)
         {
-            if (activate != activated)
+            Rectangle cut = cuttexture; //Von erster CutTexture ausgehen
+            if (active)
             {
-                previousState = activated;
+                cut.X += cut.Width * spriteState;
             }
-            activated = activate;
+            spriteBatch.Draw(texture, position, cut, Color.White); //Button zeichnen
+
+            //Display ButtonState
+            if (name == "sound") //Soundbutton
+            {
+                cut = cuttexture; //CutTexture zurücksetzen
+                if (activated) //Sound an
+                {
+                    if (!active) //Nicht aktiv
+                    {
+                        cut.X += cut.Width * (spriteStateCount + 1);
+                    }
+                    else //Aktiv
+                    {
+                        cut.X += cut.Width * (spriteStateCount + 2);
+                    }
+                    spriteBatch.Draw(texture, new Vector2(position.X + 60, position.Y), cut, Color.White); //StateOverlay zeichnen
+                }
+            }
         }
     }
 }

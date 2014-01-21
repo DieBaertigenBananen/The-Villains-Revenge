@@ -32,10 +32,9 @@ namespace TheVillainsRevenge
         SubMenu optionMenu;
         public static Color textColor;
         public static Color activeColor;
-        public static Texture2D menuButtons;
-        public static double blinkingTimer;
-        public static int blinkingDelay = 500;
-        public static bool blinkingState = false;
+        public static double spriteTimer;
+        public static int spriteDelay = 120;
+        public static bool changeSprite = false;
 
 
         public MenuScreen(int screen)
@@ -64,19 +63,18 @@ namespace TheVillainsRevenge
             renderOverlay = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             bg_texture = Content.Load<Texture2D>("sprites/menu_bg");
             title_texture = Content.Load<Texture2D>("sprites/menu_titles");
-            menuButtons = Content.Load<Texture2D>("sprites/menu_buttons");
             font = Content.Load<SpriteFont>("fonts/schrift");
-            mainMenu = new SubMenu(3, "main", font, new Vector2(-850,100), 100, fontScale);
+            mainMenu = new SubMenu(3, "main", font, new Vector2(-750,100), 120, fontScale);
             mainMenu.Load(Content);
-                mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 300, 100), new Rectangle(300, 0, 300, 100), false));
-                mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 300, 100), new Rectangle(300, 100, 300, 100), false));
-                mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 300, 100), new Rectangle(300, 200, 300, 100), false));
-            optionMenu = new SubMenu(4, "option", font, new Vector2(-500,100), 100, fontScale);
+                mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 63, 100), 4));
+                mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 63, 100), 4));
+                mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 63, 100), 4));
+            optionMenu = new SubMenu(4, "option", font, new Vector2(-500,100), 150, fontScale);
             optionMenu.Load(Content);
-            optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 300, 300, 100), new Rectangle(300, 300, 300, 100), true));
-            optionMenu.buttons.Add(new Button("stretch", new Rectangle(0, 400, 300, 100), new Rectangle(300, 400, 300, 100), true));
-            optionMenu.buttons.Add(new Button("sound", new Rectangle(0, 500, 300, 100), new Rectangle(300, 500, 300, 100), true));
-            optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 600, 300, 100), new Rectangle(300, 600, 300, 100), false));
+            optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 0, 122, 75), 3));
+            optionMenu.buttons.Add(new Button("stretch", new Rectangle(0, 75, 122, 105), 3));
+            optionMenu.buttons.Add(new Button("sound", new Rectangle(0, 185, 122, 132), 3));
+            optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 316, 122, 85), 3));
             mainMenu.visible = true;
         }
         public int Update(GameTime gameTime)
@@ -85,8 +83,17 @@ namespace TheVillainsRevenge
             {
                 character.spine.anim("idle", 0, true, gameTime);
             }
-
-            UpdateBlinkingTimer(gameTime, false);
+            //Update SpriteTimer
+            if (gameTime.TotalGameTime.TotalMilliseconds > (spriteTimer + (float)spriteDelay))
+            {
+                spriteTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                changeSprite = true;
+            }
+            else
+            {
+                changeSprite = false;
+            }
+            //Update SubMenu
             if (optionMenu.visible)
             {
                 optionMenu.Update(gameTime);
@@ -103,6 +110,7 @@ namespace TheVillainsRevenge
                     return 0;
                 }
             }
+            //Auf Menu / Screen reagieren
             if (deadScreen)
             {
                 if (Game1.input.enter || Game1.input.sprung)
@@ -141,7 +149,7 @@ namespace TheVillainsRevenge
                         else
                             Game1.sound = true;
                     }
-                    else if (optionMenu.option == 1)
+                    else if (optionMenu.option == 1) //Wird noch zu ShowControls umgebaut
                     {
                         if (Game1.stretch)
                             Game1.stretch = false;
@@ -178,19 +186,6 @@ namespace TheVillainsRevenge
             }
             camera.UpdateTransformation(Game1.graphics);
             return 1;
-        }
-
-        public static void UpdateBlinkingTimer(GameTime gameTime, bool reset)
-        {
-            if (gameTime.TotalGameTime.TotalMilliseconds > (blinkingTimer + (float)blinkingDelay) || reset)
-            {
-                blinkingTimer = gameTime.TotalGameTime.TotalMilliseconds;
-                blinkingState = !blinkingState;
-                if (reset)
-                {
-                    blinkingState = true;
-                }
-            }
         }
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
