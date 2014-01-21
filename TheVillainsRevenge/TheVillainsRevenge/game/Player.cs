@@ -133,7 +133,7 @@ namespace TheVillainsRevenge
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
             //-----Sprung-----
-            if ((Game1.input.sprung || savejump) && !princess.rageMode)
+            if ((Game1.input.sprung || savejump) && (!princess.rageMode || princess.rageMeter < princess.rageLimit * 0.3))
             {
                 if (!jump && !fall && Game1.input.sprungp)
                 {
@@ -157,7 +157,7 @@ namespace TheVillainsRevenge
                 }
             }
             //-----Schlag / Smash starten-----
-            if (Game1.input.hit && !princess.rageMode)
+            if (Game1.input.hit && (!princess.rageMode || princess.rageMeter < princess.rageLimit * 0.3))
             {
                 if (jump || fall)
                 {

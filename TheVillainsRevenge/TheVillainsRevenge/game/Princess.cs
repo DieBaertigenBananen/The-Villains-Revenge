@@ -25,7 +25,7 @@ namespace TheVillainsRevenge
         Random randomGen = new Random();
         int randomNumber;
         int rageChance;
-        int rageLimit;
+        public int rageLimit;
         float unrageSpeed;
         Spine spine;
         //Deine Mutter ist so fett, wenn sie aus dem Bett fällt, dann auf beiden Seiten
