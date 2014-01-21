@@ -19,10 +19,10 @@ namespace TheVillainsRevenge
         RenderTarget2D renderSpine;
         RenderTarget2D renderMenu;
         RenderTarget2D renderTitle;
-        RenderTarget2D renderLogo;
-        RenderTarget2D renderOverlay;
         Texture2D bg_texture;
-        Texture2D title_texture;
+        Texture2D logo_texture;
+        Texture2D credit_texture;
+        Texture2D overlay_texture;
         SpriteFont font;
         float fontScale;
         bool levelendScreen;
@@ -59,17 +59,17 @@ namespace TheVillainsRevenge
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderMenu = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderTitle = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderLogo = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderOverlay = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            bg_texture = Content.Load<Texture2D>("sprites/menu_bg");
-            title_texture = Content.Load<Texture2D>("sprites/menu_titles");
+            bg_texture = Content.Load<Texture2D>("sprites/menu/background");
+            logo_texture = Content.Load<Texture2D>("sprites/menu/logo");
+            credit_texture = Content.Load<Texture2D>("sprites/menu/credits");
+            overlay_texture = Content.Load<Texture2D>("sprites/menu/overlay");
             font = Content.Load<SpriteFont>("fonts/schrift");
-            mainMenu = new SubMenu(3, "main", font, new Vector2(-750,100), 120, fontScale);
+            mainMenu = new SubMenu(3, "main", font, new Vector2(-750,200), 120, fontScale);
             mainMenu.Load(Content);
                 mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 63, 100), 4));
                 mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 63, 100), 4));
                 mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 63, 100), 4));
-            optionMenu = new SubMenu(4, "option", font, new Vector2(-500,100), 150, fontScale);
+            optionMenu = new SubMenu(4, "option", font, new Vector2(-500,200), 140, fontScale);
             optionMenu.Load(Content);
             optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 0, 122, 75), 3));
             optionMenu.buttons.Add(new Button("stretch", new Rectangle(0, 75, 122, 105), 3));
@@ -230,22 +230,8 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderTitle);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                spriteBatch.Draw(title_texture, new Vector2(50, 100), new Rectangle(0,0,600,300), Color.White);
-            spriteBatch.End();
-
-            //--------------------Draw to renderLogo--------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderLogo);
-            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                spriteBatch.Draw(title_texture, new Vector2(1800, 950), new Rectangle(0, 300, 100, 100), Color.White);
-            spriteBatch.End();
-
-            //--------------------Draw to renderOverlay--------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderOverlay);
-            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                spriteBatch.Draw(renderTitle, Vector2.Zero, Color.White);
-                spriteBatch.Draw(renderLogo, Vector2.Zero, Color.White);
+                spriteBatch.Draw(logo_texture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(credit_texture, Vector2.Zero, Color.White);
             spriteBatch.End();
 
             //--------------------Draw to renderScreen--------------------
@@ -258,7 +244,8 @@ namespace TheVillainsRevenge
                     spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);
                 }
                 spriteBatch.Draw(renderMenu, Vector2.Zero, Color.White);
-                spriteBatch.Draw(renderOverlay, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderTitle, Vector2.Zero, Color.White);
+                spriteBatch.Draw(overlay_texture, Vector2.Zero, Color.White);
             spriteBatch.End();
 
             //--------------------Draw to Screen--------------------
