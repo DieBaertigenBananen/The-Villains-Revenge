@@ -8,7 +8,7 @@
 	{ "name": "flash1", "parent": "root", "x": -14.96, "y": 165.75 },
 	{ "name": "flash2", "parent": "root", "x": -7.5, "y": 188.52 },
 	{ "name": "hand_bp", "parent": "root", "length": 187.56, "x": 14.04, "y": 268.83, "rotation": -85.94 },
-	{ "name": "head", "parent": "root", "length": 163.68, "x": -76.85, "y": 109.92, "rotation": 70.75 },
+	{ "name": "head", "parent": "root", "length": 163.68, "x": -76.85, "y": 109.92, "rotation": 70.75, "color": "9c9c9cff" },
 	{ "name": "hip", "parent": "root", "x": 26.02, "y": 203.06 },
 	{ "name": "mark", "parent": "root", "x": 9.39, "y": 260.85 },
 	{ "name": "mid", "parent": "root", "x": -8.26, "y": 198.59 },
@@ -47,6 +47,7 @@
 	{ "name": "arm_right", "bone": "weapon", "attachment": "arm_right" },
 	{ "name": "hand_right", "bone": "weapon", "attachment": "hand_right" },
 	{ "name": "weapon", "bone": "weapon", "attachment": "weapon" },
+	{ "name": "big", "bone": "big", "attachment": "big" },
 	{ "name": "head", "bone": "bonepuker", "attachment": "head" },
 	{ "name": "hat", "bone": "hat", "attachment": "hat" },
 	{ "name": "beard", "bone": "beard", "attachment": "beard" },
@@ -66,6 +67,9 @@
 		},
 		"beard": {
 			"beard": { "x": 74.15, "y": 1.26, "rotation": 47.9, "width": 127, "height": 128 }
+		},
+		"big": {
+			"big": { "x": -0.28, "y": 20.31, "width": 444, "height": 491 }
 		},
 		"explanationmark": {
 			"explanationmark": { "x": -4.35, "y": -30.42, "width": 200, "height": 252 }
@@ -338,6 +342,22 @@
 					{ "time": 1.6666, "x": 0.533, "y": 0.533 }
 				]
 			},
+			"big": {
+				"rotate": [
+					{ "time": 0, "angle": 0, "curve": "stepped" },
+					{ "time": 2, "angle": 0 }
+				],
+				"translate": [
+					{ "time": 0, "x": 0, "y": 0 },
+					{ "time": 1, "x": 1.6, "y": 54.57 },
+					{ "time": 2, "x": 0, "y": 0 }
+				],
+				"scale": [
+					{ "time": 0, "x": 1, "y": 1 },
+					{ "time": 1, "x": 1.481, "y": 1.272 },
+					{ "time": 2, "x": 1, "y": 1 }
+				]
+			},
 			"bonepuker": {
 				"rotate": [
 					{ "time": 0, "angle": 0 }
@@ -448,6 +468,12 @@
 			"beard": {
 				"color": [
 					{ "time": 0, "color": "ffffff00" }
+				]
+			},
+			"big": {
+				"color": [
+					{ "time": 0, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 2, "color": "ffffffff" }
 				]
 			},
 			"explanationmark": {
