@@ -259,7 +259,10 @@ namespace TheVillainsRevenge
                 Game1.toggleFullscreen();
             }
             if (menuOption == 0 || input.end)
+            {
+                Save();
                 this.Exit();
+            }
             base.Update(gameTime);
         }
 
@@ -279,16 +282,16 @@ namespace TheVillainsRevenge
             // Read the XML file.
             if (File.Exists("save"))
             {
-                StreamReader file =
-                   new StreamReader("save");
-
+                StreamReader file = new StreamReader("save");
                 // Deserialize the content of the file into a Book object.
                 data = (SaveData)reader.Deserialize(file);
                 file.Close();
                 Game1.stretch = data.stretch;
                 Game1.sound = data.sound;
                 if (data.fullscreen != graphics.IsFullScreen)
+                {
                     toggleFullscreen();
+                }
                 Game1.level = data.level;
             }
         }
@@ -301,11 +304,8 @@ namespace TheVillainsRevenge
                 stretch = Game1.stretch,
                 level = Game1.level,
             };
-            XmlSerializer writer =
-               new XmlSerializer(data.GetType());
-            StreamWriter file =
-               new StreamWriter("save");
-
+            XmlSerializer writer = new XmlSerializer(data.GetType());
+            StreamWriter file = new StreamWriter("save");
             writer.Serialize(file, data);
             file.Close();
         }
