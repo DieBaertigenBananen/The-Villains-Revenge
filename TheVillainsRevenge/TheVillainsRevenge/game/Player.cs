@@ -480,65 +480,65 @@ namespace TheVillainsRevenge
             }
             return move;
         }
-        Vector2 BoundingCheckedVector(int x, int y, List<Block> list)
-        {
-            position.Y = spine.skeleton.Y;
-            position.X = spine.skeleton.X;
-            Vector2 move = new Vector2(0, 0);
-            int icoll;
-            bool stop;
-            //Größere Koordinate als Iteration nehmen
-            if (Math.Abs(x) > Math.Abs(y))
-            {
-                icoll = Math.Abs(x);
-            }
-            else
-            {
-                icoll = Math.Abs(y);
-            }
-            //Iteration
-            for (int i = 1; i <= icoll; i++)
-            {
-                stop = false;
-                //Box für nächsten Iterationsschritt berechnen
-                spine.skeleton.X = position.X + ((x / icoll) * i);
-                spine.skeleton.Y = position.Y + ((y / icoll) * i);
-                spine.bounds.Update(spine.skeleton, true);
-                //Gehe die Blöcke der Liste durch
-                foreach (Block block in list)
-                {
-                    Vector2 ol = new Vector2((float)block.cbox.X, (float)block.cbox.Y);
-                    Vector2 or = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)block.cbox.Y);
-                    Vector2 ul = new Vector2((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height));
-                    Vector2 ur = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
-                    if (spine.bounds.AabbContainsPoint(ol.X, ol.Y) || spine.bounds.AabbContainsPoint(or.X, or.Y) || spine.bounds.AabbContainsPoint(ul.X, ul.Y) || spine.bounds.AabbContainsPoint(ur.X, ur.Y))
-                    {
-                        BoundingBoxAttachment colOL = spine.bounds.ContainsPoint(ol.X, ol.Y);
-                        BoundingBoxAttachment colOR = spine.bounds.ContainsPoint(or.X, or.Y);
-                        BoundingBoxAttachment colUL = spine.bounds.ContainsPoint(ul.X, ul.Y);
-                        BoundingBoxAttachment colUR = spine.bounds.ContainsPoint(ur.X, ur.Y);
-                        //BoundingBoxAttachment bb = bounds.BoundingBoxes.FirstOrDefault();
-                        //if (colOL == bb || colOR == bb || colUL == bb || colUR == bb) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                        if (colOL != null || colOR != null || colUL != null || colUR != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                        {
-                            stop = true;
-                            break;
-                        }
-                    }
-                }
-                if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
-                {
-                    break;
-                }
-                else //Kollisionsfreien Fortschritt speichern
-                {
-                    move.X = spine.skeleton.X - position.X;
-                    move.Y = spine.skeleton.Y - position.Y;
-                }
-            }
-            spine.skeleton.Y = position.Y;
-            spine.skeleton.X = position.X;
-            return move;
-        }
+        //Vector2 BoundingCheckedVector(int x, int y, List<Block> list)
+        //{
+        //    position.Y = spine.skeleton.Y;
+        //    position.X = spine.skeleton.X;
+        //    Vector2 move = new Vector2(0, 0);
+        //    int icoll;
+        //    bool stop;
+        //    //Größere Koordinate als Iteration nehmen
+        //    if (Math.Abs(x) > Math.Abs(y))
+        //    {
+        //        icoll = Math.Abs(x);
+        //    }
+        //    else
+        //    {
+        //        icoll = Math.Abs(y);
+        //    }
+        //    //Iteration
+        //    for (int i = 1; i <= icoll; i++)
+        //    {
+        //        stop = false;
+        //        //Box für nächsten Iterationsschritt berechnen
+        //        spine.skeleton.X = position.X + ((x / icoll) * i);
+        //        spine.skeleton.Y = position.Y + ((y / icoll) * i);
+        //        spine.bounds.Update(spine.skeleton, true);
+        //        //Gehe die Blöcke der Liste durch
+        //        foreach (Block block in list)
+        //        {
+        //            Vector2 ol = new Vector2((float)block.cbox.X, (float)block.cbox.Y);
+        //            Vector2 or = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)block.cbox.Y);
+        //            Vector2 ul = new Vector2((float)block.cbox.X, (float)(block.cbox.Y + block.cbox.Height));
+        //            Vector2 ur = new Vector2((float)(block.cbox.X + block.cbox.Width), (float)(block.cbox.Y + block.cbox.Height));
+        //            if (spine.bounds.AabbContainsPoint(ol.X, ol.Y) || spine.bounds.AabbContainsPoint(or.X, or.Y) || spine.bounds.AabbContainsPoint(ul.X, ul.Y) || spine.bounds.AabbContainsPoint(ur.X, ur.Y))
+        //            {
+        //                BoundingBoxAttachment colOL = spine.bounds.ContainsPoint(ol.X, ol.Y);
+        //                BoundingBoxAttachment colOR = spine.bounds.ContainsPoint(or.X, or.Y);
+        //                BoundingBoxAttachment colUL = spine.bounds.ContainsPoint(ul.X, ul.Y);
+        //                BoundingBoxAttachment colUR = spine.bounds.ContainsPoint(ur.X, ur.Y);
+        //                //BoundingBoxAttachment bb = bounds.BoundingBoxes.FirstOrDefault();
+        //                //if (colOL == bb || colOR == bb || colUL == bb || colUR == bb) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+        //                if (colOL != null || colOR != null || colUL != null || colUR != null) //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+        //                {
+        //                    stop = true;
+        //                    break;
+        //                }
+        //            }
+        //        }
+        //        if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
+        //        {
+        //            break;
+        //        }
+        //        else //Kollisionsfreien Fortschritt speichern
+        //        {
+        //            move.X = spine.skeleton.X - position.X;
+        //            move.Y = spine.skeleton.Y - position.Y;
+        //        }
+        //    }
+        //    spine.skeleton.Y = position.Y;
+        //    spine.skeleton.X = position.X;
+        //    return move;
+        //}
     }
 }
