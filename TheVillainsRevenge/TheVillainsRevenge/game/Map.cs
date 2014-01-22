@@ -44,7 +44,7 @@ namespace TheVillainsRevenge
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
-                 if (block.type == "breakable"||block.type == "triggerdoor")
+                 if (block.type == "breakable")
                      saveblocks.Add(new Block(block.position, block.type));
              }
              saveobjects.Clear();
@@ -81,7 +81,7 @@ namespace TheVillainsRevenge
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
-                 if (block.type == "breakable"||block.type == "triggerdoor")
+                 if (block.type == "breakable")
                      blocks.RemoveAt(i);
              }
              for (int i = 0; i < saveblocks.Count(); ++i)
@@ -133,12 +133,12 @@ namespace TheVillainsRevenge
              }
              size = new Vector2(levelMap.Width * 48, levelMap.Height * 48);
          }
-         public void Update(GameTime gameTime,Rectangle sbox,Rectangle hbox)
+         public void Update(GameTime gameTime,Rectangle sbox)
          {
              for (int i = 0; i < triggers.Count(); ++i)
              {
                  Trigger trigger = triggers.ElementAt(i);
-                 trigger.Update(gameTime, blocks,enemies,sbox,hbox);
+                 trigger.Update(gameTime, blocks,sbox);
              }
              for (int i = 0; i < mblocks.Count(); ++i)
              {

@@ -218,7 +218,7 @@ namespace TheVillainsRevenge
                 }
 
                 //--------------------Map--------------------
-                karte.Update(gameTime, spieler.cbox.box,hero.cbox.box);
+                karte.Update(gameTime, spieler.cbox.box);
                 //Objekte updaten
                 for (int i = 0; i < karte.objects.Count(); i++)
                 {
@@ -380,7 +380,7 @@ namespace TheVillainsRevenge
                 {
                     if (spieler.cbox.box.Intersects(trigger.cbox) && spieler.fall)
                     {
-                        trigger.Pushed(karte.blocks,hero.cbox.box);
+                        trigger.Pushed(karte.blocks, karte.enemies);
                         break;
                     }
                 }
