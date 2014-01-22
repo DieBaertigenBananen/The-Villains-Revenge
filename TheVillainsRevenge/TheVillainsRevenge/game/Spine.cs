@@ -137,8 +137,9 @@ namespace TheVillainsRevenge
             Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": event " + e.Event);
         }
 
-        public bool AttachmentCollision(string attachmentName, Rectangle cbox) //Checken ob Rectangle mit Attachement (z.B. Keule) kollidiert
+        public bool BoundingBoxCollision(Rectangle cbox) //Checken ob Rectangle mit Attachement (z.B. Keule) kollidiert
         {
+            bounds.Update(skeleton, true);
             bool collision = false;
             if (bounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height)
                 ||
@@ -149,13 +150,13 @@ namespace TheVillainsRevenge
                 bounds.AabbIntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height)
                 )
             {
-                if (bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height).Name == attachmentName
+                if (bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height) != null
                     ||
-                    bounds.IntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height).Name == attachmentName
+                    bounds.IntersectsSegment(cbox.X + cbox.Width, cbox.Y, cbox.X + cbox.Width, cbox.Y + cbox.Height) != null
                     ||
-                    bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y).Name == attachmentName
+                    bounds.IntersectsSegment(cbox.X, cbox.Y, cbox.X + cbox.Width, cbox.Y) != null
                     ||
-                    bounds.IntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height).Name == attachmentName
+                    bounds.IntersectsSegment(cbox.X, cbox.Y + cbox.Height, cbox.X + cbox.Width, cbox.Y + cbox.Height) != null
                     )
                 {
                     collision = true;

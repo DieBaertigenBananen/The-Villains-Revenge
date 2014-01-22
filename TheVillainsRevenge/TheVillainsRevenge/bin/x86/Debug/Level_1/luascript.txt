@@ -16,7 +16,7 @@ playerCollisionOffsetY = -180
 playerSmashIntensity = 15
 
 heroScale = 0.32
-heroStartTime = 12
+heroStartTime = 1200
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -150
 heroCollisionWidth = 45

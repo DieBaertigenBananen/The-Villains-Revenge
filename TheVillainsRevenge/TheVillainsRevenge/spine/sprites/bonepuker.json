@@ -74,7 +74,8 @@
 	{ "name": "shoulder_right", "bone": "shoulder_right", "attachment": "shoulder_right" },
 	{ "name": "arm_right", "bone": "arm_right", "attachment": "arm_right" },
 	{ "name": "hand_right", "bone": "hand_right", "attachment": "hand_right" },
-	{ "name": "weapon", "bone": "hand_right", "attachment": "weapon" }
+	{ "name": "weapon", "bone": "hand_right", "attachment": "weapon" },
+	{ "name": "bb_weapon", "bone": "hand_right", "attachment": "bb_weapon" }
 ],
 "skins": {
 	"default": {
@@ -83,6 +84,12 @@
 		},
 		"arm_right": {
 			"arm_right": { "x": 72.73, "y": -3.92, "rotation": 91.8, "width": 140, "height": 142 }
+		},
+		"bb_weapon": {
+			"bb_weapon": {
+				"type": "boundingbox",
+				"vertices": [ 91.84709, -101.54176, 127.97749, 397.12946, -29.044754, 403.27026, 54.214157, -95.78058 ]
+			}
 		},
 		"beard": {
 			"beard": { "x": 60.58, "y": -17, "rotation": 91.71, "width": 127, "height": 128 }

@@ -193,7 +193,7 @@ namespace TheVillainsRevenge
                     for (int i = 0; i < karte.blocks.Count(); i++)
                     {
                         Block block = karte.blocks.ElementAt(i);
-                        if (block.type == "breakable_verticale" && spieler.spine.AttachmentCollision("weapon", block.cbox))
+                        if (block.type == "breakable_verticale" && spieler.spine.BoundingBoxCollision(block.cbox))
                         {
                             karte.objects.Add(new Debris(block.position, 3));
                             karte.blocks.Remove(block);
@@ -294,7 +294,7 @@ namespace TheVillainsRevenge
                         //Wenn Spieler schlägt
                         if (spieler.hit)
                         {
-                            if (enemy.type == 1 && spieler.spine.AttachmentCollision("weapon", enemy.cbox.box)) //Töte Kanninchen
+                            if (enemy.type == 1 && spieler.spine.BoundingBoxCollision(enemy.cbox.box)) //Töte Kanninchen
                             {
                                 enemy.anim(gameTime, "die",0);
                             }
@@ -613,11 +613,7 @@ namespace TheVillainsRevenge
                 }
                 if (Game1.debug)
                 {
-                    //for (int i = 0; i <= 62; i++)
-                    //{
-                    spriteBatch.DrawString(font, spieler.acceleration + " " + spieler.spine.animation, new Vector2(Game1.resolution.X - 300, 150), Color.White);
-                    //}
-                    spriteBatch.DrawString(font, "bg0.tex[0]: " + (background_0.texture[0].Name), new Vector2(Game1.resolution.X - 300, 170), Color.White);
+                    spriteBatch.DrawString(font, spieler.acceleration + " " + spieler.spine.animation, new Vector2(Game1.resolution.X - 300, 170), Color.White);
                     spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);
                     spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.White);
                     spriteBatch.DrawString(font, "Camera: " + (camera.viewport.X + " " + camera.viewport.Y + " " + camera.viewport.Width + " " + camera.viewport.Height), new Vector2(Game1.resolution.X - 300, 230), Color.White);
