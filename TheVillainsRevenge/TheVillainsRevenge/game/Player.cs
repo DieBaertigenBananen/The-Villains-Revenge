@@ -48,7 +48,6 @@ namespace TheVillainsRevenge
         public double hitTimer;
         public double smashTimer;
         public Rectangle hitCbox;
-        public bool die = false;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -99,13 +98,10 @@ namespace TheVillainsRevenge
             spine.Load(position, "bonepuker", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), initAcceleration);
         }
 
-        public void getHit()
+        public void getHit(GameTime gameTime)
         {
             lifes--;
-            if (lifes <= 0)
-            {
-                die = true;
-            }
+            spine.anim("die", 0, false, gameTime);
         }
 
         public void Update(GameTime gameTime, Map map, Princess princess)

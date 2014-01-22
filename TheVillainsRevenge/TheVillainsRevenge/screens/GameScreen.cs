@@ -50,6 +50,7 @@ namespace TheVillainsRevenge
         double slowTime;
         public static Lua LuaKI = new Lua();
         public static int test = 0;
+        double dietime = 0;
 
         //KIDaten
         //Dies sind Luafunktionen für den netten GD
@@ -173,7 +174,7 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime, ContentManager Content)
         {
-            if (!levelend && !spieler.die)
+            if (!levelend && dietime == 0)
             {
                 //Update Spieler
                 spieler.Update(gameTime, karte, princess);
@@ -278,15 +279,13 @@ namespace TheVillainsRevenge
                 {
                     Enemy enemy = karte.enemies.ElementAt(i);
                     //Wenn Enemy tot ist update die Animation
-                    if (enemy.dead)
+                    if (enemy.animeTime > 0)
                     {
+                        enemy.animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
                         if (enemy.animeTime <= 0)
                         {
-                            karte.enemies.Remove(enemy);
-                        }
-                        else
-                        {
-                            enemy.animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                            if(enemy.dead)
+                                karte.enemies.Remove(enemy);
                         }
                     }
                     else //Enemy lebt
@@ -297,7 +296,7 @@ namespace TheVillainsRevenge
                         {
                             if (enemy.type == 1 && spieler.spine.AttachmentCollision("weapon", enemy.cbox.box)) //Töte Kanninchen
                             {
-                                enemy.die(gameTime);
+                                enemy.anim(gameTime, "die",0);
                             }
                         }
                             //Megaschlag
@@ -305,7 +304,7 @@ namespace TheVillainsRevenge
                         {
                             if (enemy.type == 1 && spieler.hitCbox.Intersects(enemy.cbox.box)) //Töte Kanninchen
                             {
-                                enemy.die(gameTime);
+                                enemy.anim(gameTime, "die",0);
                             }
                         }
                         //Wenn Enemy aus der Map läuft
@@ -319,19 +318,24 @@ namespace TheVillainsRevenge
                             if (spieler.smash && spieler.fall)
                             {
                                 //Falls Megaschlag
-                                enemy.die(gameTime);
+                                enemy.anim(gameTime,"die",0);
                             }
                             else
                             {
                                 //Kein Megaschlag, Spieler stirbt
-                                spieler.getHit();
-                                Reset();
+                                if(spieler.position.X > enemy.position.X)
+                                    enemy.anim(gameTime, "attack", 1);
+                                else
+                                    enemy.anim(gameTime, "attack", 2);
+                                spieler.getHit(gameTime);
+                                dietime = 2;
+                                //Reset();
                             }
                         }
                         //Falls hero den Monkey erreicht
                         if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
                         {
-                            enemy.die(gameTime);
+                            enemy.anim(gameTime,"dying",0);
                             hero.attack(gameTime);
                         }
                     }
@@ -441,7 +445,8 @@ namespace TheVillainsRevenge
                 //Wenn Spieler über den Maprand tritt (zu tief fällt)
                 if (spieler.position.Y >= (karte.size.Y))
                 {
-                    spieler.getHit();
+                    spieler.getHit(gameTime);
+                    dietime = 1;
                     Reset();
                 }
                 //Held hat den Spieler eingeholt
@@ -480,7 +485,17 @@ namespace TheVillainsRevenge
             {
                 return 3;
             }
-            if (spieler.lifes != 0 || spieler.die)
+            if (dietime != 0)
+            {
+                dietime -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (dietime < 0)
+                {
+                    Reset();
+                    dietime = 0;
+                }
+                return 1;
+            }
+            else if (spieler.lifes != 0)
             {
                 return 1;
             }
@@ -631,7 +646,7 @@ namespace TheVillainsRevenge
                         KICheck kicheck = hero.kicheck.ElementAt(i);
                         spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 100 + i * 20), Color.White);
                     }
-                    spriteBatch.DrawString(font, "Test: " + test, new Vector2(Game1.resolution.X - 300, 390), Color.White);
+                    spriteBatch.DrawString(font, "Test: " + dietime, new Vector2(Game1.resolution.X - 300, 490), Color.White);
                 }
                 gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             spriteBatch.End();
@@ -687,23 +702,31 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            
-            //-----renderTarget-----
-            if (princess.coverEyes) //-----[Shader]-----CoverEyes
+            if (dietime < 1 && dietime > 0)
             {
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+
+                spriteBatch.End();
             }
             else
             {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
-            }
-            spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
-            spriteBatch.End();
+                //-----renderTarget-----
+                if (princess.coverEyes) //-----[Shader]-----CoverEyes
+                {
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
+                }
+                else
+                {
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+                }
+                spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
+                spriteBatch.End();
 
-            //-----HUD-----
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
-            spriteBatch.Draw(renderHud, new Vector2(), Color.White);
-            spriteBatch.End();
+                //-----HUD-----
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+                spriteBatch.Draw(renderHud, new Vector2(), Color.White);
+                spriteBatch.End();
+            }
             
         }
     }
