@@ -51,6 +51,7 @@ namespace TheVillainsRevenge
         }
         public void attack(GameTime gameTime)
         {
+            Sound.Play("ashbrett_attack");
             attacktimer = 1;
             spine.anim("attack", 3, false, gameTime);
         }

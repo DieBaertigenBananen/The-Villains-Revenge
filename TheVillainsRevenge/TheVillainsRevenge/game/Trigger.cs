@@ -225,6 +225,7 @@ namespace TheVillainsRevenge
             {
                 if (typ == 1) //Wenn es eine Wand ist
                 {
+                    Sound.Play("triggerwall");
                     //Gucke ob held da ist
                     bool heroda = false;
                     Rectangle cboxnew = triggerend;
@@ -252,79 +253,6 @@ namespace TheVillainsRevenge
                     b.block = false;
                 }
             }
-            /*
-            if (oben&&!heroblock)
-            {
-                //Oben ist ein Block und auf den Weg ist der Held nicht, daher erzeuge Blöcke
-                activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeWall"]);
-                //Haben nun alle Daten, nun platziere Blöcke bis unten ne Kollision ist
-                for (int i = 0; i < 20; i++)
-                {
-                    cboxnew.Y = cboxnew.Y + 48;
-                    bool collide = false;
-                    for (int j = 0; j < list.Count(); ++j)
-                    {
-                        Block block = list.ElementAt(j);
-                        if (cboxnew.Intersects(block.cbox) && block.block)
-                        {
-                            //Wir haben alle Daten
-                            collide = true;
-                            break;
-                        }
-                    }
-                    if (collide)
-                        break;
-                    else
-                    {
-                        Block block = new Block(new Vector2(cboxnew.X, cboxnew.Y), "underground_earth");
-                        list.Add(block);
-                        blocks.Add(block);
-                        b.block = false;
-                    }
-                }
-            }
-            else if(!oben)
-            {
-                heroblock = false;
-                activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeDoor"]);
-                //Es ist kein Block oben, daher ist es eine Tür unten
-                cboxnew.Y = triggerend.Y;
-                for (int i = 0; i < 20; i++)
-                {
-                    cboxnew.Y = cboxnew.Y + 48;
-                    for (int j = 0; j < list.Count(); ++j)
-                    {
-                        Block block = list.ElementAt(j);
-                        if (cboxnew.Intersects(block.cbox) && block.type == "triggerdoor")
-                        {
-                            //Wir haben alle Daten
-                            list.Remove(block);
-                            triggerend.Y = block.cbox.Y;
-                        }
-                    }
-                }
-                cboxnew.Y = triggerend.Y;
-                for (int i = 0; i < 10; i++)
-                {
-                    cboxnew.X = cboxnew.X + 48;
-                    for (int j = 0; j < elist.Count(); ++j)
-                    {
-                        Enemy enemy = elist.ElementAt(j);
-                        if (cboxnew.Intersects(enemy.cbox.box) && enemy.type == 2)
-                        {
-                            enemy.moving = true;
-                            enemy.mover = false;
-                        }
-                    }
-                }
-            }
-            if (!heroblock)
-            {
-                time = 0;
-                active = true;
-                b.block = false;
-            }
-             * */
         }
         public void Update(GameTime gameTime, List<Block> list,List<Enemy> elist,Rectangle sbox,Rectangle hbox)
         {

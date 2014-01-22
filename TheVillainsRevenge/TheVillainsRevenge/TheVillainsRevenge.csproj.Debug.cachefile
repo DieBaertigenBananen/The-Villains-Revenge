@@ -70,6 +70,13 @@ Content\sprites\menu\overlay.xnb
 Content\sounds\supersmash.xnb
 Content\sounds\landing.xnb
 Content\sounds\schlag.xnb
+Content\sounds\ashbrett_sword_hit.xnb
+Content\sounds\ashbrett_sword_swoosh.xnb
+Content\sounds\button_press.xnb
+Content\sounds\punch_clubber_cloud.xnb
+Content\sounds\ausrutscher.xnb
+Content\sounds\time_shift.xnb
+Content\sounds\triggerwall.xnb
 spine\sprites\ashbrett.png
 spine\sprites\bonepuker.png
 spine\sprites\fluffy.png

@@ -306,6 +306,7 @@ namespace TheVillainsRevenge
                 {
                     if (item1 == 1)
                     {
+                        Sound.Play("time_shift");
                         GameScreen.slow = GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["itemSlowTime"]);
                         item1 = 0;
                     }

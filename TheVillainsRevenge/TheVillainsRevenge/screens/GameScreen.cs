@@ -240,6 +240,8 @@ namespace TheVillainsRevenge
                         if (obj.type != 3) //Obj
                         {
                             //Banane oder Kacke, verlangsame und entferne sich selber
+                            if (obj.type == 1)
+                                Sound.Play("ausrutscher");
                             hero.slowtime += 10;
                             karte.objects.Remove(obj);
                         }
@@ -391,6 +393,7 @@ namespace TheVillainsRevenge
                 {
                     if (spieler.cbox.box.Intersects(trigger.cbox) && spieler.fall)
                     {
+                        Sound.Play("button");
                         trigger.Pushed(karte.blocks,hero.cbox.box);
                         break;
                     }
