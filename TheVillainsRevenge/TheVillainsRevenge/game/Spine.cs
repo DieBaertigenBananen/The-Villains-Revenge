@@ -139,6 +139,7 @@ namespace TheVillainsRevenge
 
         public bool AttachmentCollision(string attachmentName, Rectangle cbox) //Checken ob Rectangle mit Attachement (z.B. Keule) kollidiert
         {
+            bounds.Update(skeleton, true);
             bool collision = false;
             if (bounds.AabbIntersectsSegment(cbox.X, cbox.Y, cbox.X, cbox.Y + cbox.Height)
                 ||
