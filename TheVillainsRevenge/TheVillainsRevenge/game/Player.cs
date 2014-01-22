@@ -49,7 +49,6 @@ namespace TheVillainsRevenge
         public double smashTimer;
         public Rectangle hitCbox;
         public bool die = false;
-        public bool limitMovement = false;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -133,17 +132,8 @@ namespace TheVillainsRevenge
             {
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
-            //Kann Spieler nicht springen & schlagen?
-            if (princess.rageMode && princess.rageMeter > princess.rageLimit * 0.3 && !princess.coverEyes)
-            {
-                limitMovement = true;
-            }
-            else
-            {
-                limitMovement = false;
-            }
             //-----Sprung-----
-            if ((Game1.input.sprung || savejump) && !limitMovement)
+            if ((Game1.input.sprung || savejump) && !princess.beating)
             {
                 if (!jump && !fall && Game1.input.sprungp)
                 {
@@ -167,7 +157,7 @@ namespace TheVillainsRevenge
                 }
             }
             //-----Schlag / Smash starten-----
-            if (Game1.input.hit && !limitMovement)
+            if (Game1.input.hit && !princess.beating)
             {
                 if (jump || fall)
                 {
