@@ -174,6 +174,7 @@ namespace TheVillainsRevenge
                 }
                 if (!smash && !hit) //Schlag beginnen
                 {
+                    Sound.Play("schlag");
                     hit = true;
                     spine.anim("attack", 0, false, gameTime);
                     hitTimer = gameTime.TotalGameTime.TotalMilliseconds;
@@ -340,7 +341,11 @@ namespace TheVillainsRevenge
             }
             else
             {
-                fall = false;
+                if (fall)
+                {
+                    fall = false;
+                    Sound.Play("land");
+                }
             }
 
             //Sprung fortführen

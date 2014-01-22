@@ -7,22 +7,46 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace TheVillainsRevenge
 {
-    class Sound
+    static class Sound
     {
-        SoundEffect soundEffect;
-        SoundEffectInstance soundEffectInstance;
-        string name;
-        public Sound(string name)
-        {
-            this.name = name;
-        }
+        static SoundEffect bgMusic;
+        static SoundEffectInstance bgMusicInstance;
 
-        public void Load(ContentManager Content)
+        static SoundEffect[] fx = new SoundEffect[3];
+
+        static public void Load(ContentManager Content)
         {
-            soundEffect = Content.Load<SoundEffect>(name);
-            soundEffectInstance = soundEffect.CreateInstance();
-            soundEffectInstance.IsLooped = true;
-            soundEffectInstance.Play();
+            bgMusic = Content.Load<SoundEffect>("sounds/Level_" + Game1.level + "/background");
+            fx[0] = Content.Load<SoundEffect>("sounds/supersmash");
+            fx[1] = Content.Load<SoundEffect>("sounds/schlag");
+            fx[2] = Content.Load<SoundEffect>("sounds/landing");
+        }
+        static public void Play(string sound)
+        {
+            if (Game1.sound)
+            {
+                switch (sound)
+                {
+                    case "superSmash":
+                        fx[0].Play();
+                        break;
+                    case "schlag":
+                        fx[1].Play();
+                        break;
+                    case "land":
+                        fx[2].Play();
+                        break;
+                }
+            }
+        }
+        static public void PlayBG()
+        {
+            if (Game1.sound)
+            {
+                bgMusicInstance = bgMusic.CreateInstance();
+                bgMusicInstance.IsLooped = true;
+                bgMusicInstance.Play();
+            }
         }
     }
 }

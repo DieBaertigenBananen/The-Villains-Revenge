@@ -31,7 +31,6 @@ namespace TheVillainsRevenge
         CloudPlane clouds_1 = new CloudPlane(1);
         CloudPlane clouds_2 = new CloudPlane(2);
         CloudPlane clouds_3 = new CloudPlane(3);
-        Sound bgmusic = new Sound("sounds/Level_"+Game1.level+"/background");
         RenderTarget2D renderScreen;
         RenderTarget2D renderSpine;
         RenderTarget2D renderGame;
@@ -141,7 +140,8 @@ namespace TheVillainsRevenge
             smash = Content.Load<Effect>("Smash");
             if (Game1.sound)
             {
-                bgmusic.Load(Content);
+                Sound.Load(Content);
+                Sound.PlayBG();
             }
             debug = Content.Load<Texture2D>("sprites/Level_"+Game1.level+"/Planes/background_0_debug");
         }
@@ -201,6 +201,7 @@ namespace TheVillainsRevenge
                 }
                 else if(spieler.smashImpact)
                 {
+                    Sound.Play("superSmash");
                     int Range = Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagRange"]);
                     //Definiere SchlagRectangle
                     spieler.hitCbox = new Rectangle(spieler.cbox.box.X - Range, spieler.cbox.box.Y, spieler.cbox.box.Width + (Range * 2), spieler.cbox.box.Height);
@@ -210,15 +211,25 @@ namespace TheVillainsRevenge
                         Block block = karte.blocks.ElementAt(i);
                         if (block.cbox.Intersects(spieler.hitCbox) && block.type == "breakable")
                         {
-                            karte.objects.Add(new Debris(block.position, 3));
-                            karte.blocks.Remove(block);
+                            Rectangle nextblock = block.cbox;
+                            nextblock.X -= 48;
+                            nextblock.Width = nextblock.Width * 3;
+                            for (int j = 0; j < karte.blocks.Count(); j++)
+                            {
+                                Block block2 = karte.blocks.ElementAt(j);
+                                if (block2.cbox.Intersects(nextblock) && block2.type == "breakable")
+                                {
+                                    karte.objects.Add(new Debris(block2.position, 3));
+                                    karte.blocks.Remove(block2);
+                                }
+                            }
                         }
                     }
                     spieler.hitCbox.Y -= 1;
                 }
 
                 //--------------------Map--------------------
-                karte.Update(gameTime, spieler.cbox.box);
+                karte.Update(gameTime, spieler.cbox.box,hero.cbox.box);
                 //Objekte updaten
                 for (int i = 0; i < karte.objects.Count(); i++)
                 {
@@ -380,7 +391,7 @@ namespace TheVillainsRevenge
                 {
                     if (spieler.cbox.box.Intersects(trigger.cbox) && spieler.fall)
                     {
-                        trigger.Pushed(karte.blocks, karte.enemies);
+                        trigger.Pushed(karte.blocks,hero.cbox.box);
                         break;
                     }
                 }
