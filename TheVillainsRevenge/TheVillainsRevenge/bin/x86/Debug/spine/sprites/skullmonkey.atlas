@@ -3,108 +3,122 @@ skullmonkey.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-arm_left
+baendchen
   rotate: true
-  xy: 2, 51
-  size: 170, 272
-  orig: 170, 272
-  offset: 0, 0
-  index: -1
-arm_right
-  rotate: false
-  xy: 364, 353
-  size: 160, 238
-  orig: 160, 238
+  xy: 788, 177
+  size: 80, 125
+  orig: 80, 125
   offset: 0, 0
   index: -1
 body
   rotate: false
-  xy: 2, 593
+  xy: 0, 610
   size: 512, 393
   orig: 512, 393
   offset: 0, 0
   index: -1
-calf_left
-  rotate: false
-  xy: 364, 143
-  size: 172, 208
-  orig: 172, 208
-  offset: 0, 0
-  index: -1
-calf_right
-  rotate: false
-  xy: 731, 397
-  size: 181, 208
-  orig: 181, 208
-  offset: 0, 0
-  index: -1
-foot_left
+fez
   rotate: true
-  xy: 919, 809
-  size: 177, 94
-  orig: 177, 94
-  offset: 0, 0
-  index: -1
-foot_right
-  rotate: false
-  xy: 725, 82
-  size: 155, 146
-  orig: 155, 146
-  offset: 0, 0
-  index: -1
-hand_left
-  rotate: true
-  xy: 538, 2
-  size: 146, 153
-  orig: 146, 154
-  offset: 0, 0
-  index: -1
-hand_right
-  rotate: true
-  xy: 700, 607
-  size: 128, 146
-  orig: 128, 146
+  xy: 609, 319
+  size: 152, 190
+  orig: 152, 190
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 2, 223
-  size: 360, 368
-  orig: 360, 368
+  xy: 514, 693
+  size: 334, 310
+  orig: 334, 310
   offset: 0, 0
   index: -1
-shoulder_left
-  rotate: true
-  xy: 731, 230
-  size: 165, 200
-  orig: 165, 200
+left_arm
+  rotate: false
+  xy: 251, 308
+  size: 171, 300
+  orig: 171, 300
   offset: 0, 0
   index: -1
-shoulder_right
+left_food
+  rotate: false
+  xy: 609, 219
+  size: 177, 98
+  orig: 177, 98
+  offset: 0, 0
+  index: -1
+left_hand
+  rotate: false
+  xy: 226, 9
+  size: 146, 153
+  orig: 146, 154
+  offset: 0, 0
+  index: -1
+left_leg
+  rotate: false
+  xy: 609, 473
+  size: 185, 218
+  orig: 185, 218
+  offset: 0, 0
+  index: -1
+left_lower_leg
+  rotate: false
+  xy: 801, 259
+  size: 172, 212
+  orig: 172, 212
+  offset: 0, 0
+  index: -1
+left_shoulder
+  rotate: false
+  xy: 796, 473
+  size: 165, 218
+  orig: 165, 218
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: false
+  xy: 850, 739
+  size: 160, 264
+  orig: 160, 264
+  offset: 0, 0
+  index: -1
+right_foot
+  rotate: false
+  xy: 452, 237
+  size: 155, 146
+  orig: 155, 146
+  offset: 0, 0
+  index: -1
+right_hand
+  rotate: false
+  xy: 374, 16
+  size: 128, 146
+  orig: 128, 146
+  offset: 0, 0
+  index: -1
+right_leg
   rotate: true
-  xy: 516, 593
-  size: 142, 182
-  orig: 142, 182
+  xy: 0, 0
+  size: 205, 224
+  orig: 205, 224
+  offset: 0, 0
+  index: -1
+right_lower_leg
+  rotate: false
+  xy: 424, 385
+  size: 183, 223
+  orig: 183, 223
+  offset: 0, 0
+  index: -1
+right_shoulder
+  rotate: true
+  xy: 251, 164
+  size: 142, 199
+  orig: 142, 199
   offset: 0, 0
   index: -1
 tail
-  rotate: true
-  xy: 516, 737
+  rotate: false
+  xy: 0, 207
   size: 249, 401
   orig: 249, 401
-  offset: 0, 0
-  index: -1
-thigh_left
-  rotate: false
-  xy: 538, 150
-  size: 185, 217
-  orig: 185, 217
-  offset: 0, 0
-  index: -1
-thigh_right
-  rotate: false
-  xy: 526, 369
-  size: 203, 222
-  orig: 203, 222
   offset: 0, 0
   index: -1
