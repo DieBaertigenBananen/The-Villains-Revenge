@@ -192,7 +192,7 @@ namespace TheVillainsRevenge
                     for (int i = 0; i < karte.blocks.Count(); i++)
                     {
                         Block block = karte.blocks.ElementAt(i);
-                        if (block.type == "breakable_verticale" && spieler.spine.AttachmentCollision("weapon", block.cbox))
+                        if (block.type == "breakable_verticale" && spieler.spine.BoundingBoxCollision(block.cbox))
                         {
                             karte.objects.Add(new Debris(block.position, 3));
                             karte.blocks.Remove(block);
@@ -282,7 +282,7 @@ namespace TheVillainsRevenge
                         //Wenn Spieler schlägt
                         if (spieler.hit)
                         {
-                            if (enemy.type == 1 && spieler.spine.AttachmentCollision("weapon", enemy.cbox.box)) //Töte Kanninchen
+                            if (enemy.type == 1 && spieler.spine.BoundingBoxCollision(enemy.cbox.box)) //Töte Kanninchen
                             {
                                 enemy.die(gameTime);
                             }
@@ -584,8 +584,6 @@ namespace TheVillainsRevenge
                 }
                 if (Game1.debug)
                 {
-                    
-                    spriteBatch.DrawString(font, "bb: " + spieler.spine.bounds.IntersectsSegment(spieler.cbox.position.X, spieler.cbox.position.Y, spieler.position.X + spieler.cbox.box.Width, spieler.cbox.position.Y + spieler.cbox.box.Height).Name.ToString(), new Vector2(Game1.resolution.X - 300, 150), Color.White);
                     spriteBatch.DrawString(font, spieler.acceleration + " " + spieler.spine.animation, new Vector2(Game1.resolution.X - 300, 170), Color.White);
                     spriteBatch.DrawString(font, "Player: " + (spieler.position.X + " " + spieler.position.Y), new Vector2(Game1.resolution.X - 300, 190), Color.White);
                     spriteBatch.DrawString(font, "Hero: " + (hero.position.X + " " + hero.position.Y), new Vector2(Game1.resolution.X - 300, 210), Color.White);
