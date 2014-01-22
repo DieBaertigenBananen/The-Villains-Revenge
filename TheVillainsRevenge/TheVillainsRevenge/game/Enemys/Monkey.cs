@@ -16,10 +16,11 @@ namespace TheVillainsRevenge
             spine.Load(position, "skullmonkey", (float)Convert.ToDouble(Game1.luaInstance["monkeySize"]), acceleration);
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionHeight"]));
         }
-        public override void die(GameTime gameTime)
+        public override void anim(GameTime gameTime, string anim,int richtung)
         {
-            spine.anim("dying", 3, false, gameTime);
-            dead = true;
+            spine.anim(anim, richtung, false, gameTime);
+            if (anim == "dying")
+                dead = true;
             animeTime = 1;
         }
         public override void Update(GameTime gameTime, Map map,Vector2 heropos)

@@ -8,11 +8,11 @@ planeForeground1HeightOffset = 46 * 48 - 2208
 
 playerAcceleration = 35
 playerStartLifes = 4
-playerScale = 0.7
+playerScale = 0.35
 playerCollisionWidth = 100
 playerCollisionHeight = 185
 playerCollisionOffsetX = -playerCollisionWidth / 2
-playerCollisionOffsetY = -285
+playerCollisionOffsetY = -180
 playerSmashIntensity = 15
 
 heroScale = 0.32
@@ -35,12 +35,12 @@ monkeyCollisionOffsetY = -119
 monkeyCollisionWidth = 84
 monkeyCollisionHeight = 119
 
-princessRageChance = 100
-princessRageWarmup = 5
-princessEnrageSpeed = 5
+princessRageChance = 0
+princessRageWarmup = 1000000
+princessEnrageSpeed = 0
 princessUnrageSpeed = 10
-princessRageLimit = 100
-princessCoverTime = 5
+princessRageLimit = 1000000
+princessCoverTime = 0
 
 blockSpeed = 5	
 triggerTimeWall = 5
