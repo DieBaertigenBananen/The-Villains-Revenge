@@ -210,8 +210,18 @@ namespace TheVillainsRevenge
                         Block block = karte.blocks.ElementAt(i);
                         if (block.cbox.Intersects(spieler.hitCbox) && block.type == "breakable")
                         {
-                            karte.objects.Add(new Debris(block.position, 3));
-                            karte.blocks.Remove(block);
+                            Rectangle nextblock = block.cbox;
+                            nextblock.X -= 48;
+                            nextblock.Width = nextblock.Width * 3;
+                            for (int j = 0; j < karte.blocks.Count(); j++)
+                            {
+                                Block block2 = karte.blocks.ElementAt(j);
+                                if (block2.cbox.Intersects(nextblock) && block2.type == "breakable")
+                                {
+                                    karte.objects.Add(new Debris(block2.position, 3));
+                                    karte.blocks.Remove(block2);
+                                }
+                            }
                         }
                     }
                     spieler.hitCbox.Y -= 1;
