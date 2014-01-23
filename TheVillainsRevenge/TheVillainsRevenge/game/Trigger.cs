@@ -312,51 +312,31 @@ namespace TheVillainsRevenge
                     }
                     if (blocks.Count() == 0)
                     {
-                        cboxnew = doorstart;
-                        bool geht = true;
-                        for (int i = 0; i < 20; i++)
+                        pushed = false;
+                        time = 0;
+                        activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeDoor"]);
+                        cboxnew.Y = doorstart.Y + 48;
+                        cboxnew.X = doorstart.X;
+                        for (int j = 0; j < list.Count(); ++j)
                         {
-                                for (int a = 0; a < elist.Count(); ++a)
-                                {
-                                    Enemy enemy = elist.ElementAt(a);
-                                    if (enemy.cbox.box.Intersects(cboxnew))
-                                    {
-                                        geht = false;
-                                        break;
-                                    }
-                                }
-                                if (!geht)
-                                    break;
-                            cboxnew.Y = cboxnew.Y - 48;
-                        }
-                        if (geht)
-                        {
-                            pushed = false;
-                            time = 0;
-                            activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeDoor"]);
-                            cboxnew.Y = doorstart.Y + 48;
-                            cboxnew.X = doorstart.X;
-                            for (int j = 0; j < list.Count(); ++j)
+                            Block block = list.ElementAt(j);
+                            if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
                             {
-                                Block block = list.ElementAt(j);
-                                if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
-                                {
-                                    list.Remove(block);
+                                list.Remove(block);
 
-                                }
                             }
-                            cboxnew.Y = doorstart.Y - 48;
-                            for (int a = 0; a < 10; a++)
+                        }
+                        cboxnew.Y = doorstart.Y - 48;
+                        for (int a = 0; a < 10; a++)
+                        {
+                            cboxnew.X = cboxnew.X + 48;
+                            for (int j = 0; j < elist.Count(); ++j)
                             {
-                                cboxnew.X = cboxnew.X + 48;
-                                for (int j = 0; j < elist.Count(); ++j)
+                                Enemy enemy = elist.ElementAt(j);
+                                if (cboxnew.Intersects(enemy.cbox.box) && enemy.type == 2)
                                 {
-                                    Enemy enemy = elist.ElementAt(j);
-                                    if (cboxnew.Intersects(enemy.cbox.box) && enemy.type == 2)
-                                    {
-                                        enemy.moving = true;
-                                        enemy.mover = false;
-                                    }
+                                    enemy.moving = true;
+                                    enemy.mover = false;
                                 }
                             }
                         }
@@ -413,46 +393,72 @@ namespace TheVillainsRevenge
                 {
                     if (typ == 2)
                     {
-                        bool ende = false;
-                        bool collide = false;
                         Rectangle cboxnew = doorstart;
-                        cboxnew.Y = doorstart.Y + 48;
-                        for (int j = 0; j < blocks.Count(); ++j)
+                        bool geht = true;
+                        if (cboxnew.Intersects(sbox) || cboxnew.Intersects(hbox))
                         {
-                            Block block = blocks.ElementAt(j);
-                            block.cbox.Y -= speed;
-                            block.position.Y -= speed;
-                            for (int a = 0; a < list.Count(); ++a)
+                            geht = false;
+                        }
+                        else{
+                            for (int i = 0; i < 20; i++)
                             {
-                                Block blocka = list.ElementAt(a);
-                                if (block.cbox.Intersects(blocka.cbox) && block.block && blocka.type != "triggerdoor" && !block.cbox.Intersects(doorstart))
+                                for (int a = 0; a < elist.Count(); ++a)
                                 {
-                                    ende = true;
-                                    block.cbox.Y += speed;
-                                    block.position.Y += speed;
-                                    break;
+                                    Enemy enemy = elist.ElementAt(a);
+                                    if (enemy.cbox.box.Intersects(cboxnew))
+                                    {
+                                        geht = false;
+                                        break;
+                                    }
                                 }
-                                if (block.cbox.Intersects(cboxnew))
-                                {
-                                    collide = true;
+                                if (!geht)
                                     break;
-                                }
+                                cboxnew.Y = cboxnew.Y - 48;
                             }
-                            if (ende||collide)
-                                break;
                         }
-                        if (!collide&&!ende)
+                        if (geht)
                         {
-                            Block block = new Block(new Vector2(doorstart.X, doorstart.Y+48), "triggerdoor");
-                            list.Add(block);
-                            blocks.Add(block);
-                        }
-                        else if (ende)
-                        {
-                            blocks.Clear();
-                            b.block = true;
-                            active = false;
-                            time = 0;
+                            bool ende = false;
+                            bool collide = false;
+                            cboxnew = doorstart;
+                            cboxnew.Y = doorstart.Y + 48;
+                            for (int j = 0; j < blocks.Count(); ++j)
+                            {
+                                Block block = blocks.ElementAt(j);
+                                block.cbox.Y -= speed;
+                                block.position.Y -= speed;
+                                for (int a = 0; a < list.Count(); ++a)
+                                {
+                                    Block blocka = list.ElementAt(a);
+                                    if (block.cbox.Intersects(blocka.cbox) && block.block && blocka.type != "triggerdoor" && !block.cbox.Intersects(doorstart))
+                                    {
+                                        ende = true;
+                                        block.cbox.Y += speed;
+                                        block.position.Y += speed;
+                                        break;
+                                    }
+                                    if (block.cbox.Intersects(cboxnew))
+                                    {
+                                        collide = true;
+                                        break;
+                                    }
+                                }
+                                if (ende || collide)
+                                    break;
+                            }
+                            if (!collide && !ende)
+                            {
+                                Block block = new Block(new Vector2(doorstart.X, doorstart.Y + 48), "triggerdoor");
+                                list.Add(block);
+                                blocks.Add(block);
+                            }
+                            else if (ende)
+                            {
+                                blocks.Clear();
+                                b.block = true;
+                                active = false;
+                                time = 0;
+                            }
                         }
                     }
                     if (typ == 1)
