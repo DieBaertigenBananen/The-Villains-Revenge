@@ -44,7 +44,7 @@ namespace TheVillainsRevenge
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
-                 if (block.type == "breakable"||block.type == "triggerdoor")
+                 if (block.type == "breakable"||block.type == "triggerdoor"||block.type == "breakable_verticale")
                      saveblocks.Add(new Block(block.position, block.type));
              }
              saveobjects.Clear();
@@ -81,7 +81,7 @@ namespace TheVillainsRevenge
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
-                 if (block.type == "breakable"||block.type == "triggerdoor")
+                 if (block.type == "breakable" || block.type == "triggerdoor" || block.type == "breakable_verticale")
                      blocks.RemoveAt(i);
              }
              for (int i = 0; i < saveblocks.Count(); ++i)
