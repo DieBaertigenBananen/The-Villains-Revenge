@@ -452,7 +452,10 @@ namespace TheVillainsRevenge
                 //Held hat den Spieler eingeholt
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start)
                 {
-                    spieler.lifes = 0;
+                    spieler.lifes = 1;
+                    spieler.getHit(gameTime);
+                    dietime = 2;
+                    hero.attack(gameTime);
                 }
                 //--------------------Camera--------------------
                 camera.Update(Game1.graphics, spieler, karte);
@@ -488,20 +491,24 @@ namespace TheVillainsRevenge
             if (dietime != 0)
             {
                 dietime -= gameTime.ElapsedGameTime.TotalSeconds;
-                if (dietime < 0)
+                if (dietime < 0 && spieler.lifes != 0)
                 {
                     Reset();
                     dietime = 0;
+                    return 1;
                 }
-                return 1;
-            }
-            else if (spieler.lifes != 0)
-            {
-                return 1;
+                else if (dietime < 0)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
             }
             else
             {
-                return 2;
+                return 1;
             }
         }
 
@@ -704,7 +711,7 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            if (dietime < 1 && dietime > 0)
+            if (dietime < 1 && dietime > 0&&spieler.lifes != 0)
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
 
