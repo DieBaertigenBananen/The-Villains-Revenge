@@ -48,6 +48,7 @@ namespace TheVillainsRevenge
         public double hitTimer;
         public double smashTimer;
         public Rectangle hitCbox;
+        bool allowSmash = false;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -128,6 +129,10 @@ namespace TheVillainsRevenge
             {
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
+            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0) //AllowSmash am Boden zurück setzen
+            {
+                allowSmash = false;
+            }
             //-----Sprung-----
             if ((Game1.input.sprung || savejump) && !princess.beating)
             {
@@ -157,10 +162,11 @@ namespace TheVillainsRevenge
             {
                 if (jump || fall)
                 {
-                    if (gameTime.TotalGameTime.TotalMilliseconds > smashTimer + smashCooldown) //Smash beginnen
+                    if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown) && allowSmash) //Smash beginnen
                     {
                         jump = false;
                         fall = true;
+                        hit = false;
                         smash = true;
                         spine.anim("smash", 0, false, gameTime);
                         smashTimer = gameTime.TotalGameTime.TotalMilliseconds;
@@ -170,6 +176,10 @@ namespace TheVillainsRevenge
                 }
                 if (!smash && !hit) //Schlag beginnen
                 {
+                    if (jump || fall)
+                    {
+                        allowSmash = true; //Nächster Schlag in der Luft = smash
+                    }
                     Sound.Play("schlag");
                     hit = true;
                     spine.anim("attack", 0, false, gameTime);
