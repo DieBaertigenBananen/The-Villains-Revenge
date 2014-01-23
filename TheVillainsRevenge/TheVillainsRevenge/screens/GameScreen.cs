@@ -596,6 +596,12 @@ namespace TheVillainsRevenge
                         Enemy enemy = karte.enemies.ElementAt(i);
                         spriteBatch.Draw(texture, enemy.cbox.box, null, Color.White);
                     }
+                    for (int i = 0; i < karte.triggers.Count(); i++)
+                    {
+                        Trigger trigger = karte.triggers.ElementAt(i);
+                        Rectangle c = new Rectangle(trigger.doorstart.X, trigger.doorstart.Y + 46, trigger.doorstart.Width, trigger.doorstart.Height);
+                        spriteBatch.Draw(texture, c, null, Color.Blue);
+                    }
                     spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
                       
                 }

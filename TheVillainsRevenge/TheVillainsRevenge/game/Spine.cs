@@ -107,16 +107,19 @@ namespace TheVillainsRevenge
             animationState = new AnimationState(animationStateData);
 
             // Event handling for all animations.
+            /*
             animationState.Start += Start;
             animationState.End += End;
             animationState.Complete += Complete;
             animationState.Event += Event;
+             * */
 
             skeleton.x = position.X;
             skeleton.y = position.Y;
         }
 
         //----------Spine----------
+        /*
         public void Start(object sender, StartEndArgs e)
         {
             Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": start");
@@ -136,6 +139,7 @@ namespace TheVillainsRevenge
         {
             Console.WriteLine(e.TrackIndex + " " + animationState.GetCurrent(e.TrackIndex) + ": event " + e.Event);
         }
+         * */
 
         public bool BoundingBoxCollision(Rectangle cbox) //Checken ob Rectangle mit Attachement (z.B. Keule) kollidiert
         {

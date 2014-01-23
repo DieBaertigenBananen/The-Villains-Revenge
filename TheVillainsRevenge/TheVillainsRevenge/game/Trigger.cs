@@ -218,7 +218,23 @@ namespace TheVillainsRevenge
                 if (oben)
                     typ = 1; //Wand
                 else
+                {
+                    cboxnew = triggerend;
+                    doorstart.X = cboxnew.X;
+                    for (int i = 0; i < 20; i++)
+                    {
+                        for (int j = 0; j < list.Count(); ++j)
+                        {
+                            Block block = list.ElementAt(j);
+                            if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
+                            {
+                                doorstart.Y = block.cbox.Y;
+                            }
+                        }
+                        cboxnew.Y = cboxnew.Y + 48;
+                    }
                     typ = 2; //Tür
+                }
             }
             //Triggerend und typ ermittelt
             if (!pushed&&!active)
@@ -256,101 +272,137 @@ namespace TheVillainsRevenge
         }
         public void Update(GameTime gameTime, List<Block> list,List<Enemy> elist,Rectangle sbox,Rectangle hbox)
         {
+            int speed = 4;
             if (pushed)
             {
                 if (typ == 2)
                 {
-                    spawntime += gameTime.ElapsedGameTime.TotalSeconds;
-                    if (spawntime > 0.1)
+                    Rectangle cboxnew = doorstart;
+                    //Wenn es keine Blöcke existieren
+                    if (blocks.Count() == 0)
                     {
-                        //Entferne die Blöcke unten
-                        Rectangle cboxnew = triggerend;
-                        doorstart.X = cboxnew.X;
                         for (int i = 0; i < 20; i++)
                         {
-                            bool hat = false;
                             for (int j = 0; j < list.Count(); ++j)
                             {
                                 Block block = list.ElementAt(j);
-                                if(block.cbox.Intersects(cboxnew)&&block.type == "triggerdoor")
+                                if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
                                 {
-                                    doorstart.Y = block.cbox.Y;
-                                    list.Remove(block);
-                                    hat = true;
+                                    //Füge existierenden zur Liste hinzu
+                                    blocks.Add(block);
+                                }
+                            }
+                            cboxnew.Y = cboxnew.Y - 48;
+                        }
+                    }
+                    cboxnew = doorstart;
+                    cboxnew.Y = doorstart.Y + 96;
+                    //Gehe die gerade erstellte Liste durch
+                    for (int j = 0; j < blocks.Count(); ++j)
+                    {
+                        //Bewege sie einfach nach oben
+                        Block block = blocks.ElementAt(j);
+                        block.cbox.Y += speed;
+                        block.position.Y += speed;
+                        if (block.cbox.Intersects(cboxnew))
+                        {
+                            blocks.Remove(block);
+                            list.Remove(block);
+                        }
+                    }
+                    if (blocks.Count() == 0)
+                    {
+                        cboxnew = doorstart;
+                        bool geht = true;
+                        for (int i = 0; i < 20; i++)
+                        {
+                                for (int a = 0; a < elist.Count(); ++a)
+                                {
+                                    Enemy enemy = elist.ElementAt(a);
+                                    if (enemy.cbox.box.Intersects(cboxnew))
+                                    {
+                                        geht = false;
+                                        break;
+                                    }
+                                }
+                                if (!geht)
                                     break;
+                            cboxnew.Y = cboxnew.Y - 48;
+                        }
+                        if (geht)
+                        {
+                            pushed = false;
+                            time = 0;
+                            activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeDoor"]);
+                            cboxnew.Y = doorstart.Y + 48;
+                            cboxnew.X = doorstart.X;
+                            for (int j = 0; j < list.Count(); ++j)
+                            {
+                                Block block = list.ElementAt(j);
+                                if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
+                                {
+                                    list.Remove(block);
 
                                 }
                             }
-                            if (hat)
-                                break;
-                            else if (i == 19)
+                            cboxnew.Y = doorstart.Y - 48;
+                            for (int a = 0; a < 10; a++)
                             {
-                                Console.WriteLine("geht");
-                                pushed = false;
-                                activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeDoor"]);
-                                cboxnew.Y = doorstart.Y;
-                                cboxnew.X = doorstart.X;
-                                for (int a = 0; a < 10; a++)
+                                cboxnew.X = cboxnew.X + 48;
+                                for (int j = 0; j < elist.Count(); ++j)
                                 {
-                                    cboxnew.X = cboxnew.X + 48;
-                                    for (int j = 0; j < elist.Count(); ++j)
+                                    Enemy enemy = elist.ElementAt(j);
+                                    if (cboxnew.Intersects(enemy.cbox.box) && enemy.type == 2)
                                     {
-                                        Enemy enemy = elist.ElementAt(j);
-                                        if (cboxnew.Intersects(enemy.cbox.box) && enemy.type == 2)
-                                        {
-                                            enemy.moving = true;
-                                            enemy.mover = false;
-                                        }
+                                        enemy.moving = true;
+                                        enemy.mover = false;
                                     }
                                 }
                             }
-                            cboxnew.Y = cboxnew.Y + 48;
                         }
-                        spawntime = 0;
-
                     }
                 }
                 else if (typ == 1)
                 {
-                    spawntime += gameTime.ElapsedGameTime.TotalSeconds;
-                    if (spawntime > 0.1)
+                    bool ende = false;
+                    bool collide = false;
+                    Rectangle cboxnew = triggerend;
+                    cboxnew.Y = triggerend.Y + 48;
+                    for (int j = 0; j < blocks.Count(); ++j)
                     {
-                        Rectangle cboxnew = triggerend;
-                        for (int i = 0; i < 20; i++)
+                        Block block = blocks.ElementAt(j);
+                        block.cbox.Y -= speed;
+                        block.position.Y -= speed;
+                        for (int a = 0; a < list.Count(); ++a)
                         {
-                            bool triggerblock = false;
-                            for (int j = 0; j < list.Count(); ++j)
+                            Block blocka = list.ElementAt(a);
+                            if (block.cbox.Intersects(blocka.cbox)&& !block.cbox.Intersects(triggerend)&&blocka.type == "triggerend")
                             {
-                                Block block = list.ElementAt(j);
-                                for (int a = 0; a < blocks.Count(); ++a)
-                                {
-                                    Block blocka = blocks.ElementAt(a);
-                                    if (blocka == block && block.cbox.Intersects(cboxnew))
-                                    {
-                                        triggerblock = true;
-                                        break;
-                                    }
-                                }
-                                if (cboxnew.Intersects(block.cbox) && block.block && !triggerblock || i == 20 || cboxnew.Intersects(block.cbox) && block.type == "triggerend" && !block.cbox.Intersects(triggerend))
-                                {
-                                    //Wir haben alle Daten
-                                    pushed = false;
-                                    activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeWall"]);
-                                    break;
-                                }
-                            }
-                            if (!pushed)
-                                break;
-                            else if (!triggerblock)
-                            {
-                                Block block = new Block(new Vector2(cboxnew.X, cboxnew.Y), "underground_earth");
-                                list.Add(block);
-                                blocks.Add(block);
-                                spawntime = 0;
+                                ende = true;
+                                block.cbox.Y += speed;
+                                block.position.Y += speed;
                                 break;
                             }
-                            cboxnew.Y = cboxnew.Y - 48;
+                            if (block.cbox.Intersects(cboxnew))
+                            {
+                                collide = true;
+                                break;
+                            }
                         }
+                        if (ende || collide)
+                            break;
+                    }
+                    if (!collide && !ende)
+                    {
+                        Block block = new Block(new Vector2(triggerend.X, triggerend.Y + 48), "underground_earth");
+                        list.Add(block);
+                        blocks.Add(block);
+                    }
+                    else if (ende)
+                    {
+                        pushed = false;
+                        time = 0;
+                        activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeWall"]);
                     }
                 }
             }
@@ -361,145 +413,74 @@ namespace TheVillainsRevenge
                 {
                     if (typ == 2)
                     {
-                        spawntime += gameTime.ElapsedGameTime.TotalSeconds;
-                        if (spawntime > 0.1)
+                        bool ende = false;
+                        bool collide = false;
+                        Rectangle cboxnew = doorstart;
+                        cboxnew.Y = doorstart.Y + 48;
+                        for (int j = 0; j < blocks.Count(); ++j)
                         {
-                            Block blockn = new Block(new Vector2(doorstart.X, doorstart.Y), "triggerdoor");
-                            list.Add(blockn);
-                            doorstart.Y -= 48;
-                            for (int j = 0; j < list.Count(); ++j)
+                            Block block = blocks.ElementAt(j);
+                            block.cbox.Y -= speed;
+                            block.position.Y -= speed;
+                            for (int a = 0; a < list.Count(); ++a)
                             {
-                                Block block = list.ElementAt(j);
-                                if (block.cbox.Intersects(doorstart) && block.block)
+                                Block blocka = list.ElementAt(a);
+                                if (block.cbox.Intersects(blocka.cbox) && block.block && blocka.type != "triggerdoor" && !block.cbox.Intersects(doorstart))
                                 {
-                                    b.block = true;
-                                    active = false;
-                                    time = 0;
+                                    ende = true;
+                                    block.cbox.Y += speed;
+                                    block.position.Y += speed;
+                                    break;
+                                }
+                                if (block.cbox.Intersects(cboxnew))
+                                {
+                                    collide = true;
                                     break;
                                 }
                             }
-                            spawntime = 0;
+                            if (ende||collide)
+                                break;
+                        }
+                        if (!collide&&!ende)
+                        {
+                            Block block = new Block(new Vector2(doorstart.X, doorstart.Y+48), "triggerdoor");
+                            list.Add(block);
+                            blocks.Add(block);
+                        }
+                        else if (ende)
+                        {
+                            blocks.Clear();
+                            b.block = true;
+                            active = false;
+                            time = 0;
                         }
                     }
                     if (typ == 1)
                     {
+                        Rectangle cboxnew = triggerend;
+                        cboxnew.Y = cboxnew.Y + 96;
                         for (int i = 0; i < blocks.Count(); ++i)
                         {
+                            //Bewege sie einfach nach oben
                             Block block = blocks.ElementAt(i);
-                            list.Remove(block);
+                            block.cbox.Y += speed;
+                            block.position.Y += speed;
+                            if (block.cbox.Intersects(cboxnew))
+                            {
+                                blocks.Remove(block);
+                                list.Remove(block);
+                            }
                         }
-                        blocks.Clear();
-                        b.block = true;
-                        active = false;
-                        time = 0;
+                        if (blocks.Count() == 0)
+                        {
+                            blocks.Clear();
+                            b.block = true;
+                            active = false;
+                            time = 0;
+                        }
                     }
                 }
             }
-            /*
-            if (active&&!sbox.Intersects(b.cbox))
-            {
-                time += gameTime.ElapsedGameTime.TotalSeconds;
-                if (time > activeTime)
-                {
-
-                    //Schaue wo die Blöcke sind
-                    Rectangle cboxnew = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
-                    Rectangle triggerend = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
-                    for (int i = 0; i < 20; i++)
-                    {
-                        cboxnew.X = cboxnew.X - 48;
-                        bool hat = false;
-                        for (int j = 0; j < list.Count(); ++j)
-                        {
-                            Block block = list.ElementAt(j);
-                            if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
-                            {
-                                //Wir haben den Block, jetzt hole die Höhe
-                                triggerend.X = block.cbox.X;
-                                hat = true;
-                                break;
-                            }
-                        }
-                        if (hat)
-                            break;
-                    }
-                    //Gehe nach Oben
-                    bool blocker = false;
-                    bool oben = false;
-                    for (int i = 0; i < 20; i++)
-                    {
-                        cboxnew.Y = cboxnew.Y - 48;
-                        for (int j = 0; j < list.Count(); ++j)
-                        {
-                            Block block = list.ElementAt(j);
-                            if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
-                            {
-                                //Wir haben alle Daten
-                                oben = true;
-                                break;
-                            }
-                        }
-                        if (oben)
-                            break;
-                    }
-                    if (oben)
-                    {
-                        for (int i = 0; i < blocks.Count(); ++i)
-                        {
-                            Block block = blocks.ElementAt(i);
-                            list.Remove(block);
-                        }
-                        blocks.Clear();
-                    }
-                    else
-                    {
-                        bool start = false;
-                        cboxnew.Y = triggerend.Y;
-                        for (int i = 0; i < 20; i++)
-                        {
-                            cboxnew.Y = cboxnew.Y + 48;
-                            if (cboxnew.Intersects(hbox) || cbox.Intersects(sbox))
-                            {
-                                blocker = true;
-                                break;
-                            }
-                        }
-                        if (!blocker)
-                        {
-                            cboxnew.Y = triggerend.Y;
-                            for (int i = 0; i < 20; i++)
-                            {
-                                cboxnew.Y = cboxnew.Y + 48;
-                                bool istda = false;
-                                for (int j = 0; j < list.Count(); ++j)
-                                {
-                                    Block block = list.ElementAt(j);
-                                    if (cboxnew.Intersects(block.cbox))
-                                    {
-                                        //Wir haben alle Daten
-                                        istda = true;
-                                    }
-                                }
-                                if (!istda)
-                                {
-                                    start = true;
-                                    Block block = new Block(new Vector2(cboxnew.X, cboxnew.Y), "triggerdoor");
-                                    list.Add(block);
-                                }
-                                else if (start)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    if (!blocker)
-                    {
-                        active = false;
-                        b.block = true;
-                    }
-                }
-            }*/
         }
     }
 }
