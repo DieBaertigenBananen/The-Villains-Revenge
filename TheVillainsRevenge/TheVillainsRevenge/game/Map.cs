@@ -28,9 +28,91 @@ namespace TheVillainsRevenge
          public List<Enemy> saveenemies = new List<Enemy>(); //Erstelle Blocks als List
          public List<Obj> saveobjects = new List<Obj>(); //Erstelle Blocks als List
 
+         public List<Block> startblocks = new List<Block>(); //Erstelle Blocks als List
+         public List<Enemy> startenemies = new List<Enemy>(); //Erstelle Blocks als List
+         public List<Obj> startobjects = new List<Obj>(); //Erstelle Blocks als List
+
 
          public Map()
          {
+         }
+         public void StartSave()
+         {
+             startenemies.Clear();
+             for (int i = 0; i < enemies.Count(); ++i)
+             {
+                 Enemy enemy = enemies.ElementAt(i);
+                 startenemies.Add(new Enemy(enemy.position, enemy.type, enemy.mover));
+             }
+             startblocks.Clear();
+             for (int i = 0; i < blocks.Count(); ++i)
+             {
+                 Block block = blocks.ElementAt(i);
+                 if (block.type == "breakable" || block.type == "triggerdoor" || block.type == "breakable_verticale")
+                     startblocks.Add(new Block(block.position, block.type));
+             }
+             startobjects.Clear();
+             for (int i = 0; i < objects.Count(); ++i)
+             {
+                 Obj obj = objects.ElementAt(i);
+                 if (obj.type == 1)
+                     startobjects.Add(new Banana(obj.position, 1));
+                 else if (obj.type == 2)
+                     startobjects.Add(new Kacke(obj.position, 2, obj.richtung));
+                 else if (obj.type == 3)
+                     startobjects.Add(new Debris(obj.position, 3));
+             }
+             foreach (Trigger trigger in triggers)
+             {
+                 trigger.StartSave();
+             }
+             foreach (MovingBlock mblock in mblocks)
+             {
+                 mblock.StartSave();
+             }
+         }
+
+         public void StartReset()
+         {
+             enemies.Clear();
+             for (int i = 0; i < startenemies.Count(); ++i)
+             {
+                 Enemy enemy = startenemies.ElementAt(i);
+                 if (enemy.type == 1)
+                     enemies.Add(new Bunny(enemy.position, enemy.type, enemy.mover));
+                 if (enemy.type == 2)
+                     enemies.Add(new Monkey(enemy.position, enemy.type, enemy.mover));
+             }
+             for (int i = 0; i < blocks.Count(); ++i)
+             {
+                 Block block = blocks.ElementAt(i);
+                 if (block.type == "breakable" || block.type == "triggerdoor" || block.type == "breakable_verticale")
+                     blocks.RemoveAt(i);
+             }
+             for (int i = 0; i < startblocks.Count(); ++i)
+             {
+                 Block block = startblocks.ElementAt(i);
+                 blocks.Add(new Block(block.position, block.type));
+             }
+             objects.Clear();
+             for (int i = 0; i < startobjects.Count(); ++i)
+             {
+                 Obj obj = startobjects.ElementAt(i);
+                 if (obj.type == 1)
+                     objects.Add(new Banana(obj.position, 1));
+                 else if (obj.type == 2)
+                     objects.Add(new Kacke(obj.position, 2, obj.richtung));
+                 else if (obj.type == 3)
+                     objects.Add(new Debris(obj.position, 3));
+             }
+             foreach (Trigger trigger in triggers)
+             {
+                 trigger.StartReset(blocks, enemies);
+             }
+             foreach (MovingBlock mblock in mblocks)
+             {
+                 mblock.StartReset();
+             }
          }
          public void Save()
          {

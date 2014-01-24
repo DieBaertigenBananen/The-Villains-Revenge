@@ -15,6 +15,8 @@ namespace TheVillainsRevenge
         //Checkpoint//
         Rectangle checkcbox = new Rectangle(0, 0, 48, 48);
         int checkmove;
+        Rectangle startcbox = new Rectangle(0, 0, 48, 48);
+        int startmove;
 
         public MovingBlock(List<Block> list)
         {
@@ -68,6 +70,26 @@ namespace TheVillainsRevenge
             {
                 Block block = blocks.ElementAt(i);
                 block.Save();
+            }
+        }
+        public void StartReset()
+        {
+            move = startmove;
+            cbox = startcbox;
+            for (int i = 0; i < blocks.Count(); ++i)
+            {
+                Block block = blocks.ElementAt(i);
+                block.StartReset();
+            }
+        }
+        public void StartSave()
+        {
+            startmove = move;
+            startcbox = cbox;
+            for (int i = 0; i < blocks.Count(); ++i)
+            {
+                Block block = blocks.ElementAt(i);
+                block.StartSave();
             }
         }
         public void Update(GameTime gameTime, List<Block> list)

@@ -27,6 +27,13 @@ namespace TheVillainsRevenge
         bool checkactive;
         int checkactiveTime;
         bool checkblock;
+        //Start//
+        double startTime;
+        int starttyp;
+        bool startpushed;
+        bool startactive;
+        int startactiveTime;
+        bool startblock;
         public Trigger(Vector2 npos,Block b)
         {
             //Setze Position und Collisionsbox
@@ -159,6 +166,35 @@ namespace TheVillainsRevenge
             activeTime = checkactiveTime;
             typ = checktyp;
             b.block = checkblock;
+        }
+        public void StartReset(List<Block> list, List<Enemy> elist)
+        {
+            //Wurden schonmal gedrückt aber nicht gesavet
+            if (typ == 1)
+            {
+                //Zerstöre Wand
+                for (int i = 0; i < blocks.Count(); ++i)
+                {
+                    Block block = blocks.ElementAt(i);
+                    list.Remove(block);
+                }
+                blocks.Clear();
+            }
+            active = startactive;
+            pushed = startpushed;
+            time = startTime;
+            activeTime = startactiveTime;
+            typ = starttyp;
+            b.block = startblock;
+        }
+        public void StartSave()
+        {
+            startpushed = pushed;
+            startactive = active;
+            startactiveTime = activeTime;
+            startTime = time;
+            starttyp = typ;
+            startblock = b.block;
         }
         public void Save()
         {

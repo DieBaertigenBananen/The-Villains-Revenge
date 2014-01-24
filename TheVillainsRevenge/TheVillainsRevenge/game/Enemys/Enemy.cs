@@ -25,6 +25,8 @@ namespace TheVillainsRevenge
         //Checkpoint//
         bool checkmover;
         public Vector2 checkpoint;
+        public Vector2 startpoint;
+        bool startmover;
 
         public void Reset()
         {
@@ -32,6 +34,20 @@ namespace TheVillainsRevenge
             position.Y = checkpoint.Y;
             position.X = checkpoint.X;
             cbox.Update(position);
+        }
+
+        public void StartReset()
+        {
+            mover = startmover;
+            position.Y = startpoint.Y;
+            position.X = startpoint.X;
+            cbox.Update(position);
+        }
+        public void StartSave()
+        {
+            startmover = mover;
+            startpoint.X = position.X;
+            startpoint.Y = position.Y;
         }
         public void Save()
         {

@@ -51,6 +51,19 @@ namespace TheVillainsRevenge
 
         }
 
+        public void StartSave()
+        {
+
+        }
+
+        public void StartReset()
+        {
+            rageMode = false;
+            rageMeter = 0;
+            beating = false;
+            coverEyes = false;
+        }
+
         public void Reset()
         {
             rageMode = false;

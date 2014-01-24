@@ -18,6 +18,7 @@ namespace TheVillainsRevenge
         public bool inlist;
         //Checkpoint//
         Vector2 checkpoint;
+        Vector2 startpoint;
 
         public void Reset()
         {
@@ -26,10 +27,22 @@ namespace TheVillainsRevenge
             cbox.Y = (int)position.Y;
             cbox.X = (int)position.X;
         }
+        public void StartReset()
+        {
+            position.Y = startpoint.Y;
+            position.X = startpoint.X;
+            cbox.Y = (int)position.Y;
+            cbox.X = (int)position.X;
+        }
         public void Save()
         {
             checkpoint.X = position.X;
             checkpoint.Y = position.Y;
+        }
+        public void StartSave()
+        {
+            startpoint.X = position.X;
+            startpoint.Y = position.Y;
         }
         public Block(Vector2 npos, string type)
         {

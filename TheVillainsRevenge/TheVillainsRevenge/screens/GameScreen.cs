@@ -51,6 +51,7 @@ namespace TheVillainsRevenge
         public static Lua LuaKI = new Lua();
         public static int test = 0;
         double dietime = 0;
+        bool herohit = false;
 
         //KIDaten
         //Dies sind Luafunktionen für den netten GD
@@ -145,6 +146,18 @@ namespace TheVillainsRevenge
                 Sound.PlayBG();
             }
             debug = Content.Load<Texture2D>("sprites/Level_"+Game1.level+"/Planes/background_0_debug");
+            StartSave();
+        }
+        public void StartSave()
+        {
+            spieler.StartSave();
+            hero.StartSave();
+            princess.StartSave();
+            foreach (Enemy enemy in karte.enemies)
+            {
+                enemy.StartSave();
+            }
+            karte.StartSave();
         }
         public void Save(int checkpointX)
         {
@@ -156,6 +169,25 @@ namespace TheVillainsRevenge
                 enemy.Save();
             }
             karte.Save();
+        }
+        public void StartReset()
+        {
+            if (spieler.lifes != 0)
+            {
+                spieler.StartReset();
+                spieler.Save((int)spieler.position.X);
+                hero.StartReset();
+                hero.Save();
+                princess.StartReset();
+                princess.Save();
+                foreach (Enemy enemy2 in karte.enemies)
+                {
+                    enemy2.StartReset();
+                    enemy2.Save();
+                }
+                karte.StartReset();
+                karte.Save();
+            }
         }
         public void Reset()
         {
@@ -455,6 +487,7 @@ namespace TheVillainsRevenge
                     spieler.getHit(gameTime);
                     dietime = 2;
                     hero.attack(gameTime);
+                    herohit = true;
                 }
                 //--------------------Camera--------------------
                 camera.Update(Game1.graphics, spieler, karte);
@@ -492,7 +525,10 @@ namespace TheVillainsRevenge
                 dietime -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (dietime < 0 && spieler.lifes != 0)
                 {
-                    Reset();
+                    if (herohit)
+                        StartReset();
+                    else
+                        Reset();
                     dietime = 0;
                     return 1;
                 }

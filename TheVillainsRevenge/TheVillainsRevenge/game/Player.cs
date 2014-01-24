@@ -30,12 +30,6 @@ namespace TheVillainsRevenge
         public int item2;
         public Spine spine;
         public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
-        //Checkpoint Speicherng//
-        public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
-        public Vector2 checkpoint;
-        float checkSmashCooldown = 0;
-        bool checkjump;
-        double checkjumpt;
         float initAcceleration;
         public float acceleration;
         public bool hit = false;
@@ -49,6 +43,17 @@ namespace TheVillainsRevenge
         public double smashTimer;
         public Rectangle hitCbox;
         bool allowSmash = false;
+        //Checkpoint Speicherng//
+        public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
+        public Vector2 checkpoint;
+        float checkSmashCooldown = 0;
+        bool checkjump;
+        double checkjumpt;
+        //Start Speicherng//
+        public Vector2 startpoint;
+        float startSmashCooldown = 0;
+        bool startjump;
+        double startjumpt;
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -62,6 +67,27 @@ namespace TheVillainsRevenge
             initAcceleration = (float)Convert.ToInt32((double)Game1.luaInstance["playerAcceleration"]) / 100;
             smashInitIntensity = Convert.ToInt32((double)Game1.luaInstance["playerSmashIntensity"]);
             smashCooldown = (float)Convert.ToDouble(Game1.luaInstance["playerMegaSchlagCooldown"]) * 1000;
+        }
+        public void StartSave()
+        {
+            startSmashCooldown = smashCooldown;
+            startpoint.X = position.X;
+            startpoint.Y = position.Y;
+            startjump = jump;
+            startjumpt = jumptimer;
+        }
+        public void StartReset()
+        {
+            smashCooldown = startSmashCooldown;
+            jump = startjump;
+            jumptimer = startjumpt;
+            spine.skeleton.x = startpoint.X;
+            spine.skeleton.y = startpoint.Y;
+            position.Y = spine.skeleton.Y;
+            position.X = spine.skeleton.X;
+            cbox.Update(position);
+            lastPosition = new Vector2(spine.skeleton.X, spine.skeleton.Y);
+            kicheck.Clear();
         }
         public void Save(int x)
         {

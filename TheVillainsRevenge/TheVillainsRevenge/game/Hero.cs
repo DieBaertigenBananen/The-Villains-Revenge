@@ -29,6 +29,8 @@ namespace TheVillainsRevenge
         public Rectangle kicollide;
         public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
         public double slowtime;
+        float acceleration;
+        public double attacktimer = 0;
         //Checkpoint//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         int checkkistate;
@@ -37,8 +39,13 @@ namespace TheVillainsRevenge
         double checkjumpt;
         double checktime;
         bool checkstart;
-        float acceleration;
-        public double attacktimer = 0;
+        //CheckpointStart//
+        int startkistate;
+        public Vector2 startpoint;
+        bool startjump;
+        double startjumpt;
+        double starttime;
+        bool startstart;
 
         public Hero(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -84,6 +91,30 @@ namespace TheVillainsRevenge
             {
                 kicheck.Add(kc);
             }
+        }
+        public void StartReset()
+        {
+            kistate = startkistate;
+            start = startstart;
+            herotime = starttime;
+            jump = startjump;
+            jumptimer = startjumpt;
+            spine.skeleton.x = startpoint.X;
+            spine.skeleton.y = startpoint.Y;
+            position.Y = spine.skeleton.Y;
+            position.X = spine.skeleton.X;
+            cbox.Update(position);
+            kicheck.Clear();
+        }
+        public void StartSave()
+        {
+            startkistate = kistate;
+            startstart = start;
+            starttime = herotime;
+            startpoint.X = position.X;
+            startpoint.Y = position.Y;
+            startjump = jump;
+            startjumpt = jumptimer;
         }
         public void Save()
         {
