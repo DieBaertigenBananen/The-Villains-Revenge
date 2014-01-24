@@ -452,7 +452,6 @@ namespace TheVillainsRevenge
                 //Held hat den Spieler eingeholt
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start)
                 {
-                    spieler.lifes = 1;
                     spieler.getHit(gameTime);
                     dietime = 2;
                     hero.attack(gameTime);

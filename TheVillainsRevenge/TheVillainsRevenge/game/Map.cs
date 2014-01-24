@@ -149,7 +149,6 @@ namespace TheVillainsRevenge
 
          public void Draw(SpriteBatch spriteBatch,GameTime gameTime,Camera camera)
          {
-             spriteBatch.Draw(levelMap, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 2.0f, SpriteEffects.None, 1.0f);
              for (int i = 0; i < blocks.Count(); ++i)
              { 
                  Block block = blocks.ElementAt(i);
