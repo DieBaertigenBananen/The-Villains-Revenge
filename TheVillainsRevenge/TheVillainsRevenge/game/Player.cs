@@ -54,6 +54,7 @@ namespace TheVillainsRevenge
         float startSmashCooldown = 0;
         bool startjump;
         double startjumpt;
+        Random randomNumber = new Random();
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -155,6 +156,20 @@ namespace TheVillainsRevenge
             {
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
+            if (princess.beating)
+            {
+                float randomAcceleration = ((float)randomNumber.Next(0, 100) / 50) - 1;
+                acceleration += (initAcceleration * randomAcceleration);
+                if (acceleration < -initAcceleration / 2)
+                {
+                    acceleration = -initAcceleration / 2;
+                }
+                if (acceleration > initAcceleration / 2)
+                {
+                    acceleration = initAcceleration / 2;
+                }
+            }
+            //Deine Mudda stinkt nach Backfisch
             if (CollisionCheckedVector(0, 1, map.blocks).Y == 0) //AllowSmash am Boden zurück setzen
             {
                 allowSmash = false;

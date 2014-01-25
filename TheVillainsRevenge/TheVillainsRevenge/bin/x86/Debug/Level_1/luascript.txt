@@ -16,7 +16,7 @@ playerCollisionOffsetY = -180
 playerSmashIntensity = 15
 
 heroScale = 0.32
-heroStartTime = 5
+heroStartTime = 500
 heroCollisionOffsetX = -20
 heroCollisionOffsetY = -150
 heroCollisionWidth = 45
@@ -35,12 +35,12 @@ monkeyCollisionOffsetY = -119
 monkeyCollisionWidth = 84
 monkeyCollisionHeight = 119
 
-princessRageChance = 0
-princessRageWarmup = 1000000
-princessEnrageSpeed = 0
+princessRageChance = 100
+princessRageWarmup = 10
+princessEnrageSpeed = 5
 princessUnrageSpeed = 10
-princessRageLimit = 1000000
-princessCoverTime = 0
+princessRageLimit = 100
+princessCoverTime = 5
 
 blockSpeed = 5	
 triggerTimeWall = 5
