@@ -156,17 +156,19 @@ namespace TheVillainsRevenge
             {
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
+            //Einfluss princess.beating
             if (princess.beating)
             {
-                float randomAcceleration = ((float)randomNumber.Next(0, 100) / 50) - 1;
-                acceleration += (initAcceleration * randomAcceleration);
-                if (acceleration < -initAcceleration / 2)
+                actualspeed = actualspeed / 3;
+                float randomAcceleration = (float)randomNumber.Next(-50, 50) / 50;
+                acceleration += initAcceleration * randomAcceleration;
+                if (acceleration < -initAcceleration)
                 {
-                    acceleration = -initAcceleration / 2;
+                    acceleration = -initAcceleration;
                 }
-                if (acceleration > initAcceleration / 2)
+                if (acceleration > initAcceleration)
                 {
-                    acceleration = initAcceleration / 2;
+                    acceleration = initAcceleration;
                 }
             }
             //Deine Mudda stinkt nach Backfisch
