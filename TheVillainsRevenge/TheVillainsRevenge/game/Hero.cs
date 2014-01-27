@@ -255,17 +255,18 @@ namespace TheVillainsRevenge
                             {
                                 for (int i = 0; i < 50; i++)
                                 {
-                                    kicollide.X = cbox.box.X + i * 48;
+                                    kicollide.X = cbox.box.X + i * realspeed;
                                     kicollide.Y = cbox.box.Y;
                                     foreach (KIPoint kipoint in map.kipoints)
                                     {
                                         if (kicollide.Intersects(kipoint.cbox) && kipoint.id == kicheck.ElementAt(0).id)
                                         {
                                             geht = true;
-                                            i = 200;
                                             break;
                                         }
                                     }
+                                    if (geht)
+                                        break;
                                 }
                             }
                             //Block ist auf gleicher Höhe, bewege nur drauf zu
@@ -326,6 +327,7 @@ namespace TheVillainsRevenge
                                     if (CollisionCheckedVector(realspeed, 0, map.blocks).X == realspeed)
                                     {
                                         bool bewegblock = false;
+                                        kicollide.X = cbox.box.X;
                                         kicollide.Y += 1;
                                         foreach (Block block in map.blocks)
                                         {
@@ -350,9 +352,10 @@ namespace TheVillainsRevenge
                                             bool b = false;
                                             int deltay = 0;
                                             Rectangle kicollide2 = cbox.box;
+                                            GameScreen.test = 1;
                                             for (int i = 0; i < 60; i++)
                                             {
-                                                float t = (float)(i / 20);
+                                                float t = (float)(i / 22);
                                                 deltay = deltay + (int)(-jumppower + (gravitation * t));
                                                 kicollide.X = cbox.box.X + (i * realspeed);
                                                 kicollide.Y = cbox.box.Y + deltay;
@@ -365,7 +368,7 @@ namespace TheVillainsRevenge
                                             }
                                             if (b)
                                             {
-                                                if (!fall && !jump)
+                                                if (!fall&&!jump)
                                                 {
                                                     spine.anim("jump", 3, false, gameTime);
                                                     Jump(gameTime, map); //Springen!
@@ -396,6 +399,7 @@ namespace TheVillainsRevenge
                                     {
                                         for (int i = 0; i < 10; i++)
                                         {
+                                            kicollide.X = cbox.box.X;
                                             kicollide.Y = cbox.box.Y + i * gravitation;
                                             if (kicollide.Intersects(spieler))
                                                 geht = true;
@@ -451,10 +455,8 @@ namespace TheVillainsRevenge
                         }
                         else if (kistate == 2)
                         {
-                            GameScreen.test = 2;
                             if (jump)
                             {
-                                GameScreen.test = 3;
                                 for (int i = 0; i < 10; i++)
                                 {
                                     kicollide.Y = cbox.box.Y + i * gravitation;
