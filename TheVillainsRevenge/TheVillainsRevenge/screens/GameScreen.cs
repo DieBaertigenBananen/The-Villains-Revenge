@@ -16,7 +16,7 @@ namespace TheVillainsRevenge
     {
         Texture2D texture;
         public static Texture2D debug;
-        Player spieler = new Player(40, 1000);
+        public Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
         Princess princess = new Princess();
         Map karte = new Map();

@@ -28,12 +28,14 @@ namespace TheVillainsRevenge
         public static Lua luaInstance = new Lua();
         public static bool debug = false;
         public static int level = 1;
+        public static int leben = 4;
         public struct SaveData
         {
             public bool sound;
             public bool fullscreen;
             public bool stretch;
             public int level;
+            public int leben;
         }
         public Game1()
         {
@@ -293,6 +295,7 @@ namespace TheVillainsRevenge
                     toggleFullscreen();
                 }
                 Game1.level = data.level;
+                Game1.leben = data.leben;
             }
         }
         void Save()
@@ -303,6 +306,7 @@ namespace TheVillainsRevenge
                 fullscreen = graphics.IsFullScreen,
                 stretch = Game1.stretch,
                 level = Game1.level,
+                leben = Game1.leben,
             };
             XmlSerializer writer = new XmlSerializer(data.GetType());
             StreamWriter file = new StreamWriter("save");

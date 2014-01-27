@@ -368,11 +368,16 @@ namespace TheVillainsRevenge
                                             }
                                             if (b)
                                             {
-                                                if (!fall&&!jump)
+                                                GameScreen.test = 2;
+                                                if (!fall && !jump)
                                                 {
                                                     spine.anim("jump", 3, false, gameTime);
                                                     Jump(gameTime, map); //Springen!
                                                     kistate = 2;
+                                                }
+                                                else
+                                                {
+                                                    Move(-actualspeed, 0, map);
                                                 }
                                             }
                                             else

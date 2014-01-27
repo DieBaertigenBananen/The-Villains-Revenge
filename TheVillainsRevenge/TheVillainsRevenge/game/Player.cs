@@ -25,7 +25,6 @@ namespace TheVillainsRevenge
         public int jumppower; //Anfangsgeschwindigkeit in m/s _/60
         public int gravitation; //Erdbeschleunigung in (m/s)*(m/s) _/60
         public int lifes;
-        public static int startLifes = Convert.ToInt32((double)Game1.luaInstance["playerStartLifes"]);
         public int item1;
         public int item2;
         public Spine spine;
@@ -62,7 +61,7 @@ namespace TheVillainsRevenge
             position.Y = y;
             lastPosition = position;
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionHeight"]));
-            lifes = startLifes;
+            lifes = Game1.leben;
             spine = new Spine();
             initAcceleration = (float)Convert.ToInt32((double)Game1.luaInstance["playerAcceleration"]) / 100;
             smashInitIntensity = Convert.ToInt32((double)Game1.luaInstance["playerSmashIntensity"]);
@@ -128,6 +127,7 @@ namespace TheVillainsRevenge
         public void getHit(GameTime gameTime)
         {
             lifes--;
+            Game1.leben = lifes;
             spine.anim("die", 0, false, gameTime);
         }
 
