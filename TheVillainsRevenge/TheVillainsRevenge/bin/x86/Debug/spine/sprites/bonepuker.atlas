@@ -38,44 +38,51 @@ chest
   orig: 182, 159
   offset: 0, 0
   index: -1
+dust
+  rotate: false
+  xy: 672, 553
+  size: 109, 35
+  orig: 109, 35
+  offset: 0, 0
+  index: -1
 finger_index
   rotate: false
-  xy: 755, 542
+  xy: 880, 677
   size: 34, 46
   orig: 34, 46
   offset: 0, 0
   index: -1
 finger_index_tip
-  rotate: false
-  xy: 498, 430
+  rotate: true
+  xy: 517, 477
   size: 34, 47
   orig: 34, 47
   offset: 0, 0
   index: -1
 finger_middle
-  rotate: true
-  xy: 856, 635
+  rotate: false
+  xy: 572, 513
   size: 42, 49
   orig: 42, 49
   offset: 0, 0
   index: -1
 finger_middle_tip
   rotate: true
-  xy: 797, 633
+  xy: 797, 637
   size: 39, 57
   orig: 39, 57
   offset: 0, 0
   index: -1
 finger_tiny
   rotate: false
-  xy: 791, 541
+  xy: 616, 514
   size: 36, 48
   orig: 36, 48
   offset: 0, 0
   index: -1
 finger_tiny_tip
-  rotate: false
-  xy: 498, 384
+  rotate: true
+  xy: 566, 476
   size: 35, 44
   orig: 35, 44
   offset: 0, 0
@@ -145,7 +152,7 @@ sc_arm_left
   index: -1
 sc_arm_right
   rotate: true
-  xy: 672, 543
+  xy: 797, 678
   size: 45, 81
   orig: 45, 82
   offset: 0, 0
@@ -187,14 +194,14 @@ sc_hair_front
   index: -1
 sc_hand_left
   rotate: true
-  xy: 780, 591
+  xy: 783, 549
   size: 40, 52
   orig: 40, 52
   offset: 0, 0
   index: -1
 sc_hand_right
   rotate: true
-  xy: 852, 679
+  xy: 780, 591
   size: 44, 53
   orig: 44, 53
   offset: 0, 0
@@ -208,7 +215,7 @@ sc_head
   index: -1
 sc_mouth_panic
   rotate: false
-  xy: 797, 674
+  xy: 517, 513
   size: 53, 49
   orig: 53, 49
   offset: 0, 0

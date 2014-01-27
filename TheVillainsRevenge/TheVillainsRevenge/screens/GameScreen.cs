@@ -713,19 +713,19 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, outline); //-----[Shader]-----Outline
             //Background3
-            outline.Parameters["lineSize"].SetValue(10);
+            outline.Parameters["lineSize"].SetValue(0);
             outline.Parameters["lineBrightness"].SetValue(4);
             spriteBatch.Draw(renderBackground3, Vector2.Zero, Color.White);
             //Background2
-            outline.Parameters["lineSize"].SetValue(15);
+            outline.Parameters["lineSize"].SetValue(0);
             outline.Parameters["lineBrightness"].SetValue(3);
             spriteBatch.Draw(renderBackground2, Vector2.Zero, Color.White);
             //Background1
-            outline.Parameters["lineSize"].SetValue(20);
+            outline.Parameters["lineSize"].SetValue(0);
             outline.Parameters["lineBrightness"].SetValue(2);
             spriteBatch.Draw(renderBackground1, Vector2.Zero, Color.White);
             //Background0
-            outline.Parameters["lineSize"].SetValue(20);
+            outline.Parameters["lineSize"].SetValue(0);
             outline.Parameters["lineBrightness"].SetValue(0);
             spriteBatch.Draw(renderBackground0, Vector2.Zero, Color.White);
             spriteBatch.End();
