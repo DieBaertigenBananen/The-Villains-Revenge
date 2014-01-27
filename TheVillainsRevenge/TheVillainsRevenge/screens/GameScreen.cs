@@ -468,6 +468,10 @@ namespace TheVillainsRevenge
                         //Lösche diesen
                         if (hero.kicheck.ElementAt(0).id == kipoint.id)
                         {
+                            if (hero.kistate == 2)
+                            {
+                                hero.kistate = 9;
+                            }
                             hero.kicheck.RemoveAt(0);
                         }
                     }

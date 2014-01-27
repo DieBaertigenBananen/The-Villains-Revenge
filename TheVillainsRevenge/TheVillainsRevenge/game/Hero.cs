@@ -167,13 +167,11 @@ namespace TheVillainsRevenge
                 {
                     if (kistate != 4 && kistate != 5)
                     {
-                        GameScreen.test = 1;
                         kistate = 0;
                     }
                 }
                 else
                 {
-                    GameScreen.test = 0;
                         if (kicheck.Count() != 0)
                         {
                             foreach (KIPoint kipoint in map.kipoints)
@@ -201,6 +199,7 @@ namespace TheVillainsRevenge
                     }
                     if (!cbox.box.Intersects(spieler))
                     {
+                        GameScreen.test = 0;
                         bool geht = false;
                         if (kistate == 0)
                         {
@@ -291,7 +290,7 @@ namespace TheVillainsRevenge
                             }
                             else
                             {
-                                if (spieler.Y < position.Y-20)
+                                if (spieler.Y < position.Y - 20)
                                 {
                                     if (CollisionCheckedVector(realspeed, 0, map.blocks).X == realspeed)
                                     {
@@ -320,27 +319,19 @@ namespace TheVillainsRevenge
                                             int deltay = 0;
                                             kicollide = new Rectangle(cbox.box.X, cbox.box.Y, cbox.box.Width, cbox.box.Height);
                                             Rectangle kicollide2 = new Rectangle(cbox.box.X, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-                                            for (int i = 0; i < 50; i++)
+
+                                            for (int i = 0; i < 60; i++)
                                             {
-                                                float t = (float)(i / 22);
+                                                float t = (float)(i / 20);
                                                 deltay = deltay + (int)(-jumppower + (gravitation * t));
                                                 kicollide.X = cbox.box.X + (i * realspeed);
                                                 kicollide.Y = cbox.box.Y + deltay;
                                                 kicollide2.X = cbox.box.X + (i * realspeed);
-                                                if (kicollide.Intersects(spieler)&&!kicollide2.Intersects(spieler))
+                                                if (kicollide.Intersects(spieler) && !kicollide2.Intersects(spieler))
                                                 {
                                                     b = true;
                                                     break;
                                                 }
-                                                /*
-                                                foreach (Block block in map.blocks)
-                                                {
-                                                    if (kicollide.Intersects(block.cbox) && block.block)
-                                                    {
-                                                        b = true;
-                                                        break;
-                                                    }
-                                                }*/
                                             }
                                             if (b)
                                             {
@@ -430,8 +421,10 @@ namespace TheVillainsRevenge
                         }
                         else if (kistate == 2)
                         {
+                            GameScreen.test = 2;
                             if (jump)
                             {
+                                GameScreen.test = 3;
                                 for (int i = 0; i < 10; i++)
                                 {
                                     kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
@@ -572,6 +565,14 @@ namespace TheVillainsRevenge
                                     //Grund!!!! Wir sind unten!!! Starte nächsten Modus
                                     kistate = 0;
                                 }
+                            }
+                        }
+                        else if (kistate == 9)
+                        {
+                            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                            {
+                                //Grund!!!! Wir sind unten!!! Starte normalen Modus
+                                kistate = 0;
                             }
                         }
                     }
