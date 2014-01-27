@@ -475,11 +475,17 @@ namespace TheVillainsRevenge
                 //--------------------Princess--------------------
                 princess.Update(gameTime, spieler, karte);
                 //Wenn Spieler über den Maprand tritt (zu tief fällt)
-                if (spieler.position.Y >= (karte.size.Y))
+                if (spieler.position.Y >= karte.size.Y)
                 {
                     spieler.getHit(gameTime);
                     dietime = 1;
                     Reset();
+                }
+                else if (spieler.position.Y <= 0)
+                {
+                    spieler.jump = false;
+                    spieler.fall = true;
+                    spieler.falltimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
                 //Held hat den Spieler eingeholt
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start)
