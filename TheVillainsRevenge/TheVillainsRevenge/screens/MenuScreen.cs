@@ -76,9 +76,9 @@ namespace TheVillainsRevenge
             optionMenu.buttons.Add(new Button("sound", new Rectangle(0, 185, 122, 132), 3));
             optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 316, 122, 85), 3));
             mainMenu.visible = true;
+            Sound.Load(Content);
             if (Game1.sound)
             {
-                Sound.Load(Content);
                 Sound.PlayMenu();
             }
         }

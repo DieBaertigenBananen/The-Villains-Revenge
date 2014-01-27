@@ -140,9 +140,9 @@ namespace TheVillainsRevenge
             coverEyes = Content.Load<Effect>("CoverEyes");
             outline = Content.Load<Effect>("Outline");
             smash = Content.Load<Effect>("Smash");
+            Sound.Load(Content);
             if (Game1.sound)
             {
-                Sound.Load(Content);
                 Sound.PlayBG();
             }
             debug = Content.Load<Texture2D>("sprites/Level_"+Game1.level+"/Planes/background_0_debug");
