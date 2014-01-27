@@ -78,6 +78,7 @@ namespace TheVillainsRevenge
             mainMenu.visible = true;
             if (Game1.sound)
             {
+                Sound.Load(Content);
                 Sound.PlayMenu();
             }
         }
