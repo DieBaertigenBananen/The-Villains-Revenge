@@ -163,11 +163,39 @@ namespace TheVillainsRevenge
                     actualspeed = airspeed;
                 }
                 float spielerdistanz = spieler.X - position.X;
-                if (Math.Abs(spielerdistanz) < 120&&cbox.box.Y >= spieler.Y&&cbox.box.Y-48 <= spieler.Y)
+                if (Math.Abs(spielerdistanz) < 120&&cbox.box.Y >= spieler.Y&&cbox.box.Y-480 <= spieler.Y+spieler.Height)
                 {
-                    if (kistate != 4 && kistate != 5)
+                    bool geht = true;
+                    for (int i = 0; i < 10; i++)
                     {
-                        kistate = 0;
+                        kicollide.Y = cbox.box.Y - i *48;
+                        foreach (Block block in map.blocks)
+                        {
+                            if (kicollide.Intersects(block.cbox) && block.block)
+                            {
+                                geht = false;
+                                break;
+                            }
+
+                        }
+                    }
+                    if (geht)
+                    {
+                        if (kistate != 4 && kistate != 5)
+                        {
+                            kistate = 0;
+                        }
+                    }
+                    else
+                    {
+                        if (kicheck.Count() != 0)
+                        {
+                            foreach (KIPoint kipoint in map.kipoints)
+                            {
+                                if (kipoint.id == kicheck.ElementAt(0).id)
+                                    spieler = kipoint.cbox;
+                            }
+                        }
                     }
                 }
                 else
