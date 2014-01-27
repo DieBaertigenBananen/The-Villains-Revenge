@@ -316,6 +316,10 @@ namespace TheVillainsRevenge
                                             Jump(gameTime, map); //Springen!
                                             kistate = 1;
                                         }
+                                        else
+                                        {
+                                            Move(-actualspeed, 0, map);
+                                        }
                                     }
 
                                 }
