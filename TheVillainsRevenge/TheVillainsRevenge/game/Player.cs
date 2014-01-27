@@ -181,6 +181,8 @@ namespace TheVillainsRevenge
             {
                 if (!jump && !fall && Game1.input.sprungp)
                 {
+                    spine.Clear(0);
+                    spine.anim("jump", 0, false, gameTime);
                     Jump(gameTime, map); //Springen!
                     savejump = false;
                 }
@@ -441,6 +443,10 @@ namespace TheVillainsRevenge
             }
             position.Y = spine.skeleton.Y;
             position.X = spine.skeleton.X;
+            if (jump || fall) //SchlagStaub ggf hiden
+            {
+                //StaubSkinAttachment hiden
+            }
         }
 
         public void Draw(GameTime gameTime, Camera camera)

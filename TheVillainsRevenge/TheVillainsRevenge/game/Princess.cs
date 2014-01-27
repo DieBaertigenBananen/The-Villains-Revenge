@@ -165,6 +165,7 @@ namespace TheVillainsRevenge
                     rageTimer = gameTime.TotalGameTime.TotalMilliseconds - ((float)rageWarmup * 0.2f); //Wenn Spieler wieder auf den Boden kommt nach kurzer Zeit enragen
                 }
             }
+            beating = true;
         }
 
         public void Draw(GameTime gameTime, Camera camera)

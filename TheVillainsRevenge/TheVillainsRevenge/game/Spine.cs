@@ -44,6 +44,15 @@ namespace TheVillainsRevenge
             }
         }
 
+        public void Clear(int track)
+        {
+            animationState.ClearTrack(track);
+            if (track == 0)
+            {
+                animation = "";
+            }
+        }
+
         public float CurrentAnimTime(GameTime gameTime)
         {
             float time = (float)(gameTime.TotalGameTime.TotalMilliseconds - animationTimer) / 1000;
