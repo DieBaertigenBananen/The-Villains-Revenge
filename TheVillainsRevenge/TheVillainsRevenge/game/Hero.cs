@@ -201,6 +201,10 @@ namespace TheVillainsRevenge
                     {
                         GameScreen.test = 0;
                         bool geht = false;
+                        kicollide.X = cbox.box.X;
+                        kicollide.Y = cbox.box.Y;
+                        kicollide.Width = cbox.box.Width;
+                        kicollide.Height = cbox.box.Height;
                         if (kistate == 0)
                         {
                             if (Math.Abs(spielerdistanz) < Convert.ToInt32((double)Game1.luaInstance["heroCloseWalkRange"]))
@@ -219,7 +223,6 @@ namespace TheVillainsRevenge
                             }
                             //KI ist auf den Boden und alles ist gut
                             //Schaue ob der Block rechts ist
-                            kicollide = new Rectangle(cbox.box.X, cbox.box.Y, cbox.box.Width, cbox.box.Height);
                             if (kicheck.Count() != 0)
                             {
                                 for (int i = 0; i < 50; i++)
@@ -259,7 +262,7 @@ namespace TheVillainsRevenge
                                     //AAAAHHH WIR fallen T_T
                                     //Hmm vielleicht ist da ja ein Block der für die bewegenden Plattformen zuständig ist?
                                     bool bewegblock = false;
-                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                                    kicollide.Y += 1;
                                     foreach (Block block in map.blocks)
                                     {
                                         if (kicollide.Intersects(block.cbox) && block.type == "movingend")
@@ -295,12 +298,13 @@ namespace TheVillainsRevenge
                                     if (CollisionCheckedVector(realspeed, 0, map.blocks).X == realspeed)
                                     {
                                         bool bewegblock = false;
-                                        kicollide = new Rectangle(cbox.box.X, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                                        kicollide.Y += 1;
                                         foreach (Block block in map.blocks)
                                         {
                                             if (kicollide.Intersects(block.cbox) && block.type == "movingend")
                                             {
-                                                bewegblock = true;
+                                                if (spieler.X > position.X && block.cbox.X > position.X || spieler.X < position.X && block.cbox.X < position.X)
+                                                    bewegblock = true;
                                                 //TATSACHE!!
                                                 //Schaue ob rechts ein Block ist
                                             }
@@ -317,9 +321,7 @@ namespace TheVillainsRevenge
                                             //Block ist über den Hero
                                             bool b = false;
                                             int deltay = 0;
-                                            kicollide = new Rectangle(cbox.box.X, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-                                            Rectangle kicollide2 = new Rectangle(cbox.box.X, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-
+                                            Rectangle kicollide2 = cbox.box;
                                             for (int i = 0; i < 60; i++)
                                             {
                                                 float t = (float)(i / 20);
@@ -366,7 +368,7 @@ namespace TheVillainsRevenge
                                     {
                                         for (int i = 0; i < 10; i++)
                                         {
-                                            kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                            kicollide.Y = cbox.box.Y + i * gravitation;
                                             if (kicollide.Intersects(spieler))
                                                 geht = true;
                                         }
@@ -387,7 +389,7 @@ namespace TheVillainsRevenge
                                 {
                                     for (int i = 0; i < 10; i++)
                                     {
-                                        kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                        kicollide.Y = cbox.box.Y + i * gravitation;
                                         foreach (Block block in map.blocks)
                                         {
                                             if (kicollide.Intersects(block.cbox) && block.block)
@@ -402,7 +404,7 @@ namespace TheVillainsRevenge
                                 //Kein Grund T_T Beweg mich mal
                                 for (int i = 0; i < 10; i++)
                                 {
-                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                    kicollide.Y = cbox.box.Y + i * gravitation;
                                     if (kicollide.Intersects(spieler))
                                         geht = true;
                                 }
@@ -427,7 +429,7 @@ namespace TheVillainsRevenge
                                 GameScreen.test = 3;
                                 for (int i = 0; i < 10; i++)
                                 {
-                                    kicollide = new Rectangle(cbox.box.X, cbox.box.Y + i * gravitation, cbox.box.Width, cbox.box.Height);
+                                    kicollide.Y = cbox.box.Y + i * gravitation;
                                     if (kicollide.Intersects(spieler))
                                         geht = true;
                                 }
@@ -464,7 +466,8 @@ namespace TheVillainsRevenge
                             //KI befindet sich im Wartemodus!!
                             //Überprüfe ob die Plattform bald da ist
                             bool bewegblock = false;
-                            kicollide = new Rectangle(cbox.box.X + 64, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                            kicollide.X = cbox.box.X + 64;
+                            kicollide.Y = cbox.box.Y + 1;
                             foreach (MovingBlock mblock in map.mblocks)
                             {
                                 if (kicollide.Intersects(mblock.cbox))
@@ -517,7 +520,8 @@ namespace TheVillainsRevenge
                             //Ki Wartet nun am Ende und wartet auf einen movingend
                             spine.anim("idle", 3, true, gameTime);
                             bool bewegblock = false;
-                            kicollide = new Rectangle(cbox.box.X + 48, cbox.box.Y + 1, cbox.box.Width, cbox.box.Height);
+                            kicollide.X = cbox.box.X + 48;
+                            kicollide.Y = cbox.box.Y + 1;
                             foreach (Block block in map.blocks)
                             {
                                 if (kicollide.Intersects(block.cbox) && block.type == "movingend")
@@ -530,6 +534,7 @@ namespace TheVillainsRevenge
                             {
                                 spine.anim("jump", 3, false, gameTime);
                                 Jump(gameTime, map); //Springen!
+                                Move(actualspeed, 0, map);
                                 kistate = 8;
                             }
                         }
@@ -544,22 +549,7 @@ namespace TheVillainsRevenge
                             }
                             else
                             {
-                                bool b = false;
-                                // + 96 weil bei 48 der Block ist vom movingend, also nochmal 48 
-                                kicollide = new Rectangle(cbox.box.X + 96, cbox.box.Y, cbox.box.Width, cbox.box.Height);
-
-                                foreach (Block block in map.blocks)
-                                {
-                                    if (kicollide.Intersects(block.cbox) && block.block)
-                                    {
-                                        b = true;
-                                        break;
-                                    }
-                                }
-                                if (!b)
-                                {
-                                    jumptimer = 0;
-                                }
+                                jumptimer = 0;
                                 if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
                                 {
                                     //Grund!!!! Wir sind unten!!! Starte nächsten Modus
