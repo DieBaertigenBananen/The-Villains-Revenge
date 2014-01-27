@@ -22,7 +22,7 @@ namespace TheVillainsRevenge
         public static Vector2 resolution = new Vector2(1920, 1080);
         GameScreen game;
         MenuScreen menu;
-        public static bool sound;
+        public static bool sound = true;
         public static bool stretch;
         public static Input input;
         public static Lua luaInstance = new Lua();
@@ -184,8 +184,9 @@ namespace TheVillainsRevenge
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            menu.Load(Content);
+            Sound.Load(Content);
             Load();
+            menu.Load(Content);
             //game.load(Content);
         }
 

@@ -696,7 +696,7 @@ namespace TheVillainsRevenge
                         KICheck kicheck = hero.kicheck.ElementAt(i);
                         spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 100 + i * 20), Color.White);
                     }
-                    spriteBatch.DrawString(font, "Test: " + dietime, new Vector2(Game1.resolution.X - 300, 490), Color.White);
+                    spriteBatch.DrawString(font, "Test: " + test, new Vector2(Game1.resolution.X - 300, 490), Color.White);
                 }
                 gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
             spriteBatch.End();

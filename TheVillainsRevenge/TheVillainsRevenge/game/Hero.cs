@@ -163,11 +163,17 @@ namespace TheVillainsRevenge
                     actualspeed = airspeed;
                 }
                 float spielerdistanz = spieler.X - position.X;
-                if (spieler.X < cbox.box.X + 240 && spieler.X > cbox.box.X - 240 && spieler.Y > cbox.box.Y - 48 && spieler.Y < cbox.box.Y + 48)
+                if (Math.Abs(spielerdistanz) < 120&&cbox.box.Y >= spieler.Y&&cbox.box.Y-48 <= spieler.Y)
                 {
-                    kistate = 0;
+                    if (kistate != 4 && kistate != 5)
+                    {
+                        GameScreen.test = 1;
+                        kistate = 0;
+                    }
                 }
-                else{
+                else
+                {
+                    GameScreen.test = 0;
                         if (kicheck.Count() != 0)
                         {
                             foreach (KIPoint kipoint in map.kipoints)
@@ -176,7 +182,8 @@ namespace TheVillainsRevenge
                                     spieler = kipoint.cbox;
                             }
                         }
-                    }
+                }
+                float punktdistanz = spieler.X - position.X;
                 //sposition.X = map.size.X;
                 //Vector2 Punkt = map.kipoints.ElementAt(kipoint).position;
                // sposition.X = Punkt.X;
@@ -232,7 +239,6 @@ namespace TheVillainsRevenge
                                 }
                             }
                             //Block ist auf gleicher Höhe, bewege nur drauf zu
-                            GameScreen.test = 1;
                             if (geht)
                             {
                                 if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
@@ -285,8 +291,7 @@ namespace TheVillainsRevenge
                             }
                             else
                             {
-                                GameScreen.test = 3;
-                                if (spieler.Y < position.Y)
+                                if (spieler.Y < position.Y-20)
                                 {
                                     if (CollisionCheckedVector(realspeed, 0, map.blocks).X == realspeed)
                                     {
@@ -313,12 +318,16 @@ namespace TheVillainsRevenge
                                             //Block ist über den Hero
                                             bool b = false;
                                             int deltay = 0;
+                                            kicollide = new Rectangle(cbox.box.X, cbox.box.Y, cbox.box.Width, cbox.box.Height);
+                                            Rectangle kicollide2 = new Rectangle(cbox.box.X, cbox.box.Y, cbox.box.Width, cbox.box.Height);
                                             for (int i = 0; i < 50; i++)
                                             {
                                                 float t = (float)(i / 22);
                                                 deltay = deltay + (int)(-jumppower + (gravitation * t));
-                                                kicollide = new Rectangle(cbox.box.X + (i * realspeed), cbox.box.Y + deltay, cbox.box.Width, cbox.box.Height);
-                                                if (kicollide.Intersects(spieler))
+                                                kicollide.X = cbox.box.X + (i * realspeed);
+                                                kicollide.Y = cbox.box.Y + deltay;
+                                                kicollide2.X = cbox.box.X + (i * realspeed);
+                                                if (kicollide.Intersects(spieler)&&!kicollide2.Intersects(spieler))
                                                 {
                                                     b = true;
                                                     break;

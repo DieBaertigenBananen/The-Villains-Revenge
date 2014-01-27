@@ -11,12 +11,15 @@ namespace TheVillainsRevenge
     {
         static SoundEffect bgMusic;
         static SoundEffectInstance bgMusicInstance;
+        static SoundEffect menuMusic;
+        static SoundEffectInstance menuMusicInstance;
 
         static SoundEffect[] fx = new SoundEffect[10];
 
         static public void Load(ContentManager Content)
         {
             bgMusic = Content.Load<SoundEffect>("sounds/Level_" + Game1.level + "/background");
+            menuMusic = Content.Load<SoundEffect>("sounds/Menu/background");
             fx[0] = Content.Load<SoundEffect>("sounds/supersmash");
             fx[1] = Content.Load<SoundEffect>("sounds/schlag");
             fx[2] = Content.Load<SoundEffect>("sounds/landing");
@@ -76,6 +79,20 @@ namespace TheVillainsRevenge
                 bgMusicInstance.IsLooped = true;
                 bgMusicInstance.Play();
             }
+        }
+        static public void PlayMenu()
+        {
+            if (Game1.sound)
+            {
+                menuMusicInstance = menuMusic.CreateInstance();
+                menuMusicInstance.Volume = 0.5f;
+                menuMusicInstance.IsLooped = true;
+                menuMusicInstance.Play();
+            }
+        }
+        static public void PauseMenu()
+        {
+            menuMusicInstance.Stop();
         }
     }
 }

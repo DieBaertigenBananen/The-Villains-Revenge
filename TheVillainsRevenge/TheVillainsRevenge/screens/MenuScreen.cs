@@ -76,6 +76,10 @@ namespace TheVillainsRevenge
             optionMenu.buttons.Add(new Button("sound", new Rectangle(0, 185, 122, 132), 3));
             optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 316, 122, 85), 3));
             mainMenu.visible = true;
+            if (Game1.sound)
+            {
+                Sound.PlayMenu();
+            }
         }
         public int Update(GameTime gameTime)
         {
@@ -145,9 +149,15 @@ namespace TheVillainsRevenge
                     else if (optionMenu.option == 2)
                     {
                         if (Game1.sound)
+                        {
+                            Sound.PauseMenu();
                             Game1.sound = false;
+                        }
                         else
+                        {
                             Game1.sound = true;
+                            Sound.PlayMenu();
+                        }
                     }
                     else if (optionMenu.option == 1) //Wird noch zu ShowControls umgebaut
                     {
