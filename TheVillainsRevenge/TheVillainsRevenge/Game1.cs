@@ -231,6 +231,7 @@ namespace TheVillainsRevenge
                 {
                     game = null;
                     Content.Unload();
+                    Load();
                     menu = new MenuScreen(0);
                     menu.Load(Content);
                     menuOption = 1;
