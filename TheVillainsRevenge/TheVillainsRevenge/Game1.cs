@@ -242,6 +242,7 @@ namespace TheVillainsRevenge
                     {
                         game = null;
                         Content.Unload();
+                        Load();
                         menu = new MenuScreen(1);
                         menu.Load(Content);
                     }
@@ -288,14 +289,33 @@ namespace TheVillainsRevenge
                 // Deserialize the content of the file into a Book object.
                 data = (SaveData)reader.Deserialize(file);
                 file.Close();
-                Game1.stretch = data.stretch;
-                Game1.sound = data.sound;
+                stretch = data.stretch;
+                sound = data.sound;
                 if (data.fullscreen != graphics.IsFullScreen)
                 {
                     toggleFullscreen();
                 }
-                Game1.level = data.level;
-                Game1.leben = data.leben;
+                if (data.level <= 4)
+                {
+                    level = data.level;
+                }
+                else
+                {
+                    level = 1;
+                }
+                if (level != 1)
+                {
+                    if (leben <= 4 || leben > 0)
+                    {
+                        leben = data.leben;
+                    }
+                    else
+                    {
+                        leben = 4;
+                    }
+                }
+                else
+                    leben = 4;
             }
         }
         void Save()
