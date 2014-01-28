@@ -704,18 +704,21 @@ namespace TheVillainsRevenge
             //----------------------------------------Draw to renderScreen
             //----------------------------------------------------------------------
             //-----Apply Shaders-----
-            gauss.ChangeSigma(20f);
-            gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3);
-            renderBackground3 = gauss.blurredRenderTarget;
-            gauss.ChangeSigma(10f);
-            gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2);
-            renderBackground2 = gauss.blurredRenderTarget;
-            //gauss.ChangeSigma(5f);
-            //gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1);
-            //renderBackground1 = gauss.blurredRenderTarget;
-            //gauss.ChangeSigma(1f);
-            //gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0);
-            //renderBackground0 = gauss.blurredRenderTarget;
+            if (Game1.debug)
+            {
+                gauss.ChangeSigma(20f);
+                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3);
+                renderBackground3 = gauss.blurredRenderTarget;
+                gauss.ChangeSigma(10f);
+                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2);
+                renderBackground2 = gauss.blurredRenderTarget;
+                gauss.ChangeSigma(5f);
+                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1);
+                renderBackground1 = gauss.blurredRenderTarget;
+                gauss.ChangeSigma(1f);
+                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0);
+                renderBackground0 = gauss.blurredRenderTarget;
+            }
             //-----Background-----
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);

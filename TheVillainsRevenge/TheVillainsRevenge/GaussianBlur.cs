@@ -83,26 +83,26 @@ namespace TheVillainsRevenge
             CalcKernel(sigma);
         }
 
-        public void PerformGaussianBlur(GraphicsDeviceManager graphics, SpriteBatch batch, RenderTarget2D srcRenderTarget)
+        public void PerformGaussianBlur(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, RenderTarget2D srcRenderTarget)
         {
             //Do Horizontal Blur
             gauss.Parameters["kernel"].SetValue(kernel);
             gauss.Parameters["offsets"].SetValue(offsetsHori);
             graphics.GraphicsDevice.SetRenderTarget(renderTargetBlur);
             graphics.GraphicsDevice.Clear(Color.Transparent);
-            batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, gauss);
-            batch.Draw(srcRenderTarget, Vector2.Zero, Color.White);
-            batch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, gauss);
+            spriteBatch.Draw(srcRenderTarget, Vector2.Zero, Color.White);
+            spriteBatch.End();
 
             //Do Vertikal Blur
             gauss.Parameters["offsets"].SetValue(offsetsVert);
             graphics.GraphicsDevice.SetRenderTarget(blurredRenderTarget);
             graphics.GraphicsDevice.Clear(Color.Transparent);
-            batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, gauss);
-            batch.Draw(renderTargetBlur, Vector2.Zero, Color.White);
-            batch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, gauss);
+            spriteBatch.Draw(renderTargetBlur, Vector2.Zero, Color.White);
+            spriteBatch.End();
 
-            graphics.GraphicsDevice.SetRenderTarget(null);
+            //graphics.GraphicsDevice.SetRenderTarget(null);
         }
     }
 }
