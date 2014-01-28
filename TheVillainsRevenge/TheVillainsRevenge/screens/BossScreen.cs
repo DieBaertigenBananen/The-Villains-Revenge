@@ -98,8 +98,65 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime, ContentManager Content)
         {
-            //--------------------Camera--------------------
+            //--------------------Spieler--------------------
             spieler.Update(gameTime, karte, princess);
+            if (spieler.position.Y <= 0)
+            {
+                spieler.jump = false;
+                spieler.fall = true;
+                spieler.falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+            }
+            if (spieler.position.X < 0)
+            {
+                spieler.Move((int)(-spieler.position.X), 0, karte);
+            }
+            if (spieler.position.X > karte.size.X)
+            {
+                spieler.Move((int)-(spieler.position.X-karte.size.X), 0, karte);
+            }
+            //--------------------Hero--------------------
+            hero.Update(gameTime, karte, spieler.cbox.box);
+            //KiPunkte
+            for (int i = 0; i < karte.kipoints.Count(); i++)
+            {
+                KIPoint kipoint = karte.kipoints.ElementAt(i);
+                //Wenn Spieler sie übertritt
+                if (spieler.cbox.box.Intersects(kipoint.cbox))
+                {
+                    bool geht = true;
+                    if (spieler.kicheck.Count() > 0)
+                    {
+                        //Falls es der selbe Punkt ist mache nicht weiter
+                        KICheck check = spieler.kicheck.ElementAt(spieler.kicheck.Count() - 1);
+                        if (check.id == kipoint.id)
+                            geht = false;
+                    }
+                    if (geht) //Ist nicht der selbe Punkt wie vorher, speichere
+                    {
+                        if (spieler.kicheck.Count() >= 20) //Nicht mehr als 20 punkte
+                        {
+                            spieler.kicheck.RemoveAt(0);
+                        }
+                        //Adde die Punkte und führ Skript aus
+                        spieler.kicheck.Add(new KICheck((int)gameTime.TotalGameTime.TotalSeconds, kipoint.id));
+                        LuaKI.DoFile("Level_" + Game1.level + "/kiscript.txt");
+                    }
+                }
+                //Wenn held ein Kipoint übertritt
+                if (hero.cbox.box.Intersects(kipoint.cbox) && hero.kicheck.Count() != 0)
+                {
+                    //Lösche diesen
+                    if (hero.kicheck.ElementAt(0).id == kipoint.id)
+                    {
+                        if (hero.kistate == 2)
+                        {
+                            hero.kistate = 9;
+                        }
+                        hero.kicheck.RemoveAt(0);
+                    }
+                }
+            }
+            //--------------------Camera--------------------
             camera.Update(Game1.graphics, spieler, karte);
             return 1;
         }
