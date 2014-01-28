@@ -189,9 +189,9 @@
     <Content Include="spine\sprites\ashbrett.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="spine\sprites\bonepuker.png">
+    <None Include="spine\sprites\bonepuker.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="spine\sprites\fluffy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
