@@ -163,7 +163,7 @@ namespace TheVillainsRevenge
                     actualspeed = airspeed;
                 }
                 float spielerdistanz = spieler.X - position.X;
-                if (Math.Abs(spielerdistanz) < 120&&cbox.box.Y >= spieler.Y&&cbox.box.Y-480 <= spieler.Y+spieler.Height)
+                if (Math.Abs(spielerdistanz) < 120&&cbox.box.Y >= spieler.Y&&cbox.box.Y-480 <= spieler.Y+spieler.Height&&!jump&&!fall)
                 {
                     bool geht = true;
                     for (int i = 0; i < 10; i++)
