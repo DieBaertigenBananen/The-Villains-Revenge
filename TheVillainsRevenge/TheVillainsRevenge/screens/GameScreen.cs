@@ -44,8 +44,9 @@ namespace TheVillainsRevenge
         SpriteFont font;
         bool levelend = false;
         Effect coverEyes;
-        Effect outline;
         Effect smash;
+        Effect dust;
+        GaussianBlur gauss;
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
@@ -138,9 +139,11 @@ namespace TheVillainsRevenge
             clouds_3.Load(Content, "clouds_3", karte, camera);
             gui.Load(Content);
             coverEyes = Content.Load<Effect>("CoverEyes");
-            outline = Content.Load<Effect>("Outline");
             smash = Content.Load<Effect>("Smash");
             Sound.Load(Content);
+            dust = Content.Load<Effect>("Dust");
+            gauss = new GaussianBlur();
+            gauss.Load(Content, Game1.graphics, 1920, 1080, 1f);
             if (Game1.sound)
             {
                 Sound.PlayBG();
@@ -523,8 +526,10 @@ namespace TheVillainsRevenge
                 }
                 //-----Update Shader-----
                 coverEyes.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
-                outline.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 smash.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                dust.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                dust.Parameters["playerX"].SetValue(spieler.position.X - camera.viewport.X);
+                dust.Parameters["playerY"].SetValue(spieler.position.Y - camera.viewport.Y);
             }
             else if(levelend)
             {
@@ -708,25 +713,33 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             //----------------------------------------Draw to renderScreen
             //----------------------------------------------------------------------
+            //-----Apply Shaders-----
+            if (Game1.debug)
+            {
+                gauss.ChangeSigma(20f);
+                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3);
+                renderBackground3 = gauss.blurredRenderTarget;
+                gauss.ChangeSigma(10f);
+                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2);
+                renderBackground2 = gauss.blurredRenderTarget;
+                gauss.ChangeSigma(5f);
+                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1);
+                renderBackground1 = gauss.blurredRenderTarget;
+                gauss.ChangeSigma(1f);
+                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0);
+                renderBackground0 = gauss.blurredRenderTarget;
+            }
             //-----Background-----
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, outline); //-----[Shader]-----Outline
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend); //-----[Shader]-----Outline
             //Background3
-            outline.Parameters["lineSize"].SetValue(0);
-            outline.Parameters["lineBrightness"].SetValue(4);
             spriteBatch.Draw(renderBackground3, Vector2.Zero, Color.White);
             //Background2
-            outline.Parameters["lineSize"].SetValue(0);
-            outline.Parameters["lineBrightness"].SetValue(3);
             spriteBatch.Draw(renderBackground2, Vector2.Zero, Color.White);
             //Background1
-            outline.Parameters["lineSize"].SetValue(0);
-            outline.Parameters["lineBrightness"].SetValue(2);
             spriteBatch.Draw(renderBackground1, Vector2.Zero, Color.White);
             //Background0
-            outline.Parameters["lineSize"].SetValue(0);
-            outline.Parameters["lineBrightness"].SetValue(0);
             spriteBatch.Draw(renderBackground0, Vector2.Zero, Color.White);
             spriteBatch.End();
             //-----Spielebene-----

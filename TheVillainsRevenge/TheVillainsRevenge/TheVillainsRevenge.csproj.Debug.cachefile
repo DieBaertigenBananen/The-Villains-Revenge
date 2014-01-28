@@ -78,6 +78,7 @@ Content\sounds\ausrutscher.xnb
 Content\sounds\time_shift.xnb
 Content\sounds\triggerwall.xnb
 Content\sounds\Level_3\background.xnb
+<<<<<<< HEAD
 Content\sounds\Menu\background.xnb
 Content\sprites\level_1\bewegend.xnb
 Content\sprites\level_3\bewegend.xnb
@@ -87,6 +88,10 @@ Content\sprites\level_5\bewegend.xnb
 Content\sprites\level_5\planes\background.xnb
 Content\sprites\level_5\planes\foreground.xnb
 Content\sprites\bossbar.xnb
+=======
+Content\Dust.xnb
+Content\Gauss.xnb
+>>>>>>> origin/PrincessCloudMovement
 spine\sprites\ashbrett.png
 spine\sprites\bonepuker.png
 spine\sprites\fluffy.png

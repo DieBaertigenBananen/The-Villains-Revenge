@@ -16,6 +16,7 @@ namespace TheVillainsRevenge
         public SkeletonBounds bounds = new SkeletonBounds();
         public bool flipSkel;
         public double animationTimer;
+        double lastEscapeTime;
 
         public void anim(string newanim,int flip,bool loop, GameTime gameTime)
         {
@@ -33,6 +34,10 @@ namespace TheVillainsRevenge
             {
                 animationState.SetAnimation(1, newanim, loop);
             }
+            if (newanim == "sc_escape")
+            {
+                animationState.SetAnimation(2, newanim, loop);
+            }
             else
             {
                 if (animation != newanim)
@@ -41,6 +46,15 @@ namespace TheVillainsRevenge
                     animationState.SetAnimation(0, newanim, loop);
                     animation = newanim;
                 }
+            }
+        }
+
+        public void Clear(int track)
+        {
+            animationState.ClearTrack(track);
+            if (track == 0)
+            {
+                animation = "";
             }
         }
 

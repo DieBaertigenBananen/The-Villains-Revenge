@@ -82,6 +82,7 @@ namespace TheVillainsRevenge
                 {
                     beating = false;
                     rageMode = false;
+                    player.spine.Clear(2);
                     rageMeter = 0;
                     rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
                     //spine.animationState.ClearTrack(0);
@@ -93,6 +94,7 @@ namespace TheVillainsRevenge
                 {
                     coverEyes = false;
                     rageMode = false;
+                    player.spine.Clear(2);
                     rageMeter = 0;
                     rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
                 }
@@ -118,6 +120,7 @@ namespace TheVillainsRevenge
                 }
                 if (rageMeter > rageLimit && !coverEyes && !beating) //Enrage?!?
                 {
+                    player.spine.Clear(2);
                     randomNumber = randomGen.Next(0, 100); //Augen zu halten vs hart aufs Maul!
                     if (randomNumber <= 50)
                     {
@@ -138,6 +141,7 @@ namespace TheVillainsRevenge
                     else
                     {
                         coverEyes = true;
+                        player.spine.anim("sc_cover_eyes", 0, true, gameTime);
                         coverTimer = gameTime.TotalGameTime.TotalMilliseconds;
                         //Deine Mudda enraged!
                     }
@@ -145,6 +149,7 @@ namespace TheVillainsRevenge
                 if (rageMeter <= 0)
                 {
                     rageMode = false;
+                    player.spine.Clear(2);
                     rageMeter = 0;
                 }
             }
@@ -158,6 +163,7 @@ namespace TheVillainsRevenge
                     {
                         //Teste Enrage-Bedingungen
                         rageMode = true;
+                        player.spine.anim("sc_escape", 0, true, gameTime);
                     }
                 }
                 else
