@@ -46,7 +46,7 @@ namespace TheVillainsRevenge
         Effect coverEyes;
         Effect smash;
         Effect dust;
-        Effect gauss;
+        GaussianBlur gauss;
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
@@ -141,7 +141,8 @@ namespace TheVillainsRevenge
             coverEyes = Content.Load<Effect>("CoverEyes");
             smash = Content.Load<Effect>("Smash");
             dust = Content.Load<Effect>("Dust");
-            gauss = Content.Load<Effect>("Gauss");
+            gauss = new GaussianBlur();
+            gauss.Load(Content, Game1.graphics, 1920, 1080, 1f);
             if (Game1.sound)
             {
                 Sound.Load(Content);
@@ -517,7 +518,6 @@ namespace TheVillainsRevenge
                 coverEyes.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 smash.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 dust.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
-                gauss.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 dust.Parameters["playerX"].SetValue(spieler.position.X - camera.viewport.X);
                 dust.Parameters["playerY"].SetValue(spieler.position.Y - camera.viewport.Y);
             }
@@ -703,10 +703,23 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             //----------------------------------------Draw to renderScreen
             //----------------------------------------------------------------------
+            //-----Apply Shaders-----
+            gauss.ChangeSigma(20f);
+            gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3);
+            renderBackground3 = gauss.blurredRenderTarget;
+            gauss.ChangeSigma(10f);
+            gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2);
+            renderBackground2 = gauss.blurredRenderTarget;
+            gauss.ChangeSigma(5f);
+            gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1);
+            renderBackground1 = gauss.blurredRenderTarget;
+            gauss.ChangeSigma(1f);
+            gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0);
+            renderBackground0 = gauss.blurredRenderTarget;
             //-----Background-----
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, gauss); //-----[Shader]-----Outline
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null); //-----[Shader]-----Outline
             //Background3
             spriteBatch.Draw(renderBackground3, Vector2.Zero, Color.White);
             //Background2
