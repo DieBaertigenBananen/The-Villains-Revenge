@@ -10,16 +10,16 @@ namespace TheVillainsRevenge
 {
     class GUI
     {
-        Texture2D GuiTexture;
+        public Texture2D GuiTexture;
         Texture2D ItemTexture;
         int mm_width,mm_offsetX;
 
-        public void Load(ContentManager Content)
+        public virtual void Load(ContentManager Content)
         {
             GuiTexture = Content.Load<Texture2D>("sprites/gui");
             ItemTexture = Content.Load<Texture2D>("sprites/items");
         }
-        public void Draw(SpriteBatch spriteBatch,int leben,Vector2 spielerpos,Vector2 heropos,Vector2 kartesize,int sitem1,int sitem2)
+        public virtual void Draw(SpriteBatch spriteBatch,int leben,Vector2 spielerpos,Vector2 heropos,Vector2 kartesize,int sitem1,int sitem2)
         {
             if (leben != 0)
             {

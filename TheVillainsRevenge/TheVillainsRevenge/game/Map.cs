@@ -236,7 +236,7 @@ namespace TheVillainsRevenge
              { 
                  Block block = blocks.ElementAt(i);
                  //Zeichne die Blöcke anhand der Daten der Blöcke
-                 if (block.type != "underground_earth" && block.type != "ground_grass")
+                 if (block.type != "underground_earth" && block.type != "ground_grass"&&block.type != "moving")
                  {
                      spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
                  }
@@ -274,7 +274,7 @@ namespace TheVillainsRevenge
              for (int i = 0; i < mblocks.Count(); ++i)
              {
                  MovingBlock mblock = mblocks.ElementAt(i);
-                 spriteBatch.Draw(bewegendTexture, new Vector2(mblock.cbox.X,mblock.cbox.Y),Color.White);
+                 spriteBatch.Draw(bewegendTexture, new Vector2(mblock.cbox.X,mblock.cbox.Y-24),Color.White);
              }
          }
 

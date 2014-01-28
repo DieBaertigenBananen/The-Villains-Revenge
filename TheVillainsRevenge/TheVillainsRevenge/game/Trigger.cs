@@ -19,7 +19,6 @@ namespace TheVillainsRevenge
         Block b;
         bool pushed;
         int typ;
-        double spawntime;
         //Checkpoint//
         double checkTime;
         int checktyp;

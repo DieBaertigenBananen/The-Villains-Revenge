@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TheVillainsRevenge
 {
-    class bosscam : Camera
+    class BossCam : Camera
     {
         public override void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
         {

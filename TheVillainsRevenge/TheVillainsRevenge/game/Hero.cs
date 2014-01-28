@@ -23,7 +23,7 @@ namespace TheVillainsRevenge
         public int jumppower; //Anfangsgeschwindigkeit in m/s _/60
         public double herotime;
         public bool start = false;
-        int heroStartTime;
+        public int heroStartTime;
         public Spine spine;
         public int kistate; //State der KI Berechnung
         public Rectangle kicollide;
@@ -131,7 +131,7 @@ namespace TheVillainsRevenge
                 kicheckcp.Add(kc);
             }
         }
-        public void Update(GameTime gameTime, Map map,Rectangle spieler)
+        public virtual void Update(GameTime gameTime, Map map,Rectangle spieler)
         {
             if (start)
             {
@@ -722,7 +722,7 @@ namespace TheVillainsRevenge
         }
 
 
-        Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
+        public Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
         {
             CollisionBox cboxnew = new CollisionBox((int)cbox.offset.X, (int)cbox.offset.Y, cbox.box.Width, cbox.box.Height);
             cboxnew.Update(cbox.position);

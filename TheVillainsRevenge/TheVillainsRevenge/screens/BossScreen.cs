@@ -16,10 +16,14 @@ namespace TheVillainsRevenge
     {
         public Player spieler = new Player(40, 1000);
         Map karte = new Map();
-        Hero hero = new Hero(0, 0);
+        Boss hero = new Boss(0, 0);
         public static Lua LuaKI = new Lua();
-        Camera camera = new bosscam();
+        Camera camera = new BossCam();
+        BossGUI GUI = new BossGUI();
         Texture2D bg_texture,fg_texture;
+        int bossleben = 100;
+        int bosslebenshow = 100;
+        bool bosshit = false;
 
         Princess princess = new Princess();
 
@@ -88,6 +92,7 @@ namespace TheVillainsRevenge
             princess.Load(Content, Game1.graphics);
             hero.Load(Content, Game1.graphics);
             karte.Load(Content);
+            GUI.Load(Content);
             karte.Generate(spieler, hero);
             Sound.Load(Content);
             if (Game1.sound)
@@ -114,8 +119,36 @@ namespace TheVillainsRevenge
             {
                 spieler.Move((int)-(spieler.position.X-karte.size.X), 0, karte);
             }
+
+            if (bosslebenshow != bossleben)
+                bosslebenshow--;
+            else
+            {
+                if (!bosshit&&spieler.hit&&hero.inactiveTime > 0)
+                {
+                    if (spieler.spine.BoundingBoxCollision(hero.cbox.box))
+                    {
+                        bossleben -= 10;
+                        bosshit = true;
+                    }
+                }
+                else if (!spieler.hit&&bosshit)
+                {
+                    bosshit = false;
+                }
+            }
+
             //--------------------Hero--------------------
             hero.Update(gameTime, karte, spieler.cbox.box);
+
+            if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start&&hero.attacktimer <= 0&&hero.inactiveTime <= 0)
+            {
+                hero.attack(gameTime);
+            }
+            else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start&&hero.attacktimer <= 0 && hero.inactiveTime >= 1)
+            {
+                spieler.getHit(gameTime);
+            }
             //KiPunkte
             for (int i = 0; i < karte.kipoints.Count(); i++)
             {
@@ -150,7 +183,7 @@ namespace TheVillainsRevenge
                     {
                         if (hero.kistate == 2)
                         {
-                            hero.kistate = 9;
+                            hero.kistate = 4;
                         }
                         hero.kicheck.RemoveAt(0);
                     }
@@ -179,6 +212,7 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             karte.Draw(spriteBatch, gameTime, camera); //Plattformen & Co
             spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
+            GUI.Draw(spriteBatch, spieler.lifes, bosslebenshow);
             spriteBatch.End();
 
             //----------------------------------------------------------------------
