@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
      class Map
      {
-         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture;
+         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture,bewegendTexture;
          public Texture2D levelMap;
          public Vector2 size;
          public Color[] pixelColors;
@@ -198,7 +198,8 @@ namespace TheVillainsRevenge
              objectTexture = Content.Load<Texture2D>("sprites/objects");
              itemTexture = Content.Load<Texture2D>("sprites/items");
              mapTexture = Content.Load<Texture2D>("sprites/tiles");
-             levelMap = Content.Load<Texture2D>("sprites/Level_"+Game1.level+"/map");
+             levelMap = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/map");
+             bewegendTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/bewegend");
              triggerTexture = Content.Load<Texture2D>("sprites/trigger");
              pixelColors = new Color[levelMap.Width * levelMap.Height];
              levelMap.GetData<Color>(pixelColors);
@@ -269,6 +270,11 @@ namespace TheVillainsRevenge
                      else
                          spriteBatch.Draw(objectTexture, obj.position, new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  }
+             }
+             for (int i = 0; i < mblocks.Count(); ++i)
+             {
+                 MovingBlock mblock = mblocks.ElementAt(i);
+                 spriteBatch.Draw(bewegendTexture, new Vector2(mblock.cbox.X,mblock.cbox.Y),Color.White);
              }
          }
 
