@@ -159,8 +159,8 @@ namespace TheVillainsRevenge
             //Einfluss princess.beating
             if (princess.beating)
             {
-                actualspeed = actualspeed / 3;
-                float randomAcceleration = (float)randomNumber.Next(-50, 50) / 50;
+                actualspeed = actualspeed / 2;
+                float randomAcceleration = (float)randomNumber.Next(-50, 50) / 80;
                 acceleration += initAcceleration * randomAcceleration;
                 if (acceleration < -initAcceleration)
                 {

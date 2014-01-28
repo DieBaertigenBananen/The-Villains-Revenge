@@ -710,16 +710,16 @@ namespace TheVillainsRevenge
             gauss.ChangeSigma(10f);
             gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2);
             renderBackground2 = gauss.blurredRenderTarget;
-            gauss.ChangeSigma(5f);
-            gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1);
-            renderBackground1 = gauss.blurredRenderTarget;
-            gauss.ChangeSigma(1f);
-            gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0);
-            renderBackground0 = gauss.blurredRenderTarget;
+            //gauss.ChangeSigma(5f);
+            //gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1);
+            //renderBackground1 = gauss.blurredRenderTarget;
+            //gauss.ChangeSigma(1f);
+            //gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0);
+            //renderBackground0 = gauss.blurredRenderTarget;
             //-----Background-----
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null); //-----[Shader]-----Outline
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend); //-----[Shader]-----Outline
             //Background3
             spriteBatch.Draw(renderBackground3, Vector2.Zero, Color.White);
             //Background2
