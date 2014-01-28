@@ -20,7 +20,7 @@ namespace TheVillainsRevenge
             viewport = new Rectangle(0, 0, (int)Game1.resolution.X, (int)Game1.resolution.Y);
         }
 
-        public void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
+        public virtual void Update(GraphicsDeviceManager graphics, Player spieler, Map karte)
         {
             //Kamera an Spieler anpassen 
             int leftspace = Convert.ToInt32((double)Game1.luaInstance["cameraLeftspace"]);

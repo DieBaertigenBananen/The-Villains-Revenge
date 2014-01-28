@@ -1,0 +1,126 @@
+--Loading
+planeTilesBackground0 = 4 --Baueme
+planeTilesBackground1 = 2 --Wald
+planeTilesBackground2 = 1 --Berg
+planeTilesBackground3 = 1 --Himmel
+planeForeground0HeightOffset = 46 * 48 - 2208
+planeForeground1HeightOffset = 46 * 48 - 2208
+
+playerAcceleration = 35
+playerStartLifes = 4
+playerScale = 0.35
+playerCollisionWidth = 100
+playerCollisionHeight = 185
+playerCollisionOffsetX = -playerCollisionWidth / 2
+playerCollisionOffsetY = -180
+playerSmashIntensity = 15
+
+heroScale = 0.32
+heroStartTime = 5
+heroCollisionOffsetX = -20
+heroCollisionOffsetY = -150
+heroCollisionWidth = 45
+heroCollisionHeight = 150
+heroCloseWalkRange = 500
+
+bunnySize = 0.25
+bunnyCollisionOffsetX = -32
+bunnyCollisionOffsetY = -84
+bunnyCollisionWidth = 64
+bunnyCollisionHeight = 84
+
+monkeySize = 0.19
+monkeyCollisionOffsetX = -32
+monkeyCollisionOffsetY = -119
+monkeyCollisionWidth = 84
+monkeyCollisionHeight = 119
+
+princessRageChance = 0
+princessRageWarmup = 1000000
+princessEnrageSpeed = 0
+princessUnrageSpeed = 10
+princessRageLimit = 1000000
+princessCoverTime = 0
+
+blockSpeed = 5	
+triggerTimeWall = 5
+triggerTimeDoor = 1
+
+
+--Update
+playerSpeed = 12
+playerAirspeed = playerSpeed - 2
+playerJumppower = 30
+playerGravitation = 60
+playerJumpCutoff = 50
+playerSchlagRange = 96
+playerMegaSchlagRange = 48
+playerMegaSchlagFall = 1500
+playerMegaSchlagCooldown = 5.0
+
+heroSpeed = 12
+heroAirspeed = heroSpeed - 2
+heroJumppower = 30
+heroGravitation = 60
+
+bunnySpeed = 4
+bunnyGravitation = 60
+
+monkeySpeed = 13
+monkeyThrowRange = 500
+monkeyGravitation = 60
+
+kackeSpeed = 15
+kackeStartY = -15
+objectGravitation = 60
+
+cameraLeftspace = 1100
+cameraRightspace = 1920 - cameraLeftspace - 100
+cameraBottomspace = 700
+cameraTopspace = 1080 - cameraBottomspace
+cameraMaxBewegung = 400
+cameraBewegungSteps = 20
+
+minimapWidth = 1000
+minimapOffsetX = 1920 / 2 - minimapWidth / 2
+
+itemSlowTime = 5
+itemSlowReduce = 2
+
+cloudPlane1Width = 13440
+cloudPlane1Height = 1850
+cloudPlane1Top = 600
+cloudPlane1Bottom = 800
+cloudPlane1Amount = 83000
+cloudPlane1Chaos = 0
+cloudPlane1Type = 5
+cloudPlane1Wind = 1
+cloudPlane1SizeMin = 70
+cloudPlane1SizeMax = 90
+
+cloudPlane2Width = 5760
+cloudPlane2Height = 1350
+cloudPlane2Top = 80
+cloudPlane2Bottom = 850
+cloudPlane2Amount = 84000
+cloudPlane2Chaos = 0
+cloudPlane2Type = 5
+cloudPlane2Wind = 2
+cloudPlane2SizeMin = 35
+cloudPlane2SizeMax = 55
+
+cloudPlane3Width = 2880
+cloudPlane3Height = 1150
+cloudPlane3Top = 50
+cloudPlane3Bottom = 1250
+cloudPlane3Amount = 85000
+cloudPlane3Chaos = 0
+cloudPlane3Type = 5
+cloudPlane3Wind = 1 
+cloudPlane3SizeMin = 20
+cloudPlane3SizeMax = 40
+
+--Enter
+playerLifes = playerStartLifes
+playerItem1 = 1
+playerItem2 = 0

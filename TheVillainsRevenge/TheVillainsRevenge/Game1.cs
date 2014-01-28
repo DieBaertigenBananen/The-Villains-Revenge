@@ -20,6 +20,7 @@ namespace TheVillainsRevenge
         public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static Vector2 resolution = new Vector2(1920, 1080);
+        BossScreen boss;
         GameScreen game;
         MenuScreen menu;
         public static bool sound = true;
@@ -221,8 +222,16 @@ namespace TheVillainsRevenge
                     Save();
                     menu = null; //entlädt das menü
                     Content.Unload(); //entlädt den Content
-                    game = new GameScreen(); //lädt das Game
-                    game.Load(Content); // lädt die Game Bilder
+                    if (level != 5)
+                    {
+                        game = new GameScreen(); //lädt das Game
+                        game.Load(Content); // lädt die Game Bilder
+                    }
+                    else
+                    {
+                        boss = new BossScreen(); //lädt das Game
+                        boss.Load(Content); // lädt die Game Bilder
+                    }
                 }
             }
             else if (game != null)
@@ -258,6 +267,37 @@ namespace TheVillainsRevenge
                     }
                 }
             }
+            else if (boss != null)
+            {
+                if (input.back)
+                {
+                    boss = null;
+                    Content.Unload();
+                    Load();
+                    menu = new MenuScreen(0);
+                    menu.Load(Content);
+                    menuOption = 1;
+                }
+                else
+                {
+                    menuOption = boss.Update(gameTime, Content);
+                    if (menuOption == 2) //GameScreen beendet (Spieler tot)
+                    {
+                        boss = null;
+                        Content.Unload();
+                        Load();
+                        menu = new MenuScreen(1);
+                        menu.Load(Content);
+                    }
+                    else if (menuOption == 3) //Level Ende
+                    {
+                        boss = null;
+                        Content.Unload();
+                        menu = new MenuScreen(2);
+                        menu.Load(Content);
+                    }
+                }
+            }
             if (input.fullscreen) //F11 = Toggle Fullscreen
             {
                 Game1.toggleFullscreen();
@@ -276,6 +316,8 @@ namespace TheVillainsRevenge
                 menu.Draw(spriteBatch, gameTime);
             else if (game != null)
                 game.Draw(gameTime, spriteBatch);
+            else if (boss != null)
+                boss.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
         }
         void Load()
@@ -296,7 +338,7 @@ namespace TheVillainsRevenge
                 {
                     toggleFullscreen();
                 }
-                if (data.level <= 4)
+                if (data.level <= 5)
                 {
                     level = data.level;
                 }
