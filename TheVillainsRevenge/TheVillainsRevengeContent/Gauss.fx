@@ -8,7 +8,7 @@ float2 offsets[KERNEL_SIZE];
 
 float4 Blur(float2 coords: TEXCOORD) : COLOR
 {
-	float4 color.rgb = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	float4 color = float4(0.0f, 0.0f, 0.0f, 0.0f);
 	for (int i = 0; i < KERNEL_SIZE; ++i)
 	{
         color += tex2D(textureSampler, coords + offsets[i]) * kernel[i];
