@@ -286,7 +286,7 @@ namespace TheVillainsRevenge
                                     }
 
                                 }
-                                if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                                if (kistate == 0&&CollisionCheckedVector(0, 1, map.blocks).Y > 0)
                                 {
                                     //AAAAHHH WIR fallen T_T
                                     //Hmm vielleicht ist da ja ein Block der für die bewegenden Plattformen zuständig ist?
@@ -326,6 +326,7 @@ namespace TheVillainsRevenge
                             }
                             else
                             {
+                                GameScreen.test = 2;
                                 if (spieler.Y < position.Y - 20)
                                 {
                                     if (CollisionCheckedVector(realspeed, 0, map.blocks).X == realspeed)
@@ -356,7 +357,6 @@ namespace TheVillainsRevenge
                                             bool b = false;
                                             int deltay = 0;
                                             Rectangle kicollide2 = cbox.box;
-                                            GameScreen.test = 1;
                                             for (int i = 0; i < 60; i++)
                                             {
                                                 float t = (float)(i / 22);
@@ -372,7 +372,6 @@ namespace TheVillainsRevenge
                                             }
                                             if (b)
                                             {
-                                                GameScreen.test = 2;
                                                 if (!fall && !jump)
                                                 {
                                                     spine.anim("jump", 3, false, gameTime);
@@ -387,12 +386,21 @@ namespace TheVillainsRevenge
                                             else
                                             {
                                                 Move(actualspeed, 0, map);
+                                                if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                                                {
+                                                    Move(-actualspeed, 0, map);
+                                                    if (!fall && !jump)
+                                                    {
+                                                        spine.anim("jump", 3, false, gameTime);
+                                                        Jump(gameTime, map); //Springen!
+                                                        kistate = 2;
+                                                    }
+                                                }
                                             }
                                         }
                                     }
                                     else
                                     {
-
                                         if (!fall && !jump)
                                         {
                                             spine.anim("jump", 3, false, gameTime);
@@ -573,7 +581,6 @@ namespace TheVillainsRevenge
                             {
                                 spine.anim("jump", 3, false, gameTime);
                                 Jump(gameTime, map); //Springen!
-                                Move(actualspeed, 0, map);
                                 kistate = 8;
                             }
                         }
@@ -588,11 +595,14 @@ namespace TheVillainsRevenge
                             }
                             else
                             {
-                                jumptimer = 0;
-                                if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                                if (CollisionCheckedVector(actualspeed+96, 0, map.blocks).X == actualspeed+96)
                                 {
-                                    //Grund!!!! Wir sind unten!!! Starte nächsten Modus
-                                    kistate = 0;
+                                    jumptimer = 0;
+                                    if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                                    {
+                                        //Grund!!!! Wir sind unten!!! Starte nächsten Modus
+                                        kistate = 0;
+                                    }
                                 }
                             }
                         }
