@@ -58,8 +58,9 @@ playerMegaSchlagRange = 48
 playerMegaSchlagFall = 1500
 playerMegaSchlagCooldown = 5.0
 
-heroSpeed = 12
+heroSpeed = 14
 heroAirspeed = heroSpeed - 2
+heroKISpeed = 12
 heroJumppower = 30
 heroGravitation = 60
 

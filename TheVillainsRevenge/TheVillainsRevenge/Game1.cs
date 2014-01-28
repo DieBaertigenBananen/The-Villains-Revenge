@@ -104,8 +104,9 @@ namespace TheVillainsRevenge
             luaInstance["playerSchlagRange"] = "";
             luaInstance["playerMegaSchlagRange"] = "";
             luaInstance["playerMegaSchlagCooldown"] = "";
-            
+
             luaInstance["heroSpeed"] = "";
+            luaInstance["heroKISpeed"] = "";
             luaInstance["heroAirspeed"] = "";
             luaInstance["heroJumppower"] = "";
             luaInstance["heroGravitation"] = "";

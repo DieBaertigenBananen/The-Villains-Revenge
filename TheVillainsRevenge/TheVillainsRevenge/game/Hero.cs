@@ -144,7 +144,7 @@ namespace TheVillainsRevenge
                     }
                 }
                 speed = Convert.ToInt32((double)Game1.luaInstance["heroSpeed"]);
-                int realspeed = speed;
+                int realspeed = Convert.ToInt32((double)Game1.luaInstance["heroKISpeed"]);
                 if (GameScreen.slow != 0)
                 {
                     speed = speed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
