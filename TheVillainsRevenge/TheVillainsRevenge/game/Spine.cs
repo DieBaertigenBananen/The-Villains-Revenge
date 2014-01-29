@@ -33,7 +33,7 @@ namespace TheVillainsRevenge
             {
                 animationState.SetAnimation(1, newanim, loop);
             }
-            if (newanim == "sc_escape")
+            if (newanim == "sc_escape" || newanim == "sc_cover_eyes")
             {
                 animationState.SetAnimation(2, newanim, loop);
             }
