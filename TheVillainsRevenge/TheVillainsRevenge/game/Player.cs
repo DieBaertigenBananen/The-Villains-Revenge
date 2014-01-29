@@ -13,12 +13,12 @@ namespace TheVillainsRevenge
     {
         //Deine Mutter ist so fett, selbst die Sonne wird von ihr angezogen
         public Vector2 position; //Position
-        Vector2 lastPosition; //Position vor vorherigem Update
+        public Vector2 lastPosition; //Position vor vorherigem Update
         public CollisionBox cbox;
         public int speed; //Bewegungsgeschwindigkeit in m/s _/60
         public int airspeed; //Geschwindigkeit bei Sprung & Fall in m/s _/60
         public bool jump = false;
-        bool savejump = false;
+        public bool savejump = false;
         public bool fall = false;
         public double falltimer;
         public double jumptimer;
@@ -29,7 +29,7 @@ namespace TheVillainsRevenge
         public int item2;
         public Spine spine;
         public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
-        float initAcceleration;
+        public float initAcceleration;
         public float acceleration;
         public bool hit = false;
         public bool richtung = false;
@@ -37,11 +37,11 @@ namespace TheVillainsRevenge
         public bool smashImpact = false;
         public float smashCooldown = 0;
         public int smashIntensity;
-        int smashInitIntensity;
+        public int smashInitIntensity;
         public double hitTimer;
         public double smashTimer;
         public Rectangle hitCbox;
-        bool allowSmash = false;
+        public bool allowSmash = false;
         //Checkpoint Speicherng//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         public Vector2 checkpoint;
@@ -50,10 +50,10 @@ namespace TheVillainsRevenge
         double checkjumpt;
         //Start Speicherng//
         public Vector2 startpoint;
-        float startSmashCooldown = 0;
-        bool startjump;
-        double startjumpt;
-        Random randomNumber = new Random();
+        public float startSmashCooldown = 0;
+        public bool startjump;
+        public double startjumpt;
+        public Random randomNumber = new Random();
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
         {
@@ -138,12 +138,6 @@ namespace TheVillainsRevenge
             airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
             jumppower = Convert.ToInt32((double)Game1.luaInstance["playerJumppower"]);
             gravitation = Convert.ToInt32((double)Game1.luaInstance["playerGravitation"]);
-            if (Game1.input.enter)
-            {
-                lifes = Convert.ToInt32((double)Game1.luaInstance["playerLifes"]);
-                item1 = Convert.ToInt32((double)Game1.luaInstance["playerItem1"]);
-                item2 = Convert.ToInt32((double)Game1.luaInstance["playerItem2"]);
-            }
 
             //Geschwindigkeit festlegen
             int actualspeed = speed;

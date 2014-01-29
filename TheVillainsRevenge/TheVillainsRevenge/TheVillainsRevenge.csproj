@@ -119,14 +119,17 @@
     <Compile Include="boss\Boss.cs" />
     <Compile Include="boss\BossCam.cs" />
     <Compile Include="boss\BossGui.cs" />
+    <Compile Include="boss\PrincessSpieler.cs" />
     <Compile Include="game\Block.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="game\Breakable.cs" />
     <Compile Include="game\Checkpoint.cs" />
     <Compile Include="game\Cloud.cs" />
     <Compile Include="game\CollisionBox.cs" />
     <Compile Include="game\Enemys\Enemy.cs" />
     <Compile Include="game\Enemys\Bunny.cs" />
     <Compile Include="game\Enemys\Monkey.cs" />
+    <Compile Include="game\Objects\Welle.cs" />
     <Compile Include="GaussianBlur.cs" />
     <Compile Include="game\GUI.cs" />
     <Compile Include="game\Hero.cs" />

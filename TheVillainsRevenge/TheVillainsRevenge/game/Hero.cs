@@ -56,7 +56,7 @@ namespace TheVillainsRevenge
             heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
             spine = new Spine();
         }
-        public void attack(GameTime gameTime)
+        public virtual void attack(GameTime gameTime)
         {
             Sound.Play("ashbrett_attack");
             attacktimer = 1;

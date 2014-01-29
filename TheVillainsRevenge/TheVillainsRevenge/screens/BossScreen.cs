@@ -14,7 +14,7 @@ namespace TheVillainsRevenge
 {
     class BossScreen
     {
-        public Player spieler = new Player(40, 1000);
+        public PrincessSpieler spieler = new PrincessSpieler(40, 1000);
         Map karte = new Map();
         Boss hero = new Boss(0, 0);
         public static Lua LuaKI = new Lua();
@@ -25,7 +25,6 @@ namespace TheVillainsRevenge
         int bosslebenshow = 100;
         bool bosshit = false;
 
-        Princess princess = new Princess();
 
         RenderTarget2D renderSpine;
         RenderTarget2D renderGame;
@@ -89,8 +88,8 @@ namespace TheVillainsRevenge
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             spieler.Load(Content, Game1.graphics);
-            princess.Load(Content, Game1.graphics);
             hero.Load(Content, Game1.graphics);
+            hero.start = true;
             karte.Load(Content);
             GUI.Load(Content);
             karte.Generate(spieler, hero);
@@ -103,8 +102,27 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime, ContentManager Content)
         {
+
+            //--------------------Map--------------------
+            karte.Update(gameTime, spieler.cbox.box, hero.cbox.box);
+            //Objekte updaten
+            for (int i = 0; i < karte.objects.Count(); i++)
+            {
+                Obj obj = karte.objects.ElementAt(i);
+                obj.Update(gameTime, karte);
+                if (obj.type == 4)
+                {
+                    if (obj.box.Intersects(spieler.cbox.box))
+                    {
+                        spieler.getHit(gameTime);
+                        karte.objects.Remove(obj);
+                    }
+                    else if (obj.position.X < 0 || obj.position.X > karte.size.X)
+                        karte.objects.Remove(obj);
+                }
+            }
             //--------------------Spieler--------------------
-            spieler.Update(gameTime, karte, princess);
+            spieler.Update(gameTime, karte);
             if (spieler.position.Y <= 0)
             {
                 spieler.jump = false;
