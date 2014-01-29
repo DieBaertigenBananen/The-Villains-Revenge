@@ -301,12 +301,9 @@ namespace TheVillainsRevenge
              for (int i = 0; i < blocks.Count(); ++i)
              { 
                  Block block = blocks.ElementAt(i);
-                 //Zeichne die Blöcke anhand der Daten der Blöcke
-                 if (block.type != "underground_earth" && block.type != "ground_grass"&&block.type != "moving")
-                 {
+                 if(block.type == "triggerdoor")
                      spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
-                 }
-                 else if(Game1.debug)
+                 if (Game1.debug)
                      spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
              }
              for (int i = 0; i < items.Count(); ++i)
@@ -347,7 +344,21 @@ namespace TheVillainsRevenge
              for (int i = 0; i < breakblocks.Count(); ++i)
              {
                  Breakable breakblock = breakblocks.ElementAt(i);
-                 spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X,breakblock.cbox.Y), new Rectangle(0, 0, 256, 180), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 if (Game1.level == 3)
+                 {
+                     if (breakblock.id == 0)
+                     {
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X-38, breakblock.cbox.Y-15), new Rectangle(256*2, 0, 256, 180), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     }
+                     else if (breakblock.id == 2 || breakblock.id == 3)
+                     {
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X-6, breakblock.cbox.Y), new Rectangle(0, 0, 256, 180), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     }
+                     else if (breakblock.id == 1)
+                     {
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X-15, breakblock.cbox.Y-20), new Rectangle(256*1, 0, 256, 180), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     }
+                 }
              }
          }
 

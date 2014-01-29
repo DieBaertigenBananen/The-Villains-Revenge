@@ -11,10 +11,11 @@ namespace TheVillainsRevenge
         public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
         public Rectangle cbox = new Rectangle(0, 0, 48, 48);
         public bool vertikal;
-        public Vector2 bildpos = new Vector2(0, 0);
+        public int id;
         public Breakable(List<Block> list,bool vertikal,int id)
         {
             this.vertikal = vertikal;
+            this.id = id;
             int x = 0;
             int y = 0;
             for (int i = 0; i < list.Count(); ++i)
@@ -69,8 +70,6 @@ namespace TheVillainsRevenge
                 this.cbox.Height = blocks.Count * 48;
                 this.cbox.Y = y;
             }
-            bildpos.X = cbox.X;
-            bildpos.Y = cbox.Y;
         }
     }
 }
