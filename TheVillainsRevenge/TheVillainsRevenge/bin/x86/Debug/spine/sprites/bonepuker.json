@@ -257,11 +257,7 @@
 			"hip": {
 				"rotate": [
 					{ "time": 0, "angle": -9.44 },
-<<<<<<< HEAD
 					{ "time": 0.1333, "angle": 8.01 },
-=======
-					{ "time": 0.1, "angle": 8.01 },
->>>>>>> origin/PrincessCloudMovement
 					{ "time": 0.2, "angle": 27.34 },
 					{ "time": 0.5, "angle": -9.44 }
 				],
@@ -296,10 +292,7 @@
 			"shoulder_right": {
 				"rotate": [
 					{ "time": 0, "angle": 130.61 },
-<<<<<<< HEAD
 					{ "time": 0.1, "angle": 98.42 },
-=======
->>>>>>> origin/PrincessCloudMovement
 					{ "time": 0.2, "angle": 32.36 },
 					{ "time": 0.5, "angle": 130.61 }
 				],
@@ -351,11 +344,7 @@
 			"foot_left": {
 				"rotate": [
 					{ "time": 0, "angle": 45.72 },
-<<<<<<< HEAD
 					{ "time": 0.1333, "angle": 16.69 },
-=======
-					{ "time": 0.1, "angle": 16.69 },
->>>>>>> origin/PrincessCloudMovement
 					{ "time": 0.2, "angle": 26.37 },
 					{ "time": 0.5, "angle": 45.72 }
 				],
@@ -373,11 +362,7 @@
 			"foot_right": {
 				"rotate": [
 					{ "time": 0, "angle": -11.23 },
-<<<<<<< HEAD
 					{ "time": 0.1333, "angle": -30.01 },
-=======
-					{ "time": 0.1, "angle": -30.01 },
->>>>>>> origin/PrincessCloudMovement
 					{ "time": 0.2, "angle": -8.46 },
 					{ "time": 0.5, "angle": -11.23 }
 				],
@@ -808,12 +793,7 @@
 				],
 				"translate": [
 					{ "time": 0, "x": 0, "y": 0 },
-<<<<<<< HEAD
 					{ "time": 0.1333, "x": 51.71, "y": -37.49 },
-=======
-					{ "time": 0.0666, "x": 51.71, "y": -37.49 },
-					{ "time": 0.1333, "x": 105.42, "y": -65.68 },
->>>>>>> origin/PrincessCloudMovement
 					{ "time": 0.2, "x": 140.3, "y": -44.89 },
 					{ "time": 0.2666, "x": 130.15, "y": -51.54 },
 					{ "time": 0.3666, "x": 101.18, "y": -68.25 },
