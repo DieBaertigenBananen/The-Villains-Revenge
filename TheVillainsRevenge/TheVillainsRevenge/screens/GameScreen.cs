@@ -28,9 +28,9 @@ namespace TheVillainsRevenge
         ParallaxPlane background_1 = new ParallaxPlane("background_1");
         ParallaxPlane background_2 = new ParallaxPlane("background_2");
         ParallaxPlane background_3 = new ParallaxPlane("background_3");
-        CloudPlane clouds_1 = new CloudPlane(1);
-        CloudPlane clouds_2 = new CloudPlane(2);
-        CloudPlane clouds_3 = new CloudPlane(3);
+        //CloudPlane clouds_1 = new CloudPlane(1);
+        //CloudPlane clouds_2 = new CloudPlane(2);
+        //CloudPlane clouds_3 = new CloudPlane(3);
         RenderTarget2D renderScreen;
         RenderTarget2D renderSpine;
         RenderTarget2D renderGame;
@@ -134,9 +134,9 @@ namespace TheVillainsRevenge
             background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]), 0);
             background_2.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]), 0);
             background_3.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground3"]), 0);
-            clouds_1.Load(Content, "clouds_1", karte, camera);
-            clouds_2.Load(Content, "clouds_2", karte, camera);
-            clouds_3.Load(Content, "clouds_3", karte, camera);
+            //clouds_1.Load(Content, "clouds_1", karte, camera);
+            //clouds_2.Load(Content, "clouds_2", karte, camera);
+            //clouds_3.Load(Content, "clouds_3", karte, camera);
             gui.Load(Content);
             coverEyes = Content.Load<Effect>("CoverEyes");
             smash = Content.Load<Effect>("Smash");
@@ -511,9 +511,9 @@ namespace TheVillainsRevenge
                 background_1.Update(karte, camera);
                 background_2.Update(karte, camera);
                 background_3.Update(karte, camera);
-                clouds_1.Update(karte, gameTime, camera);
-                clouds_2.Update(karte, gameTime, camera);
-                clouds_3.Update(karte, gameTime, camera);
+                //clouds_1.Update(karte, gameTime, camera);
+                //clouds_2.Update(karte, gameTime, camera);
+                //clouds_3.Update(karte, gameTime, camera);
                 //--------------------SlowTimer--------------------
                 if (slow != 0)
                 {
@@ -591,21 +591,21 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 background_3.Draw(spriteBatch, spieler); //Himmel
-                clouds_3.Draw(spriteBatch);
+                //clouds_3.Draw(spriteBatch);
             spriteBatch.End();
             //Background2
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground2);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 background_2.Draw(spriteBatch, spieler); //Berge
-                clouds_2.Draw(spriteBatch);
+                //clouds_2.Draw(spriteBatch);
             spriteBatch.End();
             //Background1
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground1);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 background_1.Draw(spriteBatch, spieler); //Wald
-                clouds_1.Draw(spriteBatch);
+                //clouds_1.Draw(spriteBatch);
             spriteBatch.End();
             //Background0
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground0);
