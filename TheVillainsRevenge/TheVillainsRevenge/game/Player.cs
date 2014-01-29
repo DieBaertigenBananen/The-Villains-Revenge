@@ -29,7 +29,7 @@ namespace TheVillainsRevenge
         public int item2;
         public Spine spine;
         public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
-        float initAcceleration;
+        public float initAcceleration;
         public float acceleration;
         public bool hit = false;
         public bool richtung = false;

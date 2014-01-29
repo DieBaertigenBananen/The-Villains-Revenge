@@ -530,6 +530,7 @@ namespace TheVillainsRevenge
                 dust.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 dust.Parameters["playerX"].SetValue(spieler.position.X - camera.viewport.X);
                 dust.Parameters["playerY"].SetValue(spieler.position.Y - camera.viewport.Y);
+                dust.Parameters["force"].SetValue(spieler.acceleration / spieler.initAcceleration);
             }
             else if(levelend)
             {
@@ -642,10 +643,13 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 karte.Draw(spriteBatch,gameTime,camera); //Plattformen & Co
-                //hero.Draw(gameTime,camera); //Ashbrett
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, dust, camera.viewportTransform); //-----[Shader]-----Dust
                 spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
+            spriteBatch.End();
                 if (Game1.debug) //Boundingboxen
                 {
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                     spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                     spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
                     for (int i = 0; i < karte.enemies.Count(); i++)
@@ -660,9 +664,8 @@ namespace TheVillainsRevenge
                         spriteBatch.Draw(texture, c, null, Color.Blue);
                     }
                     spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
-                      
+                    spriteBatch.End(); 
                 }
-            spriteBatch.End();
 
             //----------------------------------------------------------------------
             //----------------------------------------Draw to renderHud
