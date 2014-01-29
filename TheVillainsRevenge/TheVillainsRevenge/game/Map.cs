@@ -116,13 +116,16 @@ namespace TheVillainsRevenge
                  }
              }
              breakblocks.Clear();
+             int id = 0;
              for (int i = 0; i < break_x_anzahl; i++)
              {
-                 breakblocks.Add(new Breakable(blocks, false));
+                 breakblocks.Add(new Breakable(blocks, false,id));
+                 id++;
              }
              for (int i = 0; i < break_y_anzahl; i++)
              {
-                 breakblocks.Add(new Breakable(blocks, true));
+                 breakblocks.Add(new Breakable(blocks, true,id));
+                 id++;
              }
              objects.Clear();
              for (int i = 0; i < startobjects.Count(); ++i)
