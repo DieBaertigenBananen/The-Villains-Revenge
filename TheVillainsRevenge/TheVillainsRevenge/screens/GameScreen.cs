@@ -213,7 +213,8 @@ namespace TheVillainsRevenge
             {
                 //Update Spieler
                 spieler.Update(gameTime, karte, princess);
-                if(spieler.hit)
+
+                if (spieler.hit)
                 {
                     //if (spieler.richtung)
                     //{
@@ -225,6 +226,36 @@ namespace TheVillainsRevenge
                     //    schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
                     //    schlagRECT.X = schlagRECT.X - schlagRECT.Width;
                     //}
+                    for (int i = 0; i < karte.breakblocks.Count(); i++)
+                    {
+                        Breakable bblock = karte.breakblocks.ElementAt(i);
+                        if (spieler.spine.BoundingBoxCollision(bblock.cbox) && bblock.vertikal)
+                        {
+                            Vector2 pos = new Vector2(0, 0);
+                            for (int j = 0; j < bblock.blocks.Count(); j++)
+                            {
+                                Block block = karte.blocks.ElementAt(j);
+                                if (pos.X == 0)
+                                {
+                                    pos = block.position;
+                                }
+                                karte.blocks.Remove(block);
+                                bblock.blocks.Remove(block);
+                            }
+
+                            for (int j = 0; j < karte.blocks.Count(); j++)
+                            {
+                                Block block = karte.blocks.ElementAt(j);
+                                if (block.cbox.Intersects(bblock.cbox) && block.type == "breakable_vertikale")
+                                {
+                                    karte.blocks.Remove(block);
+                                    bblock.blocks.Remove(block);
+                                }
+                            }
+                            karte.objects.Add(new Debris(pos, 3));
+                            karte.breakblocks.RemoveAt(i);
+                        }
+                    }
                     for (int i = 0; i < karte.blocks.Count(); i++)
                     {
                         Block block = karte.blocks.ElementAt(i);
@@ -235,30 +266,37 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
-                else if(spieler.smashImpact)
+                else if (spieler.smashImpact)
                 {
                     Sound.Play("superSmash");
                     int Range = Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagRange"]);
                     //Definiere SchlagRectangle
                     spieler.hitCbox = new Rectangle(spieler.cbox.box.X - Range, spieler.cbox.box.Y, spieler.cbox.box.Width + (Range * 2), spieler.cbox.box.Height);
                     spieler.hitCbox.Y += 1;
-                    for (int i = 0; i < karte.blocks.Count(); i++)
+                    for (int i = 0; i < karte.breakblocks.Count(); i++)
                     {
-                        Block block = karte.blocks.ElementAt(i);
-                        if (block.cbox.Intersects(spieler.hitCbox) && block.type == "breakable")
+                        Breakable bblock = karte.breakblocks.ElementAt(i);
+                        if (bblock.cbox.Intersects(spieler.hitCbox) && !bblock.vertikal)
                         {
-                            Rectangle nextblock = block.cbox;
-                            nextblock.X -= 48;
-                            nextblock.Width = nextblock.Width * 3;
+                            for (int j = 0; j < bblock.blocks.Count(); j++)
+                            {
+                                Block block = bblock.blocks.ElementAt(j);
+                                karte.objects.Add(new Debris(block.position, 3));
+                                karte.blocks.Remove(block);
+                                bblock.blocks.Remove(block);
+                            }
+
                             for (int j = 0; j < karte.blocks.Count(); j++)
                             {
-                                Block block2 = karte.blocks.ElementAt(j);
-                                if (block2.cbox.Intersects(nextblock) && block2.type == "breakable")
+                                Block block = karte.blocks.ElementAt(j);
+                                if (block.cbox.Intersects(bblock.cbox)&&block.type == "breakable")
                                 {
-                                    karte.objects.Add(new Debris(block2.position, 3));
-                                    karte.blocks.Remove(block2);
+                                    karte.objects.Add(new Debris(block.position, 3));
+                                    karte.blocks.Remove(block);
+                                    bblock.blocks.Remove(block);
                                 }
                             }
+                            karte.breakblocks.RemoveAt(i);
                         }
                     }
                     spieler.hitCbox.Y -= 1;

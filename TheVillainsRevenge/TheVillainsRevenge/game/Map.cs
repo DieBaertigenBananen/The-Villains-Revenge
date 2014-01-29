@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
      class Map
      {
-         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture,bewegendTexture;
+         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture,bewegendTexture,breakTexture;
          public Texture2D levelMap;
          public Vector2 size;
          public Color[] pixelColors;
@@ -21,6 +21,7 @@ namespace TheVillainsRevenge
          public List<Enemy> enemies = new List<Enemy>(); //Erstelle Blocks als List
          public List<Trigger> triggers = new List<Trigger>(); //Erstelle Blocks als List
          public List<MovingBlock> mblocks = new List<MovingBlock>(); //Erstelle Blocks als List
+         public List<Breakable> breakblocks = new List<Breakable>(); //Erstelle Blocks als List
          public List<KIPoint> kipoints = new List<KIPoint>(); //Erstelle Blocks als List
          public List<Obj> objects = new List<Obj>(); //Erstelle Blocks als List
 
@@ -83,6 +84,10 @@ namespace TheVillainsRevenge
                  if (enemy.type == 2)
                      enemies.Add(new Monkey(enemy.position, enemy.type, enemy.mover));
              }
+             int break_x_anzahl = 0;
+             int break_x = 0;
+             int break_y_anzahl = 0;
+             int break_y = 0;
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
@@ -93,6 +98,34 @@ namespace TheVillainsRevenge
              {
                  Block block = startblocks.ElementAt(i);
                  blocks.Add(new Block(block.position, block.type));
+                 if (block.type == "breakable")
+                 {
+                     if (break_x +48 != block.position.X)
+                     {
+                         break_x_anzahl++;
+                     }
+                     break_x = (int)block.position.X;
+                 }
+                 else if (block.type == "breakable_verticale")
+                 {
+                     if (break_y +48 != block.position.Y)
+                     {
+                         break_y_anzahl++;
+                     }
+                     break_y = (int)block.position.Y;
+                 }
+             }
+             breakblocks.Clear();
+             int id = 0;
+             for (int i = 0; i < break_x_anzahl; i++)
+             {
+                 breakblocks.Add(new Breakable(blocks, false,id));
+                 id++;
+             }
+             for (int i = 0; i < break_y_anzahl; i++)
+             {
+                 breakblocks.Add(new Breakable(blocks, true,id));
+                 id++;
              }
              objects.Clear();
              for (int i = 0; i < startobjects.Count(); ++i)
@@ -160,6 +193,10 @@ namespace TheVillainsRevenge
                  if (enemy.type == 2)
                      enemies.Add(new Monkey(enemy.position, enemy.type,enemy.mover));
              }
+             int break_x_anzahl = 0;
+             int break_x = 0;
+             int break_y_anzahl = 0;
+             int break_y = 0;
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
@@ -170,6 +207,31 @@ namespace TheVillainsRevenge
              {
                  Block block = saveblocks.ElementAt(i);
                  blocks.Add(new Block(block.position, block.type));
+                 if (block.type == "breakable")
+                 {
+                     if (break_x + 48 != block.position.X)
+                     {
+                         break_x_anzahl++;
+                     }
+                     break_x = (int)block.position.X;
+                 }
+                 else if (block.type == "breakable_verticale")
+                 {
+                     if (break_y + 48 != block.position.Y)
+                     {
+                         break_y_anzahl++;
+                     }
+                     break_y = (int)block.position.Y;
+                 }
+             }
+             breakblocks.Clear();
+             for (int i = 0; i < break_x_anzahl; i++)
+             {
+                 breakblocks.Add(new Breakable(blocks, false));
+             }
+             for (int i = 0; i < break_y_anzahl; i++)
+             {
+                 breakblocks.Add(new Breakable(blocks, true));
              }
              objects.Clear();
              for (int i = 0; i < saveobjects.Count(); ++i)
@@ -200,6 +262,7 @@ namespace TheVillainsRevenge
              mapTexture = Content.Load<Texture2D>("sprites/tiles");
              levelMap = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/map");
              bewegendTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/bewegend");
+             breakTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/destruction");
              triggerTexture = Content.Load<Texture2D>("sprites/trigger");
              pixelColors = new Color[levelMap.Width * levelMap.Height];
              levelMap.GetData<Color>(pixelColors);
@@ -270,11 +333,18 @@ namespace TheVillainsRevenge
                      else
                          spriteBatch.Draw(objectTexture, obj.position, new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  }
+                 else if (obj.type == 4)
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(192, 0, 144, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
              for (int i = 0; i < mblocks.Count(); ++i)
              {
                  MovingBlock mblock = mblocks.ElementAt(i);
                  spriteBatch.Draw(bewegendTexture, new Vector2(mblock.cbox.X,mblock.cbox.Y-24),Color.White);
+             }
+             for (int i = 0; i < breakblocks.Count(); ++i)
+             {
+                 Breakable breakblock = breakblocks.ElementAt(i);
+                 spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X,breakblock.cbox.Y), new Rectangle(0, 0, 256, 180), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
          }
 
@@ -282,6 +352,10 @@ namespace TheVillainsRevenge
          {
              //generiere Das Level (erzeuge neue Objekte in der List) anhand der Levelmap
              int moving_last = 0;
+             int break_x_last = 0;
+             int break_x_anzahl = 0;
+             int break_y_last = 0;
+             int break_y_anzahl = 0;
              int moving_anzahl = 0;
              for (int i = 0; i < levelMap.Width; i++)
              {
@@ -307,15 +381,15 @@ namespace TheVillainsRevenge
                                  spieler.position.X = spieler.spine.skeleton.X;
                                  spieler.cbox.Update(spieler.position);
                                  spieler.checkpoint = spieler.position;
-                                 hero.spine.skeleton.X = i*48;
+                                 break;
+                             case "255,115,255":
+                                 hero.spine.skeleton.X = i * 48;
                                  hero.spine.skeleton.Y = t * 48;
                                  hero.position.Y = hero.spine.skeleton.Y;
                                  hero.position.X = hero.spine.skeleton.X;
                                  hero.cbox.Update(hero.position);
                                  hero.checkpoint = hero.position;
-
                                  break;
-
                              case "147,17,126":
                                  type = "checkpoint";
                                  checkpoints.Add(new Checkpoint(i * 48, false));
@@ -332,10 +406,20 @@ namespace TheVillainsRevenge
                              case "119,0,255":
                                  type = "breakable";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 if (break_x_last + 1 != i)
+                                 {
+                                     break_x_anzahl++;
+                                 }
+                                 break_x_last = i;
                                  break;
                              case "119,20,255":
                                  type = "breakable_verticale";
                                  blocks.Add(new Block(new Vector2(i * 48, t * 48), type));
+                                 if (break_y_last + 1 != t)
+                                 {
+                                     break_y_anzahl++;
+                                 }
+                                 break_y_last = t;
                                  break;
                              case "180,165,0":
                                  type = "movingend";
@@ -398,6 +482,19 @@ namespace TheVillainsRevenge
              for (int i = 0; i < moving_anzahl; i++)
              {
                  mblocks.Add(new MovingBlock(blocks));
+             }
+             Console.WriteLine("Break_X_anzahl:"+break_x_anzahl);
+             int id = 0;
+             for (int i = 0; i < break_x_anzahl; i++)
+             {
+                 breakblocks.Add(new Breakable(blocks,false,id));
+                 id++;
+             }
+             Console.WriteLine("Break_Y_anzahl:" + break_y_anzahl);
+             for (int i = 0; i < break_y_anzahl; i++)
+             {
+                 breakblocks.Add(new Breakable(blocks, true, id));
+                 id++;
              }
              checkpoints.Add(new Checkpoint((int)size.X - 100, true)); //Ende
              Save();
