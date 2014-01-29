@@ -90,10 +90,10 @@ Content\sprites\bossbar.xnb
 Content\sounds\Level_5\background.xnb
 Content\sounds\Menu\background.xnb
 spine\sprites\ashbrett.png
-spine\sprites\bonepuker.png
 spine\sprites\fluffy.png
 spine\sprites\clobbercloud.png
 spine\sprites\skullmonkey.png
+spine\sprites\bonepuker.png
 spine\sprites\ashbrett.atlas
 spine\sprites\ashbrett.json
 spine\sprites\bonepuker.atlas

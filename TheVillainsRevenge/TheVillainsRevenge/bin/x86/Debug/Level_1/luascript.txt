@@ -6,7 +6,7 @@ planeTilesBackground3 = 1 --Himmel
 planeForeground0HeightOffset = 46 * 48 - 2208
 planeForeground1HeightOffset = 46 * 48 - 2208
 
-playerAcceleration = 35
+playerAcceleration = 40
 playerStartLifes = 4
 playerScale = 0.35
 playerCollisionWidth = 100
@@ -36,7 +36,7 @@ monkeyCollisionWidth = 84
 monkeyCollisionHeight = 119
 
 princessRageChance = 100
-princessRageWarmup = 10
+princessRageWarmup = 1000
 princessEnrageSpeed = 5
 princessUnrageSpeed = 10
 princessRageLimit = 100

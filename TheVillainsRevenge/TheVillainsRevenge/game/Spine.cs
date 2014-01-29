@@ -16,7 +16,6 @@ namespace TheVillainsRevenge
         public SkeletonBounds bounds = new SkeletonBounds();
         public bool flipSkel;
         public double animationTimer;
-        double lastEscapeTime;
 
         public void anim(string newanim,int flip,bool loop, GameTime gameTime)
         {
@@ -97,7 +96,7 @@ namespace TheVillainsRevenge
             AnimationStateData animationStateData = new AnimationStateData(skeleton.Data);
             switch (name)
             {
-                case "skeleton":
+                case "bonepuker":
                     animationStateData.SetMix("idle", "run", acceleration);
                     animationStateData.SetMix("run", "idle", acceleration);
                     animationStateData.SetMix("idle", "jump", 0.2f);
@@ -106,10 +105,14 @@ namespace TheVillainsRevenge
                     animationStateData.SetMix("jump", "idle", 0.2f);
                     animationStateData.SetMix("jump", "die", 0.3f);
                     animationStateData.SetMix("run", "die", 0.1f);
-                    animationStateData.SetMix("idle", "die", 0.1f);
+                    animationStateData.SetMix("idle", "die", 0.2f);
                     animationStateData.SetMix("smash", "idle", 0.2f);
                     animationStateData.SetMix("smash", "run", 0.2f);
                     animationStateData.SetMix("smash", "jump", 0.2f);
+                    //Fading für Attack dürfte so nicht funktionieren, da Attack auf einem anderen Track ausgeführt wird
+                    animationStateData.SetMix("attack", "idle", 0.1f);
+                    animationStateData.SetMix("attack", "run", 0.1f);
+                    animationStateData.SetMix("attack", "jump", 0.1f);
                     //sc_cover_eyes
                     //sc_escape
                     //smash

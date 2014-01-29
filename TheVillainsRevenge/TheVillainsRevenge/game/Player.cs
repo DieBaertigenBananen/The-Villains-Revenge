@@ -181,8 +181,11 @@ namespace TheVillainsRevenge
             {
                 if (!jump && !fall && Game1.input.sprungp)
                 {
-                    spine.Clear(0);
-                    spine.anim("jump", 0, false, gameTime);
+                    spine.animationTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    spine.animationState.SetAnimation(0, "jump", false);
+                    spine.animation = "jump";
+                    //spine.Clear(0);
+                    //spine.anim("jump", 0, false, gameTime);
                     Jump(gameTime, map); //Springen!
                     savejump = false;
                 }
