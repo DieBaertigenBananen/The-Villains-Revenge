@@ -426,6 +426,7 @@ namespace TheVillainsRevenge
                                 else
                                     enemy.anim(gameTime, "attack", 2);
                                 spieler.getHit(gameTime, "die");
+                                princess.ResetRage(gameTime);
                                 dietime = 2;
                                 //Reset();
                             }
@@ -548,6 +549,7 @@ namespace TheVillainsRevenge
                 if (spieler.position.Y >= karte.size.Y)
                 {
                     spieler.getHit(gameTime, "die");
+                    princess.ResetRage(gameTime);
                     dietime = 1;
                     Reset();
                 }
@@ -555,6 +557,7 @@ namespace TheVillainsRevenge
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start)
                 {
                     spieler.getHit(gameTime, "die2");
+                    princess.ResetRage(gameTime);
                     dietime = 2;
                     hero.attack(gameTime);
                     herohit = true;

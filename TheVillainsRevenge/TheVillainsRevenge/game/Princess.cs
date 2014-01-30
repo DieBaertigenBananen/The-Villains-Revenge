@@ -11,7 +11,7 @@ namespace TheVillainsRevenge
     class Princess
     {
         public bool rageMode;
-        double rageTimer;
+        public double rageTimer;
         public float rageMeter;
         int rageWarmup;
         int enrageSpeed;
@@ -171,6 +171,15 @@ namespace TheVillainsRevenge
                     rageTimer = gameTime.TotalGameTime.TotalMilliseconds - ((float)rageWarmup * 0.2f); //Wenn Spieler wieder auf den Boden kommt nach kurzer Zeit enragen
                 }
             }
+        }
+
+        public void ResetRage(GameTime gameTime)
+        {
+            beating = false;
+            coverEyes = false;
+            rageMode = false;
+            rageMeter = 0f;
+            rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
         }
 
         public void Draw(GameTime gameTime, Camera camera)

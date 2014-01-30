@@ -29,6 +29,10 @@ namespace TheVillainsRevenge
                 skeleton.flipX = false;
                 flipSkel = false;
             }
+            if (newanim == "die" || newanim == "die2")
+            {
+                animationState.ClearTracks();
+            }
             if (newanim == "attack" || newanim == "smash" || newanim == "cloud")
             {
                 animationState.SetAnimation(1, newanim, loop);
