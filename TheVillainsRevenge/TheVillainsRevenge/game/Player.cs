@@ -125,11 +125,11 @@ namespace TheVillainsRevenge
             spine.Load(position, "bonepuker", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), initAcceleration);
         }
 
-        public void getHit(GameTime gameTime)
+        public void getHit(GameTime gameTime, string animation)
         {
             lifes--;
             Game1.leben = lifes;
-            spine.anim("die", 0, false, gameTime);
+            spine.anim(animation, 0, false, gameTime);
         }
 
         public void Update(GameTime gameTime, Map map, Princess princess)

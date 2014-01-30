@@ -425,7 +425,7 @@ namespace TheVillainsRevenge
                                     enemy.anim(gameTime, "attack", 1);
                                 else
                                     enemy.anim(gameTime, "attack", 2);
-                                spieler.getHit(gameTime);
+                                spieler.getHit(gameTime, "die");
                                 dietime = 2;
                                 //Reset();
                             }
@@ -547,7 +547,7 @@ namespace TheVillainsRevenge
                 //Wenn Spieler über den Maprand tritt (zu tief fällt)
                 if (spieler.position.Y >= karte.size.Y)
                 {
-                    spieler.getHit(gameTime);
+                    spieler.getHit(gameTime, "die");
                     dietime = 1;
                     Reset();
                 }
@@ -560,7 +560,7 @@ namespace TheVillainsRevenge
                 //Held hat den Spieler eingeholt
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start)
                 {
-                    spieler.getHit(gameTime);
+                    spieler.getHit(gameTime, "die2");
                     dietime = 2;
                     hero.attack(gameTime);
                     herohit = true;

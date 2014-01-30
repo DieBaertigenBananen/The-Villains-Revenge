@@ -114,7 +114,7 @@ namespace TheVillainsRevenge
                 {
                     if (obj.box.Intersects(spieler.cbox.box))
                     {
-                        spieler.getHit(gameTime);
+                        spieler.getHit(gameTime, "die2");
                         karte.objects.Remove(obj);
                     }
                     else if (obj.position.X < 0 || obj.position.X > karte.size.X)
@@ -165,7 +165,7 @@ namespace TheVillainsRevenge
             }
             else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start&&hero.attacktimer <= 0 && hero.inactiveTime >= 1)
             {
-                spieler.getHit(gameTime);
+                spieler.getHit(gameTime, "die2");
             }
             //KiPunkte
             for (int i = 0; i < karte.kipoints.Count(); i++)

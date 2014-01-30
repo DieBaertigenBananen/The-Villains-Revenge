@@ -5,259 +5,259 @@ filter: Linear,Linear
 repeat: none
 arm_left
   rotate: false
-  xy: 796, 725
+  xy: 798, 727
   size: 110, 128
   orig: 110, 128
   offset: 0, 0
   index: -1
 arm_right
   rotate: false
-  xy: 301, 159
+  xy: 303, 161
   size: 140, 142
   orig: 140, 142
   offset: 0, 0
   index: -1
 beard
   rotate: false
-  xy: 172, 185
+  xy: 174, 187
   size: 127, 128
   orig: 127, 128
   offset: 0, 0
   index: -1
 body
   rotate: false
-  xy: 0, 495
+  xy: 2, 497
   size: 246, 350
   orig: 246, 350
   offset: 0, 0
   index: -1
 chest
   rotate: true
-  xy: 0, 0
+  xy: 2, 2
   size: 182, 159
   orig: 182, 159
   offset: 0, 0
   index: -1
 dust
   rotate: false
-  xy: 672, 553
+  xy: 674, 555
   size: 109, 35
   orig: 109, 35
   offset: 0, 0
   index: -1
 finger_index
   rotate: false
-  xy: 880, 677
+  xy: 882, 679
   size: 34, 46
   orig: 34, 46
   offset: 0, 0
   index: -1
 finger_index_tip
   rotate: true
-  xy: 517, 477
+  xy: 519, 479
   size: 34, 47
   orig: 34, 47
   offset: 0, 0
   index: -1
 finger_middle
   rotate: false
-  xy: 572, 513
+  xy: 574, 515
   size: 42, 49
   orig: 42, 49
   offset: 0, 0
   index: -1
 finger_middle_tip
   rotate: true
-  xy: 797, 637
+  xy: 799, 639
   size: 39, 57
   orig: 39, 57
   offset: 0, 0
   index: -1
 finger_tiny
   rotate: false
-  xy: 616, 514
+  xy: 618, 516
   size: 36, 48
   orig: 36, 48
   offset: 0, 0
   index: -1
 finger_tiny_tip
   rotate: true
-  xy: 566, 476
+  xy: 568, 478
   size: 35, 44
   orig: 35, 44
   offset: 0, 0
   index: -1
 foot_left
   rotate: false
-  xy: 443, 149
+  xy: 445, 151
   size: 53, 71
   orig: 53, 71
   offset: 0, 0
   index: -1
 foot_right
   rotate: true
-  xy: 436, 307
+  xy: 438, 309
   size: 54, 60
   orig: 54, 60
   offset: 0, 0
   index: -1
 hand_open
   rotate: false
-  xy: 548, 564
+  xy: 550, 566
   size: 122, 105
   orig: 122, 106
   offset: 0, 1
   index: -1
 hand_right
   rotate: false
-  xy: 172, 315
+  xy: 174, 317
   size: 138, 162
   orig: 138, 162
   offset: 0, 0
   index: -1
 hat
   rotate: true
-  xy: 681, 701
+  xy: 683, 703
   size: 151, 113
   orig: 151, 113
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 548, 671
+  xy: 550, 673
   size: 131, 181
   orig: 131, 181
   offset: 0, 0
   index: -1
 hip
   rotate: true
-  xy: 436, 363
+  xy: 438, 365
   size: 114, 60
   orig: 114, 60
   offset: 0, 0
   index: -1
 neck
   rotate: true
-  xy: 425, 479
+  xy: 427, 481
   size: 97, 90
   orig: 98, 90
   offset: 0, 0
   index: -1
 sc_arm_left
   rotate: false
-  xy: 443, 222
+  xy: 445, 224
   size: 45, 83
   orig: 45, 83
   offset: 0, 0
   index: -1
 sc_arm_right
   rotate: true
-  xy: 797, 678
+  xy: 799, 680
   size: 45, 81
   orig: 45, 82
   offset: 0, 0
   index: -1
 sc_body
   rotate: true
-  xy: 725, 855
+  xy: 727, 857
   size: 137, 193
   orig: 137, 193
   offset: 0, 0
   index: -1
 sc_chest
   rotate: false
-  xy: 436, 578
+  xy: 438, 580
   size: 110, 66
   orig: 110, 66
   offset: 0, 0
   index: -1
 sc_eyes_panic
   rotate: true
-  xy: 920, 865
+  xy: 922, 867
   size: 127, 74
   orig: 127, 74
   offset: 0, 0
   index: -1
 sc_hair
   rotate: true
-  xy: 0, 184
+  xy: 2, 186
   size: 309, 170
   orig: 309, 170
   offset: 0, 0
   index: -1
 sc_hair_front
   rotate: true
-  xy: 433, 646
+  xy: 435, 648
   size: 199, 113
   orig: 199, 113
   offset: 0, 0
   index: -1
 sc_hand_left
   rotate: true
-  xy: 783, 549
+  xy: 785, 551
   size: 40, 52
   orig: 40, 52
   offset: 0, 0
   index: -1
 sc_hand_right
   rotate: true
-  xy: 780, 591
+  xy: 782, 593
   size: 44, 53
   orig: 44, 53
   offset: 0, 0
   index: -1
 sc_head
   rotate: true
-  xy: 248, 479
+  xy: 250, 481
   size: 164, 175
   orig: 164, 175
   offset: 0, 0
   index: -1
 sc_mouth_panic
   rotate: false
-  xy: 517, 513
+  xy: 519, 515
   size: 53, 49
   orig: 53, 49
   offset: 0, 0
   index: -1
 sc_shoulder_left
   rotate: true
-  xy: 681, 645
+  xy: 683, 647
   size: 54, 114
   orig: 54, 114
   offset: 0, 0
   index: -1
 sc_shoulder_right
   rotate: true
-  xy: 672, 590
+  xy: 674, 592
   size: 53, 106
   orig: 53, 106
   offset: 0, 0
   index: -1
 sc_skirt
   rotate: false
-  xy: 248, 645
+  xy: 250, 647
   size: 183, 200
   orig: 183, 200
   offset: 0, 0
   index: -1
 shoulder_left
   rotate: false
-  xy: 312, 303
+  xy: 314, 305
   size: 122, 174
   orig: 122, 174
   offset: 0, 0
   index: -1
 shoulder_right
   rotate: true
-  xy: 502, 854
+  xy: 504, 856
   size: 138, 221
   orig: 138, 221
   offset: 0, 0
   index: -1
 weapon
   rotate: false
-  xy: 0, 847
+  xy: 2, 849
   size: 500, 145
   orig: 500, 145
   offset: 0, 0
