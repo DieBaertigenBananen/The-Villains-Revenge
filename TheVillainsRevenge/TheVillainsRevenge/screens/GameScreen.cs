@@ -675,13 +675,10 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground0);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                if (!Game1.debug)
+                background_0.Draw(spriteBatch, spieler); //Bäume
+                if (Game1.debug)
                 {
-                    background_0.Draw(spriteBatch, spieler); //Bäume
-                }
-                else
-                {
-                    spriteBatch.Draw(debug, new Vector2(background_0.position.X, background_0.position.Y), Color.White);
+                    spriteBatch.Draw(loadingScreen.tile[6], new Vector2(800,1300), Color.White);
                 }
             spriteBatch.End();
             //----------------------------------------------------------------------

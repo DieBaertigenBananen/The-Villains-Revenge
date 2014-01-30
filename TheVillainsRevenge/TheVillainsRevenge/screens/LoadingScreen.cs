@@ -20,7 +20,7 @@ namespace TheVillainsRevenge
         Texture2D bg_texture;
         Texture2D logo_texture;
         Texture2D overlay_texture;
-        Texture2D[] tile;
+        public Texture2D[] tile;
         Vector2[] tilePosition;
 
         public LoadingScreen()
