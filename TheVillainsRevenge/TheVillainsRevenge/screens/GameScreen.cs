@@ -22,6 +22,7 @@ namespace TheVillainsRevenge
         Map karte = new Map();
         Camera camera = new Camera();
         GUI gui = new GUI();
+        LoadingScreen loadingScreen = new LoadingScreen();
         ParallaxPlane foreground_1 = new ParallaxPlane("foreground_1");
         ParallaxPlane foreground_0 = new ParallaxPlane("foreground_0");
         ParallaxPlane background_0 = new ParallaxPlane("background_0");
@@ -110,46 +111,70 @@ namespace TheVillainsRevenge
             LuaKI.RegisterFunction("removePoint", this, this.GetType().GetMethod("removePoint")); 
         }
 
-        public void Load(ContentManager Content)
+        public void Load(ContentManager Content, GameTime gameTime, SpriteBatch spriteBatch, int loadingState)
         {
-            renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderForeground_1 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderForeground_0 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderBackground0 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderBackground1 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderBackground2 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderBackground3 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            renderHud = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-            font = Content.Load<SpriteFont>("fonts/schrift");
-            spieler.Load(Content, Game1.graphics);
-            hero.Load(Content, Game1.graphics);
-            princess.Load(Content, Game1.graphics);
-            karte.Load(Content);
-            karte.Generate(spieler,hero);
-            foreground_1.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground1HeightOffset"]));
-            foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground0HeightOffset"]));
-            background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]), 0);
-            background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]), 0);
-            background_2.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]), 0);
-            background_3.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground3"]), 0);
-            //clouds_1.Load(Content, "clouds_1", karte, camera);
-            //clouds_2.Load(Content, "clouds_2", karte, camera);
-            //clouds_3.Load(Content, "clouds_3", karte, camera);
-            gui.Load(Content);
-            coverEyes = Content.Load<Effect>("CoverEyes");
-            smash = Content.Load<Effect>("Smash");
-            Sound.Load(Content);
-            dust = Content.Load<Effect>("Dust");
-            gauss = new GaussianBlur();
-            gauss.Load(Content, Game1.graphics, 1920, 1080, 1f);
-            if (Game1.sound)
+            if (loadingState == 0)
             {
-                Sound.PlayBG();
+                loadingScreen.Load(Content);
             }
-            debug = Content.Load<Texture2D>("sprites/Level_"+Game1.level+"/Planes/background_0_debug");
-            StartSave();
+            loadingScreen.UpdateDraw(loadingState, spriteBatch, gameTime, camera);
+            switch (loadingState)
+            {
+                case 0:
+                    renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderForeground_1 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderForeground_0 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderBackground0 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderBackground1 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderBackground2 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderBackground3 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    renderHud = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+                    break;
+                case 1:
+                    font = Content.Load<SpriteFont>("fonts/schrift");
+                    spieler.Load(Content, Game1.graphics);
+                    hero.Load(Content, Game1.graphics);
+                    princess.Load(Content, Game1.graphics);
+                    break;
+                case 2:
+                    karte.Load(Content);
+                    karte.Generate(spieler, hero);
+                    break;
+                case 3:
+                    foreground_1.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground1HeightOffset"]));
+                    foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground0HeightOffset"]));
+                    break;
+                case 4:
+                    background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]), 0);
+                    background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]), 0);
+                    break;
+                case 5:
+                    background_2.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]), 0);
+                    background_3.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground3"]), 0);
+                    //clouds_1.Load(Content, "clouds_1", karte, camera);
+                    //clouds_2.Load(Content, "clouds_2", karte, camera);
+                    //clouds_3.Load(Content, "clouds_3", karte, camera);
+                    break;
+                case 6:
+                    gui.Load(Content);
+                    coverEyes = Content.Load<Effect>("CoverEyes");
+                    smash = Content.Load<Effect>("Smash");
+                    Sound.Load(Content);
+                    dust = Content.Load<Effect>("Dust");
+                    gauss = new GaussianBlur();
+                    gauss.Load(Content, Game1.graphics, 1920, 1080, 1f);
+                    break;
+                case 7:
+                    if (Game1.sound)
+                    {
+                        Sound.PlayBG();
+                    }
+                    debug = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/Planes/background_0_debug");
+                    StartSave();
+                    break;
+            }   
         }
         public void StartSave()
         {

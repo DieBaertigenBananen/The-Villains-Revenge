@@ -226,7 +226,12 @@ namespace TheVillainsRevenge
                     if (level != 5)
                     {
                         game = new GameScreen(); //lädt das Game
-                        game.Load(Content); // lädt die Game Bilder
+                        for (int i = 0; i <= 7; i++)
+                        {
+                            base.Update(gameTime);
+                            game.Load(Content, gameTime, spriteBatch, i); // lädt die Game Bilder
+                            base.Draw(gameTime);
+                        }
                     }
                     else
                     {
@@ -321,6 +326,7 @@ namespace TheVillainsRevenge
                 boss.Draw(gameTime, spriteBatch);
             base.Draw(gameTime);
         }
+
         void Load()
         {
             SaveData data = new SaveData();

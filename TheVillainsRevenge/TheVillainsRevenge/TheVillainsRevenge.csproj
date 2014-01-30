@@ -157,6 +157,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="screens\BossScreen.cs" />
     <Compile Include="screens\GameScreen.cs" />
+    <Compile Include="screens\LoadingScreen.cs" />
     <Compile Include="screens\MenuScreen.cs" />
     <Compile Include="spine\Spine_CSharp\Animation.cs" />
     <Compile Include="spine\Spine_CSharp\AnimationState.cs" />

@@ -27,7 +27,6 @@ namespace TheVillainsRevenge
         float fontScale;
         bool levelendScreen;
         bool deadScreen;
-        bool loadScreen;
         SubMenu mainMenu;
         SubMenu optionMenu;
         public static Color textColor;
@@ -123,16 +122,12 @@ namespace TheVillainsRevenge
                     deadScreen = false;
                 }
             }
-            else if (loadScreen)
-            {
-                return 2;
-            }
             else if (levelendScreen)
             {
                 if (Game1.input.enter || Game1.input.sprung)
                 {
                     levelendScreen = false;
-                    loadScreen = true;
+                    return 2;
                 }
             }
             else if (optionMenu.visible)
@@ -191,7 +186,7 @@ namespace TheVillainsRevenge
                     else
                     {
                         //Game Start
-                        loadScreen = true;
+                        return 2;
                     }
                 }
             }
@@ -209,7 +204,7 @@ namespace TheVillainsRevenge
             //--------------------Draw to renderMenu--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderMenu);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-                if (mainMenu.visible && !deadScreen && !loadScreen && !levelendScreen)
+                if (mainMenu.visible && !deadScreen && !levelendScreen)
                 {
                     mainMenu.Draw(spriteBatch, gameTime, camera);
                 }
@@ -230,11 +225,6 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.resolution.X / 2) - 60, (Game1.resolution.Y / 2) + 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
 
                 }
-                else if (loadScreen)
-                {
-                    spriteBatch.DrawString(font, "Game loading ...", new Vector2((Game1.resolution.X / 2) - 50, (Game1.resolution.Y / 2) - 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
-
-                }
             spriteBatch.End();
 
             //--------------------Draw to renderTitle--------------------
@@ -249,7 +239,7 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
-                if (!loadScreen && !deadScreen&&!levelendScreen)
+                if (!deadScreen&&!levelendScreen)
                 {
                     spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
                     spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);
