@@ -348,15 +348,19 @@ namespace TheVillainsRevenge
                  {
                      if (breakblock.id == 0)
                      {
-                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X-38, breakblock.cbox.Y-15), new Rectangle(256*2, 0, 256, 180), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X - 127, breakblock.cbox.Y - 20), new Rectangle(0, 0, 332, 372), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                      }
-                     else if (breakblock.id == 2 || breakblock.id == 3)
+                     else if (breakblock.id == 1 )
                      {
-                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X-6, breakblock.cbox.Y), new Rectangle(0, 0, 256, 180), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X - 70, breakblock.cbox.Y-27), new Rectangle(332 * 1, 0, 332, 372), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                      }
-                     else if (breakblock.id == 1)
+                     else if (breakblock.id == 2)
                      {
-                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X-15, breakblock.cbox.Y-20), new Rectangle(256*1, 0, 256, 180), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X - 10, breakblock.cbox.Y-24), new Rectangle(332 * 2, 0, 332, 372), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     }
+                     else if (breakblock.id == 3)
+                     {
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X - 20, breakblock.cbox.Y-65), new Rectangle(332 * 3, 0, 332, 372), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                      }
                  }
              }
