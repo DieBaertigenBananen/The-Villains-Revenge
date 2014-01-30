@@ -36,7 +36,7 @@ monkeyCollisionWidth = 84
 monkeyCollisionHeight = 119
 
 princessRageChance = 100
-princessRageWarmup = 5
+princessRageWarmup = 10
 princessEnrageSpeed = 5
 princessUnrageSpeed = 10
 princessRageLimit = 100
