@@ -168,9 +168,6 @@ end
 if p_id[p_points] == 0 then
  add(1,p_time[p_points]);
 end
-if p_id[p_points] == 2 then
- add(3,p_time[p_points]);
-end
 if p_id[p_points] == 6 then -- wenn aktuell ist 6 dann setze nächsten 7
  add(7,p_time[p_points]);
 end
