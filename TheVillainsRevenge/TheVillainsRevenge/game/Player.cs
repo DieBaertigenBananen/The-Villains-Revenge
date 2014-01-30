@@ -520,7 +520,7 @@ namespace TheVillainsRevenge
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if ((cboxnew.box.Intersects(block.cbox) && block.block) || cboxnew.box.X < 0 || cbox.box.X + cbox.box.Width > map.size.X || cbox.box.Y < 0)
+                    if ((cboxnew.box.Intersects(block.cbox) && block.block) || cboxnew.box.X < 0 || (cbox.box.X + cbox.box.Width) > map.size.X)
                     {
                         stop = true;
                         break;
