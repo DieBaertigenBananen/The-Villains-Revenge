@@ -178,30 +178,35 @@ namespace TheVillainsRevenge
         }
         public void StartSave()
         {
-            karte.StartSave();
-            spieler.StartSave();
-            hero.StartSave();
-            princess.StartSave();
             foreach (Enemy enemy in karte.enemies)
             {
                 enemy.StartSave();
             }
+            karte.StartSave();
+            spieler.StartSave();
+            hero.StartSave();
+            princess.StartSave();
         }
         public void Save(int checkpointX)
         {
-            karte.Save();
-            spieler.Save(checkpointX);
-            hero.Save();
-            princess.Save();
             foreach (Enemy enemy in karte.enemies)
             {
                 enemy.Save();
             }
+            karte.Save();
+            spieler.Save(checkpointX);
+            hero.Save();
+            princess.Save();
         }
         public void StartReset()
         {
             if (spieler.lifes != 0)
             {
+                foreach (Enemy enemy2 in karte.enemies)
+                {
+                    enemy2.StartReset();
+                    enemy2.Save();
+                }
                 karte.StartReset();
                 karte.Save();
                 spieler.StartReset();
@@ -210,25 +215,20 @@ namespace TheVillainsRevenge
                 hero.Save();
                 princess.StartReset();
                 princess.Save();
-                foreach (Enemy enemy2 in karte.enemies)
-                {
-                    enemy2.StartReset();
-                    enemy2.Save();
-                }
             }
         }
         public void Reset()
         {
             if (spieler.lifes != 0)
             {
-                karte.Reset();
-                spieler.Reset();
-                hero.Reset();
-                princess.Reset();
                 foreach (Enemy enemy2 in karte.enemies)
                 {
                     enemy2.Reset();
                 }
+                karte.Reset();
+                spieler.Reset();
+                hero.Reset();
+                princess.Reset();
             }
         }
 
