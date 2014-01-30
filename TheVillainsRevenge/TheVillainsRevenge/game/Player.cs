@@ -166,7 +166,7 @@ namespace TheVillainsRevenge
                 }
             }
             //Deine Mudda stinkt nach Backfisch
-            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0) //AllowSmash am Boden zurück setzen
+            if (CollisionCheckedVector(0, 1, map.blocks, map).Y == 0) //AllowSmash am Boden zurück setzen
             {
                 allowSmash = false;
             }
@@ -244,7 +244,7 @@ namespace TheVillainsRevenge
                     smash = false;
                     smashImpact = false;
                 }
-                else if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                else if (CollisionCheckedVector(0, 1, map.blocks, map).Y == 0)
                 {
                     smashImpact = true;
                 }
@@ -339,7 +339,7 @@ namespace TheVillainsRevenge
                 {
                     acceleration = initAcceleration;
                 }
-                if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
+                if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks, map).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
                 {
                     acceleration = -acceleration * 0.8f;
                 }
@@ -377,7 +377,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
+            if (CollisionCheckedVector(0, 1, map.blocks, map).Y > 0 && !jump)
             {
                 if (!fall)
                 {
@@ -423,7 +423,7 @@ namespace TheVillainsRevenge
                 collide.X = cbox.box.X - movespeed;
                 if (collide.Intersects(block.cbox))
                 {
-                    if (CollisionCheckedVector(movespeed, 0, map.blocks).X == movespeed)
+                    if (CollisionCheckedVector(movespeed, 0, map.blocks, map).X == movespeed)
                     {
                         Move(movespeed, 0, map);
                         break;
@@ -453,7 +453,7 @@ namespace TheVillainsRevenge
 
         public void Jump(GameTime gameTime, Map map) //Deine Mudda springt bei Doodle Jump nach unten.
         {
-            if (CollisionCheckedVector(0, -1, map.blocks).Y < 0)
+            if (CollisionCheckedVector(0, -1, map.blocks, map).Y < 0)
             {
 
                 if (!jump)
@@ -484,7 +484,7 @@ namespace TheVillainsRevenge
         public void Move(int deltax, int deltay, Map map) //Falls Input, bewegt den Spieler
         {
             Vector2 domove = new Vector2(0, 0);
-            domove = CollisionCheckedVector(deltax, deltay, map.blocks);
+            domove = CollisionCheckedVector(deltax, deltay, map.blocks, map);
             spine.skeleton.X += domove.X;
             spine.skeleton.Y += domove.Y;
             position.Y = spine.skeleton.Y;
@@ -493,7 +493,7 @@ namespace TheVillainsRevenge
         }
 
 
-        public Vector2 CollisionCheckedVector(int x, int y, List<Block> list)
+        public Vector2 CollisionCheckedVector(int x, int y, List<Block> list, Map map)
         {
             CollisionBox cboxnew = new CollisionBox((int)cbox.offset.X, (int)cbox.offset.Y, cbox.box.Width, cbox.box.Height);
             cboxnew.Update(cbox.position);
@@ -520,7 +520,7 @@ namespace TheVillainsRevenge
                 foreach (Block block in list)
                 {
                     //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
-                    if (cboxnew.box.Intersects(block.cbox) && block.block)
+                    if ((cboxnew.box.Intersects(block.cbox) && block.block) || cboxnew.box.X < 0 || cbox.box.X + cbox.box.Width > map.size.X || cbox.box.Y < 0)
                     {
                         stop = true;
                         break;

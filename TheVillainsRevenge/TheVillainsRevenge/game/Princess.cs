@@ -155,7 +155,7 @@ namespace TheVillainsRevenge
             }
             else if (gameTime.TotalGameTime.TotalMilliseconds > (rageTimer + (float)rageWarmup)) //RageWarmup
             {
-                if (player.CollisionCheckedVector(0, 1, map.blocks).X == 0) //Nur auf dem Boden enragen
+                if (player.CollisionCheckedVector(0, 1, map.blocks, map).X == 0) //Nur auf dem Boden enragen
                 {
                     rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
                     randomNumber = randomGen.Next(0, 100);

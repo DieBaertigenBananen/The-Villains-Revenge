@@ -43,7 +43,7 @@ namespace TheVillainsRevenge
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
             //Deine Mudda stinkt nach Backfisch
-            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0) //AllowSmash am Boden zurück setzen
+            if (CollisionCheckedVector(0, 1, map.blocks, map).Y == 0) //AllowSmash am Boden zurück setzen
             {
                 allowSmash = false;
             }
@@ -117,7 +117,7 @@ namespace TheVillainsRevenge
                     smash = false;
                     smashImpact = false;
                 }
-                else if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                else if (CollisionCheckedVector(0, 1, map.blocks, map).Y == 0)
                 {
                     smashImpact = true;
                 }
@@ -212,7 +212,7 @@ namespace TheVillainsRevenge
                 {
                     acceleration = initAcceleration;
                 }
-                if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
+                if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks, map).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
                 {
                     acceleration = -acceleration * 0.8f;
                 }
@@ -220,7 +220,7 @@ namespace TheVillainsRevenge
             }
 
             //Gravitation
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
+            if (CollisionCheckedVector(0, 1, map.blocks, map).Y > 0 && !jump)
             {
                 if (!fall)
                 {
