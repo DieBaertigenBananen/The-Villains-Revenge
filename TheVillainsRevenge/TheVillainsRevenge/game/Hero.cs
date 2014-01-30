@@ -526,6 +526,7 @@ namespace TheVillainsRevenge
                             if (bewegblock)
                             {
                                 spine.anim("jump", 3, false, gameTime);
+                                Move(actualspeed, 0, map);
                                 Jump(gameTime, map); //Springen!
                                 kistate = 5;
                             }
