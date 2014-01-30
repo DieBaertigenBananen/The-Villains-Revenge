@@ -266,7 +266,7 @@ namespace TheVillainsRevenge
              levelMap = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/map");
              bewegendTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/bewegend");
              breakTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/destruction");
-             triggerTexture = Content.Load<Texture2D>("sprites/trigger");
+             triggerTexture = Content.Load<Texture2D>("sprites/Level_"+ Game1.level + "/buttons");
              pixelColors = new Color[levelMap.Width * levelMap.Height];
              levelMap.GetData<Color>(pixelColors);
              pixelRGBA = new int[levelMap.Width, levelMap.Height, 4];
@@ -314,10 +314,12 @@ namespace TheVillainsRevenge
              for (int i = 0; i < triggers.Count(); ++i)
              {
                  Trigger trigger = triggers.ElementAt(i);
+                 Vector2 tvector = trigger.position;
+                 tvector.X -= 40;
                  if(trigger.active)
-                     spriteBatch.Draw(triggerTexture, trigger.position, new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     spriteBatch.Draw(triggerTexture, tvector, new Rectangle(147, 0, 147, 60), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else
-                     spriteBatch.Draw(triggerTexture, trigger.position, new Rectangle(0, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     spriteBatch.Draw(triggerTexture, tvector, new Rectangle(0, 0, 147, 60), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
              for (int i = 0; i < objects.Count(); ++i)
              {
