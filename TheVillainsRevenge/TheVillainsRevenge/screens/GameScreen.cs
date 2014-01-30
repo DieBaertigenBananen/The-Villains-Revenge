@@ -41,11 +41,13 @@ namespace TheVillainsRevenge
         RenderTarget2D renderBackground2;
         RenderTarget2D renderBackground3;
         RenderTarget2D renderHud;
+        public BlendState blending = BlendState.AlphaBlend;
         SpriteFont font;
         bool levelend = false;
         Effect coverEyes;
         Effect smash;
         Effect dust;
+        Effect clear;
         GaussianBlur gauss;
         public static int slow = 0;
         double slowTime;
@@ -160,10 +162,11 @@ namespace TheVillainsRevenge
                     gui.Load(Content);
                     coverEyes = Content.Load<Effect>("CoverEyes");
                     smash = Content.Load<Effect>("Smash");
-                    Sound.Load(Content);
                     dust = Content.Load<Effect>("Dust");
+                    clear = Content.Load<Effect>("Clear");
                     gauss = new GaussianBlur();
                     gauss.Load(Content, Game1.graphics, 1920, 1080, 1f);
+                    Sound.Load(Content);
                     break;
                 case 7:
                     if (Game1.sound)
@@ -622,8 +625,24 @@ namespace TheVillainsRevenge
             }
         }
 
+        void ClearRenderTarget(SpriteBatch spriteBatch, RenderTarget2D renderTarget)
+        {
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderTarget);
+            //Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+            spriteBatch.Begin(SpriteSortMode.Immediate, blending, null, null, null, clear); //-----[Shader]-----Clear
+            spriteBatch.Draw(renderScreen, Vector2.Zero, Color.White);
+            spriteBatch.End();
+        }
+
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            //----------------------------------------------------------------------
+            //----------------------------------------Clear renderTargets
+            //----------------------------------------------------------------------
+            //ClearRenderTarget(spriteBatch, renderBackground0);
+            //ClearRenderTarget(spriteBatch, renderBackground1);
+            //ClearRenderTarget(spriteBatch, renderBackground2);
+            //ClearRenderTarget(spriteBatch, renderBackground3);
             //----------------------------------------------------------------------
             //----------------------------------------Draw to renderSpine
             //----------------------------------------------------------------------
@@ -649,33 +668,29 @@ namespace TheVillainsRevenge
             //Background3
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground3);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.viewportTransform);
                 background_3.Draw(spriteBatch, spieler); //Himmel
                 //clouds_3.Draw(spriteBatch);
             spriteBatch.End();
             //Background2
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground2);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.viewportTransform);
                 background_2.Draw(spriteBatch, spieler); //Berge
                 //clouds_2.Draw(spriteBatch);
             spriteBatch.End();
             //Background1
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground1);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.viewportTransform);
                 background_1.Draw(spriteBatch, spieler); //Wald
                 //clouds_1.Draw(spriteBatch);
             spriteBatch.End();
             //Background0
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBackground0);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.viewportTransform);
                 background_0.Draw(spriteBatch, spieler); //Bäume
-                if (Game1.debug)
-                {
-                    spriteBatch.Draw(loadingScreen.tile[6], new Vector2(800,1300), Color.White);
-                }
             spriteBatch.End();
             //----------------------------------------------------------------------
             //----------------------------------------Draw to renderForeground
@@ -683,13 +698,13 @@ namespace TheVillainsRevenge
             //Foreground0
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground_0);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.viewportTransform);
             foreground_0.Draw(spriteBatch, spieler); //Ebene
             spriteBatch.End();
             //Foreground1
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderForeground_1);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.viewportTransform);
             foreground_1.Draw(spriteBatch, spieler); //Ebene
             spriteBatch.End();
             //----------------------------------------------------------------------
@@ -697,15 +712,15 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderGame);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.viewportTransform);
                 karte.Draw(spriteBatch,gameTime,camera); //Plattformen & Co
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, dust, camera.viewportTransform); //-----[Shader]-----Dust
+            spriteBatch.Begin(SpriteSortMode.Immediate, blending, null, null, null, dust, camera.viewportTransform); //-----[Shader]-----Dust
                 spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
             spriteBatch.End();
                 if (Game1.debug) //Boundingboxen
                 {
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                    spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.viewportTransform);
                     spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                     spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
                     for (int i = 0; i < karte.enemies.Count(); i++)
@@ -728,7 +743,7 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderHud);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending);
                 if (levelend)
                 {
                     spriteBatch.DrawString(font, "Finished level!", new Vector2((Game1.resolution.X / 2) - 200, (Game1.resolution.Y / 2) - 200), Color.Black, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0f);
@@ -773,25 +788,25 @@ namespace TheVillainsRevenge
             //----------------------------------------Draw to renderScreen
             //----------------------------------------------------------------------
             //-----Apply Shaders-----
-            if (Game1.debug)
-            {
-                gauss.ChangeSigma(20f);
-                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3);
-                renderBackground3 = gauss.blurredRenderTarget;
-                gauss.ChangeSigma(10f);
-                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2);
-                renderBackground2 = gauss.blurredRenderTarget;
-                gauss.ChangeSigma(5f);
-                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1);
-                renderBackground1 = gauss.blurredRenderTarget;
-                gauss.ChangeSigma(1f);
-                gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0);
-                renderBackground0 = gauss.blurredRenderTarget;
-            }
+            //if (Game1.debug)
+            //{
+            //    gauss.ChangeSigma(20f);
+            //    gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3, blending);
+            //    renderBackground3 = gauss.blurredRenderTarget;
+            //    gauss.ChangeSigma(10f);
+            //    gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2, blending);
+            //    renderBackground2 = gauss.blurredRenderTarget;
+            //    gauss.ChangeSigma(5f);
+            //    gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1, blending);
+            //    renderBackground1 = gauss.blurredRenderTarget;
+            //    gauss.ChangeSigma(1f);
+            //    gauss.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0, blending);
+            //    renderBackground0 = gauss.blurredRenderTarget;
+            //}
             //-----Background-----
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend); //-----[Shader]-----Outline
+            spriteBatch.Begin(SpriteSortMode.Deferred, blending); //-----[Shader]-----Outline
             //Background3
             spriteBatch.Draw(renderBackground3, Vector2.Zero, Color.White);
             //Background2
@@ -804,7 +819,7 @@ namespace TheVillainsRevenge
             //-----Spielebene-----
             if (princess.beating || spieler.smash || spieler.smashIntensity > 0) //-----[Shader]-----Smash
             {
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, smash);
+                spriteBatch.Begin(SpriteSortMode.Immediate, blending, null, null, null, smash);
                 if (spieler.smashIntensity >= 0)
                 {
                     smash.Parameters["intensity"].SetValue(spieler.smashIntensity);
@@ -816,7 +831,7 @@ namespace TheVillainsRevenge
             }
             else
             {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                spriteBatch.Begin(SpriteSortMode.Deferred, blending);
             }
             spriteBatch.Draw(renderForeground_0, Vector2.Zero, Color.White);
             spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
@@ -830,7 +845,7 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
             if (dietime < 1 && dietime > 0&&spieler.lifes != 0)
             {
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+                spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.screenTransform);
 
                 spriteBatch.End();
             }
@@ -839,17 +854,17 @@ namespace TheVillainsRevenge
                 //-----renderTarget-----
                 if (princess.coverEyes) //-----[Shader]-----CoverEyes
                 {
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes, camera.screenTransform);
+                    spriteBatch.Begin(SpriteSortMode.Immediate, blending, null, null, null, coverEyes, camera.screenTransform);
                 }
                 else
                 {
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+                    spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.screenTransform);
                 }
                 spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
                 spriteBatch.End();
 
                 //-----HUD-----
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+                spriteBatch.Begin(SpriteSortMode.Deferred, blending, null, null, null, null, camera.screenTransform);
                 spriteBatch.Draw(renderHud, new Vector2(), Color.White);
                 spriteBatch.End();
             }

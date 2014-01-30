@@ -83,14 +83,14 @@ namespace TheVillainsRevenge
             CalcKernel(sigma);
         }
 
-        public void PerformGaussianBlur(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, RenderTarget2D srcRenderTarget)
+        public void PerformGaussianBlur(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, RenderTarget2D srcRenderTarget, BlendState blending)
         {
             //Do Horizontal Blur
             gauss.Parameters["kernel"].SetValue(kernel);
             gauss.Parameters["offsets"].SetValue(offsetsHori);
             graphics.GraphicsDevice.SetRenderTarget(renderTargetBlur);
             graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, gauss);
+            spriteBatch.Begin(SpriteSortMode.Immediate, blending, null, null, null, gauss);
             spriteBatch.Draw(srcRenderTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
 
@@ -98,7 +98,7 @@ namespace TheVillainsRevenge
             gauss.Parameters["offsets"].SetValue(offsetsVert);
             graphics.GraphicsDevice.SetRenderTarget(blurredRenderTarget);
             graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, gauss);
+            spriteBatch.Begin(SpriteSortMode.Immediate, blending, null, null, null, gauss);
             spriteBatch.Draw(renderTargetBlur, Vector2.Zero, Color.White);
             spriteBatch.End();
 
