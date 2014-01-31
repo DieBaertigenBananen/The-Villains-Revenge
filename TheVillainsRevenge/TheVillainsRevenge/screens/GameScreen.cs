@@ -54,6 +54,7 @@ namespace TheVillainsRevenge
         public static Lua LuaKI = new Lua();
         public static int test = 0;
         double dietime = 0;
+        public int GUIFace = 0;
         bool herohit = false;
 
         //KIDaten
@@ -241,6 +242,10 @@ namespace TheVillainsRevenge
         {
             if (!levelend && dietime == 0)
             {
+                if (princess.rageMode)
+                    GUIFace = 2;
+                else
+                    GUIFace = 0;
                 //Update Spieler
                 spieler.Update(gameTime, karte, princess);
 
@@ -432,6 +437,7 @@ namespace TheVillainsRevenge
                                     enemy.anim(gameTime, "attack", 2);
                                 spieler.getHit(gameTime, "die");
                                 dietime = 2;
+                                GUIFace = 1;
                                 //Reset();
                             }
                         }
@@ -553,6 +559,7 @@ namespace TheVillainsRevenge
                 if (spieler.position.Y >= karte.size.Y)
                 {
                     spieler.getHit(gameTime, "die");
+                    GUIFace = 1;
                     dietime = 1;
                     Reset(gameTime);
                 }
@@ -560,6 +567,7 @@ namespace TheVillainsRevenge
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start)
                 {
                     spieler.getHit(gameTime, "die2");
+                    GUIFace = 1;
                     dietime = 2;
                     hero.attack(gameTime);
                     herohit = true;
@@ -781,7 +789,7 @@ namespace TheVillainsRevenge
                     }
                     spriteBatch.DrawString(font, "Test: " + test, new Vector2(Game1.resolution.X - 300, 490), Color.White);
                 }
-                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2);
+                gui.Draw(spriteBatch, spieler.lifes, spieler.position, hero.position, karte.size, spieler.item1, spieler.item2,GUIFace);
             spriteBatch.End();
 
             //----------------------------------------------------------------------

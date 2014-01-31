@@ -13,24 +13,25 @@ namespace TheVillainsRevenge
         Texture2D BossBar;
         public override void Load(ContentManager Content)
         {
-            GuiTexture = Content.Load<Texture2D>("sprites/gui");
+            HUDTexture = Content.Load<Texture2D>("sprites/hud");
             BossBar = Content.Load<Texture2D>("sprites/bossbar");
         }
         public void Draw(SpriteBatch spriteBatch, int leben, int bossleben)
         {
+            // --------- Leben -------------
             switch (leben)
             {
                 case 4:
-                    spriteBatch.Draw(GuiTexture, new Vector2(10, 10), new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(HUDTexture, new Vector2(50, 10), new Rectangle(0, 192, 232, 124), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
                 case 3:
-                    spriteBatch.Draw(GuiTexture, new Vector2(10, 10), new Rectangle(64, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(HUDTexture, new Vector2(50, 10), new Rectangle(232, 192, 232, 124), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
                 case 2:
-                    spriteBatch.Draw(GuiTexture, new Vector2(10, 10), new Rectangle(128, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(HUDTexture, new Vector2(50, 10), new Rectangle(232 * 2, 192, 232, 124), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
                 case 1:
-                    spriteBatch.Draw(GuiTexture, new Vector2(10, 10), new Rectangle(192, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(HUDTexture, new Vector2(50, 10), new Rectangle(232 * 3, 192, 232, 124), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                     break;
             }
             spriteBatch.Draw(BossBar, new Vector2((Game1.resolution.X / 2) - 500, Game1.resolution.Y - 64), new Rectangle(0, 0, bossleben*10, 50), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);

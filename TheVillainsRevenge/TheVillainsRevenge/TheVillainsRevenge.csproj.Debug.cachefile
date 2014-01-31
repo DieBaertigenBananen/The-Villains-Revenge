@@ -1,7 +1,6 @@
 Content\fonts\schrift.xnb
 Content\sprites\block.xnb
 Content\sprites\bunny.xnb
-Content\sprites\gui.xnb
 Content\sprites\itemslot.xnb
 Content\sprites\player.xnb
 Content\sprites\tiles.xnb
@@ -104,6 +103,10 @@ Content\sprites\level_3\buttons.xnb
 Content\sprites\level_1\buttons.xnb
 Content\sprites\level_5\buttons.xnb
 Content\sprites\level_5\destruction.xnb
+Content\sprites\hud.xnb
+Content\sprites\minimap.xnb
+Content\sprites\mini_bonepuker.xnb
+Content\sprites\mini_ashbrett.xnb
 spine\sprites\ashbrett.png
 spine\sprites\fluffy.png
 spine\sprites\clobbercloud.png
