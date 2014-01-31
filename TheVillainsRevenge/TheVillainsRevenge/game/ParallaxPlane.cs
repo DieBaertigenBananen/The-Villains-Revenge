@@ -41,40 +41,45 @@ namespace TheVillainsRevenge
 
         public void Draw(SpriteBatch spriteBatch, Player spieler)
         {
-            for (int i = 0; i < tilesCount; i++)
+            for (int t = 0; t < tilesCount; t++)
             {
-                spriteBatch.Draw(texture[i], new Vector2(position.X + (i * 3840), position.Y), Color.White);
+                int i = t + 1;
+                if (!texture[i].IsDisposed)
+                {
+                    spriteBatch.Draw(texture[i], new Vector2(position.X + (i * 3840), position.Y), Color.White);
+                }
             }
         }
 
-        public void Update(Map karte, Camera camera)
+        public void Update(ContentManager Content, Map map, Camera camera)
         {
             //Position = Viewportposition - (Position wenn am Ende am Maprand * Positionsfaktor abhängig von Viewportposition/letzte Mapposition)
-            position.X = camera.viewport.X - ((size.X - camera.viewport.Width) * (camera.viewport.X / (karte.size.X - camera.viewport.Width)));
-            position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (karte.size.Y - camera.viewport.Height))) + additionalHeight;
-            //TextureManager(camera);
+            position.X = camera.viewport.X - ((size.X - camera.viewport.Width) * (camera.viewport.X / (map.size.X - camera.viewport.Width)));
+            position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (map.size.Y - camera.viewport.Height))) + additionalHeight;
+            TextureManager(Content, camera);
         }
-        //public void TextureManager(Camera camera)
-        //{
-        //    //Lade Textur, einmal ausgeführt
-        //    for (int i = 0; i < tilesCount; i++)
-        //    {
-        //        if (camera.viewport.X > position.X + (i * 3840) && camera.viewport.X < position.X + (i * 3840) + texture[i].Width)
-        //        {
-        //            if (texture[i].IsDisposed)
-        //            {
-        //                texture[i] = Content.Load<Texture2D>("sprites/Level_1/Planes/" + textureName + "_" + (i + 1));
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (!texture[i].IsDisposed)
-        //            {
-        //                texture[i].Dispose();
-        //            }
-        //        }
-        //    }
-        //}
+        public void TextureManager(ContentManager Content, Camera camera)
+        {
+            //Lade Textur, einmal ausgeführt
+            for (int t = 0; t < tilesCount; t++)
+            {
+                int i = t + 1;
+                if (camera.viewport.X > position.X + (i * 3840) && camera.viewport.X < position.X + (i * 3840) + texture[i].Width)
+                {
+                    if (texture[i].IsDisposed)
+                    {
+                        texture[i] = Content.Load<Texture2D>("sprites/Level_1/Planes/" + textureName + "_" + (i + 1));
+                    }
+                }
+                else
+                {
+                    if (!texture[i].IsDisposed)
+                    {
+                        texture[i]. Dispose();
+                    }
+                }
+            }
+        }
     }
     
 }
