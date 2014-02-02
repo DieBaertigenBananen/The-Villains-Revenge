@@ -41,9 +41,8 @@ namespace TheVillainsRevenge
 
         public void Draw(SpriteBatch spriteBatch, Player spieler)
         {
-            for (int t = 0; t < tilesCount; t++)
+            for (int i = 0; i < tilesCount; i++)
             {
-                int i = t + 1;
                 if (!texture[i].IsDisposed)
                 {
                     spriteBatch.Draw(texture[i], new Vector2(position.X + (i * 3840), position.Y), Color.White);
@@ -61,22 +60,18 @@ namespace TheVillainsRevenge
         public void TextureManager(ContentManager Content, Camera camera)
         {
             //Lade Textur, einmal ausgeführt
-            for (int t = 0; t < tilesCount; t++)
+            for (int i = 0; i < tilesCount; i++)
             {
-                int i = t + 1;
-                if (camera.viewport.X > position.X + (i * 3840) && camera.viewport.X < position.X + (i * 3840) + texture[i].Width)
+                if (camera.viewport.X + camera.viewport.Width >= position.X + (i * 3840) && camera.viewport.X <= position.X + (i * 3840) + texture[i].Width)
                 {
                     if (texture[i].IsDisposed)
                     {
-                        texture[i] = Content.Load<Texture2D>("sprites/Level_1/Planes/" + textureName + "_" + (i + 1));
+                        texture[i] = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/Planes/" + textureName + "_" + (i + 1));
                     }
                 }
-                else
+                else if (!texture[i].IsDisposed)
                 {
-                    if (!texture[i].IsDisposed)
-                    {
-                        texture[i]. Dispose();
-                    }
+                    texture[i].Dispose();
                 }
             }
         }

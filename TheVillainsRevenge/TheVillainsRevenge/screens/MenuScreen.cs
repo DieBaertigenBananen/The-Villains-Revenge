@@ -163,7 +163,7 @@ namespace TheVillainsRevenge
                     }
                     else //Fullscreentoogle
                     {
-                        Game1.toggleFullscreen();
+                        Game1.ToggleFullscreen();
                     }
                 }
             }

@@ -304,7 +304,7 @@ namespace TheVillainsRevenge
             }
             if (input.fullscreen) //F11 = Toggle Fullscreen
             {
-                Game1.toggleFullscreen();
+                Game1.ToggleFullscreen();
             }
             if (menuOption == 0 || input.end)
             {
@@ -341,7 +341,7 @@ namespace TheVillainsRevenge
                 sound = data.sound;
                 if (data.fullscreen != graphics.IsFullScreen)
                 {
-                    toggleFullscreen();
+                    ToggleFullscreen();
                 }
                 if (data.level <= 5)
                 {
@@ -382,7 +382,7 @@ namespace TheVillainsRevenge
             file.Close();
         }
 
-        public static void toggleFullscreen()
+        public static void ToggleFullscreen()
         {
             if (graphics.IsFullScreen)
             {
