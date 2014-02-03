@@ -264,7 +264,8 @@ namespace TheVillainsRevenge
                     {
                         game = null;
                         Content.Unload();
-                        level = 3;
+                        if(level < 5)
+                            level += 1;
                         Save();
                         menu = new MenuScreen(2);
                         menu.Load(Content);
