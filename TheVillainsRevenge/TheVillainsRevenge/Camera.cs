@@ -29,41 +29,6 @@ namespace TheVillainsRevenge
             int topspace = Convert.ToInt32((double)Game1.luaInstance["cameraTopspace"]);
             int maxbewegung = Convert.ToInt32((double)Game1.luaInstance["cameraMaxBewegung"]);
             int bewegungsteps = Convert.ToInt32((double)Game1.luaInstance["cameraBewegungSteps"]);
-            if (Game1.input.camerar)
-            {
-                camerabewegung += bewegungsteps;
-                if (camerabewegung > maxbewegung)
-                {
-                    camerabewegung = maxbewegung;
-                }
-            }
-            else if (Game1.input.cameral)
-            {
-                camerabewegung -= bewegungsteps;
-                if (camerabewegung < -maxbewegung)
-                {
-                    camerabewegung = -maxbewegung;
-                }
-            }
-            else
-            {
-                if (camerabewegung > 0)
-                {
-                    camerabewegung -= bewegungsteps;
-                    if (camerabewegung < 0)
-                    {
-                        camerabewegung = 0;
-                    }
-                }
-                else if (camerabewegung < 0)
-                {
-                    camerabewegung += bewegungsteps;
-                    if (camerabewegung > 0)
-                    {
-                        camerabewegung = 0;
-                    }
-                }
-            }
             if (Game1.input.cameraDynR > 0.0f)
             {
                 camerabewegung = (int)((float)maxbewegung * Game1.input.cameraDynR * Game1.input.cameraDynR);

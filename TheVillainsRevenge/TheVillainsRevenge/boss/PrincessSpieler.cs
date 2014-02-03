@@ -42,11 +42,6 @@ namespace TheVillainsRevenge
             {
                 actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
             }
-            //Deine Mudda stinkt nach Backfisch
-            if (CollisionCheckedVector(0, 1, map.blocks, map).Y == 0) //AllowSmash am Boden zurück setzen
-            {
-                allowSmash = false;
-            }
             //-----Sprung-----
             if ((Game1.input.sprung || savejump))
             {
@@ -74,11 +69,11 @@ namespace TheVillainsRevenge
                 }
             }
             //-----Schlag / Smash starten-----
-            if (Game1.input.hit)
+            if (Game1.input.shit)
             {
                 if (jump || fall)
                 {
-                    if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown) && allowSmash) //Smash beginnen
+                    if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
                     {
                         jump = false;
                         fall = true;
@@ -90,12 +85,12 @@ namespace TheVillainsRevenge
                         falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
                     }
                 }
+            }
+            else if (Game1.input.hit)
+            {
                 if (!smash && !hit) //Schlag beginnen
                 {
-                    if (jump || fall)
-                    {
-                        allowSmash = true; //Nächster Schlag in der Luft = smash
-                    }
+                    Sound.Play("schlag");
                     hit = true;
                     spine.anim("attack", 0, false, gameTime);
                     hitTimer = gameTime.TotalGameTime.TotalMilliseconds;

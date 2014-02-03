@@ -41,7 +41,6 @@ namespace TheVillainsRevenge
         public double hitTimer;
         public double smashTimer;
         public Rectangle hitCbox;
-        public bool allowSmash = false;
         //Checkpoint Speicherng//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         public Vector2 checkpoint;
@@ -165,11 +164,6 @@ namespace TheVillainsRevenge
                     acceleration = initAcceleration;
                 }
             }
-            //Deine Mudda stinkt nach Backfisch
-            if (CollisionCheckedVector(0, 1, map.blocks, map).Y == 0) //AllowSmash am Boden zurück setzen
-            {
-                allowSmash = false;
-            }
             //-----Sprung-----
             if ((Game1.input.sprung || savejump) && !princess.beating)
             {
@@ -200,11 +194,11 @@ namespace TheVillainsRevenge
                 }
             }
             //-----Schlag / Smash starten-----
-            if (Game1.input.hit && !princess.beating)
+            if (Game1.input.shit && !princess.beating)
             {
                 if (jump || fall)
                 {
-                    if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown) && allowSmash) //Smash beginnen
+                    if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
                     {
                         jump = false;
                         fall = true;
@@ -216,12 +210,11 @@ namespace TheVillainsRevenge
                         falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
                     }
                 }
+            }
+            else if (Game1.input.hit && !princess.beating)
+            {
                 if (!smash && !hit) //Schlag beginnen
                 {
-                    if (jump || fall)
-                    {
-                        allowSmash = true; //Nächster Schlag in der Luft = smash
-                    }
                     Sound.Play("schlag");
                     hit = true;
                     spine.anim("attack", 0, false, gameTime);
@@ -344,35 +337,39 @@ namespace TheVillainsRevenge
                     acceleration = -acceleration * 0.8f;
                 }
                 Move((int)((acceleration / initAcceleration) * actualspeed), 0, map);
-                if (Game1.input.itemw)
-                {
-                    int i = item1;
-                    item1 = item2;
-                    item2 = i;
-                }
-                if (Game1.input.itemu)
+                if (Game1.input.itemu1)
                 {
                     if (item1 == 1)
                     {
                         Sound.Play("time_shift");
                         GameScreen.slow = GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["itemSlowTime"]);
-                        item1 = 0;
                     }
                     else if (item1 == 2 && !fall && !jump)
                     {
                         map.objects.Add(new Banana(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 1));
-                        item1 = 0;
                     }
                     else if (item1 == 3 && !fall && !jump)
                     {
                         map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2, false));
-                        item1 = 0;
                     }
-                    if (item1 == 0 && item2 != 0)
+                    item1 = 0;
+                }
+                if (Game1.input.itemu2)
+                {
+                    if (item2 == 1)
                     {
-                        item1 = item2;
-                        item2 = 0;
+                        Sound.Play("time_shift");
+                        GameScreen.slow = GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["itemSlowTime"]);
                     }
+                    else if (item2 == 2 && !fall && !jump)
+                    {
+                        map.objects.Add(new Banana(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 1));
+                    }
+                    else if (item2 == 3 && !fall && !jump)
+                    {
+                        map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2, false));
+                    }
+                    item2 = 0;
                 }
             }
 

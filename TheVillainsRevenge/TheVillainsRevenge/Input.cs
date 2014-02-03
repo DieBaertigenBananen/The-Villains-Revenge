@@ -14,18 +14,18 @@ namespace TheVillainsRevenge
         bool downp;
         public bool enter;
         bool enterp;
-        public bool camerar;
-        public bool cameral;
-        public bool itemw;
-        bool itemwp;
-        public bool itemu;
-        bool itemup;
+        public bool itemu1;
+        bool itemup1;
+        public bool itemu2;
+        bool itemup2;
         public bool back;
         bool backp;
         public bool debug;
         bool debugp;
         public bool hit;
         bool hitp;
+        public bool shit;
+        bool shitp;
         public bool fullscreen;
         bool fullscreenp;
         public bool sprung;
@@ -44,6 +44,8 @@ namespace TheVillainsRevenge
             {
                 end = false;
             }
+
+            // --- GAME STUFF --- //
             //Sprung
             if (!sprungp)
             {
@@ -65,8 +67,103 @@ namespace TheVillainsRevenge
                     sprungp = false;
                 }
             }
+            //Schlag
+            if (!hitp)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed
+                    ||
+                    keyState.IsKeyDown(Keys.C))
+                {
+                    hit = true;
+                    hitp = true;
+                }
+            }
+            else
+            {
+                hit = false;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Released
+                    &&
+                    keyState.IsKeyUp(Keys.C))
+                {
+                    hitp = false;
+                }
+            }
+            //Smash
+            if (!shitp)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed
+                    ||
+                    keyState.IsKeyDown(Keys.V))
+                {
+                    shit = true;
+                    shitp = true;
+                }
+            }
+            else
+            {
+                shit = false;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Released
+                    &&
+                    keyState.IsKeyUp(Keys.V))
+                {
+                    shitp = false;
+                }
+            }
+
+            //Dynamische Camera Rechtsbewegung
+            cameraDynR = GamePad.GetState(PlayerIndex.One).Triggers.Right;
+            //Dynamische Camera Linksbewegung
+            cameraDynL = GamePad.GetState(PlayerIndex.One).Triggers.Left;
+
+
+            //itembenutzung
+            if (!itemup1)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed
+                    ||
+                    keyState.IsKeyDown(Keys.F))
+                {
+                    itemu1 = true;
+                    itemup1 = true;
+                }
+            }
+            else
+            {
+                itemu1 = false;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed
+                    &&
+                    keyState.IsKeyUp(Keys.F))
+                {
+                    itemup1 = false;
+                }
+            }
+            if (!itemup2)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed
+                    ||
+                    keyState.IsKeyDown(Keys.G))
+                {
+                    itemu2 = true;
+                    itemup2 = true;
+                }
+            }
+            else
+            {
+                itemu2 = false;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed
+                    &&
+                    keyState.IsKeyUp(Keys.G))
+                {
+                    itemup2 = false;
+                }
+            }
+
+            // --- Allgemeiner Stuff --- //
+
             //Rechts
             if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0f
+                ||
+                GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Pressed
                 ||
                 keyState.IsKeyDown(Keys.Right) == true
                 ||
@@ -81,6 +178,8 @@ namespace TheVillainsRevenge
             //Links
             if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0f
                 ||
+                GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Pressed
+                ||
                 keyState.IsKeyDown(Keys.Left) == true
                 ||
                 keyState.IsKeyDown(Keys.A) == true) //Wenn Rechte Pfeiltaste
@@ -90,94 +189,6 @@ namespace TheVillainsRevenge
             else
             {
                 links = false;
-            }
-            //Dynamische Camera Rechtsbewegung
-            cameraDynR = GamePad.GetState(PlayerIndex.One).Triggers.Right;
-            //Dynamische Camera Linksbewegung
-            cameraDynL = GamePad.GetState(PlayerIndex.One).Triggers.Left;
-            //Camera Rechtsbewegung
-           if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed
-                    ||
-                    keyState.IsKeyDown(Keys.E))
-            {
-                camerar = true;
-            }
-            else
-            {
-               camerar = false;
-            }
-           //Camera Linksbewegung
-           if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed
-                    ||
-                    keyState.IsKeyDown(Keys.Q))
-           {
-               cameral = true;
-           }
-           else
-           {
-               cameral = false;
-           }
-           //Schlag
-           if (!hitp)
-           {
-               if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed
-                   ||
-                   keyState.IsKeyDown(Keys.C))
-               {
-                   hit = true;
-                   hitp = true;
-               }
-           }
-           else
-           {
-               hit = false;
-               if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Released
-                   &&
-                   keyState.IsKeyUp(Keys.C))
-               {
-                   hitp = false;
-               }
-           }
-            //itemwechsel
-            if (!itemwp)
-            {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed
-                    ||
-                    keyState.IsKeyDown(Keys.R))
-                {
-                    itemw = true;
-                    itemwp = true;
-                }
-            }
-            else
-            {
-                itemw = false;
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Released
-                    &&
-                    keyState.IsKeyUp(Keys.R))
-                {
-                    itemwp = false;
-                }
-            }
-            if (!itemup)
-            {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed
-                    ||
-                    keyState.IsKeyDown(Keys.F))
-                {
-                    itemu = true;
-                    itemup = true;
-                }
-            }
-            else
-            {
-                itemu = false;
-                if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Released
-                    &&
-                    keyState.IsKeyUp(Keys.F))
-                {
-                    itemup = false;
-                }
             }
             if (!enterp)
             {
@@ -203,7 +214,7 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0f
                     || 
-                    GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Pressed
+                    GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed
                     ||
                     keyState.IsKeyDown(Keys.Down) 
                     || 
@@ -218,7 +229,7 @@ namespace TheVillainsRevenge
                 down = false;
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y >= 0f
                     &&
-                    GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Released
+                    GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Released
                     &&
                     keyState.IsKeyUp(Keys.Down)
                     &&
@@ -231,7 +242,7 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0f
                     ||
-                    GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Pressed 
+                    GamePad.GetState(PlayerIndex.One).DPad.Up == ButtonState.Pressed 
                     ||
                     keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
                 {
@@ -244,7 +255,7 @@ namespace TheVillainsRevenge
                 up = false;
                 if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y <= 0f
                     &&
-                    GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Released 
+                    GamePad.GetState(PlayerIndex.One).DPad.Up == ButtonState.Released 
                     &&
                     keyState.IsKeyUp(Keys.Up) && keyState.IsKeyUp(Keys.W))
                 {
