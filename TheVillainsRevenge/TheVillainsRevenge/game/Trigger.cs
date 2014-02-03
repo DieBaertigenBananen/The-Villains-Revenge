@@ -107,7 +107,7 @@ namespace TheVillainsRevenge
                             cboxnew.Y += 48;
                             for (int j = 0; j < list.Count(); ++j)
                             {
-                                Block block = blocks.ElementAt(j);
+                                Block block = list.ElementAt(j);
                                 if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
                                 {
                                     list.Remove(block);
@@ -127,7 +127,7 @@ namespace TheVillainsRevenge
                             bool collide = false;
                             for (int j = 0; j < list.Count(); ++j)
                             {
-                                Block block = blocks.ElementAt(j);
+                                Block block = list.ElementAt(j);
                                 if (block.cbox.Intersects(cboxnew) && block.block)
                                 {
                                     collide = true;
