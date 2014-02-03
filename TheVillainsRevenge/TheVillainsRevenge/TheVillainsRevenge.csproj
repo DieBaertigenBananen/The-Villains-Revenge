@@ -120,6 +120,7 @@
     <Compile Include="boss\BossCam.cs" />
     <Compile Include="boss\BossGui.cs" />
     <Compile Include="boss\PrincessSpieler.cs" />
+    <Compile Include="Cutscene.cs" />
     <Compile Include="game\Block.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="game\Breakable.cs" />
@@ -144,7 +145,7 @@
     <Compile Include="game\ParallaxPlane.cs" />
     <Compile Include="game\Player.cs" />
     <Compile Include="game\Princess.cs" />
-    <Compile Include="game\Sound.cs" />
+    <Compile Include="Sound.cs" />
     <Compile Include="game\Spine.cs" />
     <Compile Include="game\Trigger.cs" />
     <Compile Include="game\CloudPlane.cs" />

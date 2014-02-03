@@ -55,7 +55,7 @@ namespace TheVillainsRevenge
             //Position = Viewportposition - (Position wenn am Ende am Maprand * Positionsfaktor abhängig von Viewportposition/letzte Mapposition)
             position.X = camera.viewport.X - ((size.X - camera.viewport.Width) * (camera.viewport.X / (map.size.X - camera.viewport.Width)));
             position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (map.size.Y - camera.viewport.Height))) + additionalHeight;
-            TextureManager(Content, camera);
+            //TextureManager(Content, camera);
         }
         public void TextureManager(ContentManager Content, Camera camera)
         {
