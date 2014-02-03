@@ -213,10 +213,10 @@ namespace TheVillainsRevenge
                 //Schaue wo die Blöcke sind
                 Rectangle cboxnew = new Rectangle((int)cbox.X, (int)cbox.Y, cbox.Width, cbox.Height);
                 //Gehe nach links um die X-Distanz herauszufidnen
+                bool hat = false;
                 for (int i = 0; i < 20; i++)
                 {
                     cboxnew.X = cboxnew.X - 48;
-                    bool hat = false;
                     for (int j = 0; j < list.Count(); ++j)
                     {
                         Block block = list.ElementAt(j);
@@ -232,43 +232,71 @@ namespace TheVillainsRevenge
                     if (hat)
                         break;
                 }
-                //X-Distanz gefunden, in triggerend gespeichert
-                //Gehe nach Oben
-                for (int i = 0; i < 20; i++)
+                if (!hat)
                 {
-                    cboxnew.Y = cboxnew.Y - 48;
-                    for (int j = 0; j < list.Count(); ++j)
-                    {
-                        Block block = list.ElementAt(j);
-                        if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
-                        {
-                            //Wir haben alle Daten
-                            oben = true;
-                            break;
-                        }
-                    }
-                    if (oben)
-                        break;
-                }
-                if (oben)
-                    typ = 1; //Wand
-                else
-                {
-                    cboxnew = triggerend;
-                    doorstart.X = cboxnew.X;
+                    cboxnew.X = cbox.X;
                     for (int i = 0; i < 20; i++)
                     {
+                        cboxnew.X = cboxnew.X + 48;
                         for (int j = 0; j < list.Count(); ++j)
                         {
                             Block block = list.ElementAt(j);
-                            if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
+                            if (cboxnew.Intersects(block.cbox) && block.type == "triggerdoor")
                             {
+                                //Wir haben den Block, jetzt hole die Höhe
+                                triggerend.X = block.cbox.X;
+                                triggerend.Y = block.cbox.Y + 48;
                                 doorstart.Y = block.cbox.Y;
+                                doorstart.X = block.cbox.X;
+                                hat = true;
+                                break;
                             }
                         }
-                        cboxnew.Y = cboxnew.Y + 48;
+                        if (hat)
+                            break;
                     }
-                    typ = 2; //Tür
+                    typ = 2;
+                }
+                else
+                {
+                    //X-Distanz gefunden, in triggerend gespeichert
+                    //Gehe nach Oben
+                    for (int i = 0; i < 20; i++)
+                    {
+                        cboxnew.Y = cboxnew.Y - 48;
+                        for (int j = 0; j < list.Count(); ++j)
+                        {
+                            Block block = list.ElementAt(j);
+                            if (cboxnew.Intersects(block.cbox) && block.type == "triggerend")
+                            {
+                                //Wir haben alle Daten
+                                oben = true;
+                                break;
+                            }
+                        }
+                        if (oben)
+                            break;
+                    }
+                    if (oben)
+                        typ = 1; //Wand
+                    else
+                    {
+                        cboxnew = triggerend;
+                        doorstart.X = cboxnew.X;
+                        for (int i = 0; i < 20; i++)
+                        {
+                            for (int j = 0; j < list.Count(); ++j)
+                            {
+                                Block block = list.ElementAt(j);
+                                if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
+                                {
+                                    doorstart.Y = block.cbox.Y;
+                                }
+                            }
+                            cboxnew.Y = cboxnew.Y + 48;
+                        }
+                        typ = 2; //Tür
+                    }
                 }
             }
             //Triggerend und typ ermittelt
