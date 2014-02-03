@@ -1,64 +1,51 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using Microsoft.Xna.Framework;
-//using Microsoft.Xna.Framework.Content; 
-//using Microsoft.Xna.Framework.Media;
-//using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Graphics;
 
-//namespace TheVillainsRevenge
-//{
-//    static class Cutscene
-//    {
+namespace TheVillainsRevenge
+{
+    static class Cutscene
+    {
 
-//        static Video start;
-//        public static VideoPlayer startInstance;
-//        static Video intro;
-//        public static VideoPlayer introInstance;
-//        static Video final;
-//        public static VideoPlayer finalInstance;
-//        static Video credits;
-//        public static VideoPlayer creditsInstance;
+        static Video start;
+        static Video intro;
+        static Video final;
+        static Video credits;
+        public static VideoPlayer player;
 
-//        static public void Load(ContentManager Content)
-//        {
-//            start = Content.Load<Video>("scenes/start");
-//            intro = Content.Load<Video>("scenes/intro");
-//            final = Content.Load<Video>("scenes/final");
-//            credits = Content.Load<Video>("scenes/credits");
-//        }
-//        static public void DrawStart(SpriteBatch spriteBatch)
-//        {
-//            if (startInstance.State == MediaState.Stopped)
-//            {
-//                startInstance.Play(start);
-//            }
-//            spriteBatch.Draw(startInstance.GetTexture(), Vector2.Zero, Color.White);
-//        }
-//        static public void PlayMenu()
-//        {
-//            if (Game1.sound)
-//            {
-//                menuMusicInstance = menuMusic.CreateInstance();
-//                menuMusicInstance.Volume = 0.5f;
-//                menuMusicInstance.IsLooped = true;
-//                menuMusicInstance.Play();
-//            }
-//        }
-//        static public void PlayStart()
-//        {
-//            if (Game1.sound)
-//            {
-//                startMusicInstance = startMusic.CreateInstance();
-//                startMusicInstance.Volume = 0.5f;
-//                startMusicInstance.IsLooped = false;
-//                startMusicInstance.Play();
-//            }
-//        }
-//        static public void PauseMenu()
-//        {
-//            menuMusicInstance.Stop();
-//        }
-//    }
-//}
+        static public void Load(ContentManager Content)
+        {
+            start = Content.Load<Video>("scenes/start");
+            intro = Content.Load<Video>("scenes/intro");
+            final = Content.Load<Video>("scenes/final");
+            credits = Content.Load<Video>("scenes/credits");
+            player = new VideoPlayer();
+        }
+
+        static public void Play(string scene)
+        {
+            Video tempVideo = null;
+            switch (scene)
+            {
+                case "start":
+                    tempVideo = start;
+                    break;
+                case "intro":
+                    tempVideo = intro;
+                    break;
+                case "final":
+                    tempVideo = final;
+                    break;
+                case "credits":
+                    tempVideo = credits;
+                    break;
+            }
+            player.Play(tempVideo);
+        }
+    }
+}

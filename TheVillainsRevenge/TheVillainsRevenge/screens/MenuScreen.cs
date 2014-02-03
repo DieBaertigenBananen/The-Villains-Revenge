@@ -51,7 +51,7 @@ namespace TheVillainsRevenge
             }
             else
             {
-                //startScreen = true;
+                startScreen = true;
             }
         }
         public void Load(ContentManager Content)
@@ -84,6 +84,11 @@ namespace TheVillainsRevenge
             {
                 Sound.PlayStart();
             }
+            Cutscene.Load(Content);
+            if (startScreen)
+            {
+                Cutscene.Play("start");
+            }
         }
         public int Update(GameTime gameTime)
         {
@@ -91,9 +96,9 @@ namespace TheVillainsRevenge
             {
                 Sound.PlayMenu();
             }
-            if (startScreen)
+            if (startScreen && Cutscene.player.State == MediaState.Stopped)
             {
-
+                startScreen = false;
             }
             else
             {
@@ -217,7 +222,7 @@ namespace TheVillainsRevenge
                 Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
-                    spriteBatch.Draw(overlay_texture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(Cutscene.player.GetTexture(), Vector2.Zero, Color.White);
                 spriteBatch.End();
             }
             else
