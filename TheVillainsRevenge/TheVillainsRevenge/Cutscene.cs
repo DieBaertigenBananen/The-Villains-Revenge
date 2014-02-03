@@ -21,9 +21,9 @@ namespace TheVillainsRevenge
         static public void Load(ContentManager Content)
         {
             start = Content.Load<Video>("scenes/start");
-            intro = Content.Load<Video>("scenes/intro");
-            final = Content.Load<Video>("scenes/final");
-            credits = Content.Load<Video>("scenes/credits");
+            //intro = Content.Load<Video>("scenes/intro");
+            //final = Content.Load<Video>("scenes/final");
+            //credits = Content.Load<Video>("scenes/credits");
             player = new VideoPlayer();
         }
 
