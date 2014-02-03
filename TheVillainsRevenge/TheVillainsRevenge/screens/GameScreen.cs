@@ -334,6 +334,16 @@ namespace TheVillainsRevenge
                             karte.breakblocks.RemoveAt(i);
                         }
                     }
+
+                    for (int j = 0; j < karte.blocks.Count(); j++)
+                    {
+                        Block block = karte.blocks.ElementAt(j);
+                        if (block.cbox.Intersects(spieler.hitCbox) && block.type == "breakable")
+                        {
+                            karte.objects.Add(new Debris(block.position, 3));
+                            karte.blocks.Remove(block);
+                        }
+                    }
                     spieler.hitCbox.Y -= 1;
                 }
 
@@ -351,7 +361,10 @@ namespace TheVillainsRevenge
                             //Banane oder Kacke, verlangsame und entferne sich selber
                             if (obj.type == 1)
                                 Sound.Play("ausrutscher");
-                            hero.slowtime += 10;
+                            if (hero.slowtime < 30)
+                            {
+                                hero.slowtime += 10;
+                            }
                             karte.objects.Remove(obj);
                         }
                         else
