@@ -21,8 +21,9 @@ namespace TheVillainsRevenge
         public RenderTarget2D blurredRenderTarget;
         public Effect gauss;
 
-        public GaussianBlur()
+        public GaussianBlur(ContentManager Content, GraphicsDeviceManager graphics, int width, int height, float sigma)
         {
+            Load(Content, graphics, width, height, sigma);
         }
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics, int width, int height, float sigma)
