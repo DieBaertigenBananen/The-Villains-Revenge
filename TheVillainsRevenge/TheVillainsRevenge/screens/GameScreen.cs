@@ -269,7 +269,7 @@ namespace TheVillainsRevenge
                             Vector2 pos = new Vector2(0, 0);
                             for (int j = 0; j < bblock.blocks.Count(); j++)
                             {
-                                Block block = karte.blocks.ElementAt(j);
+                                Block block = bblock.blocks.ElementAt(j);
                                 if (pos.X == 0)
                                 {
                                     pos = block.position;
@@ -856,7 +856,7 @@ namespace TheVillainsRevenge
             }
             spriteBatch.Draw(renderForeground_0, Vector2.Zero, Color.White);
             spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
-            spriteBatch.Draw(renderForeground_1, Vector2.Zero, Color.White);
+            //spriteBatch.Draw(renderForeground_1, Vector2.Zero, Color.White);
             spriteBatch.End();
 
             //----------------------------------------------------------------------
