@@ -652,6 +652,7 @@ namespace TheVillainsRevenge
             if (dietime != 0)
             {
                 Game1.time += gameTime.ElapsedGameTime;
+                dietime -= gameTime.ElapsedGameTime.TotalSeconds;
                 if (dietime < 0 && spieler.lifes != 0)
                 {
                     if (herohit)
