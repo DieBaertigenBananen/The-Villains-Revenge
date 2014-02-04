@@ -7,10 +7,18 @@ float gameTime;
 float4 blackMask(float2 coords: TEXCOORD) : COLOR
 {  
 	float4 color = tex2D(textureSampler, coords);
-	float blubb = 20.0f * sin(gameTime / 20);
-	color = (color + tex2D(textureSampler, float2(coords.x + blubb / 1920, coords.y)) + tex2D(textureSampler, float2(coords.x - blubb / 1920, coords.y)) + tex2D(textureSampler, float2(coords.x, coords.y + blubb / 1080)) + tex2D(textureSampler, float2(coords.x, coords.y - blubb / 1080)) + tex2D(textureSampler, float2(coords.x + blubb / 1920, coords.y + blubb / 1080)) + tex2D(textureSampler, float2(coords.x - blubb / 1920, coords.y + blubb / 1080)) + tex2D(textureSampler, float2(coords.x + blubb / 1920, coords.y - blubb / 1080)) + tex2D(textureSampler, float2(coords.x - blubb / 1920, coords.y - blubb / 1080))) / 9; //Blur
+	float x = gameTime * 0.04f;
+	float offsetVertical = 10.0f * (tan(x) / sin(x));
+	float offsetHorizontal = offsetVertical * 3;
+	color = (color + tex2D(textureSampler, float2(coords.x + offsetHorizontal / 1920, coords.y)) + tex2D(textureSampler, float2(coords.x - offsetHorizontal / 1920, coords.y)) + tex2D(textureSampler, float2(coords.x, coords.y + offsetVertical / 1080)) + tex2D(textureSampler, float2(coords.x, coords.y - offsetVertical / 1080)) + tex2D(textureSampler, float2(coords.x + offsetHorizontal / 1920, coords.y + offsetVertical / 1080)) + tex2D(textureSampler, float2(coords.x - offsetHorizontal / 1920, coords.y + offsetVertical / 1080)) + tex2D(textureSampler, float2(coords.x + offsetHorizontal / 1920, coords.y - offsetVertical / 1080)) + tex2D(textureSampler, float2(coords.x - offsetHorizontal / 1920, coords.y - offsetVertical / 1080))) / 9; //Blur
 
-	color = color * ((sin(gameTime * 0.01) + 0.5) * 0.5 + 0.5);
+	x = gameTime * 0.01f;
+	float i = (tan(sin(x)) * 0.2f) + 0.6f;
+	if (i > 1.0f)
+	{
+		i = 1.0f;
+	}
+	color.rgb = color.rgb * i;
 
 	return color;
 
