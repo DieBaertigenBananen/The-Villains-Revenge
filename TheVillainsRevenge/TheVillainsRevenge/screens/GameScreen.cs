@@ -616,7 +616,7 @@ namespace TheVillainsRevenge
                 dust.Parameters["playerX"].SetValue(spieler.position.X - camera.viewport.X);
                 dust.Parameters["playerY"].SetValue(spieler.position.Y - camera.viewport.Y);
                 dust.Parameters["force"].SetValue(spieler.acceleration / spieler.initAcceleration);
-                if (Game1.input.enter)
+                if (Game1.input.pause)
                 {
                     spieler.spine.Save();
                     princess.spine.Save();
@@ -639,7 +639,7 @@ namespace TheVillainsRevenge
                     Enemy enemy = karte.enemies.ElementAt(i);
                     enemy.spine.Reset();
                 }
-                if (Game1.input.enter)
+                if (Game1.input.pause)
                 {
                     paused = false;
                 }

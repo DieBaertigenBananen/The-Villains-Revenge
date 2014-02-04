@@ -211,7 +211,7 @@ namespace TheVillainsRevenge
                 }
                 //--------------------Camera--------------------
                 camera.Update(Game1.graphics, spieler, karte);
-                if (Game1.input.enter)
+                if (Game1.input.pause)
                 {
                     paused = true;
                 }
@@ -219,7 +219,7 @@ namespace TheVillainsRevenge
             }
             else
             {
-                if (Game1.input.enter)
+                if (Game1.input.pause)
                 {
                     paused = false;
                 }

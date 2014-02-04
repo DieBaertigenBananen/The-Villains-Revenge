@@ -12,8 +12,8 @@ namespace TheVillainsRevenge
         bool upp;
         public bool down;
         bool downp;
-        public bool start;
-        bool startp;
+        public bool pause;
+        bool pausep;
         public bool itemu1;
         bool itemup1;
         public bool itemu2;
@@ -198,24 +198,24 @@ namespace TheVillainsRevenge
             {
                 links = false;
             }
-            if (!startp)
+            if (!pausep)
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed
                     || 
                     keyState.IsKeyDown(Keys.Escape))
                 {
-                    start = true;
-                    startp = true;
+                    pause = true;
+                    pausep = true;
                 }
             }
             else
             {
-                start = false;
+                pause = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Released
                     &&
                     keyState.IsKeyUp(Keys.Escape))
                 {
-                    startp = false;
+                    pausep = false;
                 }
             }
             if (!downp)
