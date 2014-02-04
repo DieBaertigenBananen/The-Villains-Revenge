@@ -264,7 +264,7 @@ namespace TheVillainsRevenge
             }
             if (!backp)
             {
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed
                     ||
                     Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
@@ -275,7 +275,7 @@ namespace TheVillainsRevenge
             else
             {
                 back = false;
-                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Released
+                if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Released
                     &&
                     keyState.IsKeyUp(Keys.Escape))
                 {

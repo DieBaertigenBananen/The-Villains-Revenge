@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
     static class Sound
     {
         static SoundEffect bgMusic;
-        static SoundEffectInstance bgMusicInstance;
+        public static SoundEffectInstance bgMusicInstance;
         static SoundEffect menuMusic;
         public static SoundEffectInstance menuMusicInstance;
         static SoundEffect startMusic;
@@ -23,6 +23,15 @@ namespace TheVillainsRevenge
             bgMusic = Content.Load<SoundEffect>("sounds/Level_" + Game1.level + "/background");
             startMusic = Content.Load<SoundEffect>("sounds/Menu/start");
             menuMusic = Content.Load<SoundEffect>("sounds/Menu/background");
+            bgMusicInstance = bgMusic.CreateInstance();
+            startMusicInstance = startMusic.CreateInstance();
+            menuMusicInstance = menuMusic.CreateInstance();
+            bgMusicInstance.Volume = 0.5f;
+            menuMusicInstance.Volume = 0.5f;
+            startMusicInstance.Volume = 0.5f;
+            bgMusicInstance.IsLooped = true;
+            menuMusicInstance.IsLooped = true;
+            startMusicInstance.IsLooped = false;
             fx[0] = Content.Load<SoundEffect>("sounds/supersmash");
             fx[1] = Content.Load<SoundEffect>("sounds/schlag");
             fx[2] = Content.Load<SoundEffect>("sounds/landing");
@@ -72,40 +81,6 @@ namespace TheVillainsRevenge
                         break;
                 }
             }
-        }
-        static public void PlayBG()
-        {
-            if (Game1.sound)
-            {
-                bgMusicInstance = bgMusic.CreateInstance();
-                bgMusicInstance.Volume = 0.5f;
-                bgMusicInstance.IsLooped = true;
-                bgMusicInstance.Play();
-            }
-        }
-        static public void PlayMenu()
-        {
-            if (Game1.sound)
-            {
-                menuMusicInstance = menuMusic.CreateInstance();
-                menuMusicInstance.Volume = 0.5f;
-                menuMusicInstance.IsLooped = true;
-                menuMusicInstance.Play();
-            }
-        }
-        static public void PlayStart()
-        {
-            if (Game1.sound)
-            {
-                startMusicInstance = startMusic.CreateInstance();
-                startMusicInstance.Volume = 0.5f;
-                startMusicInstance.IsLooped = false;
-                startMusicInstance.Play();
-            }
-        }
-        static public void PauseMenu()
-        {
-            menuMusicInstance.Stop();
         }
     }
 }

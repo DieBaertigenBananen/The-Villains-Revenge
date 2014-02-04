@@ -22,11 +22,13 @@ namespace TheVillainsRevenge
         Texture2D logo_texture;
         Texture2D credit_texture;
         Texture2D overlay_texture;
+        Texture2D controls;
         SpriteFont font;
         float fontScale;
         bool levelendScreen;
         bool deadScreen;
         bool startScreen;
+        bool controlScreen;
         SubMenu mainMenu;
         SubMenu optionMenu;
         SubMenu startMenu;
@@ -67,6 +69,7 @@ namespace TheVillainsRevenge
             logo_texture = Content.Load<Texture2D>("sprites/menu/logo");
             credit_texture = Content.Load<Texture2D>("sprites/menu/credits");
             overlay_texture = Content.Load<Texture2D>("sprites/menu/overlay");
+            controls = Content.Load<Texture2D>("sprites/menu/controls");
             font = Content.Load<SpriteFont>("fonts/schrift");
             mainMenu = new SubMenu(3, "main", font, new Vector2(-750,200), 120, fontScale);
             mainMenu.Load(Content);
@@ -86,9 +89,9 @@ namespace TheVillainsRevenge
             optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 316, 122, 85), 3));
             mainMenu.visible = true;
             Sound.Load(Content);
-            if (Game1.sound)
+            if (Game1.sound && startScreen)
             {
-                Sound.PlayStart();
+                Sound.startMusicInstance.Play();
             }
             Cutscene.Load(Content);
             if (startScreen)
@@ -98,9 +101,9 @@ namespace TheVillainsRevenge
         }
         public int Update(GameTime gameTime)
         {
-            if (Game1.sound && Sound.startMusicInstance.State == SoundState.Stopped && Sound.menuMusicInstance == null)
+            if (Game1.sound && Sound.startMusicInstance.State == SoundState.Stopped && Sound.menuMusicInstance.State == SoundState.Stopped)
             {
-                Sound.PlayMenu();
+                Sound.menuMusicInstance.Play();
             }
             if (startScreen && Cutscene.player.State == MediaState.Stopped)
             {
@@ -150,23 +153,31 @@ namespace TheVillainsRevenge
                 //Auf Menu / Screen reagieren
                 if (deadScreen)
                 {
-                    if (Game1.input.enter || Game1.input.sprung)
+                    if (Game1.input.sprung)
                     {
                         deadScreen = false;
                     }
                 }
                 else if (levelendScreen)
                 {
-                    if (Game1.input.enter || Game1.input.sprung)
+                    if (Game1.input.sprung)
                     {
                         levelendScreen = false;
                         return 2;
                     }
                 }
+                else if (controlScreen)
+                {
+                    if (Game1.input.back)
+                    {
+                        controlScreen = false;
+                        optionMenu.option = 1;
+                    }
+                }
                 else if (optionMenu.visible)
                 {
                     //Enter wählt Menüfelder
-                    if (Game1.input.enter || Game1.input.sprung)
+                    if (Game1.input.sprung)
                     {
                         //Option == 2 ist Exit
                         if (optionMenu.option == 3)
@@ -179,21 +190,18 @@ namespace TheVillainsRevenge
                         {
                             if (Game1.sound)
                             {
-                                Sound.PauseMenu();
+                                Sound.menuMusicInstance.Stop();
                                 Game1.sound = false;
                             }
                             else
                             {
                                 Game1.sound = true;
-                                Sound.PlayMenu();
+                                Sound.menuMusicInstance.Play();
                             }
                         }
-                        else if (optionMenu.option == 1) //Wird noch zu ShowControls umgebaut
+                        else if (optionMenu.option == 1) //ShowControls
                         {
-                            if (Game1.stretch)
-                                Game1.stretch = false;
-                            else
-                                Game1.stretch = true;
+                            controlScreen = true;
                         }
                         else //Fullscreentoogle
                         {
@@ -203,7 +211,7 @@ namespace TheVillainsRevenge
                 }
                 else if (startMenu.visible)
                 {
-                    if (Game1.input.enter || Game1.input.sprung)
+                    if (Game1.input.sprung)
                     {
                         //Option == 2 ist Exit
                         if (startMenu.option == 2)
@@ -225,7 +233,7 @@ namespace TheVillainsRevenge
                 }
                 else if (mainMenu.visible)
                 {
-                    if (Game1.input.enter || Game1.input.sprung)
+                    if (Game1.input.sprung)
                     {
                         //Option == 2 ist Exit
                         if (mainMenu.option == 2)
@@ -253,13 +261,20 @@ namespace TheVillainsRevenge
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            if (startScreen)
+            if (startScreen || controlScreen)
             {
                 //--------------------Draw to renderScreen--------------------
                 Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
-                Cutscene.Draw(spriteBatch);
+                if (startScreen)
+                {
+                    Cutscene.Draw(spriteBatch);
+                }
+                else if (controlScreen)
+                {
+                    spriteBatch.Draw(controls, Vector2.Zero, Color.White);
+                }
                 spriteBatch.End();
             }
             else
@@ -272,17 +287,21 @@ namespace TheVillainsRevenge
                 //--------------------Draw to renderMenu--------------------
                 Game1.graphics.GraphicsDevice.SetRenderTarget(renderMenu);
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-                if (mainMenu.visible && !deadScreen && !levelendScreen)
+                if (!deadScreen && !levelendScreen && !controlScreen)
                 {
-                    mainMenu.Draw(spriteBatch, gameTime, camera);
-                }
-                if (optionMenu.visible)
-                {
-                    optionMenu.Draw(spriteBatch, gameTime, camera);
-                }
-                if (startMenu.visible)
-                {
-                    startMenu.Draw(spriteBatch, gameTime, camera);
+                    //Draw SubMenus
+                    if (mainMenu.visible)
+                    {
+                        mainMenu.Draw(spriteBatch, gameTime, camera);
+                    }
+                    if (optionMenu.visible)
+                    {
+                        optionMenu.Draw(spriteBatch, gameTime, camera);
+                    }
+                    if (startMenu.visible)
+                    {
+                        startMenu.Draw(spriteBatch, gameTime, camera);
+                    }
                 }
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 if (deadScreen)

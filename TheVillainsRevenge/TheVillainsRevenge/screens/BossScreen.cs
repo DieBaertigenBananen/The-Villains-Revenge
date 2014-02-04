@@ -95,7 +95,7 @@ namespace TheVillainsRevenge
             Sound.Load(Content);
             if (Game1.sound)
             {
-                Sound.PlayBG();
+                Sound.bgMusicInstance.Play();
             }
         }
 

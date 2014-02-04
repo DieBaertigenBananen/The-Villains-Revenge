@@ -178,7 +178,7 @@ namespace TheVillainsRevenge
                 case 7:
                     if (Game1.sound)
                     {
-                        Sound.PlayBG();
+                        Sound.bgMusicInstance.Play();
                     }
                     debug = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/Planes/background_0_debug");
                     princess.ResetRage(gameTime);
