@@ -47,5 +47,10 @@ namespace TheVillainsRevenge
             }
             player.Play(tempVideo);
         }
+
+        static public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(player.GetTexture(), Vector2.Zero, null, Color.White, 0f, Vector2.Zero, Game1.resolution.Y / player.Video.Height, SpriteEffects.None, 0f);
+        }
     }
 }

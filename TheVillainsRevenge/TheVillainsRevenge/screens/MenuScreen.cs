@@ -49,7 +49,7 @@ namespace TheVillainsRevenge
             {
                 levelendScreen = true;
             }
-            else
+            else if (screen == 3)
             {
                 startScreen = true;
             }
@@ -222,7 +222,7 @@ namespace TheVillainsRevenge
                 Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
-                spriteBatch.Draw(Cutscene.player.GetTexture(), Vector2.Zero, Color.White);
+                Cutscene.Draw(spriteBatch);
                 spriteBatch.End();
             }
             else

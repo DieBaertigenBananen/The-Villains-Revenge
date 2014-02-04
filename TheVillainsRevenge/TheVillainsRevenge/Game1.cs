@@ -57,7 +57,7 @@ namespace TheVillainsRevenge
 
         protected override void Initialize()
         {
-            menu = new MenuScreen(0);
+            menu = new MenuScreen(3);
             //game = new GameScreen();
 
             //Loading Stuffs
