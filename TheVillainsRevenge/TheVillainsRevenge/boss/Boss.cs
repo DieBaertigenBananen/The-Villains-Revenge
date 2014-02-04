@@ -178,7 +178,6 @@ namespace TheVillainsRevenge
                             else
                                 spine.anim("walk", 2, true, gameTime);
                         }
-                        /*
                         //KI ist auf den Boden und alles ist gut
                         //Schaue ob der Block rechts ist
                         if (kicheck.Count() != 0)
@@ -312,8 +311,6 @@ namespace TheVillainsRevenge
                                     Move(actualspeed, 0, map);
                             }
                         }
-                        */
-                        Move(actualspeed, 0, map);
                     }
                     else if (kistate == 1)
                     {
