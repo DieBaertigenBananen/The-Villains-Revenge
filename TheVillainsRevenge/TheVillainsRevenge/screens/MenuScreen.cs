@@ -29,6 +29,7 @@ namespace TheVillainsRevenge
         bool startScreen;
         SubMenu mainMenu;
         SubMenu optionMenu;
+        SubMenu startMenu;
         public static Color textColor;
         public static Color activeColor;
         public static double spriteTimer;
@@ -51,7 +52,7 @@ namespace TheVillainsRevenge
             }
             else if (screen == 3)
             {
-                startScreen = true;
+                //startScreen = true;
             }
         }
         public void Load(ContentManager Content)
@@ -72,6 +73,11 @@ namespace TheVillainsRevenge
                 mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 63, 100), 4));
                 mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 63, 100), 4));
                 mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 63, 100), 4));
+            startMenu = new SubMenu(3, "start", font, new Vector2(-500, 200), 140, fontScale);
+            startMenu.Load(Content);
+                startMenu.buttons.Add(new Button("continue", new Rectangle(0, 0, 122, 75), 3));
+                startMenu.buttons.Add(new Button("newgame", new Rectangle(0, 75, 122, 105), 3));
+                startMenu.buttons.Add(new Button("newgame", new Rectangle(0, 180, 122, 85), 3));
             optionMenu = new SubMenu(4, "option", font, new Vector2(-500,200), 140, fontScale);
             optionMenu.Load(Content);
             optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 0, 122, 75), 3));
@@ -125,6 +131,14 @@ namespace TheVillainsRevenge
                         optionMenu.visible = false;
                     }
                 }
+                else if (startMenu.visible)
+                {
+                    startMenu.Update(gameTime);
+                    if (startMenu.exit)
+                    {
+                        startMenu.visible = false;
+                    }
+                }
                 else if (mainMenu.visible)
                 {
                     mainMenu.Update(gameTime);
@@ -152,7 +166,7 @@ namespace TheVillainsRevenge
                 else if (optionMenu.visible)
                 {
                     //Enter wählt Menüfelder
-                    if (Game1.input.enter)
+                    if (Game1.input.enter || Game1.input.sprung)
                     {
                         //Option == 2 ist Exit
                         if (optionMenu.option == 3)
@@ -187,6 +201,28 @@ namespace TheVillainsRevenge
                         }
                     }
                 }
+                else if (startMenu.visible)
+                {
+                    if (Game1.input.enter || Game1.input.sprung)
+                    {
+                        //Option == 2 ist Exit
+                        if (startMenu.option == 2)
+                        {
+                            startMenu.visible = false;
+                            mainMenu.option = 0;
+                        }
+                        //Option = 1 ist New Game
+                        else if (startMenu.option == 1)
+                        {
+                            return 2;
+                        }
+                        else
+                        {
+                            //Game Continue
+                            return 2;
+                        }
+                    }
+                }
                 else if (mainMenu.visible)
                 {
                     if (Game1.input.enter || Game1.input.sprung)
@@ -196,7 +232,7 @@ namespace TheVillainsRevenge
                         {
                             return 0;
                         }
-                        //Option = 1 ist Fullscreen
+                        //Option = 1 ist OptionMenu
                         else if (mainMenu.option == 1)
                         {
                             optionMenu.visible = true;
@@ -205,7 +241,8 @@ namespace TheVillainsRevenge
                         else
                         {
                             //Game Start
-                            return 2;
+                            startMenu.visible = true;
+                            startMenu.option = 0;
                         }
                     }
                 }
@@ -242,6 +279,10 @@ namespace TheVillainsRevenge
                 if (optionMenu.visible)
                 {
                     optionMenu.Draw(spriteBatch, gameTime, camera);
+                }
+                if (startMenu.visible)
+                {
+                    startMenu.Draw(spriteBatch, gameTime, camera);
                 }
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 if (deadScreen)

@@ -46,6 +46,7 @@ namespace TheVillainsRevenge
                     break;
             }
             player.Play(tempVideo);
+            player.IsMuted = !Game1.sound;
         }
 
         static public void Draw(SpriteBatch spriteBatch)
