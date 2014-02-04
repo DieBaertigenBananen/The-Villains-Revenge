@@ -20,6 +20,8 @@ namespace TheVillainsRevenge
         bool itemup2;
         public bool back;
         bool backp;
+        public bool escape;
+        bool escapep;
         public bool debug;
         bool debugp;
         public bool hit;
@@ -296,6 +298,26 @@ namespace TheVillainsRevenge
                     keyState.IsKeyUp(Keys.Back))
                 {
                     backp = false;
+                }
+            }
+            if (!escapep)
+            {
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                    ||
+                    Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    escape = true;
+                    escapep = true;
+                }
+            }
+            else
+            {
+                escape = false;
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Released
+                    &&
+                    keyState.IsKeyUp(Keys.Escape))
+                {
+                    escapep = false;
                 }
             }
             if (!debugp)

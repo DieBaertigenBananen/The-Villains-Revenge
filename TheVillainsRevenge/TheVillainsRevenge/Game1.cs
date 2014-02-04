@@ -243,7 +243,7 @@ namespace TheVillainsRevenge
             }
             else if (game != null)
             {
-                if (input.back&&game.paused)
+                if (input.escape && game.paused)
                 {
                     game = null;
                     Content.Unload();
@@ -279,7 +279,7 @@ namespace TheVillainsRevenge
             }
             else if (boss != null)
             {
-                if (input.back&&boss.paused)
+                if (input.escape && boss.paused)
                 {
                     boss = null;
                     Content.Unload();
