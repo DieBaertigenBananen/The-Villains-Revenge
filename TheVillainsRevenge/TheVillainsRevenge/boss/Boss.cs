@@ -28,8 +28,9 @@ namespace TheVillainsRevenge
         }
         public override void Update(GameTime gameTime, Map map, Rectangle spieler)
         {
+            Rectangle Player = spieler;
             if (wellencooldown > 0)
-                wellencooldown -= gameTime.ElapsedGameTime.TotalSeconds;
+                wellencooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
             else if(!welleladen)
             {
                 Console.WriteLine("Welle start!");
@@ -114,10 +115,10 @@ namespace TheVillainsRevenge
             // sposition.X = Punkt.X;
             if (attacktimer > 0)
             {
-                attacktimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                attacktimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
                 if (attacktimer <= 0)
                 {
-                    inactiveTime = 1;
+                    inactiveTime = 0.3f;
                     spine.anim("idle", 3, true, gameTime);
                 }
 
@@ -125,7 +126,7 @@ namespace TheVillainsRevenge
             else if (inactiveTime > 0)
             {
                 Console.WriteLine("Inactive"+inactiveTime);
-                inactiveTime -= gameTime.ElapsedGameTime.TotalSeconds;
+                inactiveTime -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
             }
             else if (welleladen)
@@ -177,6 +178,7 @@ namespace TheVillainsRevenge
                             else
                                 spine.anim("walk", 2, true, gameTime);
                         }
+                        /*
                         //KI ist auf den Boden und alles ist gut
                         //Schaue ob der Block rechts ist
                         if (kicheck.Count() != 0)
@@ -200,7 +202,7 @@ namespace TheVillainsRevenge
                         //Block ist auf gleicher Höhe, bewege nur drauf zu
                         if (geht)
                         {
-                            if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
+                            if (CollisionCheckedVector(actualspeed, 0, map.blocks, Player).X == actualspeed)
                             {
                                 Move(actualspeed, 0, map);
                             }
@@ -214,7 +216,7 @@ namespace TheVillainsRevenge
                                 }
 
                             }
-                            if (kistate == 0 && CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                            if (kistate == 0 && CollisionCheckedVector(0, 1, map.blocks, Player).Y > 0)
                             {
                                 //AAAAHHH WIR fallen T_T
                                 if (!fall && !jump)
@@ -234,7 +236,7 @@ namespace TheVillainsRevenge
                             GameScreen.test = 2;
                             if (spieler.Y < position.Y - 20)
                             {
-                                if (CollisionCheckedVector(realspeed, 0, map.blocks).X == realspeed)
+                                if (CollisionCheckedVector(realspeed, 0, map.blocks, Player).X == realspeed)
                                 {
                                     kicollide.X = cbox.box.X;
                                     kicollide.Y += 1;
@@ -271,7 +273,7 @@ namespace TheVillainsRevenge
                                     else
                                     {
                                         Move(actualspeed, 0, map);
-                                        if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                                        if (CollisionCheckedVector(0, 1, map.blocks, Player).Y > 0)
                                         {
                                             Move(-actualspeed, 0, map);
                                             if (!fall && !jump)
@@ -296,7 +298,7 @@ namespace TheVillainsRevenge
                             }
                             else
                             {
-                                if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
+                                if (CollisionCheckedVector(0, 1, map.blocks, Player).Y > 0)
                                 {
                                     for (int i = 0; i < 10; i++)
                                     {
@@ -309,14 +311,15 @@ namespace TheVillainsRevenge
                                 if (!geht)
                                     Move(actualspeed, 0, map);
                             }
-
                         }
+                        */
+                        Move(actualspeed, 0, map);
                     }
                     else if (kistate == 1)
                     {
                         //KI befindet sich im Drüberspringmodus bei Abgründen!!
                         //Gucke ob er Grund haben könnte
-                        if (CollisionCheckedVector(0, (int)((gravitation)), map.blocks).Y == (int)((gravitation)))
+                        if (CollisionCheckedVector(0, (int)((gravitation)), map.blocks, Player).Y == (int)((gravitation)))
                         {
                             if (fall)
                             {
@@ -347,7 +350,7 @@ namespace TheVillainsRevenge
                         else
                         {
                             jumptimer = 0;
-                            if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                            if (CollisionCheckedVector(0, 1, map.blocks, Player).Y == 0)
                             {
                                 //Grund!!!! Wir sind unten!!! Starte normalen Modus
                                 kistate = 0;
@@ -370,7 +373,7 @@ namespace TheVillainsRevenge
                         //KI befindet sich im Drüberspringmodus!!
                         //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
                         //Überprüfe ob rechts immernoch etwas ist
-                        if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                        if (CollisionCheckedVector(0, 1, map.blocks, Player).Y == 0)
                         {
                             jumptimer = 0;
                             kistate = 0;
@@ -382,7 +385,7 @@ namespace TheVillainsRevenge
                         //KI befindet sich im Drüberspringmodus!!
                         //Es scheint etwas rechts gegeben zu haben wo er drüberspringen muss
                         //Überprüfe ob rechts immernoch etwas ist
-                        if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
+                        if (CollisionCheckedVector(actualspeed, 0, map.blocks, Player).X == actualspeed)
                         {
                             //Rechts ist nichts mehr! Kann mit dem Springen aufhören und sich draufbewegen
                             Move(actualspeed, 0, map);
@@ -392,7 +395,7 @@ namespace TheVillainsRevenge
                     }
                     else if (kistate == 4)
                     {
-                        if (CollisionCheckedVector(0, 1, map.blocks).Y == 0)
+                        if (CollisionCheckedVector(0, 1, map.blocks, Player).Y == 0)
                         {
                             //Grund!!!! Wir sind unten!!! Starte normalen Modus
                             kistate = 0;
@@ -400,7 +403,7 @@ namespace TheVillainsRevenge
                     }
                 }
             }
-            if (CollisionCheckedVector(0, 1, map.blocks).Y > 0 && !jump)
+            if (CollisionCheckedVector(0, 1, map.blocks, Player).Y > 0 && !jump)
             {
                 if (!fall)
                 {
@@ -420,6 +423,57 @@ namespace TheVillainsRevenge
             {
                 Jump(gameTime, map);
             }
+        }
+
+        public Vector2 CollisionCheckedVector(int x, int y, List<Block> list, Rectangle spieler)
+        {
+            CollisionBox cboxnew = new CollisionBox((int)cbox.offset.X, (int)cbox.offset.Y, cbox.box.Width, cbox.box.Height);
+            cboxnew.Update(cbox.position);
+            Vector2 move = new Vector2(0, 0);
+            int icoll;
+            bool stop;
+            //Größere Koordinate als Iteration nehmen
+            if (Math.Abs(x) > Math.Abs(y))
+            {
+                icoll = Math.Abs(x);
+            }
+            else
+            {
+                icoll = Math.Abs(y);
+            }
+            //Iteration
+            for (int i = 1; i <= icoll; i++)
+            {
+                stop = false;
+                //Box für nächsten Iterationsschritt berechnen
+                cboxnew.box.X = this.cbox.box.X + ((x / icoll) * i);
+                cboxnew.box.Y = this.cbox.box.Y + ((y / icoll) * i);
+                //Gehe die Blöcke der Liste durch
+                foreach (Block block in list)
+                {
+                    //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                    if (cboxnew.box.Intersects(block.cbox) && block.block)
+                    {
+                        stop = true;
+                        break;
+                    }
+                }
+                if (cboxnew.box.Intersects(spieler))
+                {
+                    stop = true;
+                    break;
+                }
+                if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
+                {
+                    break;
+                }
+                else //Kollisionsfreien Fortschritt speichern
+                {
+                    move.X = cboxnew.box.X - cbox.box.X;
+                    move.Y = cboxnew.box.Y - cbox.box.Y;
+                }
+            }
+            return move;
         }
     }
 }

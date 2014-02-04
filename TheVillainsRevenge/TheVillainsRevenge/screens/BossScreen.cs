@@ -121,7 +121,7 @@ namespace TheVillainsRevenge
                 }
             }
             //--------------------Spieler--------------------
-            spieler.Update(gameTime, karte);
+            spieler.Update(gameTime, karte, hero.cbox.box);
             //if (spieler.position.Y <= 0)
             //{
             //    spieler.jump = false;
@@ -162,7 +162,7 @@ namespace TheVillainsRevenge
             {
                 hero.attack(gameTime);
             }
-            else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start&&hero.attacktimer <= 0 && hero.inactiveTime >= 1)
+            else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start&&hero.attacktimer <= 0 && hero.inactiveTime >= 0.3f)
             {
                 spieler.getHit(gameTime, "die2");
             }

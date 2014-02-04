@@ -24,7 +24,7 @@ namespace TheVillainsRevenge
             smashInitIntensity = Convert.ToInt32((double)Game1.luaInstance["playerSmashIntensity"]);
             smashCooldown = (float)Convert.ToDouble(Game1.luaInstance["playerMegaSchlagCooldown"]) * 1000;
         }
-        public void Update(GameTime gameTime, Map map)
+        public void Update(GameTime gameTime, Map map,Rectangle hero)
         {
             speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
             airspeed = Convert.ToInt32((double)Game1.luaInstance["playerAirspeed"]);
@@ -112,7 +112,7 @@ namespace TheVillainsRevenge
                     smash = false;
                     smashImpact = false;
                 }
-                else if (CollisionCheckedVector(0, 1, map.blocks, map).Y == 0)
+                else if (CollisionCheckedVector(0, 1, map.blocks, map, hero).Y == 0)
                 {
                     smashImpact = true;
                 }
@@ -207,7 +207,7 @@ namespace TheVillainsRevenge
                 {
                     acceleration = initAcceleration;
                 }
-                if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks, map).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
+                if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks, map, hero).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
                 {
                     acceleration = -acceleration * 0.8f;
                 }
@@ -217,14 +217,24 @@ namespace TheVillainsRevenge
             //Gravitation
             if (CollisionCheckedVector(0, 1, map.blocks, map).Y > 0 && !jump)
             {
-                if (!fall)
+                if (CollisionCheckedVector(0, 1, map.blocks, map, hero).Y == 0)
                 {
-                    fall = true;
-                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    if(richtung)
+                        Move(actualspeed, 0, map);
+                    else
+                        Move(-actualspeed, 0, map);
                 }
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
-                Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
-                spine.anim("jump", 0, false, gameTime);
+                else
+                {
+                    if (!fall)
+                    {
+                        fall = true;
+                        falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    }
+                    float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                    Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
+                    spine.anim("jump", 0, false, gameTime);
+                }
             }
             else
             {
@@ -241,6 +251,59 @@ namespace TheVillainsRevenge
             }
             position.Y = spine.skeleton.Y;
             position.X = spine.skeleton.X;
+        }
+
+
+
+        public Vector2 CollisionCheckedVector(int x, int y, List<Block> list, Map map,Rectangle hero)
+        {
+            CollisionBox cboxnew = new CollisionBox((int)cbox.offset.X, (int)cbox.offset.Y, cbox.box.Width, cbox.box.Height);
+            cboxnew.Update(cbox.position);
+            Vector2 move = new Vector2(0, 0);
+            int icoll;
+            bool stop;
+            //Größere Koordinate als Iteration nehmen
+            if (Math.Abs(x) > Math.Abs(y))
+            {
+                icoll = Math.Abs(x);
+            }
+            else
+            {
+                icoll = Math.Abs(y);
+            }
+            //Iteration
+            for (int i = 1; i <= icoll; i++)
+            {
+                stop = false;
+                //Box für nächsten Iterationsschritt berechnen
+                cboxnew.box.X = this.cbox.box.X + ((x / icoll) * i);
+                cboxnew.box.Y = this.cbox.box.Y + ((y / icoll) * i);
+                //Gehe die Blöcke der Liste durch
+                foreach (Block block in list)
+                {
+                    //Wenn Kollision vorliegt: Keinen weiteren Block abfragen
+                    if ((cboxnew.box.Intersects(block.cbox) && block.block) || cboxnew.box.X < 0 || (cboxnew.box.X + cboxnew.box.Width) > map.size.X || cboxnew.box.Y <= 0)
+                    {
+                        stop = true;
+                        break;
+                    }
+                }
+                if (cboxnew.box.Intersects(hero))
+                {
+                    stop = true;
+                    break;
+                }
+                if (stop == true) //Bei Kollision: Kollisionsabfrage mit letztem kollisionsfreien Zustand beenden
+                {
+                    break;
+                }
+                else //Kollisionsfreien Fortschritt speichern
+                {
+                    move.X = cboxnew.box.X - cbox.box.X;
+                    move.Y = cboxnew.box.Y - cbox.box.Y;
+                }
+            }
+            return move;
         }
     }
 }
