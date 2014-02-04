@@ -65,7 +65,7 @@ namespace TheVillainsRevenge
             type = t;
         
         }
-        public virtual void anim(GameTime gameTime,string animation,int richtung)
+        public virtual void anim(string animation,int richtung)
         {
         }
         public virtual void Update(GameTime gameTime, Map map, Vector2 heropos)

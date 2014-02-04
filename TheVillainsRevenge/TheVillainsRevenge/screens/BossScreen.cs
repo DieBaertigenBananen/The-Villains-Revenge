@@ -23,6 +23,7 @@ namespace TheVillainsRevenge
         int bossleben = 100;
         int bosslebenshow = 100;
         bool bosshit = false;
+        bool paused = false;
 
 
         RenderTarget2D renderSpine;
@@ -101,114 +102,129 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime, ContentManager Content)
         {
-
-            //--------------------Map--------------------
-            karte.Update(gameTime, spieler.cbox.box, hero.cbox.box);
-            //Objekte updaten
-            for (int i = 0; i < karte.objects.Count(); i++)
+            if (!paused)
             {
-                Obj obj = karte.objects.ElementAt(i);
-                obj.Update(gameTime, karte);
-                if (obj.type == 4)
+                Game1.time += gameTime.ElapsedGameTime;
+                //--------------------Map--------------------
+                karte.Update(gameTime, spieler.cbox.box, hero.cbox.box);
+                //Objekte updaten
+                for (int i = 0; i < karte.objects.Count(); i++)
                 {
-                    if (obj.box.Intersects(spieler.cbox.box))
+                    Obj obj = karte.objects.ElementAt(i);
+                    obj.Update(gameTime, karte);
+                    if (obj.type == 4)
                     {
-                        spieler.getHit(gameTime, "die2");
-                        karte.objects.Remove(obj);
+                        if (obj.box.Intersects(spieler.cbox.box))
+                        {
+                            spieler.getHit("die2");
+                            karte.objects.Remove(obj);
+                        }
+                        else if (obj.position.X < 0 || obj.position.X > karte.size.X)
+                            karte.objects.Remove(obj);
                     }
-                    else if (obj.position.X < 0 || obj.position.X > karte.size.X)
-                        karte.objects.Remove(obj);
                 }
-            }
-            //--------------------Spieler--------------------
-            spieler.Update(gameTime, karte, hero.cbox.box);
-            //if (spieler.position.Y <= 0)
-            //{
-            //    spieler.jump = false;
-            //    spieler.fall = true;
-            //    spieler.falltimer = gameTime.TotalGameTime.TotalMilliseconds;
-            //}
-            //if (spieler.position.X < 0)
-            //{
-            //    spieler.Move((int)(-spieler.position.X), 0, karte);
-            //}
-            //if (spieler.position.X > karte.size.X)
-            //{
-            //    spieler.Move((int)-(spieler.position.X-karte.size.X), 0, karte);
-            //} wurde alles in collisioncheckedvector integriert.
+                //--------------------Spieler--------------------
+                spieler.Update(gameTime, karte, hero.cbox.box);
+                //if (spieler.position.Y <= 0)
+                //{
+                //    spieler.jump = false;
+                //    spieler.fall = true;
+                //    spieler.falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                //}
+                //if (spieler.position.X < 0)
+                //{
+                //    spieler.Move((int)(-spieler.position.X), 0, karte);
+                //}
+                //if (spieler.position.X > karte.size.X)
+                //{
+                //    spieler.Move((int)-(spieler.position.X-karte.size.X), 0, karte);
+                //} wurde alles in collisioncheckedvector integriert.
 
-            if (bosslebenshow != bossleben)
-                bosslebenshow--;
+                if (bosslebenshow != bossleben)
+                    bosslebenshow--;
+                else
+                {
+                    if (!bosshit && spieler.hit && hero.inactiveTime > 0)
+                    {
+                        if (spieler.spine.BoundingBoxCollision(hero.cbox.box))
+                        {
+                            bossleben -= 10;
+                            bosshit = true;
+                        }
+                    }
+                    else if (!spieler.hit && bosshit)
+                    {
+                        bosshit = false;
+                    }
+                }
+
+                //--------------------Hero--------------------
+                hero.Update(gameTime, karte, spieler.cbox.box);
+
+                if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.inactiveTime <= 0)
+                {
+                    hero.attack();
+                }
+                else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.inactiveTime >= 0.3f)
+                {
+                    spieler.getHit("die2");
+                }
+                //KiPunkte
+                for (int i = 0; i < karte.kipoints.Count(); i++)
+                {
+                    KIPoint kipoint = karte.kipoints.ElementAt(i);
+                    //Wenn Spieler sie übertritt
+                    if (spieler.cbox.box.Intersects(kipoint.cbox))
+                    {
+                        bool geht = true;
+                        if (spieler.kicheck.Count() > 0)
+                        {
+                            //Falls es der selbe Punkt ist mache nicht weiter
+                            KICheck check = spieler.kicheck.ElementAt(spieler.kicheck.Count() - 1);
+                            if (check.id == kipoint.id)
+                                geht = false;
+                        }
+                        if (geht) //Ist nicht der selbe Punkt wie vorher, speichere
+                        {
+                            if (spieler.kicheck.Count() >= 20) //Nicht mehr als 20 punkte
+                            {
+                                spieler.kicheck.RemoveAt(0);
+                            }
+                            //Adde die Punkte und führ Skript aus
+                            spieler.kicheck.Add(new KICheck((int)Game1.time.TotalSeconds, kipoint.id));
+                            LuaKI.DoFile("Level_" + Game1.level + "/kiscript.txt");
+                        }
+                    }
+                    //Wenn held ein Kipoint übertritt
+                    if (hero.cbox.box.Intersects(kipoint.cbox) && hero.kicheck.Count() != 0)
+                    {
+                        //Lösche diesen
+                        if (hero.kicheck.ElementAt(0).id == kipoint.id)
+                        {
+                            if (hero.kistate == 2)
+                            {
+                                hero.kistate = 4;
+                            }
+                            hero.kicheck.RemoveAt(0);
+                        }
+                    }
+                }
+                //--------------------Camera--------------------
+                camera.Update(Game1.graphics, spieler, karte);
+                if (Game1.input.enter)
+                {
+                    paused = true;
+                }
+                return 1;
+            }
             else
             {
-                if (!bosshit&&spieler.hit&&hero.inactiveTime > 0)
+                if (Game1.input.enter)
                 {
-                    if (spieler.spine.BoundingBoxCollision(hero.cbox.box))
-                    {
-                        bossleben -= 10;
-                        bosshit = true;
-                    }
+                    paused = false;
                 }
-                else if (!spieler.hit&&bosshit)
-                {
-                    bosshit = false;
-                }
+                return 1;
             }
-
-            //--------------------Hero--------------------
-            hero.Update(gameTime, karte, spieler.cbox.box);
-
-            if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start&&hero.attacktimer <= 0&&hero.inactiveTime <= 0)
-            {
-                hero.attack(gameTime);
-            }
-            else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start&&hero.attacktimer <= 0 && hero.inactiveTime >= 0.3f)
-            {
-                spieler.getHit(gameTime, "die2");
-            }
-            //KiPunkte
-            for (int i = 0; i < karte.kipoints.Count(); i++)
-            {
-                KIPoint kipoint = karte.kipoints.ElementAt(i);
-                //Wenn Spieler sie übertritt
-                if (spieler.cbox.box.Intersects(kipoint.cbox))
-                {
-                    bool geht = true;
-                    if (spieler.kicheck.Count() > 0)
-                    {
-                        //Falls es der selbe Punkt ist mache nicht weiter
-                        KICheck check = spieler.kicheck.ElementAt(spieler.kicheck.Count() - 1);
-                        if (check.id == kipoint.id)
-                            geht = false;
-                    }
-                    if (geht) //Ist nicht der selbe Punkt wie vorher, speichere
-                    {
-                        if (spieler.kicheck.Count() >= 20) //Nicht mehr als 20 punkte
-                        {
-                            spieler.kicheck.RemoveAt(0);
-                        }
-                        //Adde die Punkte und führ Skript aus
-                        spieler.kicheck.Add(new KICheck((int)gameTime.TotalGameTime.TotalSeconds, kipoint.id));
-                        LuaKI.DoFile("Level_" + Game1.level + "/kiscript.txt");
-                    }
-                }
-                //Wenn held ein Kipoint übertritt
-                if (hero.cbox.box.Intersects(kipoint.cbox) && hero.kicheck.Count() != 0)
-                {
-                    //Lösche diesen
-                    if (hero.kicheck.ElementAt(0).id == kipoint.id)
-                    {
-                        if (hero.kistate == 2)
-                        {
-                            hero.kistate = 4;
-                        }
-                        hero.kicheck.RemoveAt(0);
-                    }
-                }
-            }
-            //--------------------Camera--------------------
-            camera.Update(Game1.graphics, spieler, karte);
-            return 1;
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

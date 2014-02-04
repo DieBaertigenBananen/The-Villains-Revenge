@@ -27,7 +27,7 @@ namespace TheVillainsRevenge
         int rageChance;
         public int rageLimit;
         float unrageSpeed;
-        Spine spine;
+        public Spine spine;
         //Deine Mutter ist so fett, wenn sie aus dem Bett fällt, dann auf beiden Seiten
 
         public Princess()
@@ -78,25 +78,25 @@ namespace TheVillainsRevenge
             spine.skeleton.Y = player.position.Y;
             if (beating)
             {
-                if (gameTime.TotalGameTime.TotalMilliseconds > beatingTimer + (spine.skeleton.Data.FindAnimation("cloud").Duration * 1000)) //Kloppwolke zu Ende?
+                if (Game1.time.TotalMilliseconds > beatingTimer + (spine.skeleton.Data.FindAnimation("cloud").Duration * 1000)) //Kloppwolke zu Ende?
                 {
                     beating = false;
                     rageMode = false;
                     player.spine.Clear(2);
                     rageMeter = 0;
-                    rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    rageTimer = Game1.time.TotalMilliseconds;
                     //spine.animationState.ClearTrack(0);
                 }
             }
             else if (coverEyes)
             {
-                if (gameTime.TotalGameTime.TotalMilliseconds > (coverTimer + (float)coverTime)) //CoverEyes beenden?
+                if (Game1.time.TotalMilliseconds > (coverTimer + (float)coverTime)) //CoverEyes beenden?
                 {
                     coverEyes = false;
                     rageMode = false;
                     player.spine.Clear(2);
                     rageMeter = 0;
-                    rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    rageTimer = Game1.time.TotalMilliseconds;
                 }
             }
             if (rageMode)
@@ -125,7 +125,7 @@ namespace TheVillainsRevenge
                     if (randomNumber <= 50)
                     {
                         beating = true;
-                        beatingTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                        beatingTimer = Game1.time.TotalMilliseconds;
                         int tempFlipState;
                         if (spine.skeleton.FlipX)
                         {
@@ -135,14 +135,14 @@ namespace TheVillainsRevenge
                         {
                             tempFlipState = 2;
                         }
-                        spine.anim("cloud", tempFlipState, false, gameTime);
+                        spine.anim("cloud", tempFlipState, false);
                         //ENRAAAAAGGGGEEEE!!!!!!!!!!!!!!!!!
                     }
                     else
                     {
                         coverEyes = true;
-                        player.spine.anim("sc_cover_eyes", 0, true, gameTime);
-                        coverTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                        player.spine.anim("sc_cover_eyes", 0, true);
+                        coverTimer = Game1.time.TotalMilliseconds;
                         //Deine Mudda enraged!
                     }
                 }
@@ -153,22 +153,22 @@ namespace TheVillainsRevenge
                     rageMeter = 0;
                 }
             }
-            else if (gameTime.TotalGameTime.TotalMilliseconds > (rageTimer + (float)rageWarmup)) //RageWarmup
+            else if (Game1.time.TotalMilliseconds > (rageTimer + (float)rageWarmup)) //RageWarmup
             {
                 if (player.CollisionCheckedVector(0, 1, map.blocks, map).X == 0) //Nur auf dem Boden enragen
                 {
-                    rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    rageTimer = Game1.time.TotalMilliseconds;
                     randomNumber = randomGen.Next(0, 100);
                     if (randomNumber <= rageChance)
                     {
                         //Teste Enrage-Bedingungen
                         rageMode = true;
-                        player.spine.anim("sc_escape", 0, true, gameTime);
+                        player.spine.anim("sc_escape", 0, true);
                     }
                 }
                 else
                 {
-                    rageTimer = gameTime.TotalGameTime.TotalMilliseconds - ((float)rageWarmup * 0.2f); //Wenn Spieler wieder auf den Boden kommt nach kurzer Zeit enragen
+                    rageTimer = Game1.time.TotalMilliseconds - ((float)rageWarmup * 0.2f); //Wenn Spieler wieder auf den Boden kommt nach kurzer Zeit enragen
                 }
             }
         }
@@ -179,7 +179,7 @@ namespace TheVillainsRevenge
             coverEyes = false;
             rageMode = false;
             rageMeter = 0f;
-            rageTimer = gameTime.TotalGameTime.TotalMilliseconds;
+            rageTimer = Game1.time.TotalMilliseconds;
         }
 
         public void Draw(GameTime gameTime, Camera camera)

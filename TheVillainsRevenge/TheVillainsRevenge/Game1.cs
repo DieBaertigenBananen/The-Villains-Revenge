@@ -29,6 +29,7 @@ namespace TheVillainsRevenge
         public static bool debug = false;
         public static int level = 1;
         public static int leben = 4;
+        public static TimeSpan time = new TimeSpan();
         public struct SaveData
         {
             public bool sound;

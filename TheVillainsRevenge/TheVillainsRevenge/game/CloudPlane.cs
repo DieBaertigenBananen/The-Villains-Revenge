@@ -100,9 +100,9 @@ namespace TheVillainsRevenge
             position.Y = camera.viewport.Y - ((size.Y - camera.viewport.Height) * (camera.viewport.Y / (karte.size.Y - camera.viewport.Height)));
 
             //Spawntimer
-            if (gameTime.TotalGameTime.TotalMilliseconds > spawnTimer + ((100000 - (float)luaAmount) * ((100 - (float)luaChaos) / 100)))
+            if (Game1.time.TotalMilliseconds > spawnTimer + ((100000 - (float)luaAmount) * ((100 - (float)luaChaos) / 100)))
             {
-                spawnTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                spawnTimer = Game1.time.TotalMilliseconds;
                 SpawnCloud(karte, camera);
             }
 
