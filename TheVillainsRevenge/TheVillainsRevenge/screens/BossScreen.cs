@@ -23,7 +23,7 @@ namespace TheVillainsRevenge
         int bossleben = 100;
         int bosslebenshow = 100;
         bool bosshit = false;
-        bool paused = false;
+        public bool paused = false;
 
 
         RenderTarget2D renderSpine;

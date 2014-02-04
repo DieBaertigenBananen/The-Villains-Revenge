@@ -61,7 +61,7 @@ namespace TheVillainsRevenge
         double dietime = 0;
         public int GUIFace = 0;
         bool herohit = false;
-        bool paused = false;
+        public bool paused = false;
 
         //KIDaten
         //Dies sind Luafunktionen für den netten GD
