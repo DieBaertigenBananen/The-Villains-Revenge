@@ -257,16 +257,6 @@ namespace TheVillainsRevenge
 
                 if (spieler.hit)
                 {
-                    //if (spieler.richtung)
-                    //{
-                    //    schlagRECT.X = schlagRECT.X + schlagRECT.Width;
-                    //    schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
-                    //}
-                    //else
-                    //{
-                    //    schlagRECT.Width = Convert.ToInt32((double)Game1.luaInstance["playerSchlagRange"]);
-                    //    schlagRECT.X = schlagRECT.X - schlagRECT.Width;
-                    //}
                     for (int i = 0; i < karte.breakblocks.Count(); i++)
                     {
                         Breakable bblock = karte.breakblocks.ElementAt(i);
@@ -442,7 +432,7 @@ namespace TheVillainsRevenge
                         //Wenn Spieler von enemy getroffen wird
                         if (enemy.type == 1 && spieler.cbox.box.Intersects(enemy.cbox.box))
                         {
-                            if (spieler.smash && spieler.fall)
+                            if ((spieler.smash && spieler.fall) || spieler.hit)
                             {
                                 //Falls Megaschlag
                                 enemy.anim(gameTime,"die",0);

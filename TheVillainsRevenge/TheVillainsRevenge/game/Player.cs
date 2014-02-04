@@ -194,21 +194,18 @@ namespace TheVillainsRevenge
                 }
             }
             //-----Schlag / Smash starten-----
-            if (Game1.input.shit && !princess.beating)
+            if (Game1.input.shit && !princess.beating && (jump || fall))
             {
-                if (jump || fall)
+                if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
                 {
-                    if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
-                    {
-                        jump = false;
-                        fall = true;
-                        hit = false;
-                        smash = true;
-                        spine.anim("smash", 0, false, gameTime);
-                        smashTimer = gameTime.TotalGameTime.TotalMilliseconds;
-                        smashIntensity = smashInitIntensity;
-                        falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
-                    }
+                    jump = false;
+                    fall = true;
+                    hit = false;
+                    smash = true;
+                    spine.anim("smash", 0, false, gameTime);
+                    smashTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    smashIntensity = smashInitIntensity;
+                    falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
                 }
             }
             else if (Game1.input.hit && !princess.beating)
