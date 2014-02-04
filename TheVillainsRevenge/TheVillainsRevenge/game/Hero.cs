@@ -56,11 +56,11 @@ namespace TheVillainsRevenge
             heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
             spine = new Spine();
         }
-        public virtual void attack(GameTime gameTime)
+        public virtual void attack()
         {
             Sound.Play("ashbrett_attack");
             attacktimer = 1;
-            spine.anim("attack", 3, false, gameTime);
+            spine.anim("attack", 3, false);
         }
         public void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
@@ -238,16 +238,16 @@ namespace TheVillainsRevenge
                             if (Math.Abs(spielerdistanz) < Convert.ToInt32((double)Game1.luaInstance["heroCloseWalkRange"]))
                             {
                                 if (actualspeed > 0)
-                                    spine.anim("close", 1, true, gameTime);
+                                    spine.anim("close", 1, true);
                                 else
-                                    spine.anim("close", 2, true, gameTime);
+                                    spine.anim("close", 2, true);
                             }
                             else
                             {
                                 if (actualspeed > 0)
-                                    spine.anim("walk", 1, true, gameTime);
+                                    spine.anim("walk", 1, true);
                                 else
-                                    spine.anim("walk", 2, true, gameTime);
+                                    spine.anim("walk", 2, true);
                             }
                             //KI ist auf den Boden und alles ist gut
                             //Schaue ob der Block rechts ist
@@ -280,7 +280,7 @@ namespace TheVillainsRevenge
                                 {
                                     if (!fall && !jump)
                                     {
-                                        spine.anim("jump", 3, false, gameTime);
+                                        spine.anim("jump", 3, false);
                                         Jump(gameTime, map); //Springen!
                                         kistate = 3;
                                     }
@@ -304,7 +304,7 @@ namespace TheVillainsRevenge
                                     if (bewegblock && !fall && !jump)
                                     {
                                         //Warten wir einfach mal ...
-                                        spine.anim("idle", 3, true, gameTime);
+                                        spine.anim("idle", 3, true);
                                         Move(-actualspeed, 0, map);
                                         kistate = 4;
                                     }
@@ -347,7 +347,7 @@ namespace TheVillainsRevenge
                                         if (bewegblock && !fall && !jump)
                                         {
                                             //Warten wir einfach mal ...
-                                            spine.anim("idle", 3, true, gameTime);
+                                            spine.anim("idle", 3, true);
                                             Move(-actualspeed, 0, map);
                                             kistate = 4;
                                         }
@@ -374,7 +374,7 @@ namespace TheVillainsRevenge
                                             {
                                                 if (!fall && !jump)
                                                 {
-                                                    spine.anim("jump", 3, false, gameTime);
+                                                    spine.anim("jump", 3, false);
                                                     Jump(gameTime, map); //Springen!
                                                     kistate = 2;
                                                 }
@@ -391,7 +391,7 @@ namespace TheVillainsRevenge
                                                     Move(-actualspeed, 0, map);
                                                     if (!fall && !jump)
                                                     {
-                                                        spine.anim("jump", 3, false, gameTime);
+                                                        spine.anim("jump", 3, false);
                                                         Jump(gameTime, map); //Springen!
                                                         kistate = 2;
                                                     }
@@ -403,7 +403,7 @@ namespace TheVillainsRevenge
                                     {
                                         if (!fall && !jump)
                                         {
-                                            spine.anim("jump", 3, false, gameTime);
+                                            spine.anim("jump", 3, false);
                                             Jump(gameTime, map); //Springen!
                                             kistate = 3;
                                         }
@@ -509,7 +509,7 @@ namespace TheVillainsRevenge
 
                         else if (kistate == 4)
                         {
-                            spine.anim("idle", 3, true, gameTime);
+                            spine.anim("idle", 3, true);
                             //KI befindet sich im Wartemodus!!
                             //Überprüfe ob die Plattform bald da ist
                             bool bewegblock = false;
@@ -525,7 +525,7 @@ namespace TheVillainsRevenge
                             }
                             if (bewegblock)
                             {
-                                spine.anim("jump", 3, false, gameTime);
+                                spine.anim("jump", 3, false);
                                 Move(actualspeed, 0, map);
                                 Jump(gameTime, map); //Springen!
                                 kistate = 5;
@@ -534,7 +534,7 @@ namespace TheVillainsRevenge
                         else if (kistate == 5)
                         {
                             //Er springt auf die Plattform! YEA
-                            float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                            float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                             if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
                             {
                                 //Kein Grund T_T Beweg mich mal
@@ -554,7 +554,7 @@ namespace TheVillainsRevenge
                         {
                             //Befindet sich auf der Plattform
                             //Beweg mich mal nach Forme und schau ob ich da falle T_T
-                            spine.anim("walk", 3, true, gameTime);
+                            spine.anim("walk", 3, true);
                             Move(actualspeed, 0, map);
                             if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
                             {
@@ -566,7 +566,7 @@ namespace TheVillainsRevenge
                         else if (kistate == 7)
                         {
                             //Ki Wartet nun am Ende und wartet auf einen movingend
-                            spine.anim("idle", 3, true, gameTime);
+                            spine.anim("idle", 3, true);
                             bool bewegblock = false;
                             kicollide.X = cbox.box.X + 48;
                             kicollide.Y = cbox.box.Y + 1;
@@ -580,7 +580,7 @@ namespace TheVillainsRevenge
                             }
                             if (bewegblock)
                             {
-                                spine.anim("jump", 3, false, gameTime);
+                                spine.anim("jump", 3, false);
                                 Jump(gameTime, map); //Springen!
                                 kistate = 8;
                             }
@@ -588,7 +588,7 @@ namespace TheVillainsRevenge
                         else if (kistate == 8)
                         {
                             //Er springt auf die Plattform! YEA
-                            float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                            float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                             if (CollisionCheckedVector(0, (int)((gravitation * t)), map.blocks).Y == (int)((gravitation * t)))
                             {
                                 //Kein Grund T_T Beweg mich mal
@@ -622,9 +622,9 @@ namespace TheVillainsRevenge
                     if (!fall)
                     {
                         fall = true;
-                        falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                        falltimer = Game1.time.TotalMilliseconds;
                     }
-                    float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                    float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                     Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
                 }
                 else
@@ -690,15 +690,15 @@ namespace TheVillainsRevenge
                 if (!jump)
                 {
                     jump = true;
-                    jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    jumptimer = Game1.time.TotalMilliseconds;
                 }
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - jumptimer) / 1000);
+                float t = (float)((Game1.time.TotalMilliseconds - jumptimer) / 1000);
                 int deltay = (int)(-jumppower + (gravitation * t));
                 if (deltay > 0)
                 {
                     jump = false;
                     fall = true;
-                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    falltimer = Game1.time.TotalMilliseconds;
                 }
                 else
                 {

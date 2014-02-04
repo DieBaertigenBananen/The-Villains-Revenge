@@ -20,8 +20,8 @@ namespace TheVillainsRevenge
             if (fall)
             {
                 if (falltimer == 0)
-                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                    falltimer = Game1.time.TotalMilliseconds;
+                float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                 int gravitation = Convert.ToInt32((double)Game1.luaInstance["objectGravitation"]);
                 position.Y += (gravitation * t);
                 box.Y = (int)position.Y;

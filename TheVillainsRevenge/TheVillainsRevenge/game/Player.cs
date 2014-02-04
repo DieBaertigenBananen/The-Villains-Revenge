@@ -124,11 +124,11 @@ namespace TheVillainsRevenge
             spine.Load(position, "bonepuker", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), initAcceleration);
         }
 
-        public void getHit(GameTime gameTime, string animation)
+        public void getHit(string animation)
         {
             lifes--;
             Game1.leben = lifes;
-            spine.anim(animation, 0, false, gameTime);
+            spine.anim(animation, 0, false);
         }
 
         public void Update(GameTime gameTime, Map map, Princess princess)
@@ -169,7 +169,7 @@ namespace TheVillainsRevenge
             {
                 if (!jump && !fall && Game1.input.sprungp)
                 {
-                    spine.animationTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    spine.animationTimer = Game1.time.TotalMilliseconds;
                     spine.animationState.SetAnimation(0, "jump", false);
                     spine.animation = "jump";
                     //spine.Clear(0);
@@ -198,16 +198,16 @@ namespace TheVillainsRevenge
             {
                 if (jump || fall)
                 {
-                    if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
+                    if (Game1.time.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
                     {
                         jump = false;
                         fall = true;
                         hit = false;
                         smash = true;
-                        spine.anim("smash", 0, false, gameTime);
-                        smashTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                        spine.anim("smash", 0, false);
+                        smashTimer = Game1.time.TotalMilliseconds;
                         smashIntensity = smashInitIntensity;
-                        falltimer = gameTime.TotalGameTime.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
+                        falltimer = Game1.time.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
                     }
                 }
             }
@@ -217,12 +217,12 @@ namespace TheVillainsRevenge
                 {
                     Sound.Play("schlag");
                     hit = true;
-                    spine.anim("attack", 0, false, gameTime);
-                    hitTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    spine.anim("attack", 0, false);
+                    hitTimer = Game1.time.TotalMilliseconds;
                 }
             }
             //Schlag ggf beenden
-            if (hit && gameTime.TotalGameTime.TotalMilliseconds > hitTimer + (spine.skeleton.Data.FindAnimation("attack").Duration * 1000))
+            if (hit && Game1.time.TotalMilliseconds > hitTimer + (spine.skeleton.Data.FindAnimation("attack").Duration * 1000))
             {
                 hit = false;
                 spine.animationState.ClearTrack(1);
@@ -253,18 +253,18 @@ namespace TheVillainsRevenge
                     {
                         if (!jump && !fall)
                         {
-                            spine.anim("run", 2, true, gameTime);
+                            spine.anim("run", 2, true);
                         }
                         else
                         {
-                            spine.anim("jump", 2, false, gameTime);
+                            spine.anim("jump", 2, false);
                         }
                     }
                     else if (spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem beim Abbremsen in idle übergehen
                     {
                         if (!jump && !fall)
                         {
-                            spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                            spine.anim("idle", 0, true); //In idle-Position übergehen
                         }
                     }
                     if (jump || fall) //Zusätzliche Beschleunigung in der Luft
@@ -280,18 +280,18 @@ namespace TheVillainsRevenge
                     {
                         if (!jump && !fall)
                         {
-                            spine.anim("run", 1, true, gameTime);
+                            spine.anim("run", 1, true);
                         }
                         else
                         {
-                            spine.anim("jump", 1, false, gameTime);
+                            spine.anim("jump", 1, false);
                         }
                     }
                     else if (!spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem in idle übergehen
                     {
                         if (!jump && !fall)
                         {
-                            spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                            spine.anim("idle", 0, true); //In idle-Position übergehen
                         }
                     }
                     if (jump || fall) //Zusätzliche Beschleunigung in der Luft
@@ -320,7 +320,7 @@ namespace TheVillainsRevenge
                     }
                     if (!jump && !fall)
                     {
-                        spine.anim("idle", 0, true, gameTime); //In idle-Position übergehen
+                        spine.anim("idle", 0, true); //In idle-Position übergehen
                     }
                 }
                 //Keine Beschleunigungs"vermehrung", durch Beschleunigung wird nur MaxSpeed bei jedem Update absolut vermindert. Fake aber funzt...
@@ -379,11 +379,11 @@ namespace TheVillainsRevenge
                 if (!fall)
                 {
                     fall = true;
-                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    falltimer = Game1.time.TotalMilliseconds;
                 }
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                 Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
-                spine.anim("jump", 0, false, gameTime);
+                spine.anim("jump", 0, false);
             }
             else
             {
@@ -455,17 +455,17 @@ namespace TheVillainsRevenge
 
                 if (!jump)
                 {
-                    spine.anim("jump", 0, false, gameTime);
+                    spine.anim("jump", 0, false);
                     jump = true;
-                    jumptimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    jumptimer = Game1.time.TotalMilliseconds;
                 }
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - jumptimer) / 1000);
+                float t = (float)((Game1.time.TotalMilliseconds - jumptimer) / 1000);
                 int deltay = (int)(-jumppower + (gravitation * t));
                 if (deltay > 0)
                 {
                     jump = false;
                     fall = true;
-                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    falltimer = Game1.time.TotalMilliseconds;
                 }
                 else
                 {

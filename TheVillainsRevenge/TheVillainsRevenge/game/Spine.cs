@@ -16,8 +16,10 @@ namespace TheVillainsRevenge
         public SkeletonBounds bounds = new SkeletonBounds();
         public bool flipSkel;
         public double animationTimer;
+        //------------ Save ---------
+        float[] pausedTime = new float[3];
 
-        public void anim(string newanim,int flip,bool loop, GameTime gameTime)
+        public void anim(string newanim,int flip,bool loop)
         {
             if (flip == 1)
             {
@@ -45,10 +47,26 @@ namespace TheVillainsRevenge
             {
                 if (animation != newanim)
                 {
-                    animationTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    animationTimer = Game1.time.TotalMilliseconds;
                     animationState.SetAnimation(0, newanim, loop);
                     animation = newanim;
                 }
+            }
+        }
+        public void Save()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (animationState.GetCurrent(i) != null)
+                    pausedTime[i] = animationState.GetCurrent(i).time;
+            }
+        }
+        public void Reset()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (animationState.GetCurrent(i) != null)
+                    animationState.GetCurrent(i).time = pausedTime[i];
             }
         }
 
@@ -61,9 +79,9 @@ namespace TheVillainsRevenge
             }
         }
 
-        public float CurrentAnimTime(GameTime gameTime)
+        public float CurrentAnimTime()
         {
-            float time = (float)(gameTime.TotalGameTime.TotalMilliseconds - animationTimer) / 1000;
+            float time = (float)(Game1.time.TotalMilliseconds - animationTimer) / 1000;
             return time;
         }
 

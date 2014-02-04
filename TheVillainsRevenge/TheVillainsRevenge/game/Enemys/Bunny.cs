@@ -17,16 +17,16 @@ namespace TheVillainsRevenge
             spine.Load(position, "fluffy", (float)Convert.ToDouble(Game1.luaInstance["bunnySize"]), acceleration);
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["bunnyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["bunnyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["bunnyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["bunnyCollisionHeight"]));
         }
-        public override void anim(GameTime gameTime,string anim,int richtung)
+        public override void anim(string anim,int richtung)
         {
             if (anim == "die")
             {
-                spine.anim(anim, richtung, false, gameTime);
+                spine.anim(anim, richtung, false);
                 dead = true;
             }
             else
             {
-                spine.anim(anim, richtung, true, gameTime);
+                spine.anim(anim, richtung, true);
             }
             animeTime = 1;
         }
@@ -71,19 +71,18 @@ namespace TheVillainsRevenge
                 }
             }
             if(mover)
-                spine.anim("walk", 1, true, gameTime);
+                spine.anim("walk", 1, true);
             else
-                spine.anim("walk", 2, true, gameTime);
-
+                spine.anim("walk", 2, true);
             //Gravitation
             if (CollisionCheckedVector(0, 1, map.blocks).Y > 0)
             {
                 if (!fall)
                 {
                     fall = true;
-                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    falltimer = Game1.time.TotalMilliseconds;
                 }
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                 Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
             }
             else

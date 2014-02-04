@@ -16,9 +16,9 @@ namespace TheVillainsRevenge
             spine.Load(position, "skullmonkey", (float)Convert.ToDouble(Game1.luaInstance["monkeySize"]), acceleration);
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["monkeyCollisionHeight"]));
         }
-        public override void anim(GameTime gameTime, string anim,int richtung)
+        public override void anim(string anim,int richtung)
         {
-            spine.anim(anim, richtung, false, gameTime);
+            spine.anim(anim, richtung, false);
             if (anim == "dying")
                 dead = true;
             animeTime = 1;
@@ -73,9 +73,9 @@ namespace TheVillainsRevenge
                         }
                     }
                     if (mover)
-                        spine.anim("walking", 1, true, gameTime);
+                        spine.anim("walking", 1, true);
                     else
-                        spine.anim("walking", 2, true, gameTime);
+                        spine.anim("walking", 2, true);
                 }
             }
             if (!moving)
@@ -99,9 +99,9 @@ namespace TheVillainsRevenge
                         }
                         animeTime = 1;
                         if (mover)
-                            spine.anim("attack", 2, true, gameTime);
+                            spine.anim("attack", 2, true);
                         else
-                            spine.anim("attack", 1, true, gameTime);
+                            spine.anim("attack", 1, true);
                     }
                     else
                     {
@@ -109,9 +109,9 @@ namespace TheVillainsRevenge
                         if (animeTime < 0.5f)
                         {
                             if (mover)
-                                spine.anim("walking", 1, true, gameTime);
+                                spine.anim("walking", 1, true);
                             else
-                                spine.anim("walking", 2, true, gameTime);
+                                spine.anim("walking", 2, true);
                             move = true;
                         }
                     }
@@ -134,9 +134,9 @@ namespace TheVillainsRevenge
                 else
                 {
                     if (mover)
-                        spine.anim("sitting", 1, true, gameTime);
+                        spine.anim("sitting", 1, true);
                     else
-                        spine.anim("sitting", 2, true, gameTime);
+                        spine.anim("sitting", 2, true);
 
                 }
             }
@@ -147,9 +147,9 @@ namespace TheVillainsRevenge
                 if (!fall)
                 {
                     fall = true;
-                    falltimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    falltimer = Game1.time.TotalMilliseconds;
                 }
-                float t = (float)((gameTime.TotalGameTime.TotalMilliseconds - falltimer) / 1000);
+                float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                 Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
             }
             else

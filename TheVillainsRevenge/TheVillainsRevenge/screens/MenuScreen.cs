@@ -110,7 +110,7 @@ namespace TheVillainsRevenge
             {
                 if (character.spine.animation != "idle")
                 {
-                    character.spine.anim("idle", 0, true, gameTime);
+                    character.spine.anim("idle", 0, true);
                 }
                 //Update SpriteTimer
                 if (gameTime.TotalGameTime.TotalMilliseconds > (spriteTimer + (float)spriteDelay))
