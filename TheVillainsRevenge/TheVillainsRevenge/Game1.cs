@@ -242,7 +242,7 @@ namespace TheVillainsRevenge
             }
             else if (game != null)
             {
-                if (input.back)
+                if (input.start)
                 {
                     game = null;
                     Content.Unload();

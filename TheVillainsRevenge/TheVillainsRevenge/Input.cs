@@ -12,8 +12,8 @@ namespace TheVillainsRevenge
         bool upp;
         public bool down;
         bool downp;
-        public bool enter;
-        bool enterp;
+        public bool start;
+        bool startp;
         public bool itemu1;
         bool itemup1;
         public bool itemu2;
@@ -32,6 +32,10 @@ namespace TheVillainsRevenge
         public bool sprungp;
         public bool links, rechts, end;
         public float cameraDynR, cameraDynL;
+        public bool leftM;
+        bool leftMp;
+        public bool rightM;
+        bool rightMp;
         public void Update()
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -51,7 +55,9 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed
                     ||
-                    keyState.IsKeyDown(Keys.Space))
+                    keyState.IsKeyDown(Keys.Space)
+                    ||
+                    keyState.IsKeyDown(Keys.Enter))
                 {
                     sprung = true;
                     sprungp = true;
@@ -62,7 +68,9 @@ namespace TheVillainsRevenge
                 sprung = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Released
                     &&
-                    keyState.IsKeyUp(Keys.Space))
+                    keyState.IsKeyUp(Keys.Space)
+                    &&
+                    keyState.IsKeyUp(Keys.Enter))
                 {
                     sprungp = false;
                 }
@@ -190,24 +198,24 @@ namespace TheVillainsRevenge
             {
                 links = false;
             }
-            if (!enterp)
+            if (!startp)
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed
                     || 
-                    keyState.IsKeyDown(Keys.Enter))
+                    keyState.IsKeyDown(Keys.Escape))
                 {
-                    enter = true;
-                    enterp = true;
+                    start = true;
+                    startp = true;
                 }
             }
             else
             {
-                enter = false;
+                start = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Released
-                    && 
-                    keyState.IsKeyUp(Keys.Enter))
+                    &&
+                    keyState.IsKeyUp(Keys.Escape))
                 {
-                    enterp = false;
+                    startp = false;
                 }
             }
             if (!downp)
@@ -244,7 +252,9 @@ namespace TheVillainsRevenge
                     ||
                     GamePad.GetState(PlayerIndex.One).DPad.Up == ButtonState.Pressed 
                     ||
-                    keyState.IsKeyDown(Keys.Up) || keyState.IsKeyDown(Keys.W))
+                    keyState.IsKeyDown(Keys.Up)
+                    ||
+                    keyState.IsKeyDown(Keys.W))
                 {
                     up = true;
                     upp = true;
@@ -257,7 +267,9 @@ namespace TheVillainsRevenge
                     &&
                     GamePad.GetState(PlayerIndex.One).DPad.Up == ButtonState.Released 
                     &&
-                    keyState.IsKeyUp(Keys.Up) && keyState.IsKeyUp(Keys.W))
+                    keyState.IsKeyUp(Keys.Up)
+                    &&
+                    keyState.IsKeyUp(Keys.W))
                 {
                     upp = false;
                 }
@@ -266,7 +278,9 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Pressed
                     ||
-                    Keyboard.GetState().IsKeyDown(Keys.Escape))
+                    Keyboard.GetState().IsKeyDown(Keys.Escape)
+                    ||
+                    Keyboard.GetState().IsKeyDown(Keys.Back))
                 {
                     back = true;
                     backp = true;
@@ -277,7 +291,9 @@ namespace TheVillainsRevenge
                 back = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.B == ButtonState.Released
                     &&
-                    keyState.IsKeyUp(Keys.Escape))
+                    keyState.IsKeyUp(Keys.Escape)
+                    &&
+                    keyState.IsKeyUp(Keys.Back))
                 {
                     backp = false;
                 }
@@ -316,6 +332,62 @@ namespace TheVillainsRevenge
                 if (keyState.IsKeyUp(Keys.F11) == true)
                 {
                     fullscreenp = false;
+                }
+            }
+            if (!leftMp)
+            {
+                if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < -0.2f
+                    ||
+                    GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Pressed
+                    ||
+                    keyState.IsKeyDown(Keys.Left)
+                    ||
+                    keyState.IsKeyDown(Keys.A))
+                {
+                    leftM = true;
+                    leftMp = true;
+                }
+            }
+            else
+            {
+                leftM = false;
+                if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X >= 0f
+                    &&
+                    GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Released
+                    &&
+                    keyState.IsKeyUp(Keys.Left)
+                    &&
+                    keyState.IsKeyUp(Keys.A))
+                {
+                    leftMp = false;
+                }
+            }
+            if (!rightMp)
+            {
+                if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0.2f
+                    ||
+                    GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Pressed
+                    ||
+                    keyState.IsKeyDown(Keys.Right)
+                    ||
+                    keyState.IsKeyDown(Keys.D))
+                {
+                    rightM = true;
+                    rightMp = true;
+                }
+            }
+            else
+            {
+                rightM = false;
+                if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X <= 0f
+                    &&
+                    GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Released
+                    &&
+                    keyState.IsKeyUp(Keys.Right)
+                    &&
+                    keyState.IsKeyUp(Keys.D))
+                {
+                    rightMp = false;
                 }
             }
         }

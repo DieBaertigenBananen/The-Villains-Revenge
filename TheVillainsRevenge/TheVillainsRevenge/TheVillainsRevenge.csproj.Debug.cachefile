@@ -17,7 +17,6 @@ Content\sprites\level_1\planes\background_2_1.xnb
 Content\sprites\level_1\planes\background_2_2.xnb
 Content\sprites\level_1\planes\background_3_1.xnb
 Content\sprites\level_1\planes\clouds_1.xnb
-Content\sprites\menu_buttons.xnb
 Content\sprites\monkey.xnb
 Content\sprites\level_1\planes\clouds_2.xnb
 Content\sprites\objects.xnb
@@ -32,8 +31,6 @@ Content\sprites\level_1\planes\foreground_1_2.xnb
 Content\sprites\level_1\planes\foreground_1_3.xnb
 Content\sprites\level_1\planes\foreground_1_4.xnb
 Content\sprites\level_1\planes\foreground_1_5.xnb
-Content\sprites\menu_bg.xnb
-Content\sprites\menu_titles.xnb
 Content\sprites\level_3\map.xnb
 Content\sprites\menu\background.xnb
 Content\sprites\menu\credits.xnb
@@ -166,6 +163,8 @@ Content\sounds\Menu\start.xnb
 Content\scenes\start.xnb
 Content\sprites\menu\buttons_start.xnb
 Content\sprites\menu\controls.xnb
+Content\sprites\menu\gameover.xnb
+Content\sprites\menu\levelend.xnb
 Content\scenes\start.wmv
 spine\sprites\ashbrett.png
 spine\sprites\fluffy.png
