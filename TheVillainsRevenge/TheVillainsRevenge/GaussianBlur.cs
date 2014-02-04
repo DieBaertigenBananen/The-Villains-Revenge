@@ -21,8 +21,9 @@ namespace TheVillainsRevenge
         public RenderTarget2D blurredRenderTarget;
         public Effect gauss;
 
-        public GaussianBlur()
+        public GaussianBlur(ContentManager Content, GraphicsDeviceManager graphics, int width, int height, float sigma)
         {
+            Load(Content, graphics, width, height, sigma);
         }
 
         public void Load(ContentManager Content, GraphicsDeviceManager graphics, int width, int height, float sigma)
@@ -83,13 +84,13 @@ namespace TheVillainsRevenge
             CalcKernel(sigma);
         }
 
-        public void PerformGaussianBlur(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, RenderTarget2D srcRenderTarget, BlendState blending)
+        public RenderTarget2D PerformGaussianBlur(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, RenderTarget2D srcRenderTarget, BlendState blending)
         {
             //Do Horizontal Blur
             gauss.Parameters["kernel"].SetValue(kernel);
             gauss.Parameters["offsets"].SetValue(offsetsHori);
             graphics.GraphicsDevice.SetRenderTarget(renderTargetBlur);
-            graphics.GraphicsDevice.Clear(Color.Transparent);
+            graphics.GraphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 1.0f, 0);
             spriteBatch.Begin(SpriteSortMode.Immediate, blending, null, null, null, gauss);
             spriteBatch.Draw(srcRenderTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
@@ -97,10 +98,12 @@ namespace TheVillainsRevenge
             //Do Vertikal Blur
             gauss.Parameters["offsets"].SetValue(offsetsVert);
             graphics.GraphicsDevice.SetRenderTarget(blurredRenderTarget);
-            graphics.GraphicsDevice.Clear(Color.Transparent);
+            graphics.GraphicsDevice.Clear(ClearOptions.Target, Color.Transparent, 1.0f, 0);
             spriteBatch.Begin(SpriteSortMode.Immediate, blending, null, null, null, gauss);
             spriteBatch.Draw(renderTargetBlur, Vector2.Zero, Color.White);
             spriteBatch.End();
+
+            return blurredRenderTarget;
 
             //graphics.GraphicsDevice.SetRenderTarget(null);
         }

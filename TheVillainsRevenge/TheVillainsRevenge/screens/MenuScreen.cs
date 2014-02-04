@@ -26,8 +26,10 @@ namespace TheVillainsRevenge
         float fontScale;
         bool levelendScreen;
         bool deadScreen;
+        bool startScreen;
         SubMenu mainMenu;
         SubMenu optionMenu;
+        SubMenu startMenu;
         public static Color textColor;
         public static Color activeColor;
         public static double spriteTimer;
@@ -48,6 +50,10 @@ namespace TheVillainsRevenge
             {
                 levelendScreen = true;
             }
+            else if (screen == 3)
+            {
+                //startScreen = true;
+            }
         }
         public void Load(ContentManager Content)
         {
@@ -67,6 +73,11 @@ namespace TheVillainsRevenge
                 mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 63, 100), 4));
                 mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 63, 100), 4));
                 mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 63, 100), 4));
+            startMenu = new SubMenu(3, "start", font, new Vector2(-500, 200), 140, fontScale);
+            startMenu.Load(Content);
+                startMenu.buttons.Add(new Button("continue", new Rectangle(0, 0, 122, 75), 3));
+                startMenu.buttons.Add(new Button("newgame", new Rectangle(0, 75, 122, 105), 3));
+                startMenu.buttons.Add(new Button("newgame", new Rectangle(0, 180, 122, 85), 3));
             optionMenu = new SubMenu(4, "option", font, new Vector2(-500,200), 140, fontScale);
             optionMenu.Load(Content);
             optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 0, 122, 75), 3));
@@ -77,115 +88,162 @@ namespace TheVillainsRevenge
             Sound.Load(Content);
             if (Game1.sound)
             {
-                Sound.PlayMenu();
+                Sound.PlayStart();
+            }
+            Cutscene.Load(Content);
+            if (startScreen)
+            {
+                Cutscene.Play("start");
             }
         }
         public int Update(GameTime gameTime)
         {
-            if (character.spine.animation != "idle")
+            if (Game1.sound && Sound.startMusicInstance.State == SoundState.Stopped && Sound.menuMusicInstance == null)
             {
-                character.spine.anim("idle", 0, true, gameTime);
+                Sound.PlayMenu();
             }
-            //Update SpriteTimer
-            if (gameTime.TotalGameTime.TotalMilliseconds > (spriteTimer + (float)spriteDelay))
+            if (startScreen && Cutscene.player.State == MediaState.Stopped)
             {
-                spriteTimer = gameTime.TotalGameTime.TotalMilliseconds;
-                changeSprite = true;
+                startScreen = false;
             }
             else
             {
-                changeSprite = false;
-            }
-            //Update SubMenu
-            if (optionMenu.visible)
-            {
-                optionMenu.Update(gameTime);
-                if (optionMenu.exit)
+                if (character.spine.animation != "idle")
                 {
-                    optionMenu.visible = false;
+                    character.spine.anim("idle", 0, true, gameTime);
                 }
-            }
-            else if (mainMenu.visible)
-            {
-                mainMenu.Update(gameTime);
-                if (mainMenu.exit)
+                //Update SpriteTimer
+                if (gameTime.TotalGameTime.TotalMilliseconds > (spriteTimer + (float)spriteDelay))
                 {
-                    return 0;
+                    spriteTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    changeSprite = true;
                 }
-            }
-            //Auf Menu / Screen reagieren
-            if (deadScreen)
-            {
-                if (Game1.input.enter || Game1.input.sprung)
+                else
                 {
-                    deadScreen = false;
+                    changeSprite = false;
                 }
-            }
-            else if (levelendScreen)
-            {
-                if (Game1.input.enter || Game1.input.sprung)
+                //Update SubMenu
+                if (optionMenu.visible)
                 {
-                    levelendScreen = false;
-                    return 2;
-                }
-            }
-            else if (optionMenu.visible)
-            {
-                //Enter wählt Menüfelder
-                if (Game1.input.enter)
-                {
-                    //Option == 2 ist Exit
-                    if (optionMenu.option == 3)
+                    optionMenu.Update(gameTime);
+                    if (optionMenu.exit)
                     {
                         optionMenu.visible = false;
-                        mainMenu.option = 1;
-                    }
-                    //Option = 1 ist stretch
-                    else if (optionMenu.option == 2)
-                    {
-                        if (Game1.sound)
-                        {
-                            Sound.PauseMenu();
-                            Game1.sound = false;
-                        }
-                        else
-                        {
-                            Game1.sound = true;
-                            Sound.PlayMenu();
-                        }
-                    }
-                    else if (optionMenu.option == 1) //Wird noch zu ShowControls umgebaut
-                    {
-                        if (Game1.stretch)
-                            Game1.stretch = false;
-                        else
-                            Game1.stretch = true;
-                    }
-                    else //Fullscreentoogle
-                    {
-                        Game1.ToggleFullscreen();
                     }
                 }
-            }
-            else if (mainMenu.visible)
-            {
-                if (Game1.input.enter || Game1.input.sprung)
+                else if (startMenu.visible)
                 {
-                    //Option == 2 ist Exit
-                    if (mainMenu.option == 2)
+                    startMenu.Update(gameTime);
+                    if (startMenu.exit)
+                    {
+                        startMenu.visible = false;
+                    }
+                }
+                else if (mainMenu.visible)
+                {
+                    mainMenu.Update(gameTime);
+                    if (mainMenu.exit)
                     {
                         return 0;
                     }
-                    //Option = 1 ist Fullscreen
-                    else if (mainMenu.option == 1)
+                }
+                //Auf Menu / Screen reagieren
+                if (deadScreen)
+                {
+                    if (Game1.input.enter || Game1.input.sprung)
                     {
-                        optionMenu.visible = true;
-                        optionMenu.option = 0;
+                        deadScreen = false;
                     }
-                    else
+                }
+                else if (levelendScreen)
+                {
+                    if (Game1.input.enter || Game1.input.sprung)
                     {
-                        //Game Start
+                        levelendScreen = false;
                         return 2;
+                    }
+                }
+                else if (optionMenu.visible)
+                {
+                    //Enter wählt Menüfelder
+                    if (Game1.input.enter || Game1.input.sprung)
+                    {
+                        //Option == 2 ist Exit
+                        if (optionMenu.option == 3)
+                        {
+                            optionMenu.visible = false;
+                            mainMenu.option = 1;
+                        }
+                        //Option = 1 ist stretch
+                        else if (optionMenu.option == 2)
+                        {
+                            if (Game1.sound)
+                            {
+                                Sound.PauseMenu();
+                                Game1.sound = false;
+                            }
+                            else
+                            {
+                                Game1.sound = true;
+                                Sound.PlayMenu();
+                            }
+                        }
+                        else if (optionMenu.option == 1) //Wird noch zu ShowControls umgebaut
+                        {
+                            if (Game1.stretch)
+                                Game1.stretch = false;
+                            else
+                                Game1.stretch = true;
+                        }
+                        else //Fullscreentoogle
+                        {
+                            Game1.ToggleFullscreen();
+                        }
+                    }
+                }
+                else if (startMenu.visible)
+                {
+                    if (Game1.input.enter || Game1.input.sprung)
+                    {
+                        //Option == 2 ist Exit
+                        if (startMenu.option == 2)
+                        {
+                            startMenu.visible = false;
+                            mainMenu.option = 0;
+                        }
+                        //Option = 1 ist New Game
+                        else if (startMenu.option == 1)
+                        {
+                            return 2;
+                        }
+                        else
+                        {
+                            //Game Continue
+                            return 2;
+                        }
+                    }
+                }
+                else if (mainMenu.visible)
+                {
+                    if (Game1.input.enter || Game1.input.sprung)
+                    {
+                        //Option == 2 ist Exit
+                        if (mainMenu.option == 2)
+                        {
+                            return 0;
+                        }
+                        //Option = 1 ist OptionMenu
+                        else if (mainMenu.option == 1)
+                        {
+                            optionMenu.visible = true;
+                            optionMenu.option = 0;
+                        }
+                        else
+                        {
+                            //Game Start
+                            startMenu.visible = true;
+                            startMenu.option = 0;
+                        }
                     }
                 }
             }
@@ -195,14 +253,25 @@ namespace TheVillainsRevenge
 
         public void Draw(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            //--------------------Draw to renderSpine--------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderSpine);
-            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            character.Draw(gameTime, camera);
+            if (startScreen)
+            {
+                //--------------------Draw to renderScreen--------------------
+                Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
+                Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
+                Cutscene.Draw(spriteBatch);
+                spriteBatch.End();
+            }
+            else
+            {
+                //--------------------Draw to renderSpine--------------------
+                Game1.graphics.GraphicsDevice.SetRenderTarget(renderSpine);
+                Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+                character.Draw(gameTime, camera);
 
-            //--------------------Draw to renderMenu--------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderMenu);
-            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+                //--------------------Draw to renderMenu--------------------
+                Game1.graphics.GraphicsDevice.SetRenderTarget(renderMenu);
+                Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 if (mainMenu.visible && !deadScreen && !levelendScreen)
                 {
                     mainMenu.Draw(spriteBatch, gameTime, camera);
@@ -211,7 +280,11 @@ namespace TheVillainsRevenge
                 {
                     optionMenu.Draw(spriteBatch, gameTime, camera);
                 }
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                if (startMenu.visible)
+                {
+                    startMenu.Draw(spriteBatch, gameTime, camera);
+                }
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 if (deadScreen)
                 {
                     spriteBatch.DrawString(font, "Game Over", new Vector2((Game1.resolution.X / 2) - 50, (Game1.resolution.Y / 2) - 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
@@ -224,21 +297,21 @@ namespace TheVillainsRevenge
                     spriteBatch.DrawString(font, "Press Enter", new Vector2((Game1.resolution.X / 2) - 60, (Game1.resolution.Y / 2) + 50), textColor, 0.0f, Vector2.Zero, fontScale, SpriteEffects.None, 1.0f);
 
                 }
-            spriteBatch.End();
+                spriteBatch.End();
 
-            //--------------------Draw to renderTitle--------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderTitle);
-            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                //--------------------Draw to renderTitle--------------------
+                Game1.graphics.GraphicsDevice.SetRenderTarget(renderTitle);
+                Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 spriteBatch.Draw(logo_texture, Vector2.Zero, Color.White);
                 spriteBatch.Draw(credit_texture, Vector2.Zero, Color.White);
-            spriteBatch.End();
+                spriteBatch.End();
 
-            //--------------------Draw to renderScreen--------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
-            Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
-                if (!deadScreen&&!levelendScreen)
+                //--------------------Draw to renderScreen--------------------
+                Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
+                Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
+                if (!deadScreen && !levelendScreen)
                 {
                     spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
                     spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);
@@ -246,8 +319,8 @@ namespace TheVillainsRevenge
                 spriteBatch.Draw(renderMenu, Vector2.Zero, Color.White);
                 spriteBatch.Draw(renderTitle, Vector2.Zero, Color.White);
                 spriteBatch.Draw(overlay_texture, Vector2.Zero, Color.White);
-            spriteBatch.End();
-
+                spriteBatch.End();
+            }
             //--------------------Draw to Screen--------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);

@@ -54,9 +54,10 @@ namespace TheVillainsRevenge
             Content.RootDirectory = "Content";
         }
 
+
         protected override void Initialize()
         {
-            menu = new MenuScreen(0);
+            menu = new MenuScreen(3);
             //game = new GameScreen();
 
             //Loading Stuffs
@@ -224,12 +225,13 @@ namespace TheVillainsRevenge
                     if (level != 5)
                     {
                         game = new GameScreen(); //lädt das Game
+
+                        this.BeginDraw();
                         for (int i = 0; i <= 7; i++)
-                        {
-                            base.Update(gameTime);
+                        {                            
                             game.Load(Content, gameTime, spriteBatch, i); // lädt die Game Bilder
-                            base.Draw(gameTime);
                         }
+                        this.EndDraw();
                     }
                     else
                     {
@@ -256,14 +258,16 @@ namespace TheVillainsRevenge
                     {
                         game = null;
                         Content.Unload();
+                        GC.Collect();
                         Load();
                         menu = new MenuScreen(1);
                         menu.Load(Content);
                     }
                     else if (menuOption == 3) //Level Ende
-                    {
+                    {                        
                         game = null;
                         Content.Unload();
+                        GC.Collect();
                         if(level < 5)
                             level += 1;
                         Save();
