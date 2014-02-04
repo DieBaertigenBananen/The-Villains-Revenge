@@ -55,7 +55,7 @@ namespace TheVillainsRevenge
             {
                 option = optionCount - 1;
             }
-            if (Game1.input.back) //Esc (Untere/Letzte Option muss immer Exit/Return sein)
+            if (Game1.input.back || Game1.input.escape) //Esc (Untere/Letzte Option muss immer Exit/Return sein)
             {
                 //Setze auf Exit
                 if (option == optionCount - 1)
