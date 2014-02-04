@@ -202,7 +202,7 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed
                     || 
-                    keyState.IsKeyDown(Keys.Escape))
+                    keyState.IsKeyDown(Keys.P))
                 {
                     pause = true;
                     pausep = true;
@@ -213,7 +213,7 @@ namespace TheVillainsRevenge
                 pause = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Released
                     &&
-                    keyState.IsKeyUp(Keys.Escape))
+                    keyState.IsKeyUp(Keys.P))
                 {
                     pausep = false;
                 }
