@@ -54,6 +54,7 @@ namespace TheVillainsRevenge
         Effect smash;
         Effect dust;
         Effect clear;
+        Effect pause;
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
@@ -172,6 +173,7 @@ namespace TheVillainsRevenge
                     smash = Content.Load<Effect>("Smash");
                     dust = Content.Load<Effect>("Dust");
                     clear = Content.Load<Effect>("Clear");
+                    pause = Content.Load<Effect>("Pause");
                     gaussShader = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
                     gaussScreen = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
                     gaussBackground0 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 1f);
@@ -612,6 +614,7 @@ namespace TheVillainsRevenge
                 //-----Update Shader-----
                 coverEyes.Parameters["gameTime"].SetValue((float)Game1.time.TotalMilliseconds);
                 smash.Parameters["gameTime"].SetValue((float)Game1.time.TotalMilliseconds);
+                pause.Parameters["gameTime"].SetValue((float)Game1.time.TotalMilliseconds);
                 dust.Parameters["gameTime"].SetValue((float)Game1.time.TotalMilliseconds);
                 dust.Parameters["playerX"].SetValue(spieler.position.X - camera.viewport.X);
                 dust.Parameters["playerY"].SetValue(spieler.position.Y - camera.viewport.Y);
@@ -922,7 +925,14 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            if (paused)
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, pause, camera.screenTransform);
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            }
                 spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
                 spriteBatch.Draw(renderHud, new Vector2(), Color.White);
             spriteBatch.End();
