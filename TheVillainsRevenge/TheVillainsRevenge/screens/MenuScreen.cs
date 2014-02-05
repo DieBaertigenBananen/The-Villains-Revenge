@@ -334,10 +334,10 @@ namespace TheVillainsRevenge
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
                 spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
-                spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);
                 spriteBatch.Draw(renderMenu, Vector2.Zero, Color.White);
                 spriteBatch.Draw(renderTitle, Vector2.Zero, Color.White);
                 spriteBatch.Draw(overlay_texture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderSpine, Vector2.Zero, Color.White);
                 spriteBatch.End();
             }
             //--------------------Draw to Screen--------------------
