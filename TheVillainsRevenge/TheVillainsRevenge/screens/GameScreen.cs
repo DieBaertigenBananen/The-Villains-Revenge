@@ -942,6 +942,7 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            if(dietime <= 0||dietime > 1)
                 spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
             spriteBatch.End();
         }
