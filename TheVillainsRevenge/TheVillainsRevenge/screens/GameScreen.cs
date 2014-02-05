@@ -54,6 +54,7 @@ namespace TheVillainsRevenge
         Effect smash;
         Effect dust;
         Effect clear;
+        Effect pause;
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
@@ -172,6 +173,7 @@ namespace TheVillainsRevenge
                     smash = Content.Load<Effect>("Smash");
                     dust = Content.Load<Effect>("Dust");
                     clear = Content.Load<Effect>("Clear");
+                    pause = Content.Load<Effect>("Pause");
                     gaussShader = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
                     gaussScreen = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
                     gaussBackground0 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 1f);
@@ -251,7 +253,7 @@ namespace TheVillainsRevenge
 
         public int Update(GameTime gameTime, ContentManager Content)
         {
-            if (!levelend && dietime == 0&&!paused)
+            if (!levelend && dietime == 0 && !paused)
             {
                 Game1.time += gameTime.ElapsedGameTime;
                 if (princess.rageMode)
@@ -897,9 +899,14 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            if (princess.coverEyes) //-----[Shader]-----CoverEyes
+            if (princess.coverEyes && !paused) //-----[Shader]-----CoverEyes
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, coverEyes);
+            }
+            else if (paused)
+            {
+                pause.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, pause);
             }
             else
             {
@@ -907,11 +914,23 @@ namespace TheVillainsRevenge
             }
                 spriteBatch.Draw(renderShader, new Vector2(), Color.White);
             spriteBatch.End();
+            //-----HUD-----
+            if (paused)
+            {
+                pause.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, pause);
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null);
+            }
+                spriteBatch.Draw(renderHud, new Vector2(), Color.White);
+            spriteBatch.End();
 
             //-----[Shader]-----GaussianBlur
-            if (princess.coverEyes)
+            if (princess.coverEyes || paused)
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     renderScreen = gaussScreen.PerformGaussianBlur(Game1.graphics, spriteBatch, renderScreen, BlendState.AlphaBlend);
                 }
@@ -924,7 +943,6 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
                 spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
-                spriteBatch.Draw(renderHud, new Vector2(), Color.White);
             spriteBatch.End();
         }
     }
