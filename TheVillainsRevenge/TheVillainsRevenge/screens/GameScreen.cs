@@ -124,6 +124,7 @@ namespace TheVillainsRevenge
         {
             if (loadingState == 0)
             {
+                camera.UpdateTransformation(Game1.graphics);
                 loadingScreen.Load(Content);
             }
             loadingScreen.UpdateDraw(loadingState, spriteBatch, gameTime, camera);
@@ -141,33 +142,33 @@ namespace TheVillainsRevenge
                     renderBackground3 = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
                     renderHud = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
                     renderShader = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
-                    break;
-                case 1:
                     font = Content.Load<SpriteFont>("fonts/schrift");
                     spieler.Load(Content, Game1.graphics);
                     hero.Load(Content, Game1.graphics);
                     princess.Load(Content, Game1.graphics);
-                    break;
-                case 2:
                     karte.Load(Content);
                     karte.Generate(spieler, hero);
-                    break;
-                case 3:
                     foreground_1.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground1HeightOffset"]));
+                    break;
+                case 1:
                     foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground0HeightOffset"]));
                     break;
-                case 4:
+                case 2:
                     background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]), 0);
+                    break;
+                case 3:
                     background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]), 0);
                     break;
-                case 5:
+                case 4:
                     background_2.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground2"]), 0);
+                    break;
+                case 5:
                     background_3.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground3"]), 0);
+                    break;
+                case 6:
                     //clouds_1.Load(Content, "clouds_1", karte, camera);
                     //clouds_2.Load(Content, "clouds_2", karte, camera);
                     //clouds_3.Load(Content, "clouds_3", karte, camera);
-                    break;
-                case 6:
                     gui.Load(Content);
                     coverEyes = Content.Load<Effect>("CoverEyes");
                     smash = Content.Load<Effect>("Smash");
@@ -181,8 +182,6 @@ namespace TheVillainsRevenge
                     gaussBackground2 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 10f);
                     gaussBackground3 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
                     Sound.Load(Content);
-                    break;
-                case 7:
                     if (Game1.sound)
                     {
                         Sound.bgMusicInstance.Play();

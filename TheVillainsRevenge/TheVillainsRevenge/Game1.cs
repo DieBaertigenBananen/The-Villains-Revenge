@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using LuaInterface;
+using System.Threading;
 
 namespace TheVillainsRevenge
 {
@@ -226,13 +227,14 @@ namespace TheVillainsRevenge
                     if (level != 5)
                     {
                         game = new GameScreen(); //lädt das Game
-
-                        this.BeginDraw();
-                        for (int i = 0; i <= 7; i++)
-                        {                            
-                            game.Load(Content, gameTime, spriteBatch, i); // lädt die Game Bilder
+                        for (int i = 0; i < 7; i++)
+                        {
+                            this.BeginDraw();                        
+                            game.Load(Content, gameTime, spriteBatch, i); // lädt die Game Bilder 
+                            this.EndDraw();
+                            Thread.Sleep(250);
                         }
-                        this.EndDraw();
+                        Thread.Sleep(500);
                     }
                     else
                     {
