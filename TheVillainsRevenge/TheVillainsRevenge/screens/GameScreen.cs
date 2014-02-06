@@ -442,7 +442,11 @@ namespace TheVillainsRevenge
                             if ((spieler.smash && spieler.fall) || spieler.hit)
                             {
                                 //Falls Megaschlag
-                                enemy.anim("smash_die", 0);
+                                if(spieler.smash)
+                                    enemy.anim("smash_die", 0);
+                                else
+                                    enemy.anim("die", 0);
+
                             }
                             else
                             {
