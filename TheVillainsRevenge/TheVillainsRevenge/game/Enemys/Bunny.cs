@@ -21,6 +21,7 @@ namespace TheVillainsRevenge
         {
             if (anim == "die"||anim == "smash_die")
             {
+                Sound.Play("fluffy_dying");
                 spine.anim(anim, richtung, false);
                 dead = true;
             }

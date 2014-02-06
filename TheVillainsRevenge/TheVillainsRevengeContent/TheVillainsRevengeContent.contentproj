@@ -410,58 +410,58 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sounds\supersmash.mp3">
+    <Compile Include="sounds\fx\supersmash.mp3">
       <Name>supersmash</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sounds\landing.mp3">
+    <Compile Include="sounds\fx\landing.mp3">
       <Name>landing</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sounds\schlag.mp3">
+    <Compile Include="sounds\fx\schlag.mp3">
       <Name>schlag</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sounds\ashbrett_sword_hit.mp3">
+    <Compile Include="sounds\fx\ashbrett_sword_hit.mp3">
       <Name>ashbrett_sword_hit</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\ashbrett_sword_swoosh.mp3">
+    <Compile Include="sounds\fx\ashbrett_sword_swoosh.mp3">
       <Name>ashbrett_sword_swoosh</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\button_press.mp3">
+    <Compile Include="sounds\fx\button_press.mp3">
       <Name>button_press</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\punch_clubber_cloud.mp3">
+    <Compile Include="sounds\fx\punch_clubber_cloud.mp3">
       <Name>punch_clubber_cloud</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\ausrutscher.mp3">
+    <Compile Include="sounds\fx\ausrutscher.mp3">
       <Name>ausrutscher</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\time_shift.mp3">
+    <Compile Include="sounds\fx\time_shift.mp3">
       <Name>time_shift</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\triggerwall.mp3">
+    <Compile Include="sounds\fx\triggerwall.mp3">
       <Name>triggerwall</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
@@ -1014,6 +1014,99 @@
       <Name>Pause</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sounds\ashbrett\attack.mp3">
+      <Name>attack</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\ashbrett\dying.mp3">
+      <Name>dying</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\ashbrett\hit.mp3">
+      <Name>hit</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\ashbrett\jumping.mp3">
+      <Name>jumping</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\ashbrett\win.mp3">
+      <Name>win</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sounds\ashbrett\breathing.mp3">
+      <Name>breathing</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="sounds\sweetcheeks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sounds\bonepuker\attack.mp3">
+      <Name>attack</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\bonepuker\dying.mp3">
+      <Name>dying</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\bonepuker\hit.mp3">
+      <Name>hit</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\bonepuker\jump.mp3">
+      <Name>jump</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\bonepuker\smash.mp3">
+      <Name>smash</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sounds\fluffy\attack.mp3">
+      <Name>attack</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\fluffy\dying.mp3">
+      <Name>dying</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="sounds\skullmonkey\dying.mp3">
+      <Name>dying</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\skullmonkey\freed.mp3">
+      <Name>freed</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="sounds\skullmonkey\item.mp3">
+      <Name>item</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

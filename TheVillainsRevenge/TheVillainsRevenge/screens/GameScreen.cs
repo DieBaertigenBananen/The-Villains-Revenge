@@ -143,14 +143,14 @@ namespace TheVillainsRevenge
                     renderHud = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
                     renderShader = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
                     font = Content.Load<SpriteFont>("fonts/schrift");
+                    foreground_1.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground1HeightOffset"]));
+                    break;
+                case 1:
                     spieler.Load(Content, Game1.graphics);
                     hero.Load(Content, Game1.graphics);
                     princess.Load(Content, Game1.graphics);
                     karte.Load(Content);
                     karte.Generate(spieler, hero);
-                    foreground_1.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground1HeightOffset"]));
-                    break;
-                case 1:
                     foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground0HeightOffset"]));
                     break;
                 case 2:
@@ -181,13 +181,13 @@ namespace TheVillainsRevenge
                     gaussBackground1 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 5f);
                     gaussBackground2 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 10f);
                     gaussBackground3 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
+                    debug = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/Planes/background_0_debug");
+                    princess.ResetRage(gameTime);
                     Sound.Load(Content);
                     if (Game1.sound)
                     {
                         Sound.bgMusicInstance.Play();
                     }
-                    debug = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/Planes/background_0_debug");
-                    princess.ResetRage(gameTime);
                     StartSave();
                     break;
             }   
@@ -455,6 +455,7 @@ namespace TheVillainsRevenge
                                     enemy.anim("attack", 1);
                                 else
                                     enemy.anim("attack", 2);
+                                Sound.Play("fluffy_attack");
                                 spieler.getHit("die");
                                 dietime = 2;
                                 GUIFace = 1;
@@ -464,6 +465,7 @@ namespace TheVillainsRevenge
                         //Falls hero den Monkey erreicht
                         if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
                         {
+                            Sound.Play("skullmonkey_dying");
                             enemy.anim("dying", 0);
                             hero.attack();
                         }
@@ -591,6 +593,7 @@ namespace TheVillainsRevenge
                     dietime = 2;
                     hero.attack();
                     herohit = true;
+                    Sound.Play("ashbrett_win");
                 }
                 //--------------------Camera--------------------
                 camera.Update(Game1.graphics, spieler, karte);

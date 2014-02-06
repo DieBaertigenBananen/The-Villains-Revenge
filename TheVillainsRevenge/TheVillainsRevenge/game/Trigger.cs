@@ -400,6 +400,7 @@ namespace TheVillainsRevenge
                                 {
                                     enemy.moving = true;
                                     enemy.mover = false;
+                                    Sound.Play("skullmonkey_freed");
                                 }
                             }
                         }

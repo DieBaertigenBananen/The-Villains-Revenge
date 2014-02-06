@@ -24,6 +24,12 @@ namespace TheVillainsRevenge
             smashInitIntensity = Convert.ToInt32((double)Game1.luaInstance["playerSmashIntensity"]);
             smashCooldown = (float)Convert.ToDouble(Game1.luaInstance["playerMegaSchlagCooldown"]) * 1000;
         }
+
+        public override void getHit(string animation)
+        {
+            lifes--;
+            Game1.leben = lifes;
+        }
         public void Update(GameTime gameTime, Map map,Rectangle hero)
         {
             speed = Convert.ToInt32((double)Game1.luaInstance["playerSpeed"]);
@@ -241,6 +247,7 @@ namespace TheVillainsRevenge
                 if (fall)
                 {
                     fall = false;
+                    Sound.Play("land");
                 }
             }
 

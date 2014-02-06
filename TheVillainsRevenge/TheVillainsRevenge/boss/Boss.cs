@@ -30,17 +30,20 @@ namespace TheVillainsRevenge
             schlagbar = false;
             if (BossScreen.bossleben == 0)
             {
+                Sound.Play("ashbrett_hit");
                 animeTime = 2000;
                 spine.anim("die", 3, false);
             }
             else
             {
+                Sound.Play("ashbrett_dying");
                 animeTime = 1.0;
                 spine.anim("hit", 3, false);
             }
         }
         public override void attack()
         {
+            Sound.Play("ashbrett_attack");
             attacktimer = 1;
             spine.anim("attack", 3, false);
         }
@@ -246,6 +249,7 @@ namespace TheVillainsRevenge
                             {
                                 if (!fall && !jump)
                                 {
+                                    Sound.Play("ashbrett_jumping");
                                     Console.WriteLine("S:"+spielerdistanz+" A:"+actualspeed);
                                     Console.WriteLine("kA1");
                                     spine.anim("jump", 3, false);
@@ -259,6 +263,7 @@ namespace TheVillainsRevenge
                                 //AAAAHHH WIR fallen T_T
                                 if (!fall && !jump)
                                 {
+                                    Sound.Play("ashbrett_jumping");
                                     Jump(gameTime, map); //Springen!
                                     kistate = 1;
                                 }
@@ -298,6 +303,7 @@ namespace TheVillainsRevenge
                                     {
                                         if (!fall && !jump)
                                         {
+                                            Sound.Play("ashbrett_jumping");
                                             spine.anim("jump", 3, false);
                                             Jump(gameTime, map); //Springen!
                                             kistate = 2;
@@ -315,6 +321,7 @@ namespace TheVillainsRevenge
                                             Move(-actualspeed, 0, map);
                                             if (!fall && !jump)
                                             {
+                                                Sound.Play("ashbrett_jumping");
                                                 spine.anim("jump", 3, false);
                                                 Jump(gameTime, map); //Springen!
                                                 kistate = 2;
@@ -326,6 +333,7 @@ namespace TheVillainsRevenge
                                 {
                                     if (!fall && !jump)
                                     {
+                                        Sound.Play("ashbrett_jumping");
                                         spine.anim("jump", 3, false);
                                         Jump(gameTime, map); //Springen!
                                         kistate = 3;

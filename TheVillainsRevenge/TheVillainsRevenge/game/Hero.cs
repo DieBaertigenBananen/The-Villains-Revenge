@@ -31,6 +31,7 @@ namespace TheVillainsRevenge
         public double slowtime;
         float acceleration = 0.0f;
         public double attacktimer = 0;
+        double breathtimer = 0;
         //Checkpoint//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         int checkkistate;
@@ -59,6 +60,7 @@ namespace TheVillainsRevenge
         public virtual void attack()
         {
             Sound.Play("ashbrett_attack");
+            Sound.Play("attack");
             attacktimer = 1;
             spine.anim("attack", 3, false);
         }
@@ -163,8 +165,17 @@ namespace TheVillainsRevenge
                     actualspeed = airspeed;
                 }
                 float spielerdistanz = spieler.X - position.X;
-                if (Math.Abs(spielerdistanz) < 120&&cbox.box.Y >= spieler.Y&&cbox.box.Y-480 <= spieler.Y+spieler.Height&&!jump&&!fall)
+                if (Math.Abs(spielerdistanz) < 240 && cbox.box.Y >= spieler.Y && cbox.box.Y - 480 <= spieler.Y + spieler.Height && !jump && !fall)
                 {
+                    if (breathtimer < 0)
+                    {
+                        Sound.Play("ashbrett_breath");
+                        breathtimer = 20;
+                    }
+                    else
+                    {
+                        breathtimer -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
+                    }
                     bool geht = true;
                     for (int i = 0; i < 10; i++)
                     {
@@ -280,6 +291,8 @@ namespace TheVillainsRevenge
                                 {
                                     if (!fall && !jump)
                                     {
+                                        if (Math.Abs(spielerdistanz) < 240)
+                                            Sound.Play("ashbrett_jumpinging");
                                         spine.anim("jump", 3, false);
                                         Jump(gameTime, map); //Springen!
                                         kistate = 3;
@@ -313,6 +326,8 @@ namespace TheVillainsRevenge
                                     {
                                         if (!fall && !jump)
                                         {
+                                            if (Math.Abs(spielerdistanz) < 240)
+                                                Sound.Play("ashbrett_jumping");
                                             Jump(gameTime, map); //Springen!
                                             kistate = 1;
                                         }
@@ -374,6 +389,8 @@ namespace TheVillainsRevenge
                                             {
                                                 if (!fall && !jump)
                                                 {
+                                                    if (Math.Abs(spielerdistanz) < 240)
+                                                        Sound.Play("ashbrett_jumping");
                                                     spine.anim("jump", 3, false);
                                                     Jump(gameTime, map); //Springen!
                                                     kistate = 2;
@@ -391,6 +408,8 @@ namespace TheVillainsRevenge
                                                     Move(-actualspeed, 0, map);
                                                     if (!fall && !jump)
                                                     {
+                                                        if (Math.Abs(spielerdistanz) < 240)
+                                                            Sound.Play("ashbrett_jumping");
                                                         spine.anim("jump", 3, false);
                                                         Jump(gameTime, map); //Springen!
                                                         kistate = 2;
@@ -403,6 +422,8 @@ namespace TheVillainsRevenge
                                     {
                                         if (!fall && !jump)
                                         {
+                                            if (Math.Abs(spielerdistanz) < 240)
+                                                Sound.Play("ashbrett_jumping");
                                             spine.anim("jump", 3, false);
                                             Jump(gameTime, map); //Springen!
                                             kistate = 3;
@@ -525,6 +546,8 @@ namespace TheVillainsRevenge
                             }
                             if (bewegblock)
                             {
+                                if (Math.Abs(spielerdistanz) < 240)
+                                    Sound.Play("ashbrett_jumping");
                                 spine.anim("jump", 3, false);
                                 Move(actualspeed, 0, map);
                                 Jump(gameTime, map); //Springen!
@@ -580,6 +603,8 @@ namespace TheVillainsRevenge
                             }
                             if (bewegblock)
                             {
+                                if (Math.Abs(spielerdistanz) < 240)
+                                    Sound.Play("ashbrett_jumping");
                                 spine.anim("jump", 3, false);
                                 Jump(gameTime, map); //Springen!
                                 kistate = 8;

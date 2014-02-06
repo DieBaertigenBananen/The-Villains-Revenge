@@ -124,12 +124,12 @@ namespace TheVillainsRevenge
             spine.Load(position, "bonepuker", (float)Convert.ToDouble(Game1.luaInstance["playerScale"]), initAcceleration);
         }
 
-        public void getHit(string animation)
+        public virtual void getHit(string animation)
         {
+            Sound.Play("bonepuker_dying");
             lifes--;
             Game1.leben = lifes;
-            if(animation != "")
-                spine.anim(animation, 0, false);
+            spine.anim(animation, 0, false);
         }
 
         public void Update(GameTime gameTime, Map map, Princess princess)
@@ -170,6 +170,7 @@ namespace TheVillainsRevenge
             {
                 if (!jump && !fall && Game1.input.sprungp)
                 {
+                    Sound.Play("bonepuker_jump");
                     spine.animationTimer = Game1.time.TotalMilliseconds;
                     spine.animationState.SetAnimation(0, "jump", false);
                     spine.animation = "jump";
@@ -201,6 +202,7 @@ namespace TheVillainsRevenge
                 {
                     if (Game1.time.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
                     {
+                        Sound.Play("bonepuker_smash");
                         jump = false;
                         fall = true;
                         hit = false;
@@ -216,6 +218,7 @@ namespace TheVillainsRevenge
             {
                 if (!smash && !hit) //Schlag beginnen
                 {
+                    Sound.Play("bonepuker_attack");
                     Sound.Play("schlag");
                     hit = true;
                     spine.anim("attack", 0, false);
@@ -351,6 +354,7 @@ namespace TheVillainsRevenge
                     }
                     else if (item1 == 3 && !fall && !jump)
                     {
+                        Sound.Play("skullmonkey_item");
                         map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2, false));
                     }
                     item1 = 0;
@@ -368,6 +372,7 @@ namespace TheVillainsRevenge
                     }
                     else if (item2 == 3 && !fall && !jump)
                     {
+                        Sound.Play("skullmonkey_item");
                         map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2, false));
                     }
                     item2 = 0;

@@ -187,6 +187,7 @@ namespace TheVillainsRevenge
                 }
                 else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.hits && !spieler.ishit)
                 {
+                    Sound.Play("attack");
                     spieler.ishit = true;
                     spieler.getHit("");
                 }
