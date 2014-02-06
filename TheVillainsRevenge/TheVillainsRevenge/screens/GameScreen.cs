@@ -428,7 +428,7 @@ namespace TheVillainsRevenge
                         {
                             if (enemy.type == 1 && spieler.hitCbox.Intersects(enemy.cbox.box)) //Töte Kanninchen
                             {
-                                enemy.anim("die", 0);
+                                enemy.anim("smash_die", 0);
                             }
                         }
                         //Wenn Enemy aus der Map läuft
@@ -442,7 +442,7 @@ namespace TheVillainsRevenge
                             if ((spieler.smash && spieler.fall) || spieler.hit)
                             {
                                 //Falls Megaschlag
-                                enemy.anim("die", 0);
+                                enemy.anim("smash_die", 0);
                             }
                             else
                             {

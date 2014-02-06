@@ -1,109 +1,137 @@
 
-fluffy.png
+fluffy-1.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+blood
+  rotate: false
+  xy: 2, 9
+  size: 198, 59
+  orig: 198, 59
+  offset: 0, 0
+  index: -1
 body
-  rotate: true
-  xy: 0, 56
+  rotate: false
+  xy: 594, 52
   size: 200, 195
   orig: 200, 195
   offset: 0, 0
   index: -1
 ear_left
   rotate: true
-  xy: 605, 165
+  xy: 1003, 156
   size: 91, 241
   orig: 91, 241
   offset: 0, 0
   index: -1
 ear_right
-  rotate: true
-  xy: 195, 51
+  rotate: false
+  xy: 796, 115
   size: 205, 132
   orig: 205, 132
   offset: 0, 0
   index: -1
 head
-  rotate: true
-  xy: 460, 90
+  rotate: false
+  xy: 1439, 102
   size: 166, 145
   orig: 166, 145
   offset: 0, 0
   index: -1
 helmet
   rotate: false
-  xy: 846, 151
+  xy: 1607, 142
   size: 170, 105
   orig: 170, 105
   offset: 0, 0
   index: -1
 left_arm
   rotate: true
-  xy: 0, 5
+  xy: 445, 17
   size: 51, 63
   orig: 51, 63
   offset: 0, 0
   index: -1
 left_foot
-  rotate: true
-  xy: 714, 30
+  rotate: false
+  xy: 796, 2
   size: 135, 111
   orig: 135, 111
   offset: 0, 0
   index: -1
 left_hand
-  rotate: false
-  xy: 441, 2
+  rotate: true
+  xy: 318, 9
   size: 59, 63
   orig: 59, 63
   offset: 0, 0
   index: -1
 left_shoulder
   rotate: true
-  xy: 327, 3
+  xy: 202, 6
   size: 62, 114
   orig: 62, 114
   offset: 0, 0
   index: -1
-right_arm
+matsch
   rotate: false
-  xy: 617, 33
+  xy: 2, 70
+  size: 294, 177
+  orig: 294, 177
+  offset: 0, 0
+  index: -1
+matsch_closed
+  rotate: false
+  xy: 298, 70
+  size: 294, 177
+  orig: 294, 177
+  offset: 0, 0
+  index: -1
+right_arm
+  rotate: true
+  xy: 383, 11
   size: 57, 60
   orig: 57, 60
   offset: 0, 0
   index: -1
 right_foot
   rotate: false
-  xy: 500, 0
+  xy: 1929, 157
   size: 117, 90
   orig: 117, 91
   offset: 0, 0
   index: -1
 right_shoulder
-  rotate: true
-  xy: 605, 93
+  rotate: false
+  xy: 933, 4
   size: 72, 109
   orig: 72, 109
   offset: 0, 0
   index: -1
 shield
   rotate: false
-  xy: 825, 17
+  xy: 1007, 20
   size: 104, 134
   orig: 104, 134
   offset: 0, 0
   index: -1
+splatter
+  rotate: true
+  xy: 1779, 145
+  size: 102, 148
+  orig: 102, 148
+  offset: 0, 0
+  index: -1
 sword_hand
-  rotate: false
-  xy: 327, 65
+  rotate: true
+  xy: 1246, 114
   size: 133, 191
   orig: 133, 191
   offset: 0, 0
   index: -1
 tail
   rotate: false
-  xy: 929, 44
+  xy: 1113, 47
   size: 83, 107
   orig: 83, 107
   offset: 0, 0

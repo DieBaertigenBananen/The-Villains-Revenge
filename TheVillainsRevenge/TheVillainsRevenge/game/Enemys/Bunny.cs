@@ -19,7 +19,7 @@ namespace TheVillainsRevenge
         }
         public override void anim(string anim,int richtung)
         {
-            if (anim == "die")
+            if (anim == "die"||anim == "smash_die")
             {
                 spine.anim(anim, richtung, false);
                 dead = true;
