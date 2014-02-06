@@ -10,10 +10,12 @@ namespace TheVillainsRevenge
     class Boss : Hero
     {
         
-        public double inactiveTime = 0;
+        public double animeTime = 0;
         public double wellencooldown = 10;
         public bool welleladen = false;
         public bool richtung;
+        public bool schlagbar = false;
+        public bool hits = false; // 
         public Boss(int x, int y): base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -23,6 +25,20 @@ namespace TheVillainsRevenge
             heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
             spine = new Spine();
         }
+        public void gethit()
+        {
+            schlagbar = false;
+            if (BossScreen.bossleben == 0)
+            {
+                animeTime = 2000;
+                spine.anim("die", 3, false);
+            }
+            else
+            {
+                animeTime = 1.0;
+                spine.anim("hit", 3, false);
+            }
+        }
         public override void attack()
         {
             attacktimer = 1;
@@ -31,22 +47,29 @@ namespace TheVillainsRevenge
         public override void Update(GameTime gameTime, Map map, Rectangle spieler)
         {
             Rectangle Player = spieler;
+
+            //Welle Laden Start
             if (wellencooldown > 0)
                 wellencooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
-            else if (!welleladen && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height)
+            else if (!welleladen && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height&&!fall&&!jump&&animeTime <= 0)
             {
+
+                if (spieler.X < position.X)
+                {
+                    richtung = false;
+                    spine.anim("super_attack", 2, false);
+                }
+                else
+                {
+                    richtung = true;
+                    spine.anim("super_attack", 1, false);
+                }
+                schlagbar = false;
                 welleladen = true;
-                inactiveTime = 1;
+                animeTime = 1.2;
+                attacktimer = 0;
             }
 
-            if (slowtime != 0)
-            {
-                slowtime -= gameTime.ElapsedGameTime.TotalSeconds;
-                if (slowtime < 0)
-                {
-                    slowtime = 0;
-                }
-            }
             speed = Convert.ToInt32((double)Game1.luaInstance["heroSpeed"]);
             int realspeed = Convert.ToInt32((double)Game1.luaInstance["heroKISpeed"]);
             if (GameScreen.slow != 0)
@@ -72,6 +95,7 @@ namespace TheVillainsRevenge
                 sx += spieler.Width;
             }
             float spielerdistanz = sx - position.X;
+            bool isspieler = true;
             if (Math.Abs(spielerdistanz) < 120 && cbox.box.Y >= spieler.Y && cbox.box.Y - 480 <= spieler.Y + spieler.Height && !jump && !fall)
             {
                 bool geht = true;
@@ -99,7 +123,10 @@ namespace TheVillainsRevenge
                         foreach (KIPoint kipoint in map.kipoints)
                         {
                             if (kipoint.id == kicheck.ElementAt(0).id)
+                            {
                                 spieler = kipoint.cbox;
+                                isspieler = false;
+                            }
                         }
                     }
                 }
@@ -111,7 +138,10 @@ namespace TheVillainsRevenge
                     foreach (KIPoint kipoint in map.kipoints)
                     {
                         if (kipoint.id == kicheck.ElementAt(0).id)
+                        {
                             spieler = kipoint.cbox;
+                            isspieler = false;
+                        }
                     }
                 }
             }
@@ -122,36 +152,34 @@ namespace TheVillainsRevenge
             if (attacktimer > 0)
             {
                 attacktimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-                if (attacktimer <= 0)
+                if(attacktimer < 0.5&&attacktimer > 0)
+                    hits = true;
+                else if (attacktimer <= 0)
                 {
-                    inactiveTime = 0.3f;
+                    hits = false;
+                    animeTime = 0.3f;
                     spine.anim("idle", 3, true);
+                    schlagbar = true;
                 }
 
             }
-            else if (inactiveTime > 0)
+            else if (animeTime > 0)
             {
-                inactiveTime -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                if (welleladen)
+                    Console.WriteLine(animeTime + " a:" + gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
+                animeTime -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
             }
             else if (welleladen)
             {
-                if (spieler.X < position.X)
-                {
-                    spine.anim("attack", 2, false);
-                    map.objects.Add(new Welle(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 4, false));
-                }
-                else
-                {
-                    spine.anim("attack", 1, false);
-                    map.objects.Add(new Welle(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 4, true));
-                }
+                map.objects.Add(new Welle(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 4, richtung));
                 welleladen = false;
                 wellencooldown = 10;
-                inactiveTime = 1;
+                animeTime = 1.0f;
             }
             else
             {
+                schlagbar = false;
                 //Wenn Spieler ist hinten bewege zurück
                 if (spieler.X < position.X)
                 {
@@ -243,7 +271,7 @@ namespace TheVillainsRevenge
                         }
                         else
                         {
-                            if (spieler.Y < position.Y - 20)
+                            if (spieler.Y < position.Y - 20&&!isspieler)
                             {
                                 if (CollisionCheckedVector(realspeed, 0, map.blocks, Player).X == realspeed)
                                 {

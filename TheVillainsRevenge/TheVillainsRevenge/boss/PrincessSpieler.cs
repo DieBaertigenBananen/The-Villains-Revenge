@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
     class PrincessSpieler : Player
     {
-
+        public bool ishit = false;
         public PrincessSpieler(int x, int y) : base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);

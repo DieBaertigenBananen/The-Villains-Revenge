@@ -128,7 +128,8 @@ namespace TheVillainsRevenge
         {
             lifes--;
             Game1.leben = lifes;
-            spine.anim(animation, 0, false);
+            if(animation != "")
+                spine.anim(animation, 0, false);
         }
 
         public void Update(GameTime gameTime, Map map, Princess princess)

@@ -20,9 +20,8 @@ namespace TheVillainsRevenge
         Camera camera = new BossCam();
         BossGUI GUI = new BossGUI();
         Texture2D bg_texture,fg_texture;
-        int bossleben = 100;
+        public static int bossleben = 100;
         int bosslebenshow = 100;
-        bool bosshit = false;
         public bool paused = false;
         Effect pause;
 
@@ -165,17 +164,13 @@ namespace TheVillainsRevenge
                     bosslebenshow--;
                 else
                 {
-                    if (!bosshit && spieler.hit && hero.inactiveTime > 0)
+                    if (spieler.hit && hero.schlagbar)
                     {
                         if (spieler.spine.BoundingBoxCollision(hero.cbox.box))
                         {
                             bossleben -= 10;
-                            bosshit = true;
+                            hero.gethit();
                         }
-                    }
-                    else if (!spieler.hit && bosshit)
-                    {
-                        bosshit = false;
                     }
                 }
 
@@ -186,14 +181,17 @@ namespace TheVillainsRevenge
                     hero.cbox.box.X -= 48;
                 else //Hero links
                     hero.cbox.box.X += 48;
-                if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.inactiveTime <= 0)
+                if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.animeTime <= 0 && !hero.welleladen)
                 {
                     hero.attack();
                 }
-                else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.inactiveTime >= 0.3f&&!hero.welleladen)
+                else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.hits && !spieler.ishit)
                 {
-                    spieler.getHit("die2");
+                    spieler.ishit = true;
+                    spieler.getHit("");
                 }
+                else if(spieler.ishit&&!hero.hits)
+                    spieler.ishit = false;
                 if (!hero.richtung) //Hero ist rechtss
                     hero.cbox.box.X += 48;
                 else //Hero links
