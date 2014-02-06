@@ -16,7 +16,6 @@ namespace TheVillainsRevenge
         int rageWarmup;
         int enrageSpeed;
         bool pressedLeft;
-        bool sack;
         public bool coverEyes;
         double coverTimer;
         int coverTime;
