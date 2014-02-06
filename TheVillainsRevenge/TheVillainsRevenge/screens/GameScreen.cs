@@ -931,7 +931,7 @@ namespace TheVillainsRevenge
             spriteBatch.End();
 
             //-----[Shader]-----GaussianBlur
-            if (princess.coverEyes || paused)
+            if (princess.coverEyes) //|| paused)
             {
                 for (int i = 0; i < 1; i++)
                 {
