@@ -3,135 +3,149 @@ fluffy-1.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+angst
+  rotate: false
+  xy: 1619, 107
+  size: 165, 147
+  orig: 165, 147
+  offset: 0, 0
+  index: -1
+attack
+  rotate: false
+  xy: 1439, 99
+  size: 178, 155
+  orig: 178, 155
+  offset: 0, 0
+  index: -1
 blood
   rotate: false
-  xy: 2, 9
+  xy: 2, 16
   size: 198, 59
   orig: 198, 59
   offset: 0, 0
   index: -1
 body
   rotate: false
-  xy: 594, 52
+  xy: 594, 59
   size: 200, 195
   orig: 200, 195
   offset: 0, 0
   index: -1
 ear_left
   rotate: true
-  xy: 1003, 156
+  xy: 1003, 163
   size: 91, 241
   orig: 91, 241
   offset: 0, 0
   index: -1
 ear_right
   rotate: false
-  xy: 796, 115
+  xy: 796, 122
   size: 205, 132
   orig: 205, 132
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 1439, 102
+  xy: 1786, 109
   size: 166, 145
   orig: 166, 145
   offset: 0, 0
   index: -1
 helmet
   rotate: false
-  xy: 1607, 142
+  xy: 1786, 2
   size: 170, 105
   orig: 170, 105
   offset: 0, 0
   index: -1
 left_arm
-  rotate: true
-  xy: 445, 17
+  rotate: false
+  xy: 946, 57
   size: 51, 63
   orig: 51, 63
   offset: 0, 0
   index: -1
 left_foot
   rotate: false
-  xy: 796, 2
+  xy: 1003, 50
   size: 135, 111
   orig: 135, 111
   offset: 0, 0
   index: -1
 left_hand
-  rotate: true
-  xy: 318, 9
+  rotate: false
+  xy: 1355, 56
   size: 59, 63
   orig: 59, 63
   offset: 0, 0
   index: -1
 left_shoulder
   rotate: true
-  xy: 202, 6
+  xy: 202, 13
   size: 62, 114
   orig: 62, 114
   offset: 0, 0
   index: -1
 matsch
   rotate: false
-  xy: 2, 70
+  xy: 2, 77
   size: 294, 177
   orig: 294, 177
   offset: 0, 0
   index: -1
 matsch_closed
   rotate: false
-  xy: 298, 70
+  xy: 298, 77
   size: 294, 177
   orig: 294, 177
   offset: 0, 0
   index: -1
 right_arm
-  rotate: true
-  xy: 383, 11
+  rotate: false
+  xy: 429, 15
   size: 57, 60
   orig: 57, 60
   offset: 0, 0
   index: -1
 right_foot
-  rotate: false
-  xy: 1929, 157
+  rotate: true
+  xy: 1954, 137
   size: 117, 90
   orig: 117, 91
   offset: 0, 0
   index: -1
 right_shoulder
-  rotate: false
-  xy: 933, 4
+  rotate: true
+  xy: 318, 3
   size: 72, 109
   orig: 72, 109
   offset: 0, 0
   index: -1
 shield
   rotate: false
-  xy: 1007, 20
+  xy: 1140, 27
   size: 104, 134
   orig: 104, 134
   offset: 0, 0
   index: -1
 splatter
   rotate: true
-  xy: 1779, 145
+  xy: 796, 18
   size: 102, 148
   orig: 102, 148
   offset: 0, 0
   index: -1
 sword_hand
   rotate: true
-  xy: 1246, 114
+  xy: 1246, 121
   size: 133, 191
   orig: 133, 191
   offset: 0, 0
   index: -1
 tail
-  rotate: false
-  xy: 1113, 47
+  rotate: true
+  xy: 1246, 36
   size: 83, 107
   orig: 83, 107
   offset: 0, 0

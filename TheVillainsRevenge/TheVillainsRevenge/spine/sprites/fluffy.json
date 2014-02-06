@@ -63,6 +63,8 @@
 			"ear_right": { "x": 90.36, "y": -27.35, "rotation": -166.61, "width": 205, "height": 132 }
 		},
 		"head": {
+			"angst": { "x": 66.14, "y": 12.13, "rotation": -90.9, "width": 165, "height": 147 },
+			"attack": { "x": 71.05, "y": 18.94, "rotation": -90.9, "width": 178, "height": 155 },
 			"head": { "x": 73.85, "y": 14.58, "rotation": -90.9, "width": 166, "height": 145 }
 		},
 		"helmet": {
@@ -219,7 +221,18 @@
 					{ "time": 0.4333, "angle": -19.31 }
 				],
 				"translate": [
-					{ "time": 0, "x": 0, "y": 0, "curve": "stepped" },
+					{
+						"time": 0,
+						"x": 0,
+						"y": 0,
+						"curve": [ 0.006, 0.5, 0.219, 0.81 ]
+					},
+					{
+						"time": 0.2333,
+						"x": 1.02,
+						"y": -0.08,
+						"curve": [ 0.191, 0.65, 0.503, 0.92 ]
+					},
 					{ "time": 0.4333, "x": 0, "y": 0 }
 				],
 				"scale": [
@@ -560,6 +573,20 @@
 					{ "time": 0, "x": 1, "y": 1, "curve": "stepped" },
 					{ "time": 0.4333, "x": 1, "y": 1 }
 				]
+			},
+			"splatter": {
+				"rotate": [
+					{ "time": 0.1, "angle": -90.97 },
+					{ "time": 0.2333, "angle": -90.46 }
+				],
+				"translate": [
+					{ "time": 0.1, "x": -271.13, "y": 281.5 },
+					{ "time": 0.2333, "x": -170.97, "y": 271.13 }
+				],
+				"scale": [
+					{ "time": 0.1, "x": 0.261, "y": 0.261 },
+					{ "time": 0.2333, "x": 1.538, "y": 1.538 }
+				]
 			}
 		},
 		"slots": {
@@ -571,6 +598,12 @@
 					{ "time": 0, "color": "ffffff00" }
 				]
 			},
+			"head": {
+				"attachment": [
+					{ "time": 0, "name": "attack" },
+					{ "time": 0.3, "name": "head" }
+				]
+			},
 			"matsch": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -578,10 +611,14 @@
 			},
 			"splatter": {
 				"attachment": [
-					{ "time": 0, "name": null }
+					{ "time": 0, "name": null },
+					{ "time": 0.1, "name": "splatter" }
 				],
 				"color": [
-					{ "time": 0, "color": "ffffff00" }
+					{ "time": 0, "color": "ffffff00" },
+					{ "time": 0.1, "color": "ffffffff", "curve": "stepped" },
+					{ "time": 0.2333, "color": "ffffffff" },
+					{ "time": 0.4333, "color": "ffffff00" }
 				]
 			},
 			"splatter2": {
@@ -827,15 +864,45 @@
 				"scale": [
 					{ "time": 0, "x": 1, "y": 1 }
 				]
+			},
+			"blood": {
+				"rotate": [
+					{ "time": 0.4, "angle": 0.83 }
+				],
+				"translate": [
+					{ "time": 0.4, "x": 407.57, "y": -1.72 },
+					{ "time": 0.7, "x": 350.58, "y": -13.81 }
+				],
+				"scale": [
+					{ "time": 0.4, "x": 1, "y": 1 },
+					{ "time": 0.7, "x": 3.467, "y": 3.467 }
+				]
+			},
+			"splatter": {
+				"rotate": [
+					{ "time": 0.2, "angle": 51.48 },
+					{ "time": 0.3666, "angle": 58.74 }
+				],
+				"translate": [
+					{ "time": 0.2, "x": 145.06, "y": 253.86 },
+					{ "time": 0.3666, "x": 186.51, "y": 295.31 }
+				],
+				"scale": [
+					{ "time": 0.2, "x": 0.521, "y": 0.521 },
+					{ "time": 0.3666, "x": 1.706, "y": 1.706 }
+				]
 			}
 		},
 		"slots": {
 			"blood": {
 				"attachment": [
-					{ "time": 0, "name": null }
-				],
-				"color": [
-					{ "time": 0, "color": "ffffff00" }
+					{ "time": 0, "name": null },
+					{ "time": 0.4, "name": "blood" }
+				]
+			},
+			"head": {
+				"attachment": [
+					{ "time": 0, "name": "angst" }
 				]
 			},
 			"matsch": {
@@ -845,10 +912,12 @@
 			},
 			"splatter": {
 				"attachment": [
-					{ "time": 0, "name": null }
+					{ "time": 0, "name": null },
+					{ "time": 0.2, "name": "splatter" }
 				],
 				"color": [
-					{ "time": 0, "color": "ffffff00" }
+					{ "time": 0.3666, "color": "ffffffff" },
+					{ "time": 0.7, "color": "ffffff00" }
 				]
 			},
 			"splatter2": {
@@ -866,7 +935,15 @@
 					{ "time": 0, "name": null }
 				]
 			}
-		}
+		},
+		"draworder": [
+			{
+				"time": 0.4,
+				"offsets": [
+					{ "slot": "blood", "offset": -15 }
+				]
+			}
+		]
 	},
 	"idle": {
 		"bones": {
@@ -1497,7 +1574,7 @@
 			},
 			"head": {
 				"attachment": [
-					{ "time": 0, "name": "head" },
+					{ "time": 0, "name": "angst" },
 					{ "time": 0.1, "name": null },
 					{ "time": 0.5666, "name": null },
 					{ "time": 0.8666, "name": null }

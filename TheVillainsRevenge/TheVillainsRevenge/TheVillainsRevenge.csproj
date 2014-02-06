@@ -191,7 +191,7 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
-    <Content Include="spine\sprites\ashbrett.png">
+    <Content Include="spine\sprites\ashbrett-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="spine\sprites\fluffy-1.png">
@@ -200,6 +200,12 @@
     <Content Include="spine\sprites\skullmonkey-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="spine\sprites\ashbrett.atlas">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spine\sprites\ashbrett.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="spine\sprites\bonepuker.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -254,12 +260,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="spine\sprites\ashbrett.atlas">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\ashbrett.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="spine\sprites\bonepuker.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

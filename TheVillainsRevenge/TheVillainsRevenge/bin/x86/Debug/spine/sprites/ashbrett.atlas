@@ -1,109 +1,130 @@
 
-ashbrett.png
+ashbrett-1.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+attack
+  rotate: true
+  xy: 945, 75
+  size: 179, 200
+  orig: 179, 200
+  offset: 0, 0
+  index: -1
 body
   rotate: false
-  xy: 565, 318
+  xy: 1735, 92
   size: 160, 162
   orig: 160, 162
   offset: 0, 0
   index: -1
+chase
+  rotate: true
+  xy: 727, 77
+  size: 177, 216
+  orig: 177, 216
+  offset: 0, 0
+  index: -1
 foot_left
-  rotate: false
-  xy: 945, 427
+  rotate: true
+  xy: 2, 2
   size: 69, 53
   orig: 69, 53
   offset: 0, 0
   index: -1
 foot_right
   rotate: false
-  xy: 871, 418
+  xy: 327, 9
   size: 64, 62
   orig: 64, 62
   offset: 0, 0
   index: -1
 head
-  rotate: false
-  xy: 201, 179
+  rotate: true
+  xy: 1346, 80
   size: 174, 196
   orig: 174, 197
   offset: 0, 1
   index: -1
 helmet
-  rotate: true
-  xy: 385, 186
+  rotate: false
+  xy: 1544, 84
   size: 189, 170
   orig: 189, 170
   offset: 0, 0
   index: -1
 hip
   rotate: false
-  xy: 201, 81
+  xy: 1735, 2
   size: 168, 88
   orig: 168, 88
   offset: 0, 0
   index: -1
 left_arm
-  rotate: false
-  xy: 805, 384
+  rotate: true
+  xy: 159, 15
   size: 56, 96
   orig: 56, 97
   offset: 0, 0
   index: -1
 left_hand
   rotate: true
-  xy: 130, 10
+  xy: 520, 101
   size: 56, 63
   orig: 56, 63
   offset: 0, 0
   index: -1
 left_shoulder
   rotate: true
-  xy: 10, 14
+  xy: 408, 105
   size: 52, 110
   orig: 52, 110
   offset: 0, 0
   index: -1
 right_arm
   rotate: true
-  xy: 281, 19
+  xy: 585, 105
   size: 52, 63
   orig: 52, 64
   offset: 0, 0
   index: -1
 right_hand
   rotate: true
-  xy: 203, 18
+  xy: 257, 18
   size: 53, 68
   orig: 53, 68
   offset: 0, 0
   index: -1
 right_shoulder
-  rotate: false
-  xy: 735, 380
+  rotate: true
+  xy: 57, 11
   size: 60, 100
   orig: 60, 100
   offset: 0, 0
   index: -1
 schweif
-  rotate: false
-  xy: 10, 76
+  rotate: true
+  xy: 2, 73
   size: 181, 404
   orig: 181, 404
   offset: 0, 0
   index: -1
 shield
-  rotate: true
-  xy: 565, 204
+  rotate: false
+  xy: 1897, 120
   size: 104, 134
   orig: 104, 134
   offset: 0, 0
   index: -1
+success
+  rotate: true
+  xy: 1147, 80
+  size: 174, 197
+  orig: 174, 197
+  offset: 0, 0
+  index: -1
 sword
   rotate: false
-  xy: 201, 385
+  xy: 408, 159
   size: 317, 95
   orig: 317, 95
   offset: 0, 0
