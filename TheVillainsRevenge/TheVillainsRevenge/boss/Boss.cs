@@ -12,6 +12,7 @@ namespace TheVillainsRevenge
         public double inactiveTime = 0;
         public double wellencooldown = 10;
         public bool welleladen = false;
+        public bool richtung;
         public Boss(int x, int y): base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -31,7 +32,7 @@ namespace TheVillainsRevenge
             Rectangle Player = spieler;
             if (wellencooldown > 0)
                 wellencooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
-            else if(!welleladen)
+            else if (!welleladen && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height)
             {
                 Console.WriteLine("Welle start!");
                 welleladen = true;
@@ -65,7 +66,12 @@ namespace TheVillainsRevenge
             {
                 actualspeed = airspeed;
             }
-            float spielerdistanz = spieler.X - position.X;
+            int sx = spieler.X;
+            if (spieler.X < position.X)
+            {
+                sx += spieler.Width;
+            }
+            float spielerdistanz = sx - position.X;
             if (Math.Abs(spielerdistanz) < 120 && cbox.box.Y >= spieler.Y && cbox.box.Y - 480 <= spieler.Y + spieler.Height && !jump && !fall)
             {
                 bool geht = true;
@@ -151,8 +157,13 @@ namespace TheVillainsRevenge
                 //Wenn Spieler ist hinten bewege zurück
                 if (spieler.X < position.X)
                 {
+                    richtung = false;
                     actualspeed = -actualspeed;
                     realspeed = -realspeed;
+                }
+                else
+                {
+                    richtung = true;
                 }
                 if (!cbox.box.Intersects(spieler))
                 {
@@ -205,10 +216,12 @@ namespace TheVillainsRevenge
                             {
                                 Move(actualspeed, 0, map);
                             }
-                            else
+                            else if(Math.Abs(spielerdistanz)-20 > Math.Abs(actualspeed))
                             {
                                 if (!fall && !jump)
                                 {
+                                    Console.WriteLine("S:"+spielerdistanz+" A:"+actualspeed);
+                                    Console.WriteLine("kA1");
                                     spine.anim("jump", 3, false);
                                     Jump(gameTime, map); //Springen!
                                     kistate = 3;
@@ -232,9 +245,10 @@ namespace TheVillainsRevenge
                         }
                         else
                         {
-                            GameScreen.test = 2;
+                            Console.WriteLine("ist da");
                             if (spieler.Y < position.Y - 20)
                             {
+                                Console.WriteLine("1");
                                 if (CollisionCheckedVector(realspeed, 0, map.blocks, Player).X == realspeed)
                                 {
                                     kicollide.X = cbox.box.X;

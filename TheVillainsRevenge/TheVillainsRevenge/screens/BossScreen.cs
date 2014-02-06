@@ -24,10 +24,12 @@ namespace TheVillainsRevenge
         int bosslebenshow = 100;
         bool bosshit = false;
         public bool paused = false;
+        Effect pause;
 
 
         RenderTarget2D renderSpine;
         RenderTarget2D renderGame;
+        RenderTarget2D renderScreen;
 
         public int getPoints(string w)
         {
@@ -85,8 +87,10 @@ namespace TheVillainsRevenge
         {
             bg_texture = Content.Load<Texture2D>("sprites/level_5/planes/background");
             fg_texture = Content.Load<Texture2D>("sprites/level_5/planes/foreground");
+            pause = Content.Load<Effect>("Pause");
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             spieler.Load(Content, Game1.graphics);
             hero.Load(Content, Game1.graphics);
             hero.start = true;
@@ -160,15 +164,23 @@ namespace TheVillainsRevenge
 
                 //--------------------Hero--------------------
                 hero.Update(gameTime, karte, spieler.cbox.box);
-
+                Rectangle herohit = hero.cbox.box;
+                if (!hero.richtung) //Hero ist rechts
+                    hero.cbox.box.X -= 48;
+                else //Hero links
+                    hero.cbox.box.X += 48;
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.inactiveTime <= 0)
                 {
                     hero.attack();
                 }
-                else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.inactiveTime >= 0.3f)
+                else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.inactiveTime >= 0.3f&&!hero.welleladen)
                 {
                     spieler.getHit("die2");
                 }
+                if (!hero.richtung) //Hero ist rechtss
+                    hero.cbox.box.X += 48;
+                else //Hero links
+                    hero.cbox.box.X -= 48;
                 //KiPunkte
                 for (int i = 0; i < karte.kipoints.Count(); i++)
                 {
@@ -213,12 +225,16 @@ namespace TheVillainsRevenge
                 camera.Update(Game1.graphics, spieler, karte);
                 if (Game1.input.pause)
                 {
+                    spieler.spine.Save();
+                    hero.spine.Save();
                     paused = true;
                 }
                 return 1;
             }
             else
             {
+                spieler.spine.Reset();
+                hero.spine.Reset();
                 if (Game1.input.pause)
                 {
                     paused = false;
@@ -254,6 +270,23 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(null);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
+            spriteBatch.End();
+
+            //----------------------------------------------------------------------
+            //----------------------------------------Draw to Screen
+            //----------------------------------------------------------------------
+            Game1.graphics.GraphicsDevice.SetRenderTarget(null);
+            Game1.graphics.GraphicsDevice.Clear(Color.Black);
+            if (paused)
+            {
+                pause.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, pause, camera.screenTransform);
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
+            }
             spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
             spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
             spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
