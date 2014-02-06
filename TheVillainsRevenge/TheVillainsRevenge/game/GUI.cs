@@ -96,14 +96,6 @@ namespace TheVillainsRevenge
                 spriteBatch.Draw(Mini_A_Texture, new Vector2((Game1.resolution.X / 2) - 550 + heldX, Game1.resolution.Y - 159), new Rectangle(0, 0, 74, 109), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                 //Bonepuker
                 spriteBatch.Draw(Mini_B_Texture, new Vector2((Game1.resolution.X / 2) - 550 + spielerX, Game1.resolution.Y - 185), new Rectangle(0, 0, 79, 135), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                //Start
-               // spriteBatch.Draw(MiniTexture, new Vector2((Game1.resolution.X / 2) - mm_offsetX, Game1.resolution.Y - 50), new Rectangle(0, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                //Ende 
-                // spriteBatch.Draw(MiniTexture, new Vector2((Game1.resolution.X / 2) - mm_offsetX + mm_width, Game1.resolution.Y - 50), new Rectangle(144, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                //Spieler 
-                //spriteBatch.Draw(MiniTexture, new Vector2((Game1.resolution.X / 2) - mm_offsetX + spielerX, Game1.resolution.Y - 50), new Rectangle(48, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
-                //Held 
-                ////spriteBatch.Draw(MiniTexture, new Vector2((Game1.resolution.X / 2) - mm_offsetX + heldX, Game1.resolution.Y - 50), new Rectangle(96, 64, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
             }
         }
     }

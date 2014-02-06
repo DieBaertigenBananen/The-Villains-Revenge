@@ -129,20 +129,6 @@ namespace TheVillainsRevenge
                 }
                 //--------------------Spieler--------------------
                 spieler.Update(gameTime, karte, hero.cbox.box);
-                //if (spieler.position.Y <= 0)
-                //{
-                //    spieler.jump = false;
-                //    spieler.fall = true;
-                //    spieler.falltimer = gameTime.TotalGameTime.TotalMilliseconds;
-                //}
-                //if (spieler.position.X < 0)
-                //{
-                //    spieler.Move((int)(-spieler.position.X), 0, karte);
-                //}
-                //if (spieler.position.X > karte.size.X)
-                //{
-                //    spieler.Move((int)-(spieler.position.X-karte.size.X), 0, karte);
-                //} wurde alles in collisioncheckedvector integriert.
 
                 if (bosslebenshow != bossleben)
                     bosslebenshow--;
