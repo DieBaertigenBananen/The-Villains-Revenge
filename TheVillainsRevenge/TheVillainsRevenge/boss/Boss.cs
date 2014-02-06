@@ -9,6 +9,7 @@ namespace TheVillainsRevenge
 {
     class Boss : Hero
     {
+        
         public double inactiveTime = 0;
         public double wellencooldown = 10;
         public bool welleladen = false;

@@ -119,30 +119,33 @@ namespace TheVillainsRevenge
                 }
                 if (rageMeter > rageLimit && !coverEyes && !beating) //Enrage?!?
                 {
-                    player.spine.Clear(2);
-                    randomNumber = randomGen.Next(0, 100); //Augen zu halten vs hart aufs Maul!
-                    if (randomNumber <= 50)
+                    if (!player.fall && !player.jump)
                     {
-                        beating = true;
-                        beatingTimer = Game1.time.TotalMilliseconds;
-                        int tempFlipState;
-                        if (spine.skeleton.FlipX)
+                        player.spine.Clear(2);
+                        randomNumber = randomGen.Next(0, 100); //Augen zu halten vs hart aufs Maul!
+                        if (randomNumber <= 50)
                         {
-                            tempFlipState = 1;
+                            beating = true;
+                            beatingTimer = Game1.time.TotalMilliseconds;
+                            int tempFlipState;
+                            if (spine.skeleton.FlipX)
+                            {
+                                tempFlipState = 1;
+                            }
+                            else
+                            {
+                                tempFlipState = 2;
+                            }
+                            spine.anim("cloud", tempFlipState, false);
+                            //ENRAAAAAGGGGEEEE!!!!!!!!!!!!!!!!!
                         }
                         else
                         {
-                            tempFlipState = 2;
+                            coverEyes = true;
+                            player.spine.anim("sc_cover_eyes", 0, true);
+                            coverTimer = Game1.time.TotalMilliseconds;
+                            //Deine Mudda enraged!
                         }
-                        spine.anim("cloud", tempFlipState, false);
-                        //ENRAAAAAGGGGEEEE!!!!!!!!!!!!!!!!!
-                    }
-                    else
-                    {
-                        coverEyes = true;
-                        player.spine.anim("sc_cover_eyes", 0, true);
-                        coverTimer = Game1.time.TotalMilliseconds;
-                        //Deine Mudda enraged!
                     }
                 }
                 if (rageMeter <= 0)
