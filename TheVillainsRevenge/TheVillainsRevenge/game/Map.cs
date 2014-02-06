@@ -503,14 +503,12 @@ namespace TheVillainsRevenge
              {
                  mblocks.Add(new MovingBlock(blocks));
              }
-             Console.WriteLine("Break_X_anzahl:"+break_x_anzahl);
              int id = 0;
              for (int i = 0; i < break_x_anzahl; i++)
              {
                  breakblocks.Add(new Breakable(blocks,false,id));
                  id++;
              }
-             Console.WriteLine("Break_Y_anzahl:" + break_y_anzahl);
              for (int i = 0; i < break_y_anzahl; i++)
              {
                  breakblocks.Add(new Breakable(blocks, true, id));

@@ -9,7 +9,7 @@ namespace TheVillainsRevenge
 {
     class Monkey : Enemy
     {
-        float acceleration;
+        float acceleration = 0.0f;
         public Monkey(Vector2 pos, int t,bool mover)
             : base(pos, t,mover)//Konstruktor, setzt Anfangsposition
         {

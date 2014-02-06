@@ -34,7 +34,6 @@ namespace TheVillainsRevenge
                 wellencooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
             else if (!welleladen && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height)
             {
-                Console.WriteLine("Welle start!");
                 welleladen = true;
                 inactiveTime = 1;
             }
@@ -131,13 +130,11 @@ namespace TheVillainsRevenge
             }
             else if (inactiveTime > 0)
             {
-                Console.WriteLine("Inactive"+inactiveTime);
                 inactiveTime -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
             }
             else if (welleladen)
             {
-                Console.WriteLine("welle woaa");
                 if (spieler.X < position.X)
                 {
                     spine.anim("attack", 2, false);
@@ -245,10 +242,8 @@ namespace TheVillainsRevenge
                         }
                         else
                         {
-                            Console.WriteLine("ist da");
                             if (spieler.Y < position.Y - 20)
                             {
-                                Console.WriteLine("1");
                                 if (CollisionCheckedVector(realspeed, 0, map.blocks, Player).X == realspeed)
                                 {
                                     kicollide.X = cbox.box.X;

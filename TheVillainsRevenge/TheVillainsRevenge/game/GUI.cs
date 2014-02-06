@@ -12,7 +12,6 @@ namespace TheVillainsRevenge
     {
         public Texture2D MiniTexture,HUDTexture,Mini_A_Texture,Mini_B_Texture;
         Texture2D ItemTexture;
-        int mm_width,mm_offsetX;
 
         public virtual void Load(ContentManager Content)
         {

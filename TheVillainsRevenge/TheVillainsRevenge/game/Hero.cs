@@ -29,7 +29,7 @@ namespace TheVillainsRevenge
         public Rectangle kicollide;
         public List<KICheck> kicheck = new List<KICheck>(); //Erstelle Blocks als List
         public double slowtime;
-        float acceleration;
+        float acceleration = 0.0f;
         public double attacktimer = 0;
         //Checkpoint//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List

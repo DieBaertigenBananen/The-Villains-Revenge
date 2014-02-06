@@ -12,10 +12,10 @@ namespace TheVillainsRevenge
     static class Cutscene
     {
 
-        static Video start;
-        static Video intro;
-        static Video final;
-        static Video credits;
+        static Video start = null;
+        static Video intro = null;
+        static Video final = null;
+        static Video credits = null;
         public static VideoPlayer player;
 
         static public void Load(ContentManager Content)
