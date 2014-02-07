@@ -170,7 +170,7 @@ namespace TheVillainsRevenge
                     if (breathtimer < 0)
                     {
                         Sound.Play("ashbrett_breath");
-                        breathtimer = 20;
+                        breathtimer = 10;
                     }
                     else
                     {
