@@ -48,7 +48,7 @@ namespace TheVillainsRevenge
             attacktimer = 1;
             spine.anim("attack", 3, false);
         }
-        public override void Update(GameTime gameTime, Map map, Rectangle spieler)
+        public void Update(GameTime gameTime, Map map, Rectangle spieler,bool sirenscream)
         {
             Rectangle Player = spieler;
 
@@ -194,6 +194,19 @@ namespace TheVillainsRevenge
                 else
                 {
                     richtung = true;
+                }
+                if (sirenscream)
+                {
+                    actualspeed = -actualspeed;
+                    realspeed = -realspeed;
+                    if (richtung)
+                    {
+                        richtung = false;
+                    }
+                    else
+                    {
+                        richtung = true;
+                    }
                 }
                 if (!cbox.box.Intersects(spieler))
                 {

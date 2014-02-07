@@ -179,6 +179,8 @@ namespace TheVillainsRevenge
                         if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box)&&hero.screamhit)
                         {
                             bossleben -= 30;
+                            if (bossleben < 30)
+                                bossleben = 0;
                             hero.gethit();
                             hero.screamhit = false;
                         }
@@ -188,7 +190,7 @@ namespace TheVillainsRevenge
                 }
 
                 //--------------------Hero--------------------
-                hero.Update(gameTime, karte, spieler.cbox.box);
+                hero.Update(gameTime, karte, spieler.cbox.box,spieler.smash);
                 Rectangle herohit = hero.cbox.box;
                 if (!hero.richtung) //Hero ist rechts
                     hero.cbox.box.X -= 48;

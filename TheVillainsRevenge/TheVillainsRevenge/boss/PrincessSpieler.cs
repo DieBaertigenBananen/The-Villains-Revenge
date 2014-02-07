@@ -15,6 +15,7 @@ namespace TheVillainsRevenge
         int maxscreamradius = 300;
         double screamtime = 0;
         double screamend = 3;
+        double screamstart = 1;
         public PrincessSpieler(int x, int y) : base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -125,12 +126,13 @@ namespace TheVillainsRevenge
                 screamtime += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
                 if (screamtime > screamend)
                 {
+                    screamradius = 0;
                     smash = false;
                 }
                 else
                 {
                     falltimer = Game1.time.TotalMilliseconds;
-                    if (screamradius < maxscreamradius)
+                    if (screamradius < maxscreamradius&&screamtime > screamstart)
                         screamradius += maxscreamradius / 30;
                 }
             }

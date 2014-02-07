@@ -744,11 +744,14 @@ namespace TheVillainsRevenge
         {
             Vector2 domove = new Vector2(0, 0);
             domove = CollisionCheckedVector(deltax, deltay, map.blocks);
-            spine.skeleton.X += domove.X;
-            spine.skeleton.Y += domove.Y;
-            position.Y = spine.skeleton.Y;
-            position.X = spine.skeleton.X;
-            cbox.Update(position);
+            if (position.X + domove.X > 0 && position.X + domove.X < map.size.X)
+            {
+                spine.skeleton.X += domove.X;
+                spine.skeleton.Y += domove.Y;
+                position.Y = spine.skeleton.Y;
+                position.X = spine.skeleton.X;
+                cbox.Update(position);
+            }
         }
 
 

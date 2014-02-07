@@ -26,6 +26,8 @@ namespace TheVillainsRevenge
         }
         static public Texture2D createCircle(GraphicsDevice graphics, int durchmesser)
         {
+            if (durchmesser == 0)
+                durchmesser = 1;
             Texture2D texture = new Texture2D(graphics, durchmesser, durchmesser);
             Color[] colorData = new Color[durchmesser * durchmesser];
 
