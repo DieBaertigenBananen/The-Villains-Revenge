@@ -316,6 +316,7 @@ namespace TheVillainsRevenge
                  Trigger trigger = triggers.ElementAt(i);
                  Vector2 tvector = trigger.position;
                  tvector.X -= 40;
+                 tvector.Y += 20;
                  if(trigger.active)
                      spriteBatch.Draw(triggerTexture, tvector, new Rectangle(147, 0, 147, 60), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else
