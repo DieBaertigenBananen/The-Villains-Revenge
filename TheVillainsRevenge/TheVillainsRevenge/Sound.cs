@@ -19,6 +19,8 @@ namespace TheVillainsRevenge
         static SoundEffect[] fx = new SoundEffect[10];
         static SoundEffect[] ashbrett = new SoundEffect[6];
         static SoundEffect[] bonepuker = new SoundEffect[5];
+        static SoundEffect[] sweetcheeks = new SoundEffect[6];
+        static SoundEffectInstance[] fxInstance = new SoundEffectInstance[2];
         static SoundEffect[] enemy = new SoundEffect[5];
 
         static public void Load(ContentManager Content)
@@ -47,6 +49,7 @@ namespace TheVillainsRevenge
             fx[9] = Content.Load<SoundEffect>("sounds/fx/triggerwall");
             ashbrett[0] = Content.Load<SoundEffect>("sounds/ashbrett/attack");
             ashbrett[1] = Content.Load<SoundEffect>("sounds/ashbrett/breathing");
+            fxInstance[0] = ashbrett[1].CreateInstance();
             ashbrett[2] = Content.Load<SoundEffect>("sounds/ashbrett/dying");
             ashbrett[3] = Content.Load<SoundEffect>("sounds/ashbrett/hit");
             ashbrett[4] = Content.Load<SoundEffect>("sounds/ashbrett/jumping");
@@ -61,6 +64,30 @@ namespace TheVillainsRevenge
             enemy[2] = Content.Load<SoundEffect>("sounds/skullmonkey/dying");
             enemy[3] = Content.Load<SoundEffect>("sounds/skullmonkey/freed");
             enemy[4] = Content.Load<SoundEffect>("sounds/skullmonkey/item");
+            sweetcheeks[0] = Content.Load<SoundEffect>("sounds/sweetcheeks/attack");
+            sweetcheeks[1] = Content.Load<SoundEffect>("sounds/sweetcheeks/dying");
+            sweetcheeks[2] = Content.Load<SoundEffect>("sounds/sweetcheeks/enrage");
+            fxInstance[1] = sweetcheeks[2].CreateInstance();
+            sweetcheeks[3] = Content.Load<SoundEffect>("sounds/sweetcheeks/hit");
+            sweetcheeks[4] = Content.Load<SoundEffect>("sounds/sweetcheeks/jump");
+            sweetcheeks[5] = Content.Load<SoundEffect>("sounds/sweetcheeks/siren_scream");
+        }
+        static public void Stop(string sound)
+        {
+            if (Game1.sound)
+            {
+                switch (sound)
+                {
+                    case "sweetcheeks_enrage":
+                        if(fxInstance[1].State == SoundState.Playing)
+                            fxInstance[1].Stop(true);
+                        break;
+                    case "ashbrett_breath":
+                        if (fxInstance[0].State == SoundState.Playing)
+                            fxInstance[0].Stop(true);
+                        break;
+                }
+            }
         }
         static public void Play(string sound)
         {
@@ -68,6 +95,26 @@ namespace TheVillainsRevenge
             {
                 switch (sound)
                 {
+                    // ---- Sweetcheeks ---- //
+                    case "sweetcheeks_attack":
+                        sweetcheeks[0].Play();
+                        break;
+                    case "sweetcheeks_dying":
+                        sweetcheeks[1].Play();
+                        break;
+                    case "sweetcheeks_enrage":
+                        fxInstance[1].Play();
+                        break;
+                    case "sweetcheeks_hit":
+                        sweetcheeks[3].Play();
+                        break;
+                    case "sweetcheeks_jump":
+                        sweetcheeks[4].Play();
+                        break;
+                    case "sweetcheeks_siren_scream":
+                        sweetcheeks[5].Play();
+                        break;
+
                     // ---- Fluffy ---- //
                     case "fluffy_attack":
                         enemy[0].Play();
@@ -108,7 +155,7 @@ namespace TheVillainsRevenge
                         ashbrett[0].Play();
                         break;
                     case "ashbrett_breath":
-                        ashbrett[1].Play();
+                        fxInstance[0].Play();
                         break;
                     case "ashbrett_dying":
                         ashbrett[2].Play();

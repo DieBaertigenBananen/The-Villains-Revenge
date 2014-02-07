@@ -150,6 +150,7 @@ namespace TheVillainsRevenge
                 }
                 if (rageMeter <= 0)
                 {
+                    Sound.Stop("sweetcheeks_enrage");
                     rageMode = false;
                     player.spine.Clear(2);
                     rageMeter = 0;
@@ -164,6 +165,7 @@ namespace TheVillainsRevenge
                     if (randomNumber <= rageChance)
                     {
                         //Teste Enrage-Bedingungen
+                        Sound.Play("sweetcheeks_enrage");
                         rageMode = true;
                         player.spine.anim("sc_escape", 0, true);
                     }

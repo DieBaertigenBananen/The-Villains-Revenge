@@ -29,6 +29,10 @@ namespace TheVillainsRevenge
         {
             lifes--;
             Game1.leben = lifes;
+            if (lifes != 0)
+                Sound.Play("sweetcheeks_hit");
+            else
+                Sound.Play("sweetcheeks_dying");
         }
         public void Update(GameTime gameTime, Map map,Rectangle hero)
         {
@@ -53,6 +57,7 @@ namespace TheVillainsRevenge
             {
                 if (!jump && !fall && Game1.input.sprungp)
                 {
+                    Sound.Play("sweetcheeks_jump");
                     spine.Clear(0);
                     spine.anim("jump", 0, false);
                     Jump(gameTime, map); //Springen!
@@ -81,6 +86,7 @@ namespace TheVillainsRevenge
                 {
                     if (Game1.time.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
                     {
+                        Sound.Play("sweetcheeks_siren_scream");
                         jump = false;
                         fall = true;
                         hit = false;
@@ -96,6 +102,7 @@ namespace TheVillainsRevenge
             {
                 if (!smash && !hit) //Schlag beginnen
                 {
+                    Sound.Play("sweetcheeks_attack");
                     Sound.Play("schlag");
                     hit = true;
                     spine.anim("attack", 0, false);

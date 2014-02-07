@@ -211,6 +211,7 @@ namespace TheVillainsRevenge
                 }
                 else
                 {
+                    Sound.Stop("ashbrett_breath");
                         if (kicheck.Count() != 0)
                         {
                             foreach (KIPoint kipoint in map.kipoints)
