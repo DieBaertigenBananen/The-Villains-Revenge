@@ -142,13 +142,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\level_1\planes\background_0_debug.png">
-      <Name>background_0_debug</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="sprites\level_1\planes\background_1_1.png">
       <Name>background_1_1</Name>
       <Importer>TextureImporter</Importer>
@@ -184,20 +177,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\level_1\planes\clouds_1.png">
-      <Name>clouds_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="sprites\monkey.png">
       <Name>monkey</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\level_1\planes\clouds_2.png">
-      <Name>clouds_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -205,11 +186,6 @@
   <ItemGroup>
     <Compile Include="sprites\objects.png">
       <Name>objects</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\level_1\planes\clouds_3.png">
-      <Name>clouds_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -325,11 +301,6 @@
     </Compile>
     <Compile Include="sprites\level_3\planes\background_0_4.png">
       <Name>background_0_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\level_3\planes\background_0_debug.png">
-      <Name>background_0_debug</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -716,11 +687,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="sprites\level_2\planes\background_0_debug.png">
-      <Name>background_0_debug</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="sprites\level_2\planes\background_1_1.png">
       <Name>background_1_1</Name>
       <Importer>TextureImporter</Importer>
@@ -748,21 +714,6 @@
     </Compile>
     <Compile Include="sprites\level_2\planes\background_3_1.png">
       <Name>background_3_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\level_2\planes\clouds_1.png">
-      <Name>clouds_1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\level_2\planes\clouds_2.png">
-      <Name>clouds_2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\level_2\planes\clouds_3.png">
-      <Name>clouds_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -806,16 +757,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="sprites\level_2\planes\foreground_1_4.png">
-      <Name>foreground_1_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\level_2\planes\foreground_1_5.png">
-      <Name>foreground_1_5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="sprites\level_4\planes\background_0_1.png">
@@ -835,11 +776,6 @@
     </Compile>
     <Compile Include="sprites\level_4\planes\background_0_4.png">
       <Name>background_0_4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="sprites\level_4\planes\background_0_debug.png">
-      <Name>background_0_debug</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -1050,7 +986,18 @@
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="sprites\level_2\planes\foreground_1_4.png">
+      <Name>foreground_1_4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="sprites\level_2\planes\foreground_1_5.png">
+      <Name>foreground_1_5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="sounds\bonepuker\attack.mp3">
       <Name>attack</Name>

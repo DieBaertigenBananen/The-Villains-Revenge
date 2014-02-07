@@ -14,7 +14,6 @@ namespace TheVillainsRevenge
     class GameScreen
     {
         Texture2D texture;
-        public static Texture2D debug;
         public Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
         Princess princess = new Princess();
@@ -181,7 +180,6 @@ namespace TheVillainsRevenge
                     gaussBackground1 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 5f);
                     gaussBackground2 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 10f);
                     gaussBackground3 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
-                    debug = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/Planes/background_0_debug");
                     princess.ResetRage(gameTime);
                     Sound.Load(Content);
                     if (Game1.sound)

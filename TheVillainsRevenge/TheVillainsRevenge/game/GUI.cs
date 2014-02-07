@@ -46,27 +46,27 @@ namespace TheVillainsRevenge
                 switch (sitem1)
                 {
                     case 1:
-                        spriteBatch.Draw(ItemTexture, new Vector2(45, 165), new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(ItemTexture, new Vector2(40, 160), new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                         break;
                     case 2:
-                        spriteBatch.Draw(ItemTexture, new Vector2(45, 165), new Rectangle(96, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(ItemTexture, new Vector2(40, 160), new Rectangle(192, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                         break;
                     case 3:
-                        spriteBatch.Draw(ItemTexture, new Vector2(45, 165), new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(ItemTexture, new Vector2(40, 160), new Rectangle(256, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                         break;
                 }                
                 // --------- Itemslot Rechts -------------
                 spriteBatch.Draw(HUDTexture, new Vector2(200, 129), new Rectangle(130, 316, 133, 130), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                 switch (sitem2)
                 {
-                    case 1:
-                        spriteBatch.Draw(ItemTexture, new Vector2(245, 165), new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    case 1: //zeit
+                        spriteBatch.Draw(ItemTexture, new Vector2(240, 160), new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                         break;
-                    case 2:
-                        spriteBatch.Draw(ItemTexture, new Vector2(245, 165), new Rectangle(96, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    case 2: //Banana
+                        spriteBatch.Draw(ItemTexture, new Vector2(240, 160), new Rectangle(192, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                         break;
-                    case 3:
-                        spriteBatch.Draw(ItemTexture, new Vector2(245, 165), new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                    case 3: //Monkey
+                        spriteBatch.Draw(ItemTexture, new Vector2(240, 160), new Rectangle(256, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                         break;
                 }   
                 

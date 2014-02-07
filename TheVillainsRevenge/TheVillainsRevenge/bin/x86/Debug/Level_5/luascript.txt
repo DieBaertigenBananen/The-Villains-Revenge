@@ -1,8 +1,9 @@
 --Loading
-planeTilesBackground0 = 4 --Baueme
-planeTilesBackground1 = 2 --Wald
-planeTilesBackground2 = 1 --Berg
-planeTilesBackground3 = 1 --Himmel
+planeTilesForeground0 = 0 -- Vorne
+planeTilesBackground0 = 0 --Baueme
+planeTilesBackground1 = 0 --Wald
+planeTilesBackground2 = 0 --Berg
+planeTilesBackground3 = 0 --Himmel
 planeForeground0HeightOffset = 46 * 48 - 2208
 planeForeground1HeightOffset = 46 * 48 - 2208
 
