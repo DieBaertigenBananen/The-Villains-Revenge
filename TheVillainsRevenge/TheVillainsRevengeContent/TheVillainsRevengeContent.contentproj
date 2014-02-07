@@ -1009,11 +1009,6 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="sounds\bonepuker\hit.mp3">
-      <Name>hit</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="sounds\bonepuker\jump.mp3">
       <Name>jump</Name>
       <Importer>Mp3Importer</Importer>

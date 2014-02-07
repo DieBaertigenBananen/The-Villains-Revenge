@@ -16,6 +16,7 @@ namespace TheVillainsRevenge
         public bool richtung;
         public bool schlagbar = false;
         public bool hits = false; // 
+        public bool screamhit = true;
         public Boss(int x, int y): base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -180,7 +181,7 @@ namespace TheVillainsRevenge
                 wellencooldown = 10;
                 animeTime = 1.0f;
             }
-            else
+            else if(screamhit)
             {
                 schlagbar = false;
                 //Wenn Spieler ist hinten bewege zurück
@@ -354,7 +355,10 @@ namespace TheVillainsRevenge
                                     }
                                 }
                                 if (!geht)
-                                    Move(actualspeed, 0, map);
+                                {
+                                    if(Math.Abs(spielerdistanz) > actualspeed)
+                                        Move(actualspeed, 0, map);
+                                }
                             }
                         }
                     }

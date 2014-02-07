@@ -14,7 +14,7 @@ namespace TheVillainsRevenge
         public int screamradius = 0;
         int maxscreamradius = 300;
         double screamtime = 0;
-        double screamend = 10;
+        double screamend = 3;
         public PrincessSpieler(int x, int y) : base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -97,7 +97,7 @@ namespace TheVillainsRevenge
                         smash = true;
                         spine.anim("smash", 0, false);
                         smashTimer = Game1.time.TotalMilliseconds;
-                        falltimer = Game1.time.TotalMilliseconds + 1000;
+                        falltimer = Game1.time.TotalMilliseconds;
                         screamtime = 0;
                     }
                 }
@@ -127,11 +127,13 @@ namespace TheVillainsRevenge
                 {
                     smash = false;
                 }
-                else 
-                { 
+                else
+                {
+                    falltimer = Game1.time.TotalMilliseconds;
                     if (screamradius < maxscreamradius)
-                        screamradius += maxscreamradius/20;
+                        screamradius += maxscreamradius / 30;
                 }
+            }
             if (!smash)
             {
                 //-----Move-----

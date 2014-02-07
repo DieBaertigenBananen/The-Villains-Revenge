@@ -120,6 +120,7 @@
     <Compile Include="boss\BossCam.cs" />
     <Compile Include="boss\BossGui.cs" />
     <Compile Include="boss\PrincessSpieler.cs" />
+    <Compile Include="Circle.cs" />
     <Compile Include="Cutscene.cs" />
     <Compile Include="game\Block.cs" />
     <Compile Include="Camera.cs" />

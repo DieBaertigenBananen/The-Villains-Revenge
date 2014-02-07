@@ -172,6 +172,19 @@ namespace TheVillainsRevenge
                             hero.gethit();
                         }
                     }
+                    else if (spieler.smash)
+                    {            
+                        int x = spieler.cbox.box.X + (spieler.cbox.box.Width/2);
+                        int y = spieler.cbox.box.Y + (spieler.cbox.box.Height/2);
+                        if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box)&&hero.screamhit)
+                        {
+                            bossleben -= 30;
+                            hero.gethit();
+                            hero.screamhit = false;
+                        }
+                    }
+                    else if(!hero.screamhit)
+                        hero.screamhit = true;
                 }
 
                 //--------------------Hero--------------------
@@ -276,6 +289,17 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             karte.Draw(spriteBatch, gameTime, camera); //Plattformen & Co
+            int x = spieler.cbox.box.X + (spieler.cbox.box.Width/2);
+            int y = spieler.cbox.box.Y + (spieler.cbox.box.Height/2);
+            if (spieler.smash)
+            {
+                if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box))
+                    //Zeichne Kreis weil Intersekt
+                    spriteBatch.Draw(Circle.createCircle(Game1.graphics.GraphicsDevice, spieler.screamradius * 2), Circle.Middle(spieler.screamradius, x, y), Color.Green);
+                else
+                    //Zeichne Kreis nicht Intersekt
+                    spriteBatch.Draw(Circle.createCircle(Game1.graphics.GraphicsDevice, spieler.screamradius * 2), Circle.Middle(spieler.screamradius, x, y), Color.Red);
+            }
             spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
             GUI.Draw(spriteBatch, spieler.lifes, bosslebenshow);
             spriteBatch.End();
