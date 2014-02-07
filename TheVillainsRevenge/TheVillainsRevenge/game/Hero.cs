@@ -445,7 +445,10 @@ namespace TheVillainsRevenge
                                         }
                                     }
                                     if (!geht)
-                                        Move(actualspeed, 0, map);
+                                    {
+                                        if (Math.Abs(spielerdistanz) > actualspeed)
+                                            Move(actualspeed, 0, map);
+                                    }
                                 }
 
                             }
