@@ -214,6 +214,8 @@ namespace TheVillainsRevenge
         }
         public void StartReset(GameTime gameTime)
         {
+            Sound.Stop("ashbrett_breath");
+            Sound.Stop("sweetcheeks_enrage");
             if (spieler.lifes != 0)
             {
                 foreach (Enemy enemy2 in karte.enemies)
