@@ -272,7 +272,7 @@ namespace TheVillainsRevenge
                 if (fall)
                 {
                     fall = false;
-                    //  Sound.Play("land");
+                    Sound.Play("land");
                 }
             }
 
