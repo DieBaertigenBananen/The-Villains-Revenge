@@ -56,9 +56,8 @@ namespace TheVillainsRevenge
             ashbrett[5] = Content.Load<SoundEffect>("sounds/ashbrett/win");
             bonepuker[0] = Content.Load<SoundEffect>("sounds/bonepuker/attack");
             bonepuker[1] = Content.Load<SoundEffect>("sounds/bonepuker/dying");
-            bonepuker[2] = Content.Load<SoundEffect>("sounds/bonepuker/hit");
-            bonepuker[3] = Content.Load<SoundEffect>("sounds/bonepuker/jump");
-            bonepuker[4] = Content.Load<SoundEffect>("sounds/bonepuker/smash");
+            bonepuker[2] = Content.Load<SoundEffect>("sounds/bonepuker/jump");
+            bonepuker[3] = Content.Load<SoundEffect>("sounds/bonepuker/smash");
             enemy[0] = Content.Load<SoundEffect>("sounds/fluffy/attack");
             enemy[1] = Content.Load<SoundEffect>("sounds/fluffy/dying");
             enemy[2] = Content.Load<SoundEffect>("sounds/skullmonkey/dying");
@@ -140,14 +139,11 @@ namespace TheVillainsRevenge
                     case "bonepuker_dying":
                         bonepuker[1].Play();
                         break;
-                    case "bonepuker_hit":
+                    case "bonepuker_jump":
                         bonepuker[2].Play();
                         break;
-                    case "bonepuker_jump":
-                        bonepuker[3].Play();
-                        break;
                     case "bonepuker_smash":
-                        bonepuker[4].Play();
+                        bonepuker[3].Play();
                         break;
 
                     // ---- Ashbrett ---- //

@@ -11,6 +11,10 @@ namespace TheVillainsRevenge
     class PrincessSpieler : Player
     {
         public bool ishit = false;
+        public int screamradius = 0;
+        int maxscreamradius = 300;
+        double screamtime = 0;
+        double screamend = 10;
         public PrincessSpieler(int x, int y) : base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -93,8 +97,8 @@ namespace TheVillainsRevenge
                         smash = true;
                         spine.anim("smash", 0, false);
                         smashTimer = Game1.time.TotalMilliseconds;
-                        smashIntensity = smashInitIntensity;
-                        falltimer = Game1.time.TotalMilliseconds - Convert.ToInt32((double)Game1.luaInstance["playerMegaSchlagFall"]);
+                        falltimer = Game1.time.TotalMilliseconds + 1000;
+                        screamtime = 0;
                     }
                 }
             }
@@ -118,18 +122,16 @@ namespace TheVillainsRevenge
             //Smash fortführen
             if (smash)
             {
-                smashIntensity--;
-                //Smash ggf beenden
-                if (smashIntensity <= 0)
+                screamtime += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                if (screamtime > screamend)
                 {
                     smash = false;
-                    smashImpact = false;
                 }
-                else if (CollisionCheckedVector(0, 1, map.blocks, map, hero).Y == 0)
-                {
-                    smashImpact = true;
+                else 
+                { 
+                    if (screamradius < maxscreamradius)
+                        screamradius += maxscreamradius/20;
                 }
-            }
             if (!smash)
             {
                 //-----Move-----
