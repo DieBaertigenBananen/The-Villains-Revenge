@@ -30,13 +30,13 @@ namespace TheVillainsRevenge
             schlagbar = false;
             if (BossScreen.bossleben == 0)
             {
-                Sound.Play("ashbrett_hit");
+                Sound.Play("ashbrett_dying");
                 animeTime = 2000;
                 spine.anim("die", 3, false);
             }
             else
             {
-                Sound.Play("ashbrett_dying");
+                Sound.Play("ashbrett_hit");
                 animeTime = 1.0;
                 spine.anim("hit", 3, false);
             }
