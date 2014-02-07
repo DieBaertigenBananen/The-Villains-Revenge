@@ -22,7 +22,7 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             lastPosition = position;
-            cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["playerCollisionHeight"]));
+            cbox = new CollisionBox(-50, -150, 100, 140);
             lifes = Game1.leben;
             spine = new Spine();
             initAcceleration = (float)Convert.ToInt32((double)Game1.luaInstance["playerAcceleration"]) / 100;
@@ -35,9 +35,21 @@ namespace TheVillainsRevenge
             lifes--;
             Game1.leben = lifes;
             if (lifes != 0)
+            {
                 Sound.Play("sweetcheeks_hit");
+                spine.anim("hit", 3, false);
+            }
             else
+            {
                 Sound.Play("sweetcheeks_dying");
+                spine.anim("die", 3, false);
+            }
+        }
+
+
+        public override void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
+        {
+            spine.Load(position, "skeleton", 0.3f, initAcceleration);
         }
         public void Update(GameTime gameTime, Map map,Rectangle hero)
         {
@@ -96,7 +108,7 @@ namespace TheVillainsRevenge
                         fall = true;
                         hit = false;
                         smash = true;
-                        spine.anim("smash", 0, false);
+                        spine.anim("scream", 0, false);
                         smashTimer = Game1.time.TotalMilliseconds;
                         falltimer = Game1.time.TotalMilliseconds;
                         screamtime = 0;
@@ -147,18 +159,18 @@ namespace TheVillainsRevenge
                     {
                         if (!jump && !fall)
                         {
-                            spine.anim("run", 2, true);
+                            spine.anim("run", 1, true);
                         }
                         else
                         {
-                            spine.anim("jump", 2, false);
+                            spine.anim("jump", 1, false);
                         }
                     }
                     else if (spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem beim Abbremsen in idle übergehen
                     {
                         if (!jump && !fall)
                         {
-                            spine.anim("idle", 0, true); //In idle-Position übergehen
+                            //  spine.anim("idle", 0, true); //In idle-Position übergehen
                         }
                     }
                     if (jump || fall) //Zusätzliche Beschleunigung in der Luft
@@ -174,18 +186,18 @@ namespace TheVillainsRevenge
                     {
                         if (!jump && !fall)
                         {
-                            spine.anim("run", 1, true);
+                            spine.anim("run", 2, true);
                         }
                         else
                         {
-                            spine.anim("jump", 1, false);
+                            spine.anim("jump", 2, false);
                         }
                     }
                     else if (!spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem in idle übergehen
                     {
                         if (!jump && !fall)
                         {
-                            spine.anim("idle", 0, true); //In idle-Position übergehen
+                            //   spine.anim("idle", 0, true); //In idle-Position übergehen
                         }
                     }
                     if (jump || fall) //Zusätzliche Beschleunigung in der Luft
@@ -214,7 +226,7 @@ namespace TheVillainsRevenge
                     }
                     if (!jump && !fall)
                     {
-                        spine.anim("idle", 0, true); //In idle-Position übergehen
+                       // spine.anim("idle", 0, true); //In idle-Position übergehen
                     }
                 }
                 //Keine Beschleunigungs"vermehrung", durch Beschleunigung wird nur MaxSpeed bei jedem Update absolut vermindert. Fake aber funzt...
@@ -260,7 +272,7 @@ namespace TheVillainsRevenge
                 if (fall)
                 {
                     fall = false;
-                    Sound.Play("land");
+                    //  Sound.Play("land");
                 }
             }
 
