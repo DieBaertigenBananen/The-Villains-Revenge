@@ -644,6 +644,7 @@ namespace TheVillainsRevenge
                     Enemy enemy = karte.enemies.ElementAt(i);
                     enemy.spine.Reset();
                 }
+                camera.UpdateTransformation(Game1.graphics);
                 if (Game1.input.pause)
                 {
                     paused = false;

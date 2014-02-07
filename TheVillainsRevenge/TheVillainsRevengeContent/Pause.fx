@@ -19,8 +19,8 @@ float4 pause(float2 coords: TEXCOORD) : COLOR
 	//Gray
 	color.rgb = (color.r + color.g + color.b) / 3;
 	
-	float amount = 2.;
-	float vignette = (1. - amount * (uv.y - .5) * (uv.y - .5)) * (1. - amount * (uv.x - .5) * (uv.x - .5));
+	amount = 2.;
+	vignette = (1. - amount * (uv.y - .5) * (uv.y - .5)) * (1. - amount * (uv.x - .5) * (uv.x - .5));
 	float bar = 10. * sqrt(tan(uv.y - gameTime * 0.0005));
 	bar /= vignette;
 	if (bar < 1)
