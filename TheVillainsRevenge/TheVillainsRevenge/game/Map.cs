@@ -471,7 +471,7 @@ namespace TheVillainsRevenge
                                  type = "zeit";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));
                                  break;
-                             case "121,0,67":
+                             case "180,150,140":
                                  type = "bag";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));
                                  break;
