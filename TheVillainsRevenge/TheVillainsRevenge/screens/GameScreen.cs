@@ -192,7 +192,7 @@ namespace TheVillainsRevenge
                         Sound.bgMusicInstance.Play();
                     }
                     StartSave();
-                    pauseMenu = new SubMenu(2, "main", new Vector2(- 30, -100), 120);
+                    pauseMenu = new SubMenu(2, "pause", new Vector2(- 30, -100), 120);
                     pauseMenu.Load(Content);
                     pauseMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 63, 100), 4));
                     pauseMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 63, 100), 4));

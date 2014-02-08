@@ -33,7 +33,14 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content)
         {
-            button_texture = Content.Load<Texture2D>("sprites/menu/buttons_" + name);
+            if (name == "pause")
+            {
+                button_texture = Content.Load<Texture2D>("sprites/menu/buttons_main");
+            }
+            else
+            {
+                button_texture = Content.Load<Texture2D>("sprites/menu/buttons_" + name);
+            }
         }
 
         public void Update(GameTime gameTime, bool changeSprite)
@@ -60,7 +67,10 @@ namespace TheVillainsRevenge
                 //Setze auf Exit
                 if (option == optionCount - 1)
                 {
-                    exit = true;
+                    if (name != "pause")
+                    {
+                        exit = true;
+                    }
                 }
                 else
                 {
@@ -69,7 +79,7 @@ namespace TheVillainsRevenge
             }
             if (Game1.input.leftM)
             {
-                if (name == "main")
+                if (name == "main" || name == "pause")
                 {
                     option = optionCount - 1;
                 }
