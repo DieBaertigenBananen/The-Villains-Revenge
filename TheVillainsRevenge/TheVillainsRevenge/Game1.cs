@@ -250,7 +250,28 @@ namespace TheVillainsRevenge
             }
             else if (game != null)
             {
-                if (input.escape && game.paused)
+                menuOption = game.Update(gameTime, Content);
+                if (menuOption == 2) //GameScreen beendet (Spieler tot)
+                {
+                    game = null;
+                    Content.Unload();
+                    GC.Collect();
+                    Load();
+                    menu = new MenuScreen(1);
+                    menu.Load(Content);
+                }
+                else if (menuOption == 3) //Level Ende
+                {                        
+                    game = null;
+                    Content.Unload();
+                    GC.Collect();
+                    if(level < 5)
+                        level += 1;
+                    Save();
+                    menu = new MenuScreen(2);
+                    menu.Load(Content);
+                }
+                else if (menuOption == 4) //GameScreen beendet (Exit)
                 {
                     game = null;
                     Content.Unload();
@@ -258,30 +279,6 @@ namespace TheVillainsRevenge
                     menu = new MenuScreen(0);
                     menu.Load(Content);
                     menuOption = 1;
-                }
-                else
-                {
-                    menuOption = game.Update(gameTime, Content);
-                    if (menuOption == 2) //GameScreen beendet (Spieler tot)
-                    {
-                        game = null;
-                        Content.Unload();
-                        GC.Collect();
-                        Load();
-                        menu = new MenuScreen(1);
-                        menu.Load(Content);
-                    }
-                    else if (menuOption == 3) //Level Ende
-                    {                        
-                        game = null;
-                        Content.Unload();
-                        GC.Collect();
-                        if(level < 5)
-                            level += 1;
-                        Save();
-                        menu = new MenuScreen(2);
-                        menu.Load(Content);
-                    }
                 }
             }
             else if (boss != null)

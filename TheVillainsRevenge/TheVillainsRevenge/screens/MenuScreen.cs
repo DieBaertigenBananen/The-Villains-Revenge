@@ -130,7 +130,7 @@ namespace TheVillainsRevenge
                     //Update SubMenu
                     if (optionMenu.visible)
                     {
-                        optionMenu.Update(gameTime);
+                        optionMenu.Update(gameTime, changeSprite);
                         if (optionMenu.exit)
                         {
                             optionMenu.visible = false;
@@ -138,7 +138,7 @@ namespace TheVillainsRevenge
                     }
                     else if (startMenu.visible)
                     {
-                        startMenu.Update(gameTime);
+                        startMenu.Update(gameTime, changeSprite);
                         if (startMenu.exit)
                         {
                             startMenu.visible = false;
@@ -146,7 +146,7 @@ namespace TheVillainsRevenge
                     }
                     else if (mainMenu.visible)
                     {
-                        mainMenu.Update(gameTime);
+                        mainMenu.Update(gameTime, changeSprite);
                         if (mainMenu.exit)
                         {
                             return 0;

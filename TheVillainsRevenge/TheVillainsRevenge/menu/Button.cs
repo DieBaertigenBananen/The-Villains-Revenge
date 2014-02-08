@@ -27,10 +27,10 @@ namespace TheVillainsRevenge
             spriteStateCount = spriteStates;
         }
 
-        public void Update(bool isButtonActive)
+        public void Update(bool changeSprite, bool isButtonActive)
         {
             active = isButtonActive;
-            if (MenuScreen.changeSprite) //Sprite wechseln
+            if (changeSprite) //Sprite wechseln
             {
                 spriteState++;
                 if (spriteState > spriteStateCount)

@@ -36,7 +36,7 @@ namespace TheVillainsRevenge
             button_texture = Content.Load<Texture2D>("sprites/menu/buttons_" + name);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, bool changeSprite)
         {
             exit = false;
             if (Game1.input.down) //Nach unten
@@ -84,11 +84,11 @@ namespace TheVillainsRevenge
                 Button button = buttons.ElementAt(i);
                 if (option == i)
                 {
-                    button.Update(true);
+                    button.Update(changeSprite, true);
                 }
                 else
                 {
-                    button.Update(false);
+                    button.Update(changeSprite, false);
                 }
             }
         }

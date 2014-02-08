@@ -19,6 +19,7 @@ namespace TheVillainsRevenge
         Princess princess = new Princess();
         Map karte = new Map();
         Camera camera = new Camera();
+        Camera pauseCamera = new Camera();
         GUI gui = new GUI();
         LoadingScreen loadingScreen = new LoadingScreen();
         ParallaxPlane foreground_1 = new ParallaxPlane("foreground_1");
@@ -54,6 +55,7 @@ namespace TheVillainsRevenge
         Effect dust;
         Effect clear;
         Effect pause;
+        SubMenu pauseMenu;
         public static int slow = 0;
         double slowTime;
         public static Lua LuaKI = new Lua();
@@ -62,6 +64,9 @@ namespace TheVillainsRevenge
         public int GUIFace = 0;
         bool herohit = false;
         public bool paused = false;
+        public static double spriteTimer;
+        public static int spriteDelay = 120;
+        public static bool changeSprite = false;
 
         //KIDaten
         //Dies sind Luafunktionen für den netten GD
@@ -187,6 +192,10 @@ namespace TheVillainsRevenge
                         Sound.bgMusicInstance.Play();
                     }
                     StartSave();
+                    pauseMenu = new SubMenu(2, "main", new Vector2(- 30, -100), 120);
+                    pauseMenu.Load(Content);
+                    pauseMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 63, 100), 4));
+                    pauseMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 63, 100), 4));
                     break;
             }   
         }
@@ -640,10 +649,46 @@ namespace TheVillainsRevenge
                         enemy.spine.Save();
                     }
                     paused = true;
+                    pauseMenu.option = 0;
                 }
             }
             else if (paused)
             {
+                //Update SpriteTimer
+                if (gameTime.TotalGameTime.TotalMilliseconds > (spriteTimer + (float)spriteDelay))
+                {
+                    spriteTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    changeSprite = true;
+                }
+                else
+                {
+                    changeSprite = false;
+                }
+                pauseMenu.Update(gameTime, changeSprite);
+                if (pauseMenu.exit)
+                {
+                    return 4;
+                }
+                if (Game1.input.sprung)
+                {
+                    //Option == 2 ist Exit
+                    if (pauseMenu.option == 1)
+                    {
+                        if (Game1.input.sprung) //Safe dass man nicht mit nach rechts drücken Escaped
+                        {
+                            return 4;
+                        }
+                    }
+                    else
+                    {
+                        //Resume Game
+                        paused = false;
+                    }
+                }
+                else if (Game1.input.pause)
+                {
+                    paused = false;
+                }
                 spieler.spine.Reset();
                 princess.spine.Reset();
                 hero.spine.Reset();
@@ -653,10 +698,7 @@ namespace TheVillainsRevenge
                     enemy.spine.Reset();
                 }
                 camera.UpdateTransformation(Game1.graphics);
-                if (Game1.input.pause)
-                {
-                    paused = false;
-                }
+                pauseCamera.UpdateTransformation(Game1.graphics);
                 return 1;
             }
             else if(levelend)
@@ -784,25 +826,25 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, dust, camera.viewportTransform); //-----[Shader]-----Dust
                 spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
             spriteBatch.End();
-                if (Game1.debug) //Boundingboxen
+            if (Game1.debug) //Boundingboxen
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
+                spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
+                for (int i = 0; i < karte.enemies.Count(); i++)
                 {
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                    spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
-                    spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
-                    for (int i = 0; i < karte.enemies.Count(); i++)
-                    {
-                        Enemy enemy = karte.enemies.ElementAt(i);
-                        spriteBatch.Draw(texture, enemy.cbox.box, null, Color.White);
-                    }
-                    for (int i = 0; i < karte.triggers.Count(); i++)
-                    {
-                        Trigger trigger = karte.triggers.ElementAt(i);
-                        Rectangle c = new Rectangle(trigger.doorstart.X, trigger.doorstart.Y + 46, trigger.doorstart.Width, trigger.doorstart.Height);
-                        spriteBatch.Draw(texture, c, null, Color.Blue);
-                    }
-                    spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
-                    spriteBatch.End(); 
+                    Enemy enemy = karte.enemies.ElementAt(i);
+                    spriteBatch.Draw(texture, enemy.cbox.box, null, Color.White);
                 }
+                for (int i = 0; i < karte.triggers.Count(); i++)
+                {
+                    Trigger trigger = karte.triggers.ElementAt(i);
+                    Rectangle c = new Rectangle(trigger.doorstart.X, trigger.doorstart.Y + 46, trigger.doorstart.Width, trigger.doorstart.Height);
+                    spriteBatch.Draw(texture, c, null, Color.Blue);
+                }
+                spriteBatch.Draw(texture, hero.kicollide, null, Color.Red);
+                spriteBatch.End(); 
+            }
 
             //----------------------------------------------------------------------
             //----------------------------------------Draw to renderHud
@@ -947,7 +989,10 @@ namespace TheVillainsRevenge
                     renderScreen = gaussScreen.PerformGaussianBlur(Game1.graphics, spriteBatch, renderScreen, BlendState.AlphaBlend);
                 }
             }
-
+            if (paused)
+            {
+                pauseMenu.Draw(spriteBatch, gameTime, pauseCamera);
+            }
             //----------------------------------------------------------------------
             //----------------------------------------Draw to Screen
             //----------------------------------------------------------------------
