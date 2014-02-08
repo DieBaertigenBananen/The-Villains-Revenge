@@ -64,7 +64,7 @@ namespace TheVillainsRevenge
                             bool collide = false;
                             for (int j = 0; j < list.Count(); ++j)
                             {
-                                Block block = blocks.ElementAt(j);
+                                Block block = list.ElementAt(j);
                                 if(block.type == "triggerend"&&block.cbox.Intersects(cboxnew))
                                 {
                                     end = true;

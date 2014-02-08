@@ -181,6 +181,7 @@ Content\scenes\start.wmv
 spine\sprites\ashbrett-1.png
 spine\sprites\fluffy-1.png
 spine\sprites\skullmonkey-1.png
+spine\sprites\sweetcheeks-1.png
 spine\sprites\clobbercloud.png
 spine\sprites\ashbrett.atlas
 spine\sprites\ashbrett.json
@@ -189,6 +190,8 @@ spine\sprites\fluffy.atlas
 spine\sprites\fluffy.json
 spine\sprites\skullmonkey.atlas
 spine\sprites\skullmonkey.json
+spine\sprites\sweetcheeks.atlas
+spine\sprites\sweetcheeks.json
 spine\sprites\bonepuker.atlas
 spine\sprites\bonepuker.json
 spine\sprites\clobbercloud.atlas
