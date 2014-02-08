@@ -231,7 +231,7 @@ namespace TheVillainsRevenge
                         //Option = 1 ist New Game
                         else if (startMenu.option == 1)
                         {
-                            return 2;
+                            return 3;
                         }
                         else
                         {

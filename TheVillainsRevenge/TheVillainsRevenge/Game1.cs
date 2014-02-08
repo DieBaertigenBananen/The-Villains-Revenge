@@ -219,8 +219,13 @@ namespace TheVillainsRevenge
             {
                 //Update und hole Wert vom Menü
                 menuOption = menu.Update(gameTime);
-                if (menuOption == 2)
+                if (menuOption == 2 || menuOption == 3)
                 {
+                    if (menuOption == 3)
+                    {
+                        level = 1;
+                        leben = 4;
+                    }
                     Save();
                     menu = null; //entlädt das menü
                     Content.Unload(); //entlädt den Content
