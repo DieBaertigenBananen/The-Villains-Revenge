@@ -674,7 +674,7 @@ namespace TheVillainsRevenge
                     //Option == 2 ist Exit
                     if (pauseMenu.option == 1)
                     {
-                        if (Game1.input.sprung) //Safe dass man nicht mit nach rechts drücken Escaped
+                        if (Game1.input.sprung) //Safe dass man nicht mit nach links drücken Escaped
                         {
                             return 4;
                         }
