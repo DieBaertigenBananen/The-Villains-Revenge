@@ -232,7 +232,7 @@ namespace TheVillainsRevenge
                             this.BeginDraw();                        
                             game.Load(Content, gameTime, spriteBatch, i); // lädt die Game Bilder 
                             this.EndDraw();
-                            Thread.Sleep(250);
+                            //Thread.Sleep(250);
                         }
                         Thread.Sleep(500);
                     }
