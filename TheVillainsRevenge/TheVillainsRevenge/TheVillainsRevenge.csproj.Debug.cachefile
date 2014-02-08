@@ -180,7 +180,6 @@ Content\scenes\start.xnb
 Content\scenes\start.wmv
 spine\sprites\ashbrett-1.png
 spine\sprites\fluffy-1.png
-spine\sprites\skeleton-1.png
 spine\sprites\skullmonkey-1.png
 spine\sprites\clobbercloud.png
 spine\sprites\ashbrett.atlas
@@ -188,8 +187,6 @@ spine\sprites\ashbrett.json
 spine\sprites\bonepuker.png
 spine\sprites\fluffy.atlas
 spine\sprites\fluffy.json
-spine\sprites\skeleton.atlas
-spine\sprites\skeleton.json
 spine\sprites\skullmonkey.atlas
 spine\sprites\skullmonkey.json
 spine\sprites\bonepuker.atlas

@@ -1,5 +1,5 @@
 
-skeleton-1.png
+sweetcheeks-1.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -52,6 +52,13 @@ boss_skin/hand_left
   orig: 40, 50
   offset: 0, 0
   index: -1
+boss_skin/hand_right
+  rotate: false
+  xy: 1724, 205
+  size: 40, 48
+  orig: 40, 48
+  offset: 0, 0
+  index: -1
 boss_skin/head
   rotate: true
   xy: 1336, 98
@@ -82,14 +89,14 @@ boss_skin/pony
   index: -1
 boss_skin/shoe_left
   rotate: false
-  xy: 1724, 215
+  xy: 1766, 215
   size: 50, 38
   orig: 50, 38
   offset: 0, 0
   index: -1
 boss_skin/shoe_right
   rotate: false
-  xy: 1724, 177
+  xy: 1818, 217
   size: 48, 36
   orig: 48, 36
   offset: 0, 0

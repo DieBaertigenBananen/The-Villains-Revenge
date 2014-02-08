@@ -198,10 +198,10 @@
     <Content Include="spine\sprites\fluffy-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="spine\sprites\skeleton-1.png">
+    <Content Include="spine\sprites\skullmonkey-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="spine\sprites\skullmonkey-1.png">
+    <Content Include="spine\sprites\sweetcheeks-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="spine\sprites\ashbrett.atlas">
@@ -222,16 +222,16 @@
     <None Include="spine\sprites\fluffy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="spine\sprites\skeleton.atlas">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\skeleton.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="spine\sprites\skullmonkey.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="spine\sprites\skullmonkey.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spine\sprites\sweetcheeks.atlas">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spine\sprites\sweetcheeks.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

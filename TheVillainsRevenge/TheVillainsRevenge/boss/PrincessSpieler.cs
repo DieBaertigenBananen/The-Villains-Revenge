@@ -49,7 +49,7 @@ namespace TheVillainsRevenge
 
         public override void Load(ContentManager Content, GraphicsDeviceManager graphics)//Wird im Hauptgame ausgeführt und geladen
         {
-            spine.Load(position, "skeleton", 0.3f, initAcceleration);
+            spine.Load(position, "sweetcheeks", 0.3f, initAcceleration);
         }
         public void Update(GameTime gameTime, Map map,Rectangle hero)
         {
@@ -108,7 +108,7 @@ namespace TheVillainsRevenge
                         fall = true;
                         hit = false;
                         smash = true;
-                        spine.anim("scream", 0, false);
+                        spine.anim("scream", 3, false);
                         smashTimer = Game1.time.TotalMilliseconds;
                         falltimer = Game1.time.TotalMilliseconds;
                         screamtime = 0;
@@ -170,7 +170,7 @@ namespace TheVillainsRevenge
                     {
                         if (!jump && !fall)
                         {
-                            //  spine.anim("idle", 0, true); //In idle-Position übergehen
+                            spine.anim("idle", 0, true); //In idle-Position übergehen
                         }
                     }
                     if (jump || fall) //Zusätzliche Beschleunigung in der Luft
@@ -197,7 +197,7 @@ namespace TheVillainsRevenge
                     {
                         if (!jump && !fall)
                         {
-                            //   spine.anim("idle", 0, true); //In idle-Position übergehen
+                            spine.anim("idle", 0, true); //In idle-Position übergehen
                         }
                     }
                     if (jump || fall) //Zusätzliche Beschleunigung in der Luft
@@ -226,7 +226,7 @@ namespace TheVillainsRevenge
                     }
                     if (!jump && !fall)
                     {
-                       // spine.anim("idle", 0, true); //In idle-Position übergehen
+                       spine.anim("idle", 0, true); //In idle-Position übergehen
                     }
                 }
                 //Keine Beschleunigungs"vermehrung", durch Beschleunigung wird nur MaxSpeed bei jedem Update absolut vermindert. Fake aber funzt...
@@ -264,7 +264,8 @@ namespace TheVillainsRevenge
                     }
                     float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                     Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
-                    spine.anim("jump", 0, false);
+                    if (!scream)
+                        spine.anim("jump", 0, false);
                 }
             }
             else
