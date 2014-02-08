@@ -111,9 +111,9 @@ namespace TheVillainsRevenge
             }
             else
             {
-                if (character.spine.animation != "idle")
+                if (character.spine.animation != "menu")
                 {
-                    character.spine.anim("idle", 0, true);
+                    character.spine.anim("menu", 0, true);
                 }
                 //Update SpriteTimer
                 if (gameTime.TotalGameTime.TotalMilliseconds > (spriteTimer + (float)spriteDelay))

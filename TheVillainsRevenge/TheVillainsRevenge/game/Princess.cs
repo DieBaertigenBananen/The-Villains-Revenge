@@ -91,6 +91,10 @@ namespace TheVillainsRevenge
             {
                 ResetRage(gameTime);
             }
+            else if (!beating && !coverEyes)
+            {
+                player.spine.animationState.ClearTrack(2);
+            }
             if (beating)
             {
                 if (Game1.time.TotalMilliseconds > beatingTimer + (spine.skeleton.Data.FindAnimation("cloud").Duration * 1000)) //Kloppwolke zu Ende?

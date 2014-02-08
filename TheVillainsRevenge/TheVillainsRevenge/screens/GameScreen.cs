@@ -523,7 +523,8 @@ namespace TheVillainsRevenge
                             if (!princess.bag)
                             {
                                 princess.bag = true;
-                                princess.spine.anim("sc_bag", 0, true);
+                                spieler.spine.animationState.ClearTrack(2);
+                                spieler.spine.anim("sc_bag", 0, true);
                             }
                             karte.items.Remove(item);
                         }
