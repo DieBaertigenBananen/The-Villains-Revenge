@@ -25,7 +25,7 @@ namespace TheVillainsRevenge
                     cuttexture.X = 0;
                     cuttexture.Y = 0;
                     break;
-                case "sack":
+                case "bag":
                     cuttexture.X = 64;
                     cuttexture.Y = 0;
                     break;

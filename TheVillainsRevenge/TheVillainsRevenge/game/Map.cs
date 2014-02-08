@@ -466,6 +466,10 @@ namespace TheVillainsRevenge
                                  type = "zeit";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));
                                  break;
+                             case "121,0,67":
+                                 type = "bag";
+                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 break;
                              case "171,140,188":
                                  type = "herz";
                                  items.Add(new Item(new Vector2(i * 48, t * 48), type));

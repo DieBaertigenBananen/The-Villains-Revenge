@@ -27,6 +27,7 @@ namespace TheVillainsRevenge
         public int rageLimit;
         float unrageSpeed;
         public Spine spine;
+        public bool bag;
         //Deine Mutter ist so fett, wenn sie aus dem Bett fällt, dann auf beiden Seiten
 
         public Princess()
@@ -61,6 +62,7 @@ namespace TheVillainsRevenge
             rageMeter = 0;
             beating = false;
             coverEyes = false;
+            bag = false;
         }
 
         public void Reset()
@@ -69,12 +71,26 @@ namespace TheVillainsRevenge
             rageMeter = 0;
             beating = false;
             coverEyes = false;
+            bag = false;
+        }
+
+        public void ResetRage(GameTime gameTime)
+        {
+            beating = false;
+            coverEyes = false;
+            rageMode = false;
+            rageMeter = 0f;
+            rageTimer = Game1.time.TotalMilliseconds;
         }
 
         public void Update(GameTime gameTime, Player player, Map map)
         {
             spine.skeleton.X = player.position.X;
             spine.skeleton.Y = player.position.Y;
+            if (bag)
+            {
+                ResetRage(gameTime);
+            }
             if (beating)
             {
                 if (Game1.time.TotalMilliseconds > beatingTimer + (spine.skeleton.Data.FindAnimation("cloud").Duration * 1000)) //Kloppwolke zu Ende?
@@ -175,15 +191,6 @@ namespace TheVillainsRevenge
                     rageTimer = Game1.time.TotalMilliseconds - ((float)rageWarmup * 0.2f); //Wenn Spieler wieder auf den Boden kommt nach kurzer Zeit enragen
                 }
             }
-        }
-
-        public void ResetRage(GameTime gameTime)
-        {
-            beating = false;
-            coverEyes = false;
-            rageMode = false;
-            rageMeter = 0f;
-            rageTimer = Game1.time.TotalMilliseconds;
         }
 
         public void Draw(GameTime gameTime, Camera camera)
