@@ -205,7 +205,8 @@ namespace TheVillainsRevenge
         {
             foreach (Enemy enemy in karte.enemies)
             {
-                enemy.Save();
+                if (!enemy.dead)
+                    enemy.Save();
             }
             karte.Save();
             spieler.Save(checkpointX);
@@ -405,14 +406,16 @@ namespace TheVillainsRevenge
                 {
                     Enemy enemy = karte.enemies.ElementAt(i);
                     //Wenn Enemy tot ist update die Animation
-                    if (enemy.animeTime > 0)
+                    if (enemy.dead)
                     {
                         enemy.animeTime -= gameTime.ElapsedGameTime.TotalSeconds;
-                        if (enemy.animeTime <= 0)
-                        {
-                            if(enemy.dead)
-                                karte.enemies.Remove(enemy);
-                        }
+                        //if (enemy.animeTime <= 0)
+                        //{
+                        //    if (enemy.dead)
+                        //    {
+                        //        karte.enemies.Remove(enemy);
+                        //    }
+                        //}
                     }
                     else //Enemy lebt
                     {
