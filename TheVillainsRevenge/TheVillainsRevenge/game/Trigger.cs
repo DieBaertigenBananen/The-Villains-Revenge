@@ -16,9 +16,10 @@ namespace TheVillainsRevenge
         public Rectangle triggerend = new Rectangle(0, 0, 48, 48); //Collisionsbox
         public Rectangle doorstart = new Rectangle(0, 0, 48, 48); //Collisionsbox
         public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
+        public Vector2 wallposition = new Vector2(0, 0);
         Block b;
         bool pushed;
-        int typ;
+        public int typ;
         //Checkpoint//
         double checkTime;
         int checktyp;
@@ -67,6 +68,7 @@ namespace TheVillainsRevenge
                                 Block block = list.ElementAt(j);
                                 if(block.type == "triggerend"&&block.cbox.Intersects(cboxnew))
                                 {
+                                    wallposition = block.position;
                                     end = true;
                                     break;
                                 }
@@ -308,6 +310,8 @@ namespace TheVillainsRevenge
                     //Gucke ob held da ist
                     bool heroda = false;
                     Rectangle cboxnew = triggerend;
+                    wallposition.X = cboxnew.X;
+                    wallposition.Y = cboxnew.Y;
                     for (int i = 0; i < 20; i++)
                     {
                         cboxnew.Y = cboxnew.Y - 48;
@@ -412,11 +416,17 @@ namespace TheVillainsRevenge
                     bool collide = false;
                     Rectangle cboxnew = triggerend;
                     cboxnew.Y = triggerend.Y + 48;
+                    bool wallmoved = false;
                     for (int j = 0; j < blocks.Count(); ++j)
                     {
                         Block block = blocks.ElementAt(j);
                         block.cbox.Y -= speed;
                         block.position.Y -= speed;
+                        if (!wallmoved)
+                        {
+                            wallposition = block.position;
+                            wallmoved = true;
+                        }
                         for (int a = 0; a < list.Count(); ++a)
                         {
                             Block blocka = list.ElementAt(a);

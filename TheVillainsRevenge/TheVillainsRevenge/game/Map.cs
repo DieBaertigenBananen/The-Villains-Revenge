@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
      class Map
      {
-         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture,bewegendTexture,breakTexture;
+         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture,bewegendTexture,breakTexture,wallTexture;
          public Texture2D levelMap;
          public Vector2 size;
          public Color[] pixelColors;
@@ -260,6 +260,7 @@ namespace TheVillainsRevenge
          public void Load(ContentManager Content)
          {
              //Lade Textur, einmal ausgeführt
+             wallTexture = Content.Load<Texture2D>("sprites/wall");
              objectTexture = Content.Load<Texture2D>("sprites/objects");
              itemTexture = Content.Load<Texture2D>("sprites/items");
              mapTexture = Content.Load<Texture2D>("sprites/tiles");
@@ -317,8 +318,12 @@ namespace TheVillainsRevenge
                  Vector2 tvector = trigger.position;
                  tvector.X -= 40;
                  tvector.Y += 20;
-                 if(trigger.active)
+                 if (trigger.active)
+                 {
                      spriteBatch.Draw(triggerTexture, tvector, new Rectangle(147, 0, 147, 60), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     if (trigger.typ == 1)
+                         spriteBatch.Draw(wallTexture, trigger.wallposition, new Rectangle(0, 0, 48, 672), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                 }
                  else
                      spriteBatch.Draw(triggerTexture, tvector, new Rectangle(0, 0, 147, 60), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
