@@ -947,6 +947,10 @@ namespace TheVillainsRevenge
                     renderShader = gaussShader.PerformGaussianBlur(Game1.graphics, spriteBatch, renderShader, BlendState.AlphaBlend);
                 }
             }
+            if (paused)
+            {
+                pauseMenu.Draw(spriteBatch, gameTime, pauseCamera);
+            }
 
             //----------------------------------------------------------------------
             //----------------------------------------Draw to renderScreen
@@ -989,10 +993,7 @@ namespace TheVillainsRevenge
                     renderScreen = gaussScreen.PerformGaussianBlur(Game1.graphics, spriteBatch, renderScreen, BlendState.AlphaBlend);
                 }
             }
-            if (paused)
-            {
-                pauseMenu.Draw(spriteBatch, gameTime, pauseCamera);
-            }
+
             //----------------------------------------------------------------------
             //----------------------------------------Draw to Screen
             //----------------------------------------------------------------------
