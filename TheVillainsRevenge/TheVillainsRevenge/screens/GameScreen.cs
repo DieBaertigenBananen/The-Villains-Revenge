@@ -470,10 +470,18 @@ namespace TheVillainsRevenge
                                 else
                                     enemy.anim("attack", 2);
                                 Sound.Play("fluffy_attack");
-                                spieler.getHit("die");
-                                dietime = 2;
-                                GUIFace = 1;
-                                //Reset();
+                                if (princess.bag)
+                                {
+                                    enemy.anim("die", 0);
+                                    princess.bag = false;
+                                }
+                                else
+                                {
+                                    spieler.getHit("die");
+                                    dietime = 2;
+                                    GUIFace = 1;
+                                    //Reset();
+                                }
                             }
                         }
                         //Falls hero den Monkey erreicht
@@ -508,6 +516,15 @@ namespace TheVillainsRevenge
                             if (spieler.item1 != 0)
                                 spieler.item2 = spieler.item1;
                             spieler.item1 = 2;
+                            karte.items.Remove(item);
+                        }
+                        else if (item.type == "bag")//Aktiviere Sack
+                        {
+                            if (!princess.bag)
+                            {
+                                princess.bag = true;
+                                princess.spine.anim("sc_bag", 0, true);
+                            }
                             karte.items.Remove(item);
                         }
                         else if (item.type == "monkey")//Setze in Slot
