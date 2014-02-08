@@ -264,7 +264,7 @@ namespace TheVillainsRevenge
                     }
                     float t = (float)((Game1.time.TotalMilliseconds - falltimer) / 1000);
                     Move(0, (int)((gravitation * t)), map); //v(t)=-g*t
-                    if (!scream)
+                    if (!smash)
                         spine.anim("jump", 0, false);
                 }
             }
