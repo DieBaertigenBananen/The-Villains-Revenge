@@ -26,8 +26,8 @@ namespace TheVillainsRevenge
         bool debugp;
         public bool hit;
         bool hitp;
-        public bool shit;
-        bool shitp;
+        public bool smash;
+        bool smashp;
         public bool fullscreen;
         bool fullscreenp;
         public bool sprung;
@@ -99,24 +99,24 @@ namespace TheVillainsRevenge
                 }
             }
             //Smash
-            if (!shitp)
+            if (!smashp)
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed
                     ||
                     keyState.IsKeyDown(Keys.V))
                 {
-                    shit = true;
-                    shitp = true;
+                    smash = true;
+                    smashp = true;
                 }
             }
             else
             {
-                shit = false;
+                smash = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Released
                     &&
                     keyState.IsKeyUp(Keys.V))
                 {
-                    shitp = false;
+                    smashp = false;
                 }
             }
 

@@ -97,7 +97,7 @@ namespace TheVillainsRevenge
                 }
             }
             //-----Schlag / Smash starten-----
-            if (Game1.input.shit)
+            if (Game1.input.smash)
             {
                 if (jump || fall)
                 {

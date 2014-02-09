@@ -196,7 +196,7 @@ namespace TheVillainsRevenge
                 }
             }
             //-----Schlag / Smash starten-----
-            if (Game1.input.shit && !princess.beating && (jump || fall))
+            if (Game1.input.smash && !princess.beating && (jump || fall))
             {
                 if (gameTime.TotalGameTime.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
                 {
@@ -216,7 +216,7 @@ namespace TheVillainsRevenge
             }
             else if (Game1.input.hit && !princess.beating)
             {
-                if (!smash && !hit) //Schlag beginnen
+                if (!smash && (!hit || Game1.time.TotalMilliseconds > hitTimer + (spine.skeleton.Data.FindAnimation("attack").Duration * 1000) * 0.4)) //Schlag beginnen
                 {
                     Sound.Play("bonepuker_attack");
                     Sound.Play("schlag");
