@@ -85,7 +85,7 @@ cameraBewegungSteps = 20
 minimapWidth = 1000
 minimapOffsetX = 1920 / 2 - minimapWidth / 2
 
-itemSlowTime = 5
+itemSlowTime = 4
 itemSlowReduce = 2
 
 cloudPlane1Width = 0

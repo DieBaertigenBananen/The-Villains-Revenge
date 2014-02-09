@@ -40,7 +40,7 @@ princessRageWarmup = 10
 princessEnrageSpeed = 5
 princessUnrageSpeed = 10
 princessRageLimit = 100
-princessCoverTime = 5
+princessCoverTime = 0
 
 blockSpeed = 5	
 triggerTimeWall = 5
@@ -85,7 +85,7 @@ cameraBewegungSteps = 20
 minimapWidth = 1000
 minimapOffsetX = 1920 / 2 - minimapWidth / 2
 
-itemSlowTime = 5
+itemSlowTime = 4
 itemSlowReduce = 2
 
 cloudPlane1Width = 0
