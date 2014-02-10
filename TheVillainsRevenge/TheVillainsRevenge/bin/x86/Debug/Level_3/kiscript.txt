@@ -75,6 +75,9 @@ if p_id[p_points-1] == 2 and p_id[p_points] == 4 then
 	add(3,p_time[p_points]);	
 	end
 
+if p_id[p_points-1] == 4 and p_id[p_points] == 2 then
+	add(3,p_time[p_points]);	
+	end
 
 if p_id[p_points-1] == 6 and p_id[p_points] == 8 then
 	add(7,p_time[p_points]);	
@@ -114,7 +117,10 @@ add(p_id[p_points],p_time[p_points]);
 -----------------------------------------------
 --Wenn er zurück läuft, entferne die vorherigen Punkte
 -----------------------------------------------
-
+if p_id[p_points-1] == 2 and p_id[p_points] == 3 then
+	remove(h_points);
+	remove(h_points);	
+	end
 
 
 -----------------------------------------------
