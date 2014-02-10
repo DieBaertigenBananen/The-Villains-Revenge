@@ -150,7 +150,7 @@ namespace TheVillainsRevenge
                     {
                         if (spieler.spine.BoundingBoxCollision(hero.cbox.box))
                         {
-                            bossleben -= 10;
+                            bossleben -= 5;
                             hero.gethit();
                         }
                     }
@@ -160,8 +160,8 @@ namespace TheVillainsRevenge
                         int y = spieler.cbox.box.Y + (spieler.cbox.box.Height/2);
                         if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box)&&hero.screamhit)
                         {
-                            bossleben -= 30;
-                            if (bossleben < 30)
+                            bossleben -= 20;
+                            if (bossleben < 20)
                                 bossleben = 0;
                             hero.gethit();
                             hero.screamhit = false;
