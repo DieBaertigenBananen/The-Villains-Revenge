@@ -67,6 +67,7 @@ namespace TheVillainsRevenge
         public static double spriteTimer;
         public static int spriteDelay = 120;
         public static bool changeSprite = false;
+        int blockhit = 0;
 
         //KIDaten
         //Dies sind Luafunktionen für den netten GD
@@ -276,7 +277,6 @@ namespace TheVillainsRevenge
 
                 if (spieler.hit)
                 {
-                    int blockhit = 0;
                     for (int i = 0; i < karte.breakblocks.Count(); i++)
                     {
                         Breakable bblock = karte.breakblocks.ElementAt(i);
@@ -325,7 +325,6 @@ namespace TheVillainsRevenge
                     //Definiere SchlagRectangle
                     spieler.hitCbox = new Rectangle(spieler.cbox.box.X - Range, spieler.cbox.box.Y, spieler.cbox.box.Width + (Range * 2), spieler.cbox.box.Height);
                     spieler.hitCbox.Y += 1;
-                    int blockhit = 0;
                     for (int i = 0; i < karte.breakblocks.Count(); i++)
                     {
                         Breakable bblock = karte.breakblocks.ElementAt(i);
