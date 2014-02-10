@@ -924,13 +924,13 @@ namespace TheVillainsRevenge
             //----------------------------------------Draw to renderShader
             //----------------------------------------------------------------------
             //-----Apply Shaders-----
-            if (Game1.debug) //-----[Shader]-----GaussianBlur
-            {
+            //if (Game1.debug) //-----[Shader]-----GaussianBlur
+            //{
                 renderBackground3 = gaussBackground3.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3, BlendState.AlphaBlend);
                 renderBackground2 = gaussBackground2.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2, BlendState.AlphaBlend);
                 renderBackground1 = gaussBackground1.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1, BlendState.AlphaBlend);
                 renderBackground0 = gaussBackground0.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0, BlendState.AlphaBlend);
-            }
+            //}
             //-----Background-----
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderShader);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
