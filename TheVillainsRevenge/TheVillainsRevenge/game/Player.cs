@@ -347,17 +347,19 @@ namespace TheVillainsRevenge
                     {
                         Sound.Play("time_shift");
                         GameScreen.slow = GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["itemSlowTime"]);
+                        item1 = 0;
                     }
                     else if (item1 == 2 && !fall && !jump)
                     {
                         map.objects.Add(new Banana(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 1));
+                        item1 = 0;
                     }
                     else if (item1 == 3 && !fall && !jump)
                     {
                         Sound.Play("skullmonkey_item");
                         map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2, false));
+                        item1 = 0;
                     }
-                    item1 = 0;
                 }
                 if (Game1.input.itemu2)
                 {
@@ -365,17 +367,19 @@ namespace TheVillainsRevenge
                     {
                         Sound.Play("time_shift");
                         GameScreen.slow = GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["itemSlowTime"]);
+                        item2 = 0;
                     }
                     else if (item2 == 2 && !fall && !jump)
                     {
                         map.objects.Add(new Banana(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 1));
+                        item2 = 0;
                     }
                     else if (item2 == 3 && !fall && !jump)
                     {
                         Sound.Play("skullmonkey_item");
                         map.enemies.Add(new Monkey(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 64), 2, false));
+                        item2 = 0;
                     }
-                    item2 = 0;
                 }
             }
 
