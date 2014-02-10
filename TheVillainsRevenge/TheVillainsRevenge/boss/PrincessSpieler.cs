@@ -27,7 +27,7 @@ namespace TheVillainsRevenge
             spine = new Spine();
             initAcceleration = (float)Convert.ToInt32((double)Game1.luaInstance["playerAcceleration"]) / 100;
             smashInitIntensity = Convert.ToInt32((double)Game1.luaInstance["playerSmashIntensity"]);
-            smashCooldown = (float)Convert.ToDouble(Game1.luaInstance["playerMegaSchlagCooldown"]) * 1000;
+            smashCooldown = 10 * 1000;
         }
 
         public override void getHit(string animation)
@@ -145,7 +145,7 @@ namespace TheVillainsRevenge
                 {
                     falltimer = Game1.time.TotalMilliseconds;
                     if (screamradius < maxscreamradius&&screamtime > screamstart)
-                        screamradius += maxscreamradius / 30;
+                        screamradius += maxscreamradius / 40;
                 }
             }
             if (!smash)

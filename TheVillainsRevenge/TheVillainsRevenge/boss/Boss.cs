@@ -11,7 +11,7 @@ namespace TheVillainsRevenge
     {
         
         public double animeTime = 0;
-        public double wellencooldown = 10;
+        public double wellencooldown = 8;
         public bool welleladen = false;
         public bool richtung;
         public bool schlagbar = false;
