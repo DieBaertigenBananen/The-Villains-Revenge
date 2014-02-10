@@ -101,7 +101,7 @@ namespace TheVillainsRevenge
                     &&
                     keyState.IsKeyUp(Keys.F)
                     &&
-                    keyState.IsKeyDown(Keys.LeftControl))
+                    keyState.IsKeyUp(Keys.LeftControl))
                 {
                     hitp = false;
                 }
@@ -113,7 +113,7 @@ namespace TheVillainsRevenge
                     ||
                     keyState.IsKeyDown(Keys.S)
                     ||
-                    keyState.IsKeyUp(Keys.LeftAlt))
+                    keyState.IsKeyDown(Keys.LeftAlt))
                 {
                     smash = true;
                     smashp = true;
@@ -182,7 +182,7 @@ namespace TheVillainsRevenge
                     &&
                     keyState.IsKeyUp(Keys.X)
                     &&
-                    keyState.IsKeyDown(Keys.E))
+                    keyState.IsKeyUp(Keys.E))
                 {
                     itemup2 = false;
                 }
