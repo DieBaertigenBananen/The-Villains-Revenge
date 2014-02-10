@@ -322,7 +322,7 @@ namespace TheVillainsRevenge
                  {
                      spriteBatch.Draw(triggerTexture, tvector, new Rectangle(147, 0, 147, 60), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                      if (trigger.typ == 1)
-                         spriteBatch.Draw(wallTexture, trigger.wallposition, new Rectangle(0, 0, 48, 672), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         spriteBatch.Draw(wallTexture, trigger.wallposition, new Rectangle(0, 0, 48, trigger.wallY), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  }
                  else
                      spriteBatch.Draw(triggerTexture, tvector, new Rectangle(0, 0, 147, 60), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);

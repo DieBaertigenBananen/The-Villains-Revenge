@@ -17,6 +17,7 @@ namespace TheVillainsRevenge
         public Rectangle doorstart = new Rectangle(0, 0, 48, 48); //Collisionsbox
         public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
         public Vector2 wallposition = new Vector2(0, 0);
+        public int wallY = 0;
         Block b;
         bool pushed;
         public int typ;
@@ -312,6 +313,7 @@ namespace TheVillainsRevenge
                     Rectangle cboxnew = triggerend;
                     wallposition.X = cboxnew.X;
                     wallposition.Y = cboxnew.Y;
+                    wallY = 0;
                     for (int i = 0; i < 20; i++)
                     {
                         cboxnew.Y = cboxnew.Y - 48;
@@ -425,6 +427,9 @@ namespace TheVillainsRevenge
                         if (!wallmoved)
                         {
                             wallposition = block.position;
+                            wallY += speed;
+                            if (wallY > 672)
+                                wallY = 672;
                             wallmoved = true;
                         }
                         for (int a = 0; a < list.Count(); ++a)
@@ -539,12 +544,21 @@ namespace TheVillainsRevenge
                     {
                         Rectangle cboxnew = triggerend;
                         cboxnew.Y = cboxnew.Y + 96;
+                        bool wallmoved = false;
                         for (int i = 0; i < blocks.Count(); ++i)
                         {
                             //Bewege sie einfach nach oben
                             Block block = blocks.ElementAt(i);
                             block.cbox.Y += speed;
                             block.position.Y += speed;
+                            if (!wallmoved)
+                            {
+                                wallposition = block.position;
+                                wallY -= speed;
+                                if (wallY < 0)
+                                    wallY = 0;
+                                wallmoved = true;
+                            }
                             if (block.cbox.Intersects(cboxnew))
                             {
                                 blocks.Remove(block);
