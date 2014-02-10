@@ -13,7 +13,7 @@ namespace TheVillainsRevenge
     class MenuScreen
     {
         Camera camera;
-        Character character = new Character(1250, 1000);
+        Character character = new Character(1400, 1000);
         RenderTarget2D renderScreen;
         RenderTarget2D renderSpine;
         RenderTarget2D renderMenu;
@@ -71,17 +71,17 @@ namespace TheVillainsRevenge
             controls_texture = Content.Load<Texture2D>("sprites/menu/controls");
             gameover_texture = Content.Load<Texture2D>("sprites/menu/gameover");
             levelend_texture = Content.Load<Texture2D>("sprites/menu/levelend");
-            mainMenu = new SubMenu(3, "main", new Vector2(-750,200), 120);
+            mainMenu = new SubMenu(3, "main", new Vector2(-650,200), 120);
             mainMenu.Load(Content);
                 mainMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 63, 100), 4));
                 mainMenu.buttons.Add(new Button("options", new Rectangle(0, 100, 63, 100), 4));
                 mainMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 63, 100), 4));
-            startMenu = new SubMenu(3, "start", new Vector2(-500, 200), 140);
+            startMenu = new SubMenu(3, "start", new Vector2(-400, 200), 140);
             startMenu.Load(Content);
                 startMenu.buttons.Add(new Button("continue", new Rectangle(0, 0, 122, 75), 3));
                 startMenu.buttons.Add(new Button("newgame", new Rectangle(0, 75, 122, 105), 3));
                 startMenu.buttons.Add(new Button("newgame", new Rectangle(0, 180, 122, 85), 3));
-            optionMenu = new SubMenu(4, "option", new Vector2(-500,200), 140);
+            optionMenu = new SubMenu(4, "option", new Vector2(-400,200), 140);
             optionMenu.Load(Content);
             optionMenu.buttons.Add(new Button("fullscreen", new Rectangle(0, 0, 122, 75), 3));
             optionMenu.buttons.Add(new Button("stretch", new Rectangle(0, 75, 122, 105), 3));
@@ -113,7 +113,7 @@ namespace TheVillainsRevenge
             {
                 if (character.spine.animation != "menu")
                 {
-                    character.spine.anim("menu", 0, true);
+                    character.spine.anim("menu", 1, true);
                 }
                 //Update SpriteTimer
                 if (gameTime.TotalGameTime.TotalMilliseconds > (spriteTimer + (float)spriteDelay))
