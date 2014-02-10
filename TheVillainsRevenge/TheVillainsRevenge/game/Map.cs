@@ -61,7 +61,7 @@ namespace TheVillainsRevenge
                  else if (obj.type == 2)
                      startobjects.Add(new Kacke(obj.position, 2, obj.richtung));
                  else if (obj.type == 3)
-                     startobjects.Add(new Debris(obj.position, 3));
+                     startobjects.Add(new Debris(obj.position, 3, obj.stone));
              }
              foreach (Trigger trigger in triggers)
              {
@@ -136,7 +136,7 @@ namespace TheVillainsRevenge
                  else if (obj.type == 2)
                      objects.Add(new Kacke(obj.position, 2, obj.richtung));
                  else if (obj.type == 3)
-                     objects.Add(new Debris(obj.position, 3));
+                     objects.Add(new Debris(obj.position, 3, obj.stone));
              }
              foreach (Trigger trigger in triggers)
              {
@@ -171,7 +171,7 @@ namespace TheVillainsRevenge
                  else if (obj.type == 2)
                      saveobjects.Add(new Kacke(obj.position, 2,obj.richtung));
                  else if (obj.type == 3)
-                     saveobjects.Add(new Debris(obj.position, 3));
+                     saveobjects.Add(new Debris(obj.position, 3, obj.stone));
              }
              foreach (Trigger trigger in triggers)
              {
@@ -245,7 +245,7 @@ namespace TheVillainsRevenge
                  else if (obj.type == 2)
                      objects.Add(new Kacke(obj.position, 2, obj.richtung));
                  else if (obj.type == 3)
-                     objects.Add(new Debris(obj.position, 3));
+                     objects.Add(new Debris(obj.position, 3,obj.stone));
              }
              foreach (Trigger trigger in triggers)
              {
@@ -331,18 +331,18 @@ namespace TheVillainsRevenge
              {
                  Obj obj = objects.ElementAt(i);
                  if (obj.type == 1)
-                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(0, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else if (obj.type == 2)
-                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(48, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(64, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else if (obj.type == 3)
                  {  
-                     if(obj.fall)
-                        spriteBatch.Draw(objectTexture, obj.position, new Rectangle(96, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     if(obj.stone)
+                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(128, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                      else
-                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(144, 0, 48, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(192, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  }
                  else if (obj.type == 4)
-                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(192, 0, 144, 48), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(192, 0, 144, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
              for (int i = 0; i < mblocks.Count(); ++i)
              {
@@ -369,6 +369,17 @@ namespace TheVillainsRevenge
                      else if (breakblock.id == 3)
                      {
                          spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X - 20, breakblock.cbox.Y-65), new Rectangle(332 * 3, 0, 332, 372), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     }
+                 }
+                 else if (Game1.level == 4)
+                 {
+                     if (breakblock.id == 0)
+                     {
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X - 60, breakblock.cbox.Y - 35), new Rectangle(0, 0, 389, 377), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     }
+                     else if (breakblock.id == 1)
+                     {
+                         spriteBatch.Draw(breakTexture, new Vector2(breakblock.cbox.X - 315, breakblock.cbox.Y - 35), new Rectangle(389, 0, 389, 377), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                      }
                  }
              }

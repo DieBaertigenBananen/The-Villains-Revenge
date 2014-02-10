@@ -15,11 +15,12 @@ namespace TheVillainsRevenge
         public Vector2 position; //Position
         public Rectangle box; //Kollisionsbox
         public int type;
+        public bool stone = false;
         public Obj(Vector2 pos, int t) //Konstruktor, setzt Anfangsposition
         {
             position = pos;
             type = t;
-            box = new Rectangle((int)pos.X,(int)pos.Y, 48, 48);
+            box = new Rectangle((int)pos.X, (int)pos.Y, 64, 64);
         }
         public virtual void Update(GameTime gameTime, Map map)
         {

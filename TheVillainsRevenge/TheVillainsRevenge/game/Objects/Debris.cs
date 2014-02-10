@@ -11,9 +11,29 @@ namespace TheVillainsRevenge
     class Debris : Obj
     {
         public double falltimer = 0;
-        public Debris(Vector2 pos, int t)
+        public Debris(Vector2 pos, int t,int bid)
             : base(pos, t)//Konstruktor, setzt Anfangsposition
         {
+            if (Game1.level == 3)
+            {
+                if (bid == 0 || bid == 1)
+                {
+                    stone = true;
+                }
+                else
+                {
+                    stone = false;
+                }
+            }
+            else if (Game1.level == 4)
+            {
+                stone = true;
+            }
+        }
+        public Debris(Vector2 pos, int t, bool stone)
+            : base(pos, t)//Konstruktor, setzt Anfangsposition
+        {
+            this.stone = stone;
         }
         public override void Update(GameTime gameTime, Map map)
         {

@@ -276,11 +276,13 @@ namespace TheVillainsRevenge
 
                 if (spieler.hit)
                 {
+                    int blockhit = 0;
                     for (int i = 0; i < karte.breakblocks.Count(); i++)
                     {
                         Breakable bblock = karte.breakblocks.ElementAt(i);
                         if (spieler.spine.BoundingBoxCollision(bblock.cbox) && bblock.vertikal)
                         {
+                            blockhit = bblock.id;
                             Vector2 pos = new Vector2(0, 0);
                             for (int j = 0; j < bblock.blocks.Count(); j++)
                             {
@@ -302,7 +304,7 @@ namespace TheVillainsRevenge
                                     bblock.blocks.Remove(block);
                                 }
                             }
-                            karte.objects.Add(new Debris(pos, 3));
+                            karte.objects.Add(new Debris(pos, 3, blockhit));
                             karte.breakblocks.RemoveAt(i);
                         }
                     }
@@ -311,7 +313,7 @@ namespace TheVillainsRevenge
                         Block block = karte.blocks.ElementAt(i);
                         if (block.type == "breakable_verticale" && spieler.spine.BoundingBoxCollision(block.cbox))
                         {
-                            karte.objects.Add(new Debris(block.position, 3));
+                            karte.objects.Add(new Debris(block.position, 3, blockhit));
                             karte.blocks.Remove(block);
                         }
                     }
@@ -323,15 +325,17 @@ namespace TheVillainsRevenge
                     //Definiere SchlagRectangle
                     spieler.hitCbox = new Rectangle(spieler.cbox.box.X - Range, spieler.cbox.box.Y, spieler.cbox.box.Width + (Range * 2), spieler.cbox.box.Height);
                     spieler.hitCbox.Y += 1;
+                    int blockhit = 0;
                     for (int i = 0; i < karte.breakblocks.Count(); i++)
                     {
                         Breakable bblock = karte.breakblocks.ElementAt(i);
                         if (bblock.cbox.Intersects(spieler.hitCbox) && !bblock.vertikal)
                         {
+                            blockhit = bblock.id;
                             for (int j = 0; j < bblock.blocks.Count(); j++)
                             {
                                 Block block = bblock.blocks.ElementAt(j);
-                                karte.objects.Add(new Debris(block.position, 3));
+                                karte.objects.Add(new Debris(block.position, 3, blockhit));
                                 karte.blocks.Remove(block);
                                 bblock.blocks.Remove(block);
                             }
@@ -341,7 +345,7 @@ namespace TheVillainsRevenge
                                 Block block = karte.blocks.ElementAt(j);
                                 if (block.cbox.Intersects(bblock.cbox)&&block.type == "breakable")
                                 {
-                                    karte.objects.Add(new Debris(block.position, 3));
+                                    karte.objects.Add(new Debris(block.position, 3, blockhit));
                                     karte.blocks.Remove(block);
                                     bblock.blocks.Remove(block);
                                 }
@@ -355,7 +359,7 @@ namespace TheVillainsRevenge
                         Block block = karte.blocks.ElementAt(j);
                         if (block.cbox.Intersects(spieler.hitCbox) && block.type == "breakable")
                         {
-                            karte.objects.Add(new Debris(block.position, 3));
+                            karte.objects.Add(new Debris(block.position, 3, blockhit));
                             karte.blocks.Remove(block);
                         }
                     }
