@@ -37,7 +37,8 @@
 	{ "name": "pony", "bone": "pony", "attachment": "boss_skin/pony" },
 	{ "name": "arm_left", "bone": "left_arm", "attachment": "boss_skin/arm_left" },
 	{ "name": "shoulder_left", "bone": "left_shoulder", "attachment": "boss_skin/shoulder_left" },
-	{ "name": "hand_left", "bone": "left_hand", "attachment": "boss_skin/hand_left" }
+	{ "name": "hand_left", "bone": "left_hand", "attachment": "boss_skin/hand_left" },
+	{ "name": "bb_sweetcheeks", "bone": "right_hand", "attachment": "bb_sweetcheeks" }
 ],
 "skins": {
 	"default": {
@@ -46,6 +47,12 @@
 		},
 		"arm_right": {
 			"boss_skin/arm_right": { "x": 19.62, "y": -0.76, "rotation": 110.14, "width": 45, "height": 89 }
+		},
+		"bb_sweetcheeks": {
+			"bb_sweetcheeks": {
+				"type": "boundingbox",
+				"vertices": [ 48.48501, 31.609352, -14.722595, 27.475616, -37.571915, -486.65744, 139.96335, -473.5145 ]
+			}
 		},
 		"body": {
 			"boss_skin/body": { "x": 81.47, "y": -4.54, "rotation": -81.1, "width": 139, "height": 195 }
