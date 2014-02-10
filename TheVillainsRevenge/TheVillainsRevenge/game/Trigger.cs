@@ -18,6 +18,7 @@ namespace TheVillainsRevenge
         public List<Block> blocks = new List<Block>(); //Erstelle Blocks als List
         public Vector2 wallposition = new Vector2(0, 0);
         public int wallY = 0;
+        public int doorframe = 0;
         Block b;
         bool pushed;
         public int typ;
@@ -207,7 +208,7 @@ namespace TheVillainsRevenge
             checktyp = typ;
             checkblock = b.block;
         }
-        public void Pushed(List<Block> list,Rectangle hero)
+        public void Check(List<Block> list)
         {
             //Ermittle Typ
             if (typ == 0)
@@ -251,6 +252,8 @@ namespace TheVillainsRevenge
                                 triggerend.Y = block.cbox.Y + 48;
                                 doorstart.Y = block.cbox.Y;
                                 doorstart.X = block.cbox.X;
+                                wallposition.X = triggerend.X;
+                                wallposition.Y = triggerend.Y;
                                 hat = true;
                                 break;
                             }
@@ -286,6 +289,8 @@ namespace TheVillainsRevenge
                     {
                         cboxnew = triggerend;
                         doorstart.X = cboxnew.X;
+                        wallposition.X = triggerend.X;
+                        wallposition.Y = triggerend.Y;
                         for (int i = 0; i < 20; i++)
                         {
                             for (int j = 0; j < list.Count(); ++j)
@@ -302,9 +307,13 @@ namespace TheVillainsRevenge
                     }
                 }
             }
+        }
+        public void Pushed(List<Block> list,Rectangle hero)
+        {
             //Triggerend und typ ermittelt
             if (!pushed&&!active)
             {
+                Console.WriteLine(typ);
                 Sound.Play("triggerwall");
                 if (typ == 1) //Wenn es eine Wand ist
                 {
@@ -336,6 +345,7 @@ namespace TheVillainsRevenge
                     pushed = true;
                     active = true;
                     b.block = false;
+                    doorframe = 0;
                 }
             }
         }
@@ -346,10 +356,14 @@ namespace TheVillainsRevenge
             {
                 if (typ == 2)
                 {
-                    Rectangle cboxnew = doorstart;
-                    //Wenn es keine Blöcke existieren
-                    if (blocks.Count() == 0)
+                    if (doorframe != 20)
                     {
+                        doorframe += 1;
+                    }
+                    if (doorframe == 20)
+                    {
+                        Rectangle cboxnew = doorstart;
+                        //Wenn es keine Blöcke existieren
                         for (int i = 0; i < 20; i++)
                         {
                             for (int j = 0; j < list.Count(); ++j)
@@ -358,43 +372,40 @@ namespace TheVillainsRevenge
                                 if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
                                 {
                                     //Füge existierenden zur Liste hinzu
-                                    blocks.Add(block);
+                                    list.Remove(block);
                                 }
                             }
                             cboxnew.Y = cboxnew.Y - 48;
                         }
-                    }
-                    cboxnew = doorstart;
-                    cboxnew.Y = doorstart.Y + 96;
-                    //Gehe die gerade erstellte Liste durch
-                    for (int j = 0; j < blocks.Count(); ++j)
-                    {
-                        //Bewege sie einfach nach oben
-                        Block block = blocks.ElementAt(j);
-                        block.cbox.Y += speed;
-                        block.position.Y += speed;
-                        if (block.cbox.Intersects(cboxnew))
+                        if (Game1.level == 4)
                         {
-                            blocks.Remove(block);
-                            list.Remove(block);
+                            Rectangle dposition = doorstart;
+                            dposition.X = (int)position.X;
+                            dposition.Y = (int)position.Y+48;
+                            bool collide = false;
+                            for (int i = 0; i < 20; i++)
+                            {
+                                collide = false;
+                                for (int j = 0; j < list.Count(); ++j)
+                                {
+                                    Block block = list.ElementAt(j);
+                                    if (block.cbox.Intersects(dposition))
+                                    {
+                                        //Füge existierenden zur Liste hinzu
+                                        collide = true;
+                                    }
+                                }
+                                if (!collide)
+                                {
+                                    Block block2 = new Block(new Vector2(dposition.X, dposition.Y), "triggerdoor");
+                                    list.Add(block2);
+                                }
+                                dposition.X = dposition.X + 48;
+                            }
                         }
-                    }
-                    if (blocks.Count() == 0)
-                    {
                         pushed = false;
                         time = 0;
                         activeTime = Convert.ToInt32((double)Game1.luaInstance["triggerTimeDoor"]);
-                        cboxnew.Y = doorstart.Y + 48;
-                        cboxnew.X = doorstart.X;
-                        for (int j = 0; j < list.Count(); ++j)
-                        {
-                            Block block = list.ElementAt(j);
-                            if (block.cbox.Intersects(cboxnew) && block.type == "triggerdoor")
-                            {
-                                list.Remove(block);
-
-                            }
-                        }
                         cboxnew.Y = doorstart.Y - 48;
                         for (int a = 0; a < 10; a++)
                         {
@@ -478,7 +489,8 @@ namespace TheVillainsRevenge
                         {
                             geht = false;
                         }
-                        else{
+                        else
+                        {
                             for (int i = 0; i < 20; i++)
                             {
                                 for (int a = 0; a < elist.Count(); ++a)
@@ -494,49 +506,78 @@ namespace TheVillainsRevenge
                                     break;
                                 cboxnew.Y = cboxnew.Y - 48;
                             }
+                            cboxnew.Y = doorstart.Y - 48;
+                            for (int a = 0; a < 10; a++)
+                            {
+                                cboxnew.X = cboxnew.X + 48;
+                                if (sbox.Intersects(cboxnew)||hbox.Intersects(cboxnew))
+                                    geht = false;
+                                for (int j = 0; j < elist.Count(); ++j)
+                                {
+                                    Enemy enemy = elist.ElementAt(j);
+                                    if (cboxnew.Intersects(enemy.cbox.box))
+                                    {
+                                        geht = false;
+                                    }
+                                    if (!geht)
+                                        break;
+                                }
+                                if (!geht)
+                                    break;
+                            }
                         }
                         if (geht)
                         {
-                            bool ende = false;
-                            bool collide = false;
-                            cboxnew = doorstart;
-                            cboxnew.Y = doorstart.Y + 48;
-                            for (int j = 0; j < blocks.Count(); ++j)
+                            if(doorframe == 0)
                             {
-                                Block block = blocks.ElementAt(j);
-                                block.cbox.Y -= speed;
-                                block.position.Y -= speed;
-                                for (int a = 0; a < list.Count(); ++a)
+                                bool collide = false;
+
+                                if (Game1.level == 4)
                                 {
-                                    Block blocka = list.ElementAt(a);
-                                    if (block.cbox.Intersects(blocka.cbox) && block.block && blocka.type != "triggerdoor" && !block.cbox.Intersects(doorstart))
+                                    Rectangle dposition = doorstart;
+                                    dposition.X = (int)position.X;
+                                    dposition.Y = (int)position.Y + 48;
+                                    for (int i = 0; i < 20; i++)
                                     {
-                                        ende = true;
-                                        block.cbox.Y += speed;
-                                        block.position.Y += speed;
-                                        break;
-                                    }
-                                    if (block.cbox.Intersects(cboxnew))
-                                    {
-                                        collide = true;
-                                        break;
+                                        for (int j = 0; j < list.Count(); ++j)
+                                        {
+                                            Block block = list.ElementAt(j);
+                                            if (block.cbox.Intersects(dposition)&&block.type == "triggerdoor")
+                                            {
+                                                list.Remove(block);
+                                            }
+                                        }
+                                        dposition.X = dposition.X + 48;
                                     }
                                 }
-                                if (ende || collide)
-                                    break;
-                            }
-                            if (!collide && !ende)
-                            {
-                                Block block = new Block(new Vector2(doorstart.X, doorstart.Y + 48), "triggerdoor");
-                                list.Add(block);
-                                blocks.Add(block);
-                            }
-                            else if (ende)
-                            {
-                                blocks.Clear();
+                                cboxnew = doorstart;
+                                cboxnew.Y = doorstart.Y + 48;
+                                for (int j = 0; j < 10; j++)
+                                {
+                                    collide = false;
+                                    for (int a = 0; a < list.Count(); ++a)
+                                    {
+                                        Block blocka = list.ElementAt(a);
+                                        if (blocka.cbox.Intersects(cboxnew))
+                                        {
+                                            collide = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!collide)
+                                    {
+                                        Block block = new Block(new Vector2(cboxnew.X, cboxnew.Y), "triggerdoor");
+                                        list.Add(block);
+                                    }
+                                    cboxnew.Y -= 48;
+                                }
                                 b.block = true;
                                 active = false;
                                 time = 0;
+                            }
+                            else
+                            {
+                                doorframe -= 1;
                             }
                         }
                     }

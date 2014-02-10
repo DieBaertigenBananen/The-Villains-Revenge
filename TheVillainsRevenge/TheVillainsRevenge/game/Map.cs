@@ -10,7 +10,7 @@ namespace TheVillainsRevenge
 {
      class Map
      {
-         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture,bewegendTexture,breakTexture,wallTexture;
+         Texture2D mapTexture,itemTexture,triggerTexture,objectTexture,bewegendTexture,breakTexture,wallTexture,doorTexture;
          public Texture2D levelMap;
          public Vector2 size;
          public Color[] pixelColors;
@@ -267,7 +267,8 @@ namespace TheVillainsRevenge
              levelMap = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/map");
              bewegendTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/bewegend");
              breakTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/destruction");
-             triggerTexture = Content.Load<Texture2D>("sprites/Level_"+ Game1.level + "/buttons");
+             triggerTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/buttons");
+             doorTexture = Content.Load<Texture2D>("sprites/Level_" + Game1.level + "/door");
              pixelColors = new Color[levelMap.Width * levelMap.Height];
              levelMap.GetData<Color>(pixelColors);
              pixelRGBA = new int[levelMap.Width, levelMap.Height, 4];
@@ -302,8 +303,6 @@ namespace TheVillainsRevenge
              for (int i = 0; i < blocks.Count(); ++i)
              { 
                  Block block = blocks.ElementAt(i);
-                 if(block.type == "triggerdoor")
-                     spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
                  if (Game1.debug)
                      spriteBatch.Draw(mapTexture, block.position, block.cuttexture, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1.0f);
              }
@@ -318,6 +317,52 @@ namespace TheVillainsRevenge
                  Vector2 tvector = trigger.position;
                  tvector.X -= 40;
                  tvector.Y += 20;
+                 if (trigger.typ == 2)
+                 {
+                     Vector2 dvector = trigger.wallposition;
+                     if (Game1.level == 3)
+                     {
+                         if (trigger.doorframe < 10)
+                         {
+                             dvector.Y += 100;
+                             dvector.X -= 50;
+                             spriteBatch.Draw(doorTexture, dvector, new Rectangle(0, 0, 106, 409), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         }
+                         else if (trigger.doorframe >= 10&&trigger.doorframe < 20)
+                         {
+                             dvector.Y += 90;
+                             dvector.X -= 320;
+                             spriteBatch.Draw(doorTexture, dvector, new Rectangle(106, 0, 376, 409), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         }
+                         else
+                         {
+                             dvector.Y += 120;
+                             dvector.X -= 370;
+                             spriteBatch.Draw(doorTexture, dvector, new Rectangle(484, 0, 416, 409), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         }
+                     }
+                     else if (Game1.level == 4)
+                     {
+                         if (trigger.doorframe < 10)
+                         {
+                             dvector.Y -= 500;
+                             dvector.X -= 100;
+                             spriteBatch.Draw(doorTexture, dvector, new Rectangle(0, 0, 251, 540), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         }
+                         else if (trigger.doorframe >= 10 && trigger.doorframe < 20)
+                         {
+                             dvector.Y -= 490;
+                             dvector.X -= 480;
+                             spriteBatch.Draw(doorTexture, dvector, new Rectangle(251, 0, 580, 540), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         }
+                         else
+                         {
+                             dvector.Y -= 470;
+                             dvector.X -= 570;
+                             spriteBatch.Draw(doorTexture, dvector, new Rectangle(831, 0, 647, 540), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         }
+                     }
+                 }
                  if (trigger.active)
                  {
                      spriteBatch.Draw(triggerTexture, tvector, new Rectangle(147, 0, 147, 60), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
@@ -536,6 +581,11 @@ namespace TheVillainsRevenge
                  id++;
              }
              checkpoints.Add(new Checkpoint((int)size.X - 100, true)); //Ende
+             for (int i = 0; i < triggers.Count(); ++i)
+             {
+                 Trigger trigger = triggers.ElementAt(i);
+                 trigger.Check(blocks);
+             }
              Save();
          }
     }
