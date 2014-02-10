@@ -53,7 +53,7 @@ namespace TheVillainsRevenge
             }
             else if (screen == 3)
             {
-                //startScreen = true;
+                startScreen = true;
             }
         }
         public void Load(ContentManager Content)
@@ -105,9 +105,18 @@ namespace TheVillainsRevenge
             {
                 Sound.menuMusicInstance.Play();
             }
-            if (startScreen && Cutscene.player.State == MediaState.Stopped)
+            if (startScreen)
             {
-                startScreen = false;
+                if (Cutscene.player.State == MediaState.Stopped)
+                {
+                    startScreen = false;
+                }
+                else if (Game1.input.sprung)
+                {
+                    startScreen = false;
+                    Sound.startMusicInstance.Stop();
+                    Sound.menuMusicInstance.Play();
+                }
             }
             else
             {
