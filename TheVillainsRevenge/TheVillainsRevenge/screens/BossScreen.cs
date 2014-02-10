@@ -87,7 +87,8 @@ namespace TheVillainsRevenge
             LuaKI.RegisterFunction("getPointID", this, this.GetType().GetMethod("getPointID"));
             LuaKI.RegisterFunction("getPointTime", this, this.GetType().GetMethod("getPointTime"));
             LuaKI.RegisterFunction("addPoint", this, this.GetType().GetMethod("addPoint"));
-            LuaKI.RegisterFunction("removePoint", this, this.GetType().GetMethod("removePoint")); 
+            LuaKI.RegisterFunction("removePoint", this, this.GetType().GetMethod("removePoint"));
+            bossleben = 100;
         }
 
         public void Load(ContentManager Content)

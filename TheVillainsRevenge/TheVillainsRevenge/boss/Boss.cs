@@ -84,6 +84,10 @@ namespace TheVillainsRevenge
             {
                 speed = speed / Convert.ToInt32((double)Game1.luaInstance["itemSlowReduce"]);
             }
+            if (sirenscream)
+            {
+                speed = speed / 2;
+            }
             airspeed = Convert.ToInt32((double)Game1.luaInstance["heroAirspeed"]);
             jumppower = Convert.ToInt32((double)Game1.luaInstance["heroJumppower"]);
             gravitation = Convert.ToInt32((double)Game1.luaInstance["heroGravitation"]);
