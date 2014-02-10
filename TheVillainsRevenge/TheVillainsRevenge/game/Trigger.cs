@@ -305,9 +305,9 @@ namespace TheVillainsRevenge
             //Triggerend und typ ermittelt
             if (!pushed&&!active)
             {
+                Sound.Play("triggerwall");
                 if (typ == 1) //Wenn es eine Wand ist
                 {
-                    Sound.Play("triggerwall");
                     //Gucke ob held da ist
                     bool heroda = false;
                     Rectangle cboxnew = triggerend;
