@@ -26,7 +26,7 @@ namespace TheVillainsRevenge
         public static int bossleben = 100;
         int bosslebenshow = 100;
         public bool paused = false;
-        Effect pause;
+        Effect pause,scream;
         public static double spriteTimer;
         public static int spriteDelay = 120;
         public static bool changeSprite = false;
@@ -96,6 +96,7 @@ namespace TheVillainsRevenge
             bg_texture = Content.Load<Texture2D>("sprites/level_5/planes/background");
             fg_texture = Content.Load<Texture2D>("sprites/level_5/planes/foreground");
             pause = Content.Load<Effect>("Pause");
+            scream = Content.Load<Effect>("Scream");
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
@@ -351,6 +352,12 @@ namespace TheVillainsRevenge
                 pause.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, pause, camera.screenTransform);
             }
+            else if(spieler.smash)
+            {
+                scream.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                scream.Parameters["radius"].SetValue(spieler.screamradius);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, scream, camera.screenTransform);
+             }
             else
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
