@@ -44,12 +44,12 @@ namespace TheVillainsRevenge
         //Checkpoint Speicherng//
         public List<KICheck> kicheckcp = new List<KICheck>(); //Erstelle Blocks als List
         public Vector2 checkpoint;
-        float checkSmashCooldown = 0;
+        double checkSmashTimer = 0;
         bool checkjump;
         double checkjumpt;
         //Start Speicherng//
         public Vector2 startpoint;
-        public float startSmashCooldown = 0;
+        public double startSmashTimer = 0;
         public bool startjump;
         public double startjumpt;
         public Random randomNumber = new Random();
@@ -69,7 +69,7 @@ namespace TheVillainsRevenge
         }
         public void StartSave()
         {
-            startSmashCooldown = smashCooldown;
+            startSmashTimer = smashTimer;
             startpoint.X = position.X;
             startpoint.Y = position.Y;
             startjump = jump;
@@ -77,7 +77,7 @@ namespace TheVillainsRevenge
         }
         public void StartReset()
         {
-            smashCooldown = startSmashCooldown;
+            smashTimer = startSmashTimer;
             jump = startjump;
             jumptimer = startjumpt;
             spine.skeleton.x = startpoint.X;
@@ -90,7 +90,7 @@ namespace TheVillainsRevenge
         }
         public void Save(int x)
         {
-            checkSmashCooldown = smashCooldown;
+            checkSmashTimer = smashTimer;
             checkpoint.X = x;
             checkpoint.Y = position.Y;
             checkjump = jump;
@@ -103,7 +103,7 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
-            smashCooldown = checkSmashCooldown;
+            smashTimer = checkSmashTimer;
             jump = checkjump;
             jumptimer = checkjumpt;
             spine.skeleton.x = checkpoint.X;
