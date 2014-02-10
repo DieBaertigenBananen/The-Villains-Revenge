@@ -6,7 +6,7 @@ planeTilesBackground3 = 1 --Himmel
 planeForeground0HeightOffset = 46 * 48 - 2208
 planeForeground1HeightOffset = 46 * 48 - 2208
 
-playerAcceleration = 35
+playerAcceleration = 40
 playerStartLifes = 4
 playerScale = 0.35
 playerCollisionWidth = 100
@@ -49,10 +49,10 @@ triggerTimeDoor = 1
 
 --Update
 playerSpeed = 12
-playerAirspeed = playerSpeed - 2
+playerAirspeed = playerSpeed - 3
 playerJumppower = 30
 playerGravitation = 60
-playerJumpCutoff = 50
+playerJumpCutoff = 100
 playerSchlagRange = 96
 playerMegaSchlagRange = 48
 playerMegaSchlagFall = 1500
