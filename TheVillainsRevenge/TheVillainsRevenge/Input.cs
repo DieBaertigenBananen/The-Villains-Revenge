@@ -59,7 +59,9 @@ namespace TheVillainsRevenge
                     ||
                     keyState.IsKeyDown(Keys.Space)
                     ||
-                    keyState.IsKeyDown(Keys.Enter))
+                    keyState.IsKeyDown(Keys.Enter)
+                    ||
+                    keyState.IsKeyDown(Keys.W))
                 {
                     sprung = true;
                     sprungp = true;
@@ -72,7 +74,9 @@ namespace TheVillainsRevenge
                     &&
                     keyState.IsKeyUp(Keys.Space)
                     &&
-                    keyState.IsKeyUp(Keys.Enter))
+                    keyState.IsKeyUp(Keys.Enter)
+                    &&
+                    keyState.IsKeyUp(Keys.W))
                 {
                     sprungp = false;
                 }
@@ -82,7 +86,9 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Pressed
                     ||
-                    keyState.IsKeyDown(Keys.C))
+                    keyState.IsKeyDown(Keys.F)
+                    ||
+                    keyState.IsKeyDown(Keys.LeftControl))
                 {
                     hit = true;
                     hitp = true;
@@ -93,7 +99,9 @@ namespace TheVillainsRevenge
                 hit = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.X == ButtonState.Released
                     &&
-                    keyState.IsKeyUp(Keys.C))
+                    keyState.IsKeyUp(Keys.F)
+                    &&
+                    keyState.IsKeyDown(Keys.LeftControl))
                 {
                     hitp = false;
                 }
@@ -103,7 +111,9 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Pressed
                     ||
-                    keyState.IsKeyDown(Keys.V))
+                    keyState.IsKeyDown(Keys.S)
+                    ||
+                    keyState.IsKeyUp(Keys.LeftAlt))
                 {
                     smash = true;
                     smashp = true;
@@ -114,7 +124,9 @@ namespace TheVillainsRevenge
                 smash = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Y == ButtonState.Released
                     &&
-                    keyState.IsKeyUp(Keys.V))
+                    keyState.IsKeyUp(Keys.S)
+                    &&
+                    keyState.IsKeyUp(Keys.LeftAlt))
                 {
                     smashp = false;
                 }
@@ -131,7 +143,9 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed
                     ||
-                    keyState.IsKeyDown(Keys.F))
+                    keyState.IsKeyDown(Keys.Y)
+                    ||
+                    keyState.IsKeyDown(Keys.Q))
                 {
                     itemu1 = true;
                     itemup1 = true;
@@ -142,7 +156,9 @@ namespace TheVillainsRevenge
                 itemu1 = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed
                     &&
-                    keyState.IsKeyUp(Keys.F))
+                    keyState.IsKeyUp(Keys.Y)
+                    &&
+                    keyState.IsKeyUp(Keys.Q))
                 {
                     itemup1 = false;
                 }
@@ -151,7 +167,9 @@ namespace TheVillainsRevenge
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed
                     ||
-                    keyState.IsKeyDown(Keys.G))
+                    keyState.IsKeyDown(Keys.X)
+                    ||
+                    keyState.IsKeyDown(Keys.E))
                 {
                     itemu2 = true;
                     itemup2 = true;
@@ -162,7 +180,9 @@ namespace TheVillainsRevenge
                 itemu2 = false;
                 if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed
                     &&
-                    keyState.IsKeyUp(Keys.G))
+                    keyState.IsKeyUp(Keys.X)
+                    &&
+                    keyState.IsKeyDown(Keys.E))
                 {
                     itemup2 = false;
                 }
