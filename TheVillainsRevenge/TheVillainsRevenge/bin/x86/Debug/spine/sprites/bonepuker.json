@@ -5472,6 +5472,30 @@
 					{ "time": 2, "name": null }
 				]
 			},
+			"punch1": {
+				"attachment": [
+					{ "time": 0, "name": "bag/punch1" },
+					{ "time": 2, "name": "bag/punch1" }
+				]
+			},
+			"punch2": {
+				"attachment": [
+					{ "time": 0, "name": "bag/punch2" },
+					{ "time": 2, "name": "bag/punch2" }
+				]
+			},
+			"punch3": {
+				"attachment": [
+					{ "time": 0, "name": "bag/punch3" },
+					{ "time": 2, "name": "bag/punch3" }
+				]
+			},
+			"sack": {
+				"attachment": [
+					{ "time": 0, "name": "bag/sack" },
+					{ "time": 2, "name": "bag/sack" }
+				]
+			},
 			"sc_arm_left": {
 				"attachment": [
 					{ "time": 0, "name": null },
@@ -6017,6 +6041,135 @@
 				]
 			}
 		]
+	},
+	"sc_dummy": {
+		"slots": {
+			"blood": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"blood2": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"dust": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"dust2": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"punch1": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"punch2": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"punch3": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"sack": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"sc_arm_left": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_arm_left" }
+				]
+			},
+			"sc_arm_right": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_arm_right" }
+				]
+			},
+			"sc_body": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_body" }
+				]
+			},
+			"sc_chest": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_chest" }
+				]
+			},
+			"sc_eyes_panic": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_eyes_panic" }
+				]
+			},
+			"sc_hair": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_hair" }
+				]
+			},
+			"sc_hair_front": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_hair_front" }
+				]
+			},
+			"sc_hand_left": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_hand_left" }
+				]
+			},
+			"sc_hand_right": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_hand_right" }
+				]
+			},
+			"sc_head": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_head" }
+				]
+			},
+			"sc_mouth_panic": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_mouth_panic" }
+				]
+			},
+			"sc_shoulder_left": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_shoulder_left" }
+				]
+			},
+			"sc_shoulder_right": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_shoulder_right" }
+				]
+			},
+			"sc_skirt": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_skirt" }
+				]
+			},
+			"splat": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"splat2": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"splat22": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			}
+		}
 	},
 	"sc_escape": {
 		"bones": {
