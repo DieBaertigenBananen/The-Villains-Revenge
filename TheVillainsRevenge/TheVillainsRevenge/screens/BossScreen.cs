@@ -19,12 +19,17 @@ namespace TheVillainsRevenge
         Boss hero = new Boss(0, 0);
         public static Lua LuaKI = new Lua();
         Camera camera = new BossCam();
+        Camera pauseCamera = new Camera();
+        SubMenu pauseMenu;
         BossGUI GUI = new BossGUI();
         Texture2D bg_texture,fg_texture;
         public static int bossleben = 100;
         int bosslebenshow = 100;
         public bool paused = false;
         Effect pause;
+        public static double spriteTimer;
+        public static int spriteDelay = 120;
+        public static bool changeSprite = false;
 
 
         RenderTarget2D renderSpine;
@@ -104,6 +109,10 @@ namespace TheVillainsRevenge
             {
                 Sound.bgMusicInstance.Play();
             }
+            pauseMenu = new SubMenu(2, "pause", new Vector2(-30, -100), 120);
+            pauseMenu.Load(Content);
+            pauseMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 63, 100), 4));
+            pauseMenu.buttons.Add(new Button("exit", new Rectangle(0, 200, 63, 100), 4));
         }
 
         public int Update(GameTime gameTime, ContentManager Content)
@@ -236,12 +245,45 @@ namespace TheVillainsRevenge
             }
             else
             {
-                spieler.spine.Reset();
-                hero.spine.Reset();
-                if (Game1.input.pause)
+                //Update SpriteTimer
+                if (gameTime.TotalGameTime.TotalMilliseconds > (spriteTimer + (float)spriteDelay))
+                {
+                    spriteTimer = gameTime.TotalGameTime.TotalMilliseconds;
+                    changeSprite = true;
+                }
+                else
+                {
+                    changeSprite = false;
+                }
+                pauseMenu.Update(gameTime, changeSprite);
+                if (pauseMenu.exit)
+                {
+                    return 4;
+                }
+                if (Game1.input.sprung)
+                {
+                    //Option == 2 ist Exit
+                    if (pauseMenu.option == 1)
+                    {
+                        if (Game1.input.sprung) //Safe dass man nicht mit nach links drücken Escaped
+                        {
+                            return 4;
+                        }
+                    }
+                    else
+                    {
+                        //Resume Game
+                        paused = false;
+                    }
+                }
+                else if (Game1.input.pause)
                 {
                     paused = false;
                 }
+                spieler.spine.Reset();
+                hero.spine.Reset();
+                camera.UpdateTransformation(Game1.graphics);
+                pauseCamera.UpdateTransformation(Game1.graphics);
                 return 1;
             }
         }
@@ -282,6 +324,12 @@ namespace TheVillainsRevenge
             }
             GUI.Draw(spriteBatch, spieler.lifes, bosslebenshow);
             spriteBatch.End();
+
+
+            if (paused)
+            {
+                pauseMenu.Draw(spriteBatch, gameTime, pauseCamera);
+            }
 
             //----------------------------------------------------------------------
             //----------------------------------------Draw to Screen

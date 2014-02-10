@@ -310,6 +310,15 @@ namespace TheVillainsRevenge
                         menu = new MenuScreen(2);
                         menu.Load(Content);
                     }
+                    else if (menuOption == 4) //GameScreen beendet (Exit)
+                    {
+                        boss = null;
+                        Content.Unload();
+                        Load();
+                        menu = new MenuScreen(0);
+                        menu.Load(Content);
+                        menuOption = 1;
+                    }
                 }
             }
             if (input.fullscreen) //F11 = Toggle Fullscreen
