@@ -353,6 +353,7 @@ namespace TheVillainsRevenge
             }
             else if(spieler.smash)
             {
+                scream.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 scream.Parameters["radius"].SetValue(spieler.screamradius);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, scream, camera.screenTransform);
              }
