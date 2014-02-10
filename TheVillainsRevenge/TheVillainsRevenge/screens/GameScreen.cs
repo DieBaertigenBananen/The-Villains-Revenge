@@ -182,9 +182,9 @@ namespace TheVillainsRevenge
                     gaussShader = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
                     gaussScreen = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
                     gaussBackground0 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 1f);
-                    gaussBackground1 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 5f);
-                    gaussBackground2 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 10f);
-                    gaussBackground3 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 20f);
+                    gaussBackground1 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 3f);
+                    gaussBackground2 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 7f);
+                    gaussBackground3 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 12f);
                     princess.ResetRage(gameTime);
                     Sound.Load(Content);
                     if (Game1.sound)
