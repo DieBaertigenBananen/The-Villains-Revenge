@@ -40,7 +40,7 @@ princessRageWarmup = 10
 princessEnrageSpeed = 5
 princessUnrageSpeed = 10
 princessRageLimit = 100
-princessCoverTime = 0
+princessCoverTime = 5
 
 blockSpeed = 5	
 triggerTimeWall = 5
