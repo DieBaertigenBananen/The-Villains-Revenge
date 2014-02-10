@@ -53,7 +53,7 @@ namespace TheVillainsRevenge
             }
             else if (screen == 3)
             {
-                startScreen = true;
+                //startScreen = true;
             }
         }
         public void Load(ContentManager Content)
