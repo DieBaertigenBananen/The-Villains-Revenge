@@ -56,22 +56,24 @@ namespace TheVillainsRevenge
 
         }
 
-        public void StartReset()
+        public void StartReset(Player player)
         {
             rageMode = false;
             rageMeter = 0;
             beating = false;
             coverEyes = false;
             bag = false;
+            player.spine.anim("sc_dummy", 0, false);
         }
 
-        public void Reset()
+        public void Reset(Player player)
         {
             rageMode = false;
             rageMeter = 0;
             beating = false;
             coverEyes = false;
             bag = false;
+            player.spine.anim("sc_dummy", 0, false);
         }
 
         public void ResetRage(GameTime gameTime)

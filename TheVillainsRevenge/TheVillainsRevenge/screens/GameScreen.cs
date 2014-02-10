@@ -222,7 +222,7 @@ namespace TheVillainsRevenge
             hero.Save();
             princess.Save();
         }
-        public void StartReset(GameTime gameTime)
+        public void StartReset(GameTime gameTime, Player player)
         {
             Sound.Stop("ashbrett_breath");
             Sound.Stop("sweetcheeks_enrage");
@@ -239,12 +239,12 @@ namespace TheVillainsRevenge
                 spieler.Save((int)spieler.position.X);
                 hero.StartReset();
                 hero.Save();
-                princess.StartReset();
+                princess.StartReset(player);
                 princess.Save();
             }
             princess.ResetRage(gameTime);
         }
-        public void Reset(GameTime gameTime)
+        public void Reset(GameTime gameTime, Player player)
         {
             Sound.Stop("ashbrett_breath");
             Sound.Stop("sweetcheeks_enrage");
@@ -257,7 +257,7 @@ namespace TheVillainsRevenge
                 karte.Reset();
                 spieler.Reset();
                 hero.Reset();
-                princess.Reset();
+                princess.Reset(player);
             }
             princess.ResetRage(gameTime);
         }
@@ -482,6 +482,7 @@ namespace TheVillainsRevenge
                                 {
                                     enemy.anim("die", 0);
                                     princess.bag = false;
+                                    spieler.spine.anim("sc_dummy", 0, false);
                                 }
                                 else
                                 {
@@ -623,7 +624,7 @@ namespace TheVillainsRevenge
                     spieler.getHit("die");
                     GUIFace = 1;
                     dietime = 1;
-                    Reset(gameTime);
+                    Reset(gameTime, spieler);
                 }
                 //Held hat den Spieler eingeholt
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start)
@@ -738,9 +739,9 @@ namespace TheVillainsRevenge
                 if (dietime < 0 && spieler.lifes != 0)
                 {
                     if (herohit)
-                        StartReset(gameTime);
+                        StartReset(gameTime, spieler);
                     else
-                        Reset(gameTime);
+                        Reset(gameTime, spieler);
                     dietime = 0;
                     return 1;
                 }
