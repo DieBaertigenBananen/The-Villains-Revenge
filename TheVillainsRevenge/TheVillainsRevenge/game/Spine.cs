@@ -45,7 +45,7 @@ namespace TheVillainsRevenge
             }
             else
             {
-                if (animation != newanim)
+                if (animation != newanim || newanim == "die")
                 {
                     animationTimer = Game1.time.TotalMilliseconds;
                     animationState.SetAnimation(0, newanim, loop);

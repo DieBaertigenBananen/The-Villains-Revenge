@@ -456,19 +456,27 @@ namespace TheVillainsRevenge
                             if ((spieler.smash && spieler.fall) || spieler.hit)
                             {
                                 //Falls Megaschlag
-                                if(spieler.smash)
+                                if (spieler.smash)
+                                {
                                     enemy.anim("smash_die", 0);
+                                }
                                 else
+                                {
                                     enemy.anim("die", 0);
+                                }
 
                             }
                             else
                             {
                                 //Kein Megaschlag, Spieler stirbt
-                                if(spieler.position.X > enemy.position.X)
+                                if (spieler.position.X > enemy.position.X)
+                                {
                                     enemy.anim("attack", 1);
+                                }
                                 else
+                                {
                                     enemy.anim("attack", 2);
+                                }
                                 Sound.Play("fluffy_attack");
                                 if (princess.bag)
                                 {
