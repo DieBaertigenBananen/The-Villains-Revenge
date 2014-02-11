@@ -18,9 +18,9 @@ float4 scream(float2 coords: TEXCOORD) : COLOR
 
 	float fallOff = (dist * 2.)/(radius * 2.5 + 550.0);
 	float3 bwColor = clamp(color.rgb - 0.2, newColor.rgb, 1.-fallOff);
-	bwColor = clamp(tex2D(textureSampler, coords).rgb - 0.2, color.rgb, 1.-color.rgb);
+	bwColor = clamp(tex2D(textureSampler, coords).rgb - 0.2, bwColor.rgb, 1.-bwColor.rgb);
 	
-	color = float4(bwColor,0.);
+	color = float4(bwColor,tex2D(textureSampler, coords).a);
 	
 	
 	return color;
