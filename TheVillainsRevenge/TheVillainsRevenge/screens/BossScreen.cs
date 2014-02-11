@@ -312,14 +312,14 @@ namespace TheVillainsRevenge
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        drawPartCircel(spieler.screamradius * 2 - i, 0f, 360f, new Vector2((float)x, (float)y), spriteBatch, Color.Green);
+                        drawPartCircel(spieler.screamradius * 2 - (i - 10) * 5, 0f, 360f, new Vector2((float)x, (float)y), spriteBatch, Color.Green);
                     }
                 }
                 else //Zeichne Kreis nicht Intersekt
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        drawPartCircel(spieler.screamradius * 2 - i, 0f, 360f, new Vector2((float)x, (float)y), spriteBatch, Color.Red);
+                        drawPartCircel(spieler.screamradius * 2 - (i - 10) * 5, 0f, 360f, new Vector2((float)x, (float)y), spriteBatch, Color.Red);
                     }
                 }
             }
@@ -365,7 +365,7 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            if(spieler.position.X>0)
+            if(spieler.smash)
             {
                 scream.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 scream.Parameters["radius"].SetValue(spieler.screamradius);

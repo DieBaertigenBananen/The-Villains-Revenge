@@ -12,7 +12,7 @@ namespace TheVillainsRevenge
     {
         public bool ishit = false;
         public int screamradius = 0;
-        int maxscreamradius = 400;
+        int maxscreamradius = 250;
         double screamtime = 0;
         double screamend = 3;
         double screamstart = 1;

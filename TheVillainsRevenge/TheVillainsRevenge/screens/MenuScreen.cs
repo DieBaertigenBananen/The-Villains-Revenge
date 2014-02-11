@@ -165,6 +165,7 @@ namespace TheVillainsRevenge
                 //Auf Menu / Screen reagieren
                 if (deadScreen)
                 {
+                    deadScreen = false;
                     if (Game1.input.sprung)
                     {
                         deadScreen = false;
@@ -172,6 +173,7 @@ namespace TheVillainsRevenge
                 }
                 else if (levelendScreen)
                 {
+                    levelendScreen = false;
                     if (Game1.input.sprung)
                     {
                         levelendScreen = false;
@@ -294,7 +296,7 @@ namespace TheVillainsRevenge
                 }
                 else if (controlScreen)
                 {
-                    spriteBatch.Draw(controls_texture, Vector2.Zero, Color.White);
+                    spriteBatch.Draw(controls_texture, Vector2.Zero, new Rectangle(0,0,0,0), Color.White, 0f, Vector2.Zero, 1920f/controls_texture.Width, SpriteEffects.None, 0f);
                 }
                 else if (deadScreen)
                 {
