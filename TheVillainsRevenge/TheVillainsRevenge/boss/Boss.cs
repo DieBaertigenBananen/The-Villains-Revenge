@@ -42,7 +42,7 @@ namespace TheVillainsRevenge
                 spine.anim("hit", 3, false);
             }
         }
-        public override void attack()
+        public void attack()
         {
             Sound.Play("ashbrett_attack");
             attacktimer = 1;
