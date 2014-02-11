@@ -57,10 +57,13 @@ namespace TheVillainsRevenge
             heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
             spine = new Spine();
         }
-        public virtual void attack()
+        public virtual void attack(float spielerdistanz)
         {
-            Sound.Play("ashbrett_attack");
-            Sound.Play("attack");
+            if (Math.Abs(spielerdistanz) < 240)
+            {
+                Sound.Play("ashbrett_attack");
+                Sound.Play("attack");
+            }
             attacktimer = 1;
             spine.anim("attack", 3, false);
         }

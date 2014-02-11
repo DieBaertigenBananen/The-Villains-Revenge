@@ -274,7 +274,7 @@ namespace TheVillainsRevenge
                     GUIFace = 0;
                 //Update Spieler
                 spieler.Update(gameTime, karte, princess);
-
+                float spielerdistanz = spieler.position.X - hero.position.X;
                 if (spieler.hit)
                 {
                     for (int i = 0; i < karte.breakblocks.Count(); i++)
@@ -377,7 +377,7 @@ namespace TheVillainsRevenge
                         if (obj.type != 3) //Obj
                         {
                             //Banane oder Kacke, verlangsame und entferne sich selber
-                            if (obj.type == 1)
+                            if (obj.type == 1&&Math.Abs(spielerdistanz) < 240)
                                 Sound.Play("ausrutscher");
                             if (hero.slowtime < 30)
                             {
@@ -499,9 +499,10 @@ namespace TheVillainsRevenge
                         //Falls hero den Monkey erreicht
                         if (enemy.type == 2 && hero.cbox.box.Intersects(enemy.cbox.box))
                         {
-                            Sound.Play("skullmonkey_dying");
+                            if(Math.Abs(spielerdistanz) < 240)
+                                Sound.Play("skullmonkey_dying");
                             enemy.anim("dying", 0);
-                            hero.attack();
+                            hero.attack(spielerdistanz);
                         }
                     }
                 }
@@ -635,7 +636,7 @@ namespace TheVillainsRevenge
                     spieler.getHit("die2");
                     GUIFace = 1;
                     dietime = 2;
-                    hero.attack();
+                    hero.attack(spielerdistanz);
                     herohit = true;
                     Sound.Play("ashbrett_win");
                 }
