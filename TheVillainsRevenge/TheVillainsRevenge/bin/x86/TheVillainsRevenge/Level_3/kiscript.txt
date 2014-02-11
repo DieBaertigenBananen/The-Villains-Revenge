@@ -1,0 +1,133 @@
+------------------------------------------------
+
+-- Dieser Code holt die Daten aus dem Spiel
+-- Bitte verändere hier nichts!
+
+--Erzeuge eine Tabelle
+p_id = {}
+p_time = {}
+h_id = {}
+h_time = {}
+--Nun schaue wieviele Points es bisher gibt
+p_points = getPoints("Spieler");
+h_points = getPoints("Hero");
+--Führe nur aus wenn man überhaupt weitergekommen ist
+--Nun gehe die vorhandenen Punkte durch
+for i=0,p_points,1 do
+	p_id[i] = getPointID(i,"Spieler");
+	p_time[i] = getPointTime(i,"Spieler");
+end
+for i=0,h_points,1 do
+	h_id[i] = getPointID(i,"Hero");
+	h_time[i] = getPointTime(i,"Hero");
+end
+--Nun sind in den Tabellen Daten drin
+------------------------------------------------
+--Eine Funktion um vereinfacht Punkte hinzuzufügen
+--Und die Punkte hier updatet
+
+function add(id,time) 
+	h_points = h_points+1;
+	h_id[h_points] = id;
+	h_time[h_points] = time;
+	addPoint(id,time);
+end
+
+--Die Funktion entfernt die Punkte
+--Und updatet die Punkte die hier schon sind
+
+function remove(id) 
+	removePoint(id);
+	for i=0,h_points,1 do
+		h_id[i] = nil;
+		h_time[i] = nil;
+	end
+	h_points = h_points-1;
+	for i=0,h_points,1 do
+		h_id[i] = getPointID(i,"Hero");
+		h_time[i] = getPointTime(i,"Hero");
+	end
+end
+
+------------------------------------------------
+-- Hier wird dein KI-Code ausgeführt
+-- Legende:
+-- p_id = die Tabelle mit den IDs der Points des Spielers
+-- p_time = die Zeit der IDs des Spielers
+-- p_points = Maximalen Points, wird für eine Schleife benötigt
+------------------------------------------------
+-- h_id = die Tabelle mit den IDs der Points des Helden
+-- h_time = die Zeit der IDs des Helden
+-- h_points = Maximalen Points, wird für eine Schleife benötigt
+------------------------------------------------
+-- add(id,time); Gibt den neuen Punkt an, wo die KI hin soll
+-- remove(Punkt); Entfernt den Punkt in der KI Liste
+------------------------------------------------
+
+-- Es folgt, dein Code! 
+-- BANANATIME
+
+-- 36
+-----------------------------------------------
+--Fügt einen Punkt vor dem aktuellen hinzu
+-----------------------------------------------
+if p_id[p_points-1] == 2 and p_id[p_points] == 4 then
+	add(3,p_time[p_points]);	
+	end
+
+if p_id[p_points-1] == 4 and p_id[p_points] == 2 then
+	add(3,p_time[p_points]);	
+	end
+
+if p_id[p_points-1] == 6 and p_id[p_points] == 8 then
+	add(7,p_time[p_points]);	
+	end
+
+if p_id[p_points-1] == 8 and p_id[p_points] == 10 then
+	add(9,p_time[p_points]);	
+	end
+
+if p_id[p_points-1] == 13 and p_id[p_points] == 16 then
+	add(14,p_time[p_points]);
+	add(15,p_time[p_points]);
+	end
+
+if p_id[p_points-1] == 13 and p_id[p_points] == 15 then
+	add(14,p_time[p_points]);
+	end
+
+if p_id[p_points-1] == 16 and p_id[p_points] == 19 then
+	add(18,p_time[p_points]);
+	end
+
+if p_id[p_points-1] == 31 and p_id[p_points] == 33 then
+	add(32,p_time[p_points]);	
+	end
+
+if p_id[p_points-1] == 33 and p_id[p_points] == 35 then
+	add(34,p_time[p_points]);	
+	end
+
+-----------------------------------------------
+--Fügt den Punkt hinzu, den der Spieler aktuell überläuft
+-----------------------------------------------
+
+add(p_id[p_points],p_time[p_points]);
+
+-----------------------------------------------
+--Wenn er zurück läuft, entferne die vorherigen Punkte
+-----------------------------------------------
+if p_id[p_points-1] == 2 and p_id[p_points] == 3 then
+	remove(h_points);
+	remove(h_points);	
+	end
+
+
+-----------------------------------------------
+--Fügt einen Punkt nach dem aktuellen hinzu
+-----------------------------------------------
+if p_id[p_points] == 22 then
+ 
+	add(23,p_time[p_points]);
+
+	end
