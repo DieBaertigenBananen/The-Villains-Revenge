@@ -313,10 +313,10 @@ namespace TheVillainsRevenge
             {
                 if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box))
                     //Zeichne Kreis weil Intersekt
-                    spriteBatch.Draw(Circle.createCircle(Game1.graphics.GraphicsDevice, spieler.screamradius * 2), Circle.Middle(spieler.screamradius, x, y), Color.Green);
+                    spriteBatch.Draw(Circle.createCircle(Game1.graphics.GraphicsDevice, spieler.screamradius * 2), Circle.Middle(spieler.screamradius, x, y), Color.Gray);
                 else
                     //Zeichne Kreis nicht Intersekt
-                    spriteBatch.Draw(Circle.createCircle(Game1.graphics.GraphicsDevice, spieler.screamradius * 2), Circle.Middle(spieler.screamradius, x, y), Color.Red);
+                    spriteBatch.Draw(Circle.createCircle(Game1.graphics.GraphicsDevice, spieler.screamradius * 2), Circle.createCircle(graphics, spieler.screamradius), Color.Red);// Middle(spieler.screamradius, x, y), Color.Gray);
             }
             spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
             if (Game1.debug) //Boundingboxen
@@ -338,9 +338,22 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            if(spieler.smash)
+            {
+                scream.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                scream.Parameters["radius"].SetValue(spieler.screamradius);
+                scream.Parameters["playerX"].SetValue(x - camera.viewport.X);
+                scream.Parameters["playerY"].SetValue(y - camera.viewport.Y);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, scream, camera.viewportTransform);
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            }
                 spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
                 spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
             spriteBatch.End();
 
@@ -354,14 +367,6 @@ namespace TheVillainsRevenge
                 pause.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, pause, camera.screenTransform);
             }
-            else if(spieler.position.X > 0)
-            {
-                scream.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
-                scream.Parameters["radius"].SetValue(spieler.screamradius);
-                scream.Parameters["playerX"].SetValue(x - camera.viewport.X);
-                scream.Parameters["playerY"].SetValue(y - camera.viewport.Y);
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, scream, camera.screenTransform);
-             }
             else
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);

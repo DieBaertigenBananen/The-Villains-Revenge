@@ -3,6 +3,6 @@
   <sound>false</sound>
   <fullscreen>true</fullscreen>
   <stretch>false</stretch>
-  <level>1</level>
-  <leben>4</leben>
+  <level>5</level>
+  <leben>-8</leben>
 </SaveData>
