@@ -476,7 +476,7 @@ namespace TheVillainsRevenge
                     }
                 }
             }
-            else if(active&&!sbox.Intersects(b.cbox))
+            else if(active&&!sbox.Intersects(b.cbox)&&Game1.level != 4)
             {
                 time += gameTime.ElapsedGameTime.TotalSeconds;
                 if (time > activeTime)
