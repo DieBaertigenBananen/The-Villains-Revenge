@@ -336,10 +336,12 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             //----------------------------------------Draw to Screen
             //----------------------------------------------------------------------
-            Game1.graphics.GraphicsDevice.SetRenderTarget(null);
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
-            spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
             spriteBatch.End();
 
             //----------------------------------------------------------------------
@@ -352,19 +354,19 @@ namespace TheVillainsRevenge
                 pause.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, pause, camera.screenTransform);
             }
-            else if(spieler.smash)
+            else if(spieler.position.X > 0)
             {
                 scream.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 scream.Parameters["radius"].SetValue(spieler.screamradius);
+                scream.Parameters["playerX"].SetValue(x - camera.viewport.X);
+                scream.Parameters["playerY"].SetValue(y - camera.viewport.Y);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, scream, camera.screenTransform);
              }
             else
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
             }
-            spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
-            spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
-            spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
             spriteBatch.End();
         }
     }
