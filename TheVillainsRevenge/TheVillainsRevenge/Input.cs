@@ -154,7 +154,7 @@ namespace TheVillainsRevenge
             else
             {
                 itemu1 = false;
-                if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Pressed
+                if (GamePad.GetState(PlayerIndex.One).Buttons.LeftShoulder == ButtonState.Released
                     &&
                     keyState.IsKeyUp(Keys.Y)
                     &&
@@ -178,7 +178,7 @@ namespace TheVillainsRevenge
             else
             {
                 itemu2 = false;
-                if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Pressed
+                if (GamePad.GetState(PlayerIndex.One).Buttons.RightShoulder == ButtonState.Released
                     &&
                     keyState.IsKeyUp(Keys.X)
                     &&
