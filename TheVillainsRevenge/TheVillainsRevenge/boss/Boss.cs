@@ -180,7 +180,12 @@ namespace TheVillainsRevenge
             }
             else if (welleladen)
             {
-                map.objects.Add(new Welle(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 4, richtung));
+                int x = cbox.box.X;
+                if (richtung)
+                    x += 96;
+                else
+                    x -= 96;
+                map.objects.Add(new Welle(new Vector2(x, cbox.box.Y + cbox.box.Height - 48), 4, richtung));
                 welleladen = false;
                 wellencooldown = 10;
                 animeTime = 1.0f;

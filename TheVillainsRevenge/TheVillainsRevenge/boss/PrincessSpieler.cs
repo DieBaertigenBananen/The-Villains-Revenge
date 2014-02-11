@@ -16,6 +16,9 @@ namespace TheVillainsRevenge
         double screamtime = 0;
         double screamend = 3;
         double screamstart = 1;
+        public double flytime = 0;
+        public double flymaxtime = 1.0;
+        public bool hitrichtung;
         public PrincessSpieler(int x, int y) : base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -30,17 +33,29 @@ namespace TheVillainsRevenge
             smashCooldown = 10 * 1000;
         }
 
-        public override void getHit(string animation)
+        public void getHit(GameTime gameTime,Map map,Vector2 hposition,string animation)
         {
             lifes--;
             Game1.leben = lifes;
             if (lifes != 0)
             {
                 Sound.Play("sweetcheeks_hit");
-                spine.anim("hit", 3, false);
+                ishit = true;
+                if (hposition.X > position.X)
+                    hitrichtung = false;
+                else
+                    hitrichtung = true;
+                ishit = true;
+                flytime = 0;
+                spine.Clear(0);
+                spine.anim("jump", 0, false);
+                Jump(gameTime, map); //Springen!
+                savejump = false;
             }
             else
             {
+                ishit = true;
+                spine.Clear(0);
                 Sound.Play("sweetcheeks_dying");
                 spine.anim("die", 3, false);
             }
@@ -65,184 +80,204 @@ namespace TheVillainsRevenge
                 actualspeed = airspeed;
             }
             //Einfluss Gamepad
-            if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X != 0)
+            if (ishit)
             {
-                actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
-            }
-            //-----Sprung-----
-            if ((Game1.input.sprung || savejump))
-            {
-                if (!jump && !fall && Game1.input.sprungp)
+                if (lifes != 0)
                 {
-                    Sound.Play("sweetcheeks_jump");
-                    spine.Clear(0);
-                    spine.anim("jump", 0, false);
-                    Jump(gameTime, map); //Springen!
-                    savejump = false;
+                    if (!hitrichtung) //rechts fliegend
+                    {
+                        actualspeed = -actualspeed;
+                    }
+                    Move(actualspeed, 0, map);
+                    flytime += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                    if (flytime > flymaxtime)
+                    {
+                        ishit = false;
+                    }
                 }
-                else if (fall)
-                {
-                    savejump = true;
-                }
-                else
-                {
-                    savejump = false;
-                }
+
             }
             else
             {
-                if (jump && !Game1.input.sprungp)
+                if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X != 0)
                 {
-                    jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
+                    actualspeed = (int)((float)actualspeed * Math.Abs(GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X));
                 }
-            }
-            //-----Schlag / Smash starten-----
-            if (Game1.input.smash)
-            {
-                if (jump || fall)
+                //-----Sprung-----
+                if ((Game1.input.sprung || savejump))
                 {
-                    if (Game1.time.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
+                    if (!jump && !fall && Game1.input.sprungp)
                     {
-                        Sound.Play("sweetcheeks_siren_scream");
-                        jump = false;
-                        fall = true;
-                        hit = false;
-                        smash = true;
-                        spine.anim("scream", 3, false);
-                        smashTimer = Game1.time.TotalMilliseconds;
+                        Sound.Play("sweetcheeks_jump");
+                        spine.Clear(0);
+                        spine.anim("jump", 0, false);
+                        Jump(gameTime, map); //Springen!
+                        savejump = false;
+                    }
+                    else if (fall)
+                    {
+                        savejump = true;
+                    }
+                    else
+                    {
+                        savejump = false;
+                    }
+                }
+                else
+                {
+                    if (jump && !Game1.input.sprungp)
+                    {
+                        jumptimer -= GameScreen.slow + Convert.ToInt32((double)Game1.luaInstance["playerJumpCutoff"]);
+                    }
+                }
+                //-----Schlag / Smash starten-----
+                if (Game1.input.smash)
+                {
+                    if (jump || fall)
+                    {
+                        if (Game1.time.TotalMilliseconds > (smashTimer + smashCooldown)) //Smash beginnen
+                        {
+                            Sound.Play("sweetcheeks_siren_scream");
+                            jump = false;
+                            fall = true;
+                            hit = false;
+                            smash = true;
+                            spine.anim("scream", 3, false);
+                            smashTimer = Game1.time.TotalMilliseconds;
+                            falltimer = Game1.time.TotalMilliseconds;
+                            screamtime = 0;
+                        }
+                    }
+                }
+                else if (Game1.input.hit)
+                {
+                    if (!smash && !hit) //Schlag beginnen
+                    {
+                        Sound.Play("sweetcheeks_attack");
+                        Sound.Play("schlag");
+                        hit = true;
+                        spine.anim("attack", 0, false);
+                        hitTimer = Game1.time.TotalMilliseconds;
+                    }
+                }
+                //Schlag ggf beenden
+                if (hit && Game1.time.TotalMilliseconds > hitTimer + (spine.skeleton.Data.FindAnimation("attack").Duration * 1000))
+                {
+                    hit = false;
+                    spine.animationState.ClearTrack(1);
+                }
+                //Smash fortführen
+                if (smash)
+                {
+                    screamtime += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                    if (screamtime > screamend)
+                    {
+                        screamradius = 0;
+                        smash = false;
+                    }
+                    else
+                    {
                         falltimer = Game1.time.TotalMilliseconds;
-                        screamtime = 0;
+                        if (screamradius < maxscreamradius && screamtime > screamstart)
+                            screamradius += maxscreamradius / 40;
                     }
                 }
-            }
-            else if (Game1.input.hit)
-            {
-                if (!smash && !hit) //Schlag beginnen
+                if (!smash)
                 {
-                    Sound.Play("sweetcheeks_attack");
-                    Sound.Play("schlag");
-                    hit = true;
-                    spine.anim("attack", 0, false);
-                    hitTimer = Game1.time.TotalMilliseconds;
-                }
-            }
-            //Schlag ggf beenden
-            if (hit && Game1.time.TotalMilliseconds > hitTimer + (spine.skeleton.Data.FindAnimation("attack").Duration * 1000))
-            {
-                hit = false;
-                spine.animationState.ClearTrack(1);
-            }
-            //Smash fortführen
-            if (smash)
-            {
-                screamtime += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-                if (screamtime > screamend)
-                {
-                    screamradius = 0;
-                    smash = false;
-                }
-                else
-                {
-                    falltimer = Game1.time.TotalMilliseconds;
-                    if (screamradius < maxscreamradius&&screamtime > screamstart)
-                        screamradius += maxscreamradius / 40;
-                }
-            }
-            if (!smash)
-            {
-                //-----Move-----
-                if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
-                {
-                    richtung = true;
-                    acceleration += 1 / (60 * initAcceleration);
-                    if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
+                    //-----Move-----
+                    if (Game1.input.rechts) //Wenn Rechte Pfeiltaste
                     {
-                        if (!jump && !fall)
-                        {
-                            spine.anim("run", 1, true);
-                        }
-                        else
-                        {
-                            spine.anim("jump", 1, false);
-                        }
-                    }
-                    else if (spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem beim Abbremsen in idle übergehen
-                    {
-                        if (!jump && !fall)
-                        {
-                            spine.anim("idle", 0, true); //In idle-Position übergehen
-                        }
-                    }
-                    if (jump || fall) //Zusätzliche Beschleunigung in der Luft
-                    {
-                        acceleration += 2 / (60 * initAcceleration);
-                    }
-                }
-                else if (Game1.input.links) //Wenn Rechte Pfeiltaste
-                {
-                    richtung = false;
-                    acceleration -= 1 / (60 * initAcceleration);
-                    if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
-                    {
-                        if (!jump && !fall)
-                        {
-                            spine.anim("run", 2, true);
-                        }
-                        else
-                        {
-                            spine.anim("jump", 2, false);
-                        }
-                    }
-                    else if (!spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem in idle übergehen
-                    {
-                        if (!jump && !fall)
-                        {
-                            spine.anim("idle", 0, true); //In idle-Position übergehen
-                        }
-                    }
-                    if (jump || fall) //Zusätzliche Beschleunigung in der Luft
-                    {
-                        acceleration -= 2 / (60 * initAcceleration);
-                    }
-                }
-                else
-                {
-                    //Auslaufen_Abbremsen
-                    if (acceleration < 0)
-                    {
+                        richtung = true;
                         acceleration += 1 / (60 * initAcceleration);
-                        if (acceleration > 0) //Nicht umdrehen
+                        if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
                         {
-                            acceleration = 0;
+                            if (!jump && !fall)
+                            {
+                                spine.anim("run", 1, true);
+                            }
+                            else
+                            {
+                                spine.anim("jump", 1, false);
+                            }
+                        }
+                        else if (spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem beim Abbremsen in idle übergehen
+                        {
+                            if (!jump && !fall)
+                            {
+                                spine.anim("idle", 0, true); //In idle-Position übergehen
+                            }
+                        }
+                        if (jump || fall) //Zusätzliche Beschleunigung in der Luft
+                        {
+                            acceleration += 2 / (60 * initAcceleration);
                         }
                     }
-                    else if (acceleration > 0)
+                    else if (Game1.input.links) //Wenn Rechte Pfeiltaste
                     {
+                        richtung = false;
                         acceleration -= 1 / (60 * initAcceleration);
-                        if (acceleration < 0) //Nicht umdrehen
+                        if (Math.Abs(acceleration) <= 2 / (60 * initAcceleration) || Math.Abs(acceleration) > initAcceleration) //Drehen bzw weiter laufen
                         {
-                            acceleration = 0;
+                            if (!jump && !fall)
+                            {
+                                spine.anim("run", 2, true);
+                            }
+                            else
+                            {
+                                spine.anim("jump", 2, false);
+                            }
+                        }
+                        else if (!spine.flipSkel && Math.Abs(acceleration) <= 2 / (60 * initAcceleration)) //Bei direktem Richtungstastenwechsel trotzdem in idle übergehen
+                        {
+                            if (!jump && !fall)
+                            {
+                                spine.anim("idle", 0, true); //In idle-Position übergehen
+                            }
+                        }
+                        if (jump || fall) //Zusätzliche Beschleunigung in der Luft
+                        {
+                            acceleration -= 2 / (60 * initAcceleration);
                         }
                     }
-                    if (!jump && !fall)
+                    else
                     {
-                       spine.anim("idle", 0, true); //In idle-Position übergehen
+                        //Auslaufen_Abbremsen
+                        if (acceleration < 0)
+                        {
+                            acceleration += 1 / (60 * initAcceleration);
+                            if (acceleration > 0) //Nicht umdrehen
+                            {
+                                acceleration = 0;
+                            }
+                        }
+                        else if (acceleration > 0)
+                        {
+                            acceleration -= 1 / (60 * initAcceleration);
+                            if (acceleration < 0) //Nicht umdrehen
+                            {
+                                acceleration = 0;
+                            }
+                        }
+                        if (!jump && !fall)
+                        {
+                            spine.anim("idle", 0, true); //In idle-Position übergehen
+                        }
                     }
+                    //Keine Beschleunigungs"vermehrung", durch Beschleunigung wird nur MaxSpeed bei jedem Update absolut vermindert. Fake aber funzt...
+                    if (acceleration < -initAcceleration)
+                    {
+                        acceleration = -initAcceleration;
+                    }
+                    if (acceleration > initAcceleration)
+                    {
+                        acceleration = initAcceleration;
+                    }
+                    if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks, map, hero).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
+                    {
+                        acceleration = -acceleration * 0.8f;
+                    }
+                    Move((int)((acceleration / initAcceleration) * actualspeed), 0, map);
                 }
-                //Keine Beschleunigungs"vermehrung", durch Beschleunigung wird nur MaxSpeed bei jedem Update absolut vermindert. Fake aber funzt...
-                if (acceleration < -initAcceleration)
-                {
-                    acceleration = -initAcceleration;
-                }
-                if (acceleration > initAcceleration)
-                {
-                    acceleration = initAcceleration;
-                }
-                if (Math.Abs(CollisionCheckedVector((int)((acceleration / initAcceleration) * actualspeed), 0, map.blocks, map, hero).X) < Math.Abs((int)((acceleration / initAcceleration) * actualspeed)))
-                {
-                    acceleration = -acceleration * 0.8f;
-                }
-                Move((int)((acceleration / initAcceleration) * actualspeed), 0, map);
             }
 
             //Gravitation

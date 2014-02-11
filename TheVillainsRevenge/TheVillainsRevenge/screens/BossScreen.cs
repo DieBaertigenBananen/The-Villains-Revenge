@@ -101,6 +101,7 @@ namespace TheVillainsRevenge
             renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             spieler.Load(Content, Game1.graphics);
+            spieler.lifes = 4;
             hero.Load(Content, Game1.graphics);
             hero.start = true;
             karte.Load(Content);
@@ -133,7 +134,7 @@ namespace TheVillainsRevenge
                     {
                         if (obj.box.Intersects(spieler.cbox.box))
                         {
-                            spieler.getHit("die2");
+                            spieler.getHit(gameTime, karte, hero.position, "");
                             karte.objects.Remove(obj);
                         }
                         else if (obj.position.X < 0 || obj.position.X > karte.size.X)
@@ -176,9 +177,9 @@ namespace TheVillainsRevenge
                 hero.Update(gameTime, karte, spieler.cbox.box,spieler.smash);
                 Rectangle herohit = hero.cbox.box;
                 if (!hero.richtung) //Hero ist rechts
-                    hero.cbox.box.X -= 48;
+                    hero.cbox.box.X -= 96;
                 else //Hero links
-                    hero.cbox.box.X += 48;
+                    hero.cbox.box.X += 96;
                 if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.animeTime <= 0 && !hero.welleladen)
                 {
                     hero.attack();
@@ -186,15 +187,12 @@ namespace TheVillainsRevenge
                 else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.hits && !spieler.ishit)
                 {
                     Sound.Play("attack");
-                    spieler.ishit = true;
-                    spieler.getHit("");
+                    spieler.getHit(gameTime,karte,hero.position,"");
                 }
-                else if(spieler.ishit&&!hero.hits)
-                    spieler.ishit = false;
                 if (!hero.richtung) //Hero ist rechtss
-                    hero.cbox.box.X += 48;
+                    hero.cbox.box.X += 96;
                 else //Hero links
-                    hero.cbox.box.X -= 48;
+                    hero.cbox.box.X -= 96;
                 //KiPunkte
                 for (int i = 0; i < karte.kipoints.Count(); i++)
                 {
