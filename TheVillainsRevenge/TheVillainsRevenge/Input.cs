@@ -8,6 +8,8 @@ namespace TheVillainsRevenge
 {
     public class Input
     {
+        public bool skip;
+        bool skipp;
         public bool up;
         bool upp;
         public bool down;
@@ -53,6 +55,22 @@ namespace TheVillainsRevenge
 
             // --- GAME STUFF --- //
             //Sprung
+            if (!skipp)
+            {
+                if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftStick) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.RightStick))
+                {
+                    skip = true;
+                    skipp = true;
+                }
+            }
+            else
+            {
+                skip = false;
+                if (GamePad.GetState(PlayerIndex.One).IsButtonUp(Buttons.LeftStick) && GamePad.GetState(PlayerIndex.One).IsButtonUp(Buttons.RightStick))
+                {
+                    skipp = false;
+                }
+            }
             if (!sprungp)
             {
                 if (GamePad.GetState(PlayerIndex.One).Buttons.A == ButtonState.Pressed

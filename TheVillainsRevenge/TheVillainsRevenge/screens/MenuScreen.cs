@@ -111,7 +111,7 @@ namespace TheVillainsRevenge
                 {
                     startScreen = false;
                 }
-                else if (Game1.input.sprung)
+                else if (Game1.input.sprung||Game1.input.skip)
                 {
                     startScreen = false;
                     Sound.startMusicInstance.Stop();
