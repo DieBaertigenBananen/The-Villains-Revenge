@@ -30,6 +30,7 @@ namespace TheVillainsRevenge
         public static double spriteTimer;
         public static int spriteDelay = 120;
         public static bool changeSprite = false;
+        Texture2D circle;
 
 
         RenderTarget2D renderSpine;
@@ -93,6 +94,8 @@ namespace TheVillainsRevenge
 
         public void Load(ContentManager Content)
         {
+            circle = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            circle.SetData<Color>(new Color[]{Color.White});
             bg_texture = Content.Load<Texture2D>("sprites/level_5/planes/background");
             fg_texture = Content.Load<Texture2D>("sprites/level_5/planes/foreground");
             pause = Content.Load<Effect>("Pause");
@@ -290,6 +293,40 @@ namespace TheVillainsRevenge
             }
         }
 
+        void drawPartCircel(float radius, float startAngel, float endAngel, Vector2 pos, SpriteBatch batch, Color color)
+        {
+
+            for (float i = startAngel; i <= endAngel; i += 0.1f)
+            {
+                float x = (float)(pos.X + Math.Cos(i * Math.PI / 180) * radius);
+                float y = (float)(pos.Y - Math.Sin(i * Math.PI / 180) * radius);
+
+                Vector2 pixelpos = new Vector2(x, y);
+                batch.Draw(circle, pixelpos, color);
+            }
+        }
+
+        void DrawScreamCircles(SpriteBatch spriteBatch, int x, int y)
+        {
+            if (spieler.smash)
+            {
+                if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box)) //Zeichne Kreis weil Intersekt
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        drawPartCircel(spieler.screamradius * 2 - i, 0f, 360f, new Vector2((float)x, (float)y), spriteBatch, Color.Green);
+                    }
+                }
+                else //Zeichne Kreis nicht Intersekt
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        drawPartCircel(spieler.screamradius * 2 - i, 0f, 360f, new Vector2((float)x, (float)y), spriteBatch, Color.Red);
+                    }
+                }
+            }
+        }
+
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             //----------------------------------------------------------------------
@@ -309,15 +346,7 @@ namespace TheVillainsRevenge
             karte.Draw(spriteBatch, gameTime, camera); //Plattformen & Co
             int x = spieler.cbox.box.X + (spieler.cbox.box.Width/2);
             int y = spieler.cbox.box.Y + (spieler.cbox.box.Height/2);
-            if (spieler.smash)
-            {
-                if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box))
-                    //Zeichne Kreis weil Intersekt
-                    spriteBatch.Draw(Circle.createCircle(Game1.graphics.GraphicsDevice, spieler.screamradius * 2), Circle.Middle(spieler.screamradius, x, y), Color.Gray);
-                else
-                    //Zeichne Kreis nicht Intersekt
-                    spriteBatch.Draw(Circle.createCircle(Game1.graphics.GraphicsDevice, spieler.screamradius * 2), Circle.createCircle(graphics, spieler.screamradius), Color.Red);// Middle(spieler.screamradius, x, y), Color.Gray);
-            }
+            //Ursprünglich hier ScreamCircles gedrawed
             spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
             if (Game1.debug) //Boundingboxen
             {
@@ -338,7 +367,7 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            if(spieler.smash)
+            if(spieler.position.X>0)
             {
                 scream.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
                 scream.Parameters["radius"].SetValue(spieler.screamradius);
@@ -354,7 +383,8 @@ namespace TheVillainsRevenge
                 spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
+                DrawScreamCircles(spriteBatch, x, y);    
+                spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);    
             spriteBatch.End();
 
             //----------------------------------------------------------------------
