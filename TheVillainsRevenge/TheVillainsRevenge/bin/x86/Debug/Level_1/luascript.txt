@@ -49,7 +49,7 @@ triggerTimeDoor = 1
 
 --Update
 playerSpeed = 12
-playerAirspeed = playerSpeed - 3
+playerAirspeed = playerSpeed - 2
 playerJumppower = 30
 playerGravitation = 60
 playerJumpCutoff = 100
