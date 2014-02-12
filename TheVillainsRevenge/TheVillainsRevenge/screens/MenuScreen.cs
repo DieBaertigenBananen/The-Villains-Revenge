@@ -165,7 +165,6 @@ namespace TheVillainsRevenge
                 //Auf Menu / Screen reagieren
                 if (deadScreen)
                 {
-                    deadScreen = false;
                     if (Game1.input.sprung)
                     {
                         deadScreen = false;
@@ -173,7 +172,6 @@ namespace TheVillainsRevenge
                 }
                 else if (levelendScreen)
                 {
-                    levelendScreen = false;
                     if (Game1.input.sprung)
                     {
                         levelendScreen = false;
