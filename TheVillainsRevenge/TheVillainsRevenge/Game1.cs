@@ -225,6 +225,7 @@ namespace TheVillainsRevenge
                     {
                         level = 1;
                         leben = 4;
+                        luaInstance.DoFile("Level_" + level + "/luascript.txt");
                     }
                     Save();
                     menu = null; //entlädt das menü
