@@ -192,12 +192,42 @@
   <ItemGroup>
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
+    <Content Include="Level_1\kiscript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_1\luascript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_2\kiscript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_2\luascript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_3\kiscript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_3\luascript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_4\kiscript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_4\luascript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_5\kiscript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Level_5\luascript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="spine\sprites\ashbrett-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="spine\sprites\bonepuker-1.png">
+    <Content Include="spine\sprites\bonepuker-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="spine\sprites\fluffy-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -207,33 +237,33 @@
     <Content Include="spine\sprites\sweetcheeks-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="spine\sprites\ashbrett.atlas">
+    <Content Include="spine\sprites\ashbrett.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\ashbrett.json">
+    </Content>
+    <Content Include="spine\sprites\ashbrett.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="spine\sprites\clobbercloud.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="spine\sprites\fluffy.atlas">
+    <Content Include="spine\sprites\fluffy.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\fluffy.json">
+    </Content>
+    <Content Include="spine\sprites\fluffy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\skullmonkey.atlas">
+    </Content>
+    <Content Include="spine\sprites\skullmonkey.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\skullmonkey.json">
+    </Content>
+    <Content Include="spine\sprites\skullmonkey.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\sweetcheeks.atlas">
+    </Content>
+    <Content Include="spine\sprites\sweetcheeks.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\sweetcheeks.json">
+    </Content>
+    <Content Include="spine\sprites\sweetcheeks.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TheVillainsRevengeContent\TheVillainsRevengeContent.contentproj">
@@ -268,20 +298,24 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="spine\sprites\bonepuker.atlas">
+    <Content Include="TheVillainsRevenge.exe.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\bonepuker.json">
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="spine\sprites\bonepuker.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\clobbercloud.atlas">
+    </Content>
+    <Content Include="spine\sprites\bonepuker.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="spine\sprites\clobbercloud.json">
+    </Content>
+    <Content Include="spine\sprites\clobbercloud.atlas">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="spine\sprites\clobbercloud.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
