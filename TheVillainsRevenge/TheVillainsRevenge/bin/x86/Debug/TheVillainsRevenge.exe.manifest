@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>7gZFeBkLsHMJUQOjLBeP1pjLRrg=</dsig:DigestValue>
+        <dsig:DigestValue>xCbikmbkoZrH522aim9yJCIZ7mU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -1658,31 +1658,31 @@
       <dsig:DigestValue>AdXGEFFkaGT0FcmkcQzPd5QM2so=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\menu\buttons_main.xnb" size="384187">
+  <file name="Content\sprites\menu\buttons_main.xnb" size="1920187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>GmHxg88YqqZ/WD1cYagoR0LoCOQ=</dsig:DigestValue>
+      <dsig:DigestValue>0Ui8zst8WUGaB8Qa1pjE0YPRdco=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\menu\buttons_option.xnb" size="1222587">
+  <file name="Content\sprites\menu\buttons_option.xnb" size="1344827">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>eTfFLHM01rB6iviv6ORrcNwLFWk=</dsig:DigestValue>
+      <dsig:DigestValue>o4ftsvZdEBUzGucjbsyf7g3EldY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\menu\buttons_start.xnb" size="517467">
+  <file name="Content\sprites\menu\buttons_start.xnb" size="896187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>1hJlZ3xytm1MixIJBln5kzDAp8A=</dsig:DigestValue>
+      <dsig:DigestValue>ZtxlAef1osKabqyw0YxJlFPjiUQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\menu\controls.xnb" size="2828827">

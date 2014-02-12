@@ -68,13 +68,14 @@ namespace TheVillainsRevenge
                 {
                     if (!active) //Nicht aktiv
                     {
-                        cut.X += cut.Width * (spriteStateCount + 1);
+                        cut.X += cut.Width * (spriteStateCount +1) +2;
                     }
                     else //Aktiv
                     {
-                        cut.X += cut.Width * (spriteStateCount + 2);
+                        cut.X += cut.Width * (spriteStateCount +1) + 140;
                     }
-                    spriteBatch.Draw(texture, new Vector2(position.X + 60, position.Y), cut, Color.White); //StateOverlay zeichnen
+                    cut.Width = 137;
+                    spriteBatch.Draw(texture, new Vector2(position.X +3 , position.Y -5), cut, Color.White); //StateOverlay zeichnen
                 }
             }
         }
