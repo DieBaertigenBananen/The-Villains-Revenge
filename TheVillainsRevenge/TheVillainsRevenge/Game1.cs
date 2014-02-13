@@ -351,9 +351,9 @@ namespace TheVillainsRevenge
             XmlSerializer reader = new
                XmlSerializer(data.GetType());
             // Read the XML file.
-            if (File.Exists("save"))
+            if (File.Exists("bana.na"))
             {
-                StreamReader file = new StreamReader("save");
+                StreamReader file = new StreamReader("bana.na");
                 // Deserialize the content of the file into a Book object.
                 data = (SaveData)reader.Deserialize(file);
                 file.Close();
@@ -397,7 +397,7 @@ namespace TheVillainsRevenge
                 leben = Game1.leben,
             };
             XmlSerializer writer = new XmlSerializer(data.GetType());
-            StreamWriter file = new StreamWriter("save");
+            StreamWriter file = new StreamWriter("bana.na");
             writer.Serialize(file, data);
             file.Close();
         }
