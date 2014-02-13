@@ -40,7 +40,6 @@ namespace TheVillainsRevenge
             if (lifes != 0)
             {
                 Sound.Play("sweetcheeks_hit");
-                ishit = true;
                 if (hposition.X > position.X)
                     hitrichtung = false;
                 else

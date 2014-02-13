@@ -117,14 +117,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="202752">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="203264">
       <assemblyIdentity name="TheVillainsRevenge" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>SO6gJzLB8OCvOCnEmsaKNm5Ll78=</dsig:DigestValue>
+        <dsig:DigestValue>mD1uGvczzJ2AJ6Bj+2mFTiouWP8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -533,13 +533,13 @@
       <dsig:DigestValue>g28XbMYj8dcsx8IHScHgRCiVkJQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sounds\sweetcheeks\enrage.xnb" size="357225">
+  <file name="Content\sounds\sweetcheeks\enrage.xnb" size="359529">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>BbQa5qQmIB6Zn1C52hjtuwh+N6k=</dsig:DigestValue>
+      <dsig:DigestValue>u0AGOPadhVDxgk2SH2XsE/mtC8Q=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sounds\sweetcheeks\hit.xnb" size="27753">
@@ -603,6 +603,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>gzgaOmzLOeNwsu60Nh7kA/+1MVc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\sprites\hud_sweetcheeks.xnb" size="422587">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>jRgV45TD5Rl8xwBmXmgwVTWzq40=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\items.xnb" size="82107">
@@ -890,7 +899,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Hz+FiUUV/dteYE+jjwaBIdauSg0=</dsig:DigestValue>
+      <dsig:DigestValue>UKdjJNt7SrKd1iLDpFZ/tcTI8l0=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\level_2\planes\background_0_1.xnb" size="30720187">
@@ -1115,7 +1124,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>96Bpkcwvs3braD3bLiQIQyYYuls=</dsig:DigestValue>
+      <dsig:DigestValue>SBHiz/pU1CAfFkpc7eQwXDhiEcE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\level_3\planes\background_0_1.xnb" size="30720187">

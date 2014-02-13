@@ -192,6 +192,12 @@ namespace TheVillainsRevenge
                     Sound.Play("attack");
                     spieler.getHit(gameTime,karte,hero.position,"");
                 }
+                if (spieler.lifes == 0)
+                    GUI.GFace = 2;
+                else if (spieler.ishit)
+                    GUI.GFace = 1;
+                else
+                    GUI.GFace = 0;
                 if (!hero.richtung) //Hero ist rechtss
                     hero.cbox.box.X += 96;
                 else //Hero links
