@@ -23,7 +23,7 @@ heroCollisionWidth = 45
 heroCollisionHeight = 150
 heroCloseWalkRange = 500
 
-bunnySize = 0.25
+bunnySize = 0.29
 bunnyCollisionOffsetX = -32
 bunnyCollisionOffsetY = -84
 bunnyCollisionWidth = 64
@@ -36,7 +36,7 @@ monkeyCollisionWidth = 84
 monkeyCollisionHeight = 119
 
 princessRageChance = 100
-princessRageWarmup = 10
+princessRageWarmup = 10000
 princessEnrageSpeed = 5
 princessUnrageSpeed = 10
 princessRageLimit = 100

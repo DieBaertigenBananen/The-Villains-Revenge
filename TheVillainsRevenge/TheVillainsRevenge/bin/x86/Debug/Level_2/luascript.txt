@@ -23,7 +23,7 @@ heroCollisionWidth = 45
 heroCollisionHeight = 150
 heroCloseWalkRange = 500
 
-bunnySize = 0.25
+bunnySize = 0.29
 bunnyCollisionOffsetX = -32
 bunnyCollisionOffsetY = -84
 bunnyCollisionWidth = 64
