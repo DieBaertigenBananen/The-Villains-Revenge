@@ -6,7 +6,7 @@ planeTilesBackground3 = 1 --Himmel
 planeForeground0HeightOffset = 46 * 48 - 2208
 planeForeground1HeightOffset = 46 * 48 - 2208
 
-playerAcceleration = 40
+playerAcceleration = 35
 playerStartLifes = 4
 playerScale = 0.35
 playerCollisionWidth = 100
@@ -25,9 +25,9 @@ heroCloseWalkRange = 500
 
 bunnySize = 0.29
 bunnyCollisionOffsetX = -32
-bunnyCollisionOffsetY = -84
+bunnyCollisionOffsetY = -94
 bunnyCollisionWidth = 64
-bunnyCollisionHeight = 84
+bunnyCollisionHeight = 104
 
 monkeySize = 0.19
 monkeyCollisionOffsetX = -32
@@ -52,7 +52,7 @@ playerSpeed = 12
 playerAirspeed = playerSpeed - 2
 playerJumppower = 30
 playerGravitation = 60
-playerJumpCutoff = 100
+playerJumpCutoff = 50
 playerSchlagRange = 96
 playerMegaSchlagRange = 48
 playerMegaSchlagFall = 1500
