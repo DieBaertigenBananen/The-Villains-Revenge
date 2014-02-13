@@ -204,10 +204,10 @@ namespace TheVillainsRevenge
             {
                 this.IsMouseVisible = !graphics.IsFullScreen;
             }
-            //if (input.debug)
-            //{
-            //    debug = !debug;
-            //}
+            if (input.debug)
+            {
+                debug = !debug;
+            }
             luaInstance.DoFile("Level_"+level+"/luascript.txt");
             input.Update();
             int menuOption = 0;
