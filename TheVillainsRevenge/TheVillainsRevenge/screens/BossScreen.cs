@@ -36,6 +36,7 @@ namespace TheVillainsRevenge
         RenderTarget2D renderSpine;
         RenderTarget2D renderGame;
         RenderTarget2D renderScreen;
+        RenderTarget2D renderBG;
 
         public int getPoints(string w)
         {
@@ -104,6 +105,7 @@ namespace TheVillainsRevenge
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderBG = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             spieler.Load(Content, Game1.graphics);
             spieler.lifes = 4;
             hero.Load(Content, Game1.graphics);
@@ -366,6 +368,16 @@ namespace TheVillainsRevenge
             {
                 pauseMenu.Draw(spriteBatch, gameTime, pauseCamera);
             }
+            //----------------------------------------------------------------------
+            //----------------------------------------Draw to BG
+            //----------------------------------------------------------------------
+            
+            Game1.graphics.GraphicsDevice.SetRenderTarget(renderBG);
+            Game1.graphics.GraphicsDevice.Clear(Color.Black);
+            background.Draw(gameTime, camera, new Vector2(karte.size.X / 2, karte.size.Y));
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
+            spriteBatch.End();
 
             //----------------------------------------------------------------------
             //----------------------------------------Draw to Screen
@@ -384,8 +396,8 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             }
-            background.Draw(gameTime, camera, new Vector2(karte.size.X/2,karte.size.Y));
-                spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
+            
+            spriteBatch.Draw(renderBG, Vector2.Zero, Color.White);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 DrawScreamCircles(spriteBatch, x, y);    
