@@ -4,127 +4,169 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 boss_skin/arm_left
-  rotate: false
-  xy: 1677, 173
+  rotate: true
+  xy: 942, 297
   size: 45, 80
   orig: 45, 80
   offset: 0, 0
   index: -1
 boss_skin/arm_right
   rotate: false
-  xy: 1630, 164
+  xy: 942, 206
   size: 45, 89
   orig: 45, 89
   offset: 0, 0
   index: -1
 boss_skin/body
-  rotate: true
-  xy: 1139, 114
+  rotate: false
+  xy: 691, 315
   size: 139, 195
   orig: 139, 195
   offset: 0, 0
   index: -1
 boss_skin/calf_left
   rotate: true
-  xy: 951, 57
+  xy: 262, 5
   size: 40, 86
   orig: 40, 86
   offset: 0, 0
   index: -1
 boss_skin/calf_right
-  rotate: true
-  xy: 1039, 60
+  rotate: false
+  xy: 983, 428
   size: 37, 82
   orig: 37, 82
   offset: 0, 0
   index: -1
+boss_skin/faces/attack
+  rotate: false
+  xy: 643, 155
+  size: 147, 154
+  orig: 147, 154
+  offset: 0, 0
+  index: -1
+boss_skin/faces/die
+  rotate: false
+  xy: 792, 164
+  size: 148, 149
+  orig: 148, 149
+  offset: 0, 0
+  index: -1
+boss_skin/faces/hit
+  rotate: false
+  xy: 832, 344
+  size: 149, 166
+  orig: 149, 166
+  offset: 0, 0
+  index: -1
+boss_skin/faces/jump
+  rotate: false
+  xy: 643, 2
+  size: 149, 151
+  orig: 149, 151
+  offset: 0, 0
+  index: -1
+boss_skin/faces/run
+  rotate: false
+  xy: 794, 13
+  size: 142, 149
+  orig: 142, 149
+  offset: 0, 0
+  index: -1
+boss_skin/faces/scream
+  rotate: false
+  xy: 450, 13
+  size: 140, 139
+  orig: 140, 139
+  offset: 0, 0
+  index: -1
 boss_skin/hair
   rotate: false
-  xy: 482, 2
+  xy: 2, 18
   size: 258, 251
   orig: 258, 251
   offset: 0, 0
   index: -1
 boss_skin/hand_left
   rotate: true
-  xy: 1497, 106
+  xy: 942, 164
   size: 40, 50
   orig: 40, 50
   offset: 0, 0
   index: -1
 boss_skin/hand_right
-  rotate: false
-  xy: 1724, 205
+  rotate: true
+  xy: 592, 18
   size: 40, 48
   orig: 40, 48
   offset: 0, 0
   index: -1
 boss_skin/head
   rotate: true
-  xy: 1336, 98
+  xy: 482, 154
   size: 155, 159
   orig: 155, 159
   offset: 0, 0
   index: -1
 boss_skin/leg_left
-  rotate: true
-  xy: 742, 3
+  rotate: false
+  xy: 592, 60
   size: 49, 92
   orig: 49, 92
   offset: 0, 0
   index: -1
 boss_skin/leg_right
-  rotate: true
-  xy: 836, 6
+  rotate: false
+  xy: 938, 74
   size: 46, 88
   orig: 46, 88
   offset: 0, 0
   index: -1
 boss_skin/pony
   rotate: false
-  xy: 742, 54
+  xy: 482, 311
   size: 207, 199
   orig: 207, 199
   offset: 0, 0
   index: -1
 boss_skin/shoe_left
-  rotate: false
-  xy: 1766, 215
+  rotate: true
+  xy: 938, 22
   size: 50, 38
   orig: 50, 38
   offset: 0, 0
   index: -1
 boss_skin/shoe_right
-  rotate: false
-  xy: 1818, 217
+  rotate: true
+  xy: 986, 114
   size: 48, 36
   orig: 48, 36
   offset: 0, 0
   index: -1
 boss_skin/shoulder_left
-  rotate: false
-  xy: 1497, 148
+  rotate: true
+  xy: 262, 47
   size: 66, 105
   orig: 66, 105
   offset: 0, 0
   index: -1
 boss_skin/shoulder_right
   rotate: false
-  xy: 1565, 156
+  xy: 369, 16
   size: 63, 97
   orig: 63, 97
   offset: 0, 0
   index: -1
 boss_skin/skirt
   rotate: false
-  xy: 951, 99
+  xy: 262, 115
   size: 186, 154
   orig: 186, 154
   offset: 0, 0
   index: -1
 boss_skin/weapon
   rotate: false
-  xy: 2, 14
+  xy: 2, 271
   size: 478, 239
   orig: 478, 239
   offset: 0, 0
