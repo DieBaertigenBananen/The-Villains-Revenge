@@ -1,7 +1,7 @@
 
 fluffy-1.png
 format: RGBA8888
-filter: MipMapLinearLinear,MipMapLinearLinear
+filter: Linear,Linear
 repeat: none
 angst
   rotate: false
