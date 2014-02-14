@@ -1,0 +1,26 @@
+
+background-1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/background
+  rotate: false
+  xy: 2, 317
+  size: 1920, 1104
+  orig: 1920, 1104
+  offset: 0, 0
+  index: -1
+images/head
+  rotate: false
+  xy: 2, 2
+  size: 253, 313
+  orig: 253, 313
+  offset: 0, 0
+  index: -1
+images/kiefer
+  rotate: true
+  xy: 1924, 1228
+  size: 193, 106
+  orig: 193, 106
+  offset: 0, 0
+  index: -1

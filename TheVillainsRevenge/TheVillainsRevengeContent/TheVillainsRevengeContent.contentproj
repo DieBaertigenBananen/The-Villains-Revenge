@@ -467,11 +467,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="sprites\level_5\planes\background.png">
-      <Name>background</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="sprites\level_5\planes\foreground.png">
       <Name>foreground</Name>
       <Importer>TextureImporter</Importer>

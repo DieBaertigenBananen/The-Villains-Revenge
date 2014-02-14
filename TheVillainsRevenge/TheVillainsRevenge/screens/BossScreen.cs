@@ -22,7 +22,7 @@ namespace TheVillainsRevenge
         Camera pauseCamera = new Camera();
         SubMenu pauseMenu;
         BossGUI GUI = new BossGUI();
-        Texture2D bg_texture,fg_texture;
+        Texture2D fg_texture;
         public static int bossleben = 100;
         int bosslebenshow = 100;
         public bool paused = false;
@@ -32,7 +32,7 @@ namespace TheVillainsRevenge
         public static bool changeSprite = false;
         Texture2D circle;
 
-
+        Spine background = new Spine();
         RenderTarget2D renderSpine;
         RenderTarget2D renderGame;
         RenderTarget2D renderScreen;
@@ -96,7 +96,8 @@ namespace TheVillainsRevenge
         {
             circle = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             circle.SetData<Color>(new Color[]{Color.White});
-            bg_texture = Content.Load<Texture2D>("sprites/level_5/planes/background");
+            background.Load(new Vector2(0,0), "background", 1.0f, 1.0f);
+            background.anim("background", 0, true);
             fg_texture = Content.Load<Texture2D>("sprites/level_5/planes/foreground");
             pause = Content.Load<Effect>("Pause");
             scream = Content.Load<Effect>("Scream");
@@ -244,6 +245,7 @@ namespace TheVillainsRevenge
                 camera.Update(Game1.graphics, spieler, karte);
                 if (Game1.input.pause)
                 {
+                    background.Save();
                     spieler.spine.Save();
                     hero.spine.Save();
                     paused = true;
@@ -287,6 +289,7 @@ namespace TheVillainsRevenge
                 {
                     paused = false;
                 }
+                background.Reset();
                 spieler.spine.Reset();
                 hero.spine.Reset();
                 camera.UpdateTransformation(Game1.graphics);
@@ -381,7 +384,7 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             }
-                spriteBatch.Draw(bg_texture, Vector2.Zero, Color.White);
+            background.Draw(gameTime, camera, new Vector2(karte.size.X/2,karte.size.Y));
                 spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);

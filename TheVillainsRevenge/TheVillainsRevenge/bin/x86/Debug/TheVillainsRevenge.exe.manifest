@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>Lux7c78xGAl0z2GjTkCRBuYS4M4=</dsig:DigestValue>
+        <dsig:DigestValue>1hXumfpFpQazZx3CfrJ/NBc6jb0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -1577,15 +1577,6 @@
       <dsig:DigestValue>aGE0qzYV3Bf2uInmkKLWmbVxZhs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\level_5\planes\background.xnb" size="8478907">
-    <hash>
-      <dsig:Transforms>
-        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-      </dsig:Transforms>
-      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>+RN29gBcPCU92IUebpX9UTDPBoM=</dsig:DigestValue>
-    </hash>
-  </file>
   <file name="Content\sprites\level_5\planes\foreground.xnb" size="8478907">
     <hash>
       <dsig:Transforms>
@@ -1953,6 +1944,33 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>sMYdXZcz8iwrbNLGIF2cUe/FFMc=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="spine\sprites\background.atlas" size="389">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>p8oKYpTAiLzmZ3xz60tgJFN0EWU=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="spine\sprites\background.json" size="5187">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>5MkInZO88NmvREEbFJRlFJxiFdI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="spine\sprites\background-1.png" size="768663">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>KChflKkGNoalXwJiKJh/LxlYC8E=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\bonepuker.atlas" size="4981">
