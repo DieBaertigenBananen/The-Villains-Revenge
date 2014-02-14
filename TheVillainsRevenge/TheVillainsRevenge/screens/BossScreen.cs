@@ -180,14 +180,16 @@ namespace TheVillainsRevenge
                 hero.Update(gameTime, karte, spieler.cbox.box,spieler.smash);
                 Rectangle herohit = hero.cbox.box;
                 if (!hero.richtung) //Hero ist rechts
-                    hero.cbox.box.X -= 96;
+                    herohit.X -= 64;
                 else //Hero links
-                    hero.cbox.box.X += 96;
-                if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.attacktimer <= 0 && hero.animeTime <= 0 && !hero.welleladen)
+                    herohit.X += 64;
+                herohit.Y = herohit.Y + herohit.Height - 64;
+                herohit.Height = 64;
+                if (spieler.cbox.box.Intersects(herohit) && hero.start && hero.attacktimer <= 0 && hero.animeTime <= 0 && !hero.welleladen)
                 {
                     hero.attack();
                 }
-                else if (spieler.cbox.box.Intersects(hero.cbox.box) && hero.start && hero.hits && !spieler.ishit)
+                else if (spieler.cbox.box.Intersects(herohit) && hero.start && hero.hits && !spieler.ishit)
                 {
                     Sound.Play("attack");
                     spieler.getHit(gameTime,karte,hero.position,"");
@@ -198,10 +200,6 @@ namespace TheVillainsRevenge
                     GUI.GFace = 1;
                 else
                     GUI.GFace = 0;
-                if (!hero.richtung) //Hero ist rechtss
-                    hero.cbox.box.X += 96;
-                else //Hero links
-                    hero.cbox.box.X -= 96;
                 //KiPunkte
                 for (int i = 0; i < karte.kipoints.Count(); i++)
                 {

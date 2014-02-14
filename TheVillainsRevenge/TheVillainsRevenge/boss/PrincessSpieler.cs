@@ -285,9 +285,9 @@ namespace TheVillainsRevenge
                 if (CollisionCheckedVector(0, 1, map.blocks, map, hero).Y == 0)
                 {
                     if(richtung)
-                        Move(actualspeed, 0, map);
+                        Move(actualspeed*2, 0, map);
                     else
-                        Move(-actualspeed, 0, map);
+                        Move(-actualspeed*2, 0, map);
                 }
                 else
                 {

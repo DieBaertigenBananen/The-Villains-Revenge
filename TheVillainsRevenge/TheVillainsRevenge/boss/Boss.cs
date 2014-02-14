@@ -57,7 +57,7 @@ namespace TheVillainsRevenge
                 wellencooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
             else if (!welleladen && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height&&!fall&&!jump&&animeTime <= 0)
             {
-
+                hits = false;
                 if (spieler.X < position.X)
                 {
                     richtung = false;
