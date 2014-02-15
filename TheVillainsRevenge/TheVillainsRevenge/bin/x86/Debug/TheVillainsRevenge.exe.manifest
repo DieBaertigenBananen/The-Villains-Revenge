@@ -15,16 +15,16 @@
       </applicationRequestMinimum>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
         <!--
-          UAC-Manifestoptionen
-          Wenn Sie die Zugangsebene für das Windows-Benutzerkonto ändern möchten, ersetzen Sie den 
-          requestedExecutionLevel-Knoten durch eines der folgenden Elemente.
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
 
         <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
         <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
         <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
 
-         Löschen Sie den requestedExecutionLevel-Knoten, wenn Sie 
-         zum Gewährleisten der Abwärtskompatibilität die Datei- und Registrierungsvirtualisierung verwenden möchten.
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
     -->
         <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>
@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>gHjaBfH3sE1ErXqzCY5VhloxooM=</dsig:DigestValue>
+        <dsig:DigestValue>3OhS+H7074X48IRBWE9fNtkq7RE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -209,13 +209,13 @@
       <dsig:DigestValue>EH9rGn8zYXO1pQxk94SMTW5SHRk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\Scream.xnb" size="3416">
+  <file name="Content\Scream.xnb" size="2912">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>XRFByG/WGdUJ8yCgqnZOBbgj2T0=</dsig:DigestValue>
+      <dsig:DigestValue>6hT1C7IKJDOyPq9oX2YpM4qhA+s=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Smash.xnb" size="3308">
@@ -1946,22 +1946,22 @@
       <dsig:DigestValue>sMYdXZcz8iwrbNLGIF2cUe/FFMc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\background.atlas" size="389">
+  <file name="spine\sprites\background.atlas" size="415">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>p8oKYpTAiLzmZ3xz60tgJFN0EWU=</dsig:DigestValue>
+      <dsig:DigestValue>RXud6jXX28osnnzS/mLRATfTdmo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\background.json" size="5187">
+  <file name="spine\sprites\background.json" size="5339">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>5MkInZO88NmvREEbFJRlFJxiFdI=</dsig:DigestValue>
+      <dsig:DigestValue>RKc0Vu9gkm7QHesiMc19YPfWOic=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\background-1.png" size="768663">
@@ -1973,31 +1973,31 @@
       <dsig:DigestValue>KChflKkGNoalXwJiKJh/LxlYC8E=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\bonepuker.atlas" size="4981">
+  <file name="spine\sprites\bonepuker.atlas" size="6522">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>oDI9qlD1SGJMqV9GGmKRS2Pk+WU=</dsig:DigestValue>
+      <dsig:DigestValue>gxFlPRC9DyGmyGbaFqNzxWeFRMs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\bonepuker.json" size="210456">
+  <file name="spine\sprites\bonepuker.json" size="216550">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>n2G7CCFYnU021h2Las7a+mikD7U=</dsig:DigestValue>
+      <dsig:DigestValue>KUZWiYSxjHWmQkQ8Po+5CizGZ9A=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\bonepuker-1.png" size="163467">
+  <file name="spine\sprites\bonepuker-1.png" size="250922">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Nrxl0mDTLQZNMSW0oUZVi+04VhM=</dsig:DigestValue>
+      <dsig:DigestValue>DeNKUDtWOCoZ/ipYuDM3NcfJYyg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\clobbercloud.atlas" size="2922">
@@ -2027,22 +2027,22 @@
       <dsig:DigestValue>V/gt4ixOpl4qIKk/TQj9dfRrHXc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\fluffy.atlas" size="2320">
+  <file name="spine\sprites\fluffy.atlas" size="2296">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Fp/7WeJMGsywXyRPLxlO26meGso=</dsig:DigestValue>
+      <dsig:DigestValue>TiQBr8RKimwWiTHDYulTLBDvCII=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\fluffy.json" size="49843">
+  <file name="spine\sprites\fluffy.json" size="49803">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>YCqpCVKJQ5rgZJjT8huWkXdo5j4=</dsig:DigestValue>
+      <dsig:DigestValue>g2lXbhbuU/YutxsXrkEMVrWah6k=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\fluffy-1.png" size="117558">
