@@ -13,7 +13,7 @@ float4 scream(float2 coords: TEXCOORD) : COLOR
 	float thickness = 5.0;
 	float speed = 0.5;
 	float time = (gameTime + 30000.0);
-	float screamPattern = fmod(dist - (radius * 0.1) - fmod(time * speed, space) + space, space) * 0.1;
+	float screamPattern = fmod(dist - (radius * 0.1) - fmod(time * speed, space) + space, space) * 0.01;
 	float3 newColor = lerp(float3(color.rgb + 0.4), color.rgb, screamPattern);
 
 	float fallOff = 1. - dist/radius;
@@ -25,7 +25,7 @@ float4 scream(float2 coords: TEXCOORD) : COLOR
 	//bwColor = clamp(tex2D(textureSampler, coords).rgb - 0.2, bwColor.rgb, 1.-bwColor.rgb);
 	//bwColor = fallOff;
 	color = float4(bwColor,tex2D(textureSampler, coords).a);
-	color = screamPattern;
+	//color = screamPattern;
 	return color;
 }
   
