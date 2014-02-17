@@ -13,6 +13,9 @@ namespace TheVillainsRevenge
 {
     class GameScreen
     {
+        Random bloodrand;
+        Vector2 bloodpos;
+        Spine blood = new Spine();
         Texture2D texture;
         public Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
@@ -159,6 +162,8 @@ namespace TheVillainsRevenge
                     foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground0HeightOffset"]));
                     break;
                 case 2:
+                    blood.Load(Vector2.Zero, "blood", 1.0f, 1.0f);
+                    bloodrand = new Random();
                     background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]), 0);
                     break;
                 case 3:
@@ -437,6 +442,10 @@ namespace TheVillainsRevenge
                         {
                             if (enemy.type == 1 && spieler.spine.BoundingBoxCollision(enemy.cbox.box)) //Töte Kanninchen
                             {
+                                int anim = bloodrand.Next(1, 3);
+                                bloodpos.X = bloodrand.Next(0, 1920);
+                                bloodpos.Y = bloodrand.Next(0, 1080);
+                                blood.anim("splat" + anim, 0, false);
                                 enemy.anim("die", 0);
                             }
                         }
@@ -445,6 +454,9 @@ namespace TheVillainsRevenge
                         {
                             if (enemy.type == 1 && spieler.hitCbox.Intersects(enemy.cbox.box)) //Töte Kanninchen
                             {
+                                bloodpos.X = bloodrand.Next(0, 1920);
+                                bloodpos.Y = bloodrand.Next(0, 1080);
+                                blood.anim("splat_full", 0, false);
                                 enemy.anim("smash_die", 0);
                             }
                         }
@@ -461,10 +473,17 @@ namespace TheVillainsRevenge
                                 //Falls Megaschlag
                                 if (spieler.smash)
                                 {
+                                    bloodpos.X = bloodrand.Next(0, 1920);
+                                    bloodpos.Y = bloodrand.Next(0, 1080);
+                                    blood.anim("splat_full", 0, false);
                                     enemy.anim("smash_die", 0);
                                 }
                                 else
                                 {
+                                    int anim = bloodrand.Next(1, 3);
+                                    bloodpos.X = bloodrand.Next(0, 1920);
+                                    bloodpos.Y = bloodrand.Next(0, 1080);
+                                    blood.anim("splat" + anim, 0, false);
                                     enemy.anim("die", 0);
                                 }
 
@@ -472,6 +491,10 @@ namespace TheVillainsRevenge
                             else
                             {
                                 //Kein Megaschlag, Spieler stirbt
+                                int anim = bloodrand.Next(1, 3);
+                                bloodpos.X = bloodrand.Next(0, 1920);
+                                bloodpos.Y = bloodrand.Next(0, 1080);
+                                blood.anim("splat" + anim, 0, false);
                                 if (spieler.position.X > enemy.position.X)
                                 {
                                     enemy.anim("attack", 1);
@@ -846,6 +869,8 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             foreground_1.Draw(spriteBatch, spieler); //Ebene
             spriteBatch.End();
+            Vector2 bp = new Vector2(bloodpos.X + camera.viewport.X, bloodpos.Y + camera.viewport.Y);
+            blood.Draw(gameTime, camera, bp);
             //----------------------------------------------------------------------
             //----------------------------------------Draw to RenderGame
             //----------------------------------------------------------------------

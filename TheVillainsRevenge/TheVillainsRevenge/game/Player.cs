@@ -351,7 +351,7 @@ namespace TheVillainsRevenge
                     }
                     else if (item1 == 2 && !fall && !jump)
                     {
-                        map.objects.Add(new Banana(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 48), 1));
+                        map.objects.Add(new Banana(new Vector2(cbox.box.X, cbox.box.Y + cbox.box.Height - 96), 1));
                         item1 = 0;
                     }
                     else if (item1 == 3 && !fall && !jump)

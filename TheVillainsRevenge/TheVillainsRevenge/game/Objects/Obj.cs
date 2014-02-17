@@ -20,7 +20,7 @@ namespace TheVillainsRevenge
         {
             position = pos;
             type = t;
-            box = new Rectangle((int)pos.X, (int)pos.Y, 64, 64);
+            box = new Rectangle((int)pos.X, (int)pos.Y, 96, 96);
         }
         public virtual void Update(GameTime gameTime, Map map)
         {

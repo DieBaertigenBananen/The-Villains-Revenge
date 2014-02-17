@@ -117,14 +117,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="203264">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="204288">
       <assemblyIdentity name="TheVillainsRevenge" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>ynLBveGyYkYj82JVGHxp4Pi3lhI=</dsig:DigestValue>
+        <dsig:DigestValue>TXAy99K40nnjJ+ANSGlp0JL+k9g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -620,7 +620,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>ORTQhpkQWvtP4G7+YTxIQEgJHtk=</dsig:DigestValue>
+      <dsig:DigestValue>FsK6+KCQSOTBQ2bqeKRH0SFe11Q=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\itemslot.xnb" size="16571">
@@ -1775,13 +1775,13 @@
       <dsig:DigestValue>La/C+mdZXtgbcVDvxoOtogCSzeQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\objects.xnb" size="65723">
+  <file name="Content\sprites\objects.xnb" size="147643">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>ROCKxTuLksDRZjvKUBe6RCAOMAQ=</dsig:DigestValue>
+      <dsig:DigestValue>b8QSTVdc1RNk7v93Aiu6hGkswNw=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\player.xnb" size="65723">
@@ -1971,6 +1971,33 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>KChflKkGNoalXwJiKJh/LxlYC8E=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="spine\sprites\blood.atlas" size="550">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>uA9uUt0DnTXeRMoBpdU/hiEwXUQ=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="spine\sprites\blood.json" size="6672">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>ZIsymo1NGo9leHMJluZsLPl37j0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="spine\sprites\blood-1.png" size="102964">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>nc3gNG89R2wc0rwSO5n+rV7SX6g=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\bonepuker.atlas" size="6522">
