@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>1hQiu359k+zCEvdBExnnV+3f4KM=</dsig:DigestValue>
+        <dsig:DigestValue>ynLBveGyYkYj82JVGHxp4Pi3lhI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -1685,13 +1685,13 @@
       <dsig:DigestValue>ZtxlAef1osKabqyw0YxJlFPjiUQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\menu\controls.xnb" size="2828827">
+  <file name="Content\sprites\menu\controls.xnb" size="8294587">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>UmJMvE9up2FrH7OIvXEOrxLJ3CY=</dsig:DigestValue>
+      <dsig:DigestValue>frk8hrCwnvhYYEjunw0To1fdmIY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\menu\credits.xnb" size="8294587">
@@ -1703,22 +1703,22 @@
       <dsig:DigestValue>Q1Xyhq48D5Ts0wH3/SgRMIya50Y=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\menu\gameover.xnb" size="3170455">
+  <file name="Content\sprites\menu\gameover.xnb" size="8294587">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>3fjVpd778Mh2hVRCpTrbE87E6bU=</dsig:DigestValue>
+      <dsig:DigestValue>b5DdNHvA33Ap3L4OFj1BqiPQ/hA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\menu\levelend.xnb" size="3170455">
+  <file name="Content\sprites\menu\levelend.xnb" size="8294587">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>cdBY9sJ2B5AB0nJHSWeHo7thkTQ=</dsig:DigestValue>
+      <dsig:DigestValue>pqJIZHaaPENsKLuVCrZb8arRvp0=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\menu\logo.xnb" size="8294587">
