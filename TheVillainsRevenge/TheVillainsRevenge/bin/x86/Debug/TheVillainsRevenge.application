@@ -8,14 +8,14 @@
     <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="TheVillainsRevenge.exe.manifest" size="95868">
+    <dependentAssembly dependencyType="install" codebase="TheVillainsRevenge.exe.manifest" size="95869">
       <assemblyIdentity name="TheVillainsRevenge.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="x86" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>PAi8E2nK0+dwjcJY32NBYvLzPoo=</dsig:DigestValue>
+        <dsig:DigestValue>H2qiqwjejuY1BeGdQa1cKHsvzB0=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

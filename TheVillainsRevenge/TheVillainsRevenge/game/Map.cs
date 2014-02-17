@@ -549,19 +549,19 @@ namespace TheVillainsRevenge
                                  break;
                              case "255,255,0":
                                  type = "zeit";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 -96 +48), type));
                                  break;
                              case "180,150,140":
                                  type = "bag";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 -96+48), type));
                                  break;
                              case "171,140,188":
                                  type = "herz";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 - 96 + 48), type));
                                  break;
                              case "255,200,200":
                                  type = "monkey";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 - 96 + 48), type));
                                  break;
                              case "50,50,50":
                                  type = "monkey";
@@ -569,7 +569,7 @@ namespace TheVillainsRevenge
                                  break;
                              case "255,255,100":
                                  type = "banana";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 - 96 + 48), type));
                                  break;
                              case "255,0,0":
                                  type = "trigger";

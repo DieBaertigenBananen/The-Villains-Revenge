@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>gHjaBfH3sE1ErXqzCY5VhloxooM=</dsig:DigestValue>
+        <dsig:DigestValue>1hQiu359k+zCEvdBExnnV+3f4KM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -215,7 +215,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>XRFByG/WGdUJ8yCgqnZOBbgj2T0=</dsig:DigestValue>
+      <dsig:DigestValue>qd8b8Ya3W9MEZ1GF1WBUsrrEnAE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Smash.xnb" size="3308">
@@ -614,13 +614,13 @@
       <dsig:DigestValue>jRgV45TD5Rl8xwBmXmgwVTWzq40=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\items.xnb" size="82107">
+  <file name="Content\sprites\items.xnb" size="184507">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>FCLqQvIn9IfiP0qEYaCJEIl789M=</dsig:DigestValue>
+      <dsig:DigestValue>ORTQhpkQWvtP4G7+YTxIQEgJHtk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\itemslot.xnb" size="16571">
@@ -668,7 +668,7 @@
       <dsig:DigestValue>y2bJyLErcSUp80YnX+wL5narxpY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\map.xnb" size="73787">
+  <file name="Content\sprites\level_1\map.xnb" size="73787">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -677,7 +677,7 @@
       <dsig:DigestValue>OuyiKvOmzgOJJ/23I3PJ+wcXd4s=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_0_1.xnb" size="30720187">
+  <file name="Content\sprites\level_1\planes\background_0_1.xnb" size="30720187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -686,7 +686,7 @@
       <dsig:DigestValue>1jv+vk3Mbn2zAVEMwwi/vclCGcw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_0_2.xnb" size="30720187">
+  <file name="Content\sprites\level_1\planes\background_0_2.xnb" size="30720187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -695,7 +695,7 @@
       <dsig:DigestValue>A1QNyhuyhM+sYflJQ8QK3YN76Vs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_0_3.xnb" size="30720187">
+  <file name="Content\sprites\level_1\planes\background_0_3.xnb" size="30720187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -704,7 +704,7 @@
       <dsig:DigestValue>fy0fLF5t+wKlN6pVJpKie5ADjLo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_0_4.xnb" size="30720187">
+  <file name="Content\sprites\level_1\planes\background_0_4.xnb" size="30720187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -713,7 +713,7 @@
       <dsig:DigestValue>fVKtco1UIswc6Z5/fPt1iRFTPQo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_1_1.xnb" size="21504187">
+  <file name="Content\sprites\level_1\planes\background_1_1.xnb" size="21504187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -722,7 +722,7 @@
       <dsig:DigestValue>DdVB8jb33gFj0+Ikj4sz+VrXdsA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_1_2.xnb" size="21504187">
+  <file name="Content\sprites\level_1\planes\background_1_2.xnb" size="21504187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -740,7 +740,7 @@
       <dsig:DigestValue>Qwrnw5rIjc4MZ6J2HgpPfQX/kb4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_2_1.xnb" size="19200187">
+  <file name="Content\sprites\level_1\planes\background_2_1.xnb" size="19200187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -749,7 +749,7 @@
       <dsig:DigestValue>pwXvf/3LktHei38j5rkVGCtN83w=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_2_2.xnb" size="19200187">
+  <file name="Content\sprites\level_1\planes\background_2_2.xnb" size="19200187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -758,7 +758,7 @@
       <dsig:DigestValue>YzT58deFSTt/HcSpBd55tEdIkRQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_3_1.xnb" size="21504187">
+  <file name="Content\sprites\level_1\planes\background_3_1.xnb" size="21504187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -1946,22 +1946,22 @@
       <dsig:DigestValue>sMYdXZcz8iwrbNLGIF2cUe/FFMc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\background.atlas" size="389">
+  <file name="spine\sprites\background.atlas" size="415">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>p8oKYpTAiLzmZ3xz60tgJFN0EWU=</dsig:DigestValue>
+      <dsig:DigestValue>RXud6jXX28osnnzS/mLRATfTdmo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\background.json" size="5187">
+  <file name="spine\sprites\background.json" size="5339">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>5MkInZO88NmvREEbFJRlFJxiFdI=</dsig:DigestValue>
+      <dsig:DigestValue>RKc0Vu9gkm7QHesiMc19YPfWOic=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\background-1.png" size="768663">
@@ -1973,31 +1973,31 @@
       <dsig:DigestValue>KChflKkGNoalXwJiKJh/LxlYC8E=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\bonepuker.atlas" size="4981">
+  <file name="spine\sprites\bonepuker.atlas" size="6522">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>oDI9qlD1SGJMqV9GGmKRS2Pk+WU=</dsig:DigestValue>
+      <dsig:DigestValue>gxFlPRC9DyGmyGbaFqNzxWeFRMs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\bonepuker.json" size="210456">
+  <file name="spine\sprites\bonepuker.json" size="216550">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>n2G7CCFYnU021h2Las7a+mikD7U=</dsig:DigestValue>
+      <dsig:DigestValue>KUZWiYSxjHWmQkQ8Po+5CizGZ9A=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\bonepuker-1.png" size="163467">
+  <file name="spine\sprites\bonepuker-1.png" size="250922">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Nrxl0mDTLQZNMSW0oUZVi+04VhM=</dsig:DigestValue>
+      <dsig:DigestValue>DeNKUDtWOCoZ/ipYuDM3NcfJYyg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\clobbercloud.atlas" size="2922">
@@ -2027,22 +2027,22 @@
       <dsig:DigestValue>V/gt4ixOpl4qIKk/TQj9dfRrHXc=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\fluffy.atlas" size="2320">
+  <file name="spine\sprites\fluffy.atlas" size="2296">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>Fp/7WeJMGsywXyRPLxlO26meGso=</dsig:DigestValue>
+      <dsig:DigestValue>TiQBr8RKimwWiTHDYulTLBDvCII=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\fluffy.json" size="49843">
+  <file name="spine\sprites\fluffy.json" size="49803">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>YCqpCVKJQ5rgZJjT8huWkXdo5j4=</dsig:DigestValue>
+      <dsig:DigestValue>g2lXbhbuU/YutxsXrkEMVrWah6k=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\fluffy-1.png" size="117558">
