@@ -75,6 +75,10 @@ if p_id[p_points-1] == 2 and p_id[p_points] == 4 then
 	add(3,p_time[p_points]);	
 	end
 
+if p_id[p_points-1] == 2 and p_id[p_points] == 38 then
+	add(39,p_time[p_points]);	
+	end
+
 if p_id[p_points-1] == 4 and p_id[p_points] == 2 then
 	add(3,p_time[p_points]);	
 	end
