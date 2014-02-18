@@ -128,13 +128,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Content\Attack.xnb" size="3348">
+  <file name="Content\Attack.xnb" size="1348">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>QiGjooJEh76vGzUSB7NcIT01FBw=</dsig:DigestValue>
+      <dsig:DigestValue>vRgYzzzxqm4ZZ0jub0ejf2sP9hs=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Clear.xnb" size="860">

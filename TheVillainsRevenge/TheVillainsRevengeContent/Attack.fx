@@ -21,10 +21,10 @@ float4 attack(float2 coords: TEXCOORD) : COLOR
 		position.x = -position.x;
 	}
 	float deltaViewX = position.x - playerPos.x;
-	float deltaY = deltaViewX * 1;
+	float deltaY = (radius - deltaViewX) * .1;
 	if (position.x > playerPos.x && position.y > playerPos.y - deltaY && position.y < playerPos.y + deltaY && dist < radius)
 	{
-		color.rgb *= waves;
+		color *= waves;
 	}
 
 
