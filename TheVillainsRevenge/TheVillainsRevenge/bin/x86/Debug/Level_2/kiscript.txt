@@ -89,6 +89,7 @@ if p_id[p_points-1] == 13 and p_id[p_points] == 16 then
 	add(15,p_time[p_points]);
 	end
 
+
 if p_id[p_points-1] == 13 and p_id[p_points] == 15 then
 	add(14,p_time[p_points]);
 	end
@@ -115,13 +116,15 @@ add(p_id[p_points],p_time[p_points]);
 --Wenn er zurück läuft, entferne die vorherigen Punkte
 -----------------------------------------------
 
-
+if p_id[p_points-1] == 16 and p_id[p_points] == 13 then
+	remove(h_points);
+	add(17,p_time[p_points]);
+	add(11,p_time[p_points]);
+	end
 
 -----------------------------------------------
 --Fügt einen Punkt nach dem aktuellen hinzu
 -----------------------------------------------
 if p_id[p_points] == 22 then
- 
 	add(23,p_time[p_points]);
-
 	end
