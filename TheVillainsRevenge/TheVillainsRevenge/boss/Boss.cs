@@ -11,13 +11,12 @@ namespace TheVillainsRevenge
     {
         
         public double animeTime = 0;
-        public double waveCooldown = 8;
+        public double waveCooldown = 0;
         public bool waveRolling = false;
-        public bool richtung;
+        public bool notFlipped;
         public bool schlagbar = false;
         public bool hits = false; // 
         public bool screamhit = true;
-        public float wellenposition;
         public Rectangle wavefront = new Rectangle(0, 0, 1, 100);
 
         public Boss(int x, int y): base(x,y) //Konstruktor, setzt Anfangsposition
@@ -63,12 +62,12 @@ namespace TheVillainsRevenge
                 hits = false;
                 if (spieler.X < position.X)
                 {
-                    richtung = false;
+                    notFlipped = false;
                     spine.anim("super_attack", 2, false);
                 }
                 else
                 {
-                    richtung = true;
+                    notFlipped = true;
                     spine.anim("super_attack", 1, false);
                 }
                 schlagbar = false;
@@ -185,16 +184,16 @@ namespace TheVillainsRevenge
             }
             else if (waveRolling)
             {
-                int x = cbox.box.X;
-                if (richtung)
-                    x += 96;
-                else
-                    x -= 96;
+                //int x = cbox.box.X;
+                //if (richtung)
+                //    x += 96;
+                //else
+                //    x -= 96;
                 //map.objects.Add(new Welle(new Vector2(x, cbox.box.Y + cbox.box.Height - 48), 4, richtung));
-                if (richtung)
-                    wavefront.X += 1;
+                if (notFlipped)
+                    wavefront.X += 5;
                 else
-                    wavefront.X -= 1;
+                    wavefront.X -= 5;
             }
             else if(screamhit)
             {
@@ -202,25 +201,25 @@ namespace TheVillainsRevenge
                 //Wenn Spieler ist hinten bewege zurück
                 if (spieler.X < position.X)
                 {
-                    richtung = false;
+                    notFlipped = false;
                     actualspeed = -actualspeed;
                     realspeed = -realspeed;
                 }
                 else
                 {
-                    richtung = true;
+                    notFlipped = true;
                 }
                 if (sirenscream)
                 {
                     actualspeed = -actualspeed;
                     realspeed = -realspeed;
-                    if (richtung)
+                    if (notFlipped)
                     {
-                        richtung = false;
+                        notFlipped = false;
                     }
                     else
                     {
-                        richtung = true;
+                        notFlipped = true;
                     }
                 }
                 if (!cbox.box.Intersects(spieler))

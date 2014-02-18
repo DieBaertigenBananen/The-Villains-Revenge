@@ -124,17 +124,17 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>R2zv6EjLwBK/DdQOV9pX3vLIVT8=</dsig:DigestValue>
+        <dsig:DigestValue>Fh4/L4IQCjKYCCfVoW6chssepNg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Content\Attack.xnb" size="3244">
+  <file name="Content\Attack.xnb" size="3348">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>WITh9leJAcTon6NX53lDv3QqEYE=</dsig:DigestValue>
+      <dsig:DigestValue>QiGjooJEh76vGzUSB7NcIT01FBw=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Clear.xnb" size="860">
