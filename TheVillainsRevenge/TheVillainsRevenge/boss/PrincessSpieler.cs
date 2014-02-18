@@ -87,9 +87,9 @@ namespace TheVillainsRevenge
                     {
                         actualspeed = -actualspeed;
                     }
-                    Move(actualspeed, 0, map);
+                    Move((int)actualspeed*2, 0, map);
                     flytime += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-                    if (flytime > flymaxtime)
+                    if (flytime > flymaxtime || CollisionCheckedVector(0, 1, map.blocks, map).Y == 0)
                     {
                         ishit = false;
                     }
@@ -282,6 +282,7 @@ namespace TheVillainsRevenge
             //Gravitation
             if (CollisionCheckedVector(0, 1, map.blocks, map).Y > 0 && !jump)
             {
+                Console.WriteLine("JOOO");
                 if (CollisionCheckedVector(0, 1, map.blocks, map, hero).Y == 0)
                 {
                     if(richtung)
