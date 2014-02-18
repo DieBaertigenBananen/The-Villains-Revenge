@@ -209,28 +209,78 @@ namespace TheVillainsRevenge
                     animationStateData.SetMix("super_attack", "defend", 0.2f);
                     animationStateData.SetMix("super_attack", "hit", 0.2f);
                     break;
-                //case "fluffy":
-                //    animationStateData.SetMix("attack", "", 0.2f);
-                //    animationStateData.SetMix("die", "", 0.2f);
-                //    animationStateData.SetMix("idle", "", 0.2f);
-                //    animationStateData.SetMix("smash_die", "", 0.2f);
-                //    animationStateData.SetMix("walk", "", 0.2f);
-                //    break;
-                //case "skullmonkey":
-                //    animationStateData.SetMix("attack", "", 0.2f);
-                //    animationStateData.SetMix("dying", "", 0.2f);
-                //    animationStateData.SetMix("sitting", "", 0.2f);
-                //    animationStateData.SetMix("walking", "", 0.2f);
-                //    break;
-                //case "sweetcheeks":
-                //    animationStateData.SetMix("attack", "", 0.2f);
-                //    animationStateData.SetMix("die", "", 0.2f);
-                //    animationStateData.SetMix("hit", "", 0.2f);
-                //    animationStateData.SetMix("idle", "", 0.2f);
-                //    animationStateData.SetMix("jump", "", 0.2f);
-                //    animationStateData.SetMix("run", "", 0.2f);
-                //    animationStateData.SetMix("scream", "", 0.2f);
-                //    break;
+                case "fluffy":
+                    animationStateData.SetMix("attack", "die", 0.2f);
+                    animationStateData.SetMix("attack", "smash_die", 0.2f);
+                    animationStateData.SetMix("attack", "idle", 0.2f);
+                    animationStateData.SetMix("attack", "walk", 0.2f);
+
+                    animationStateData.SetMix("idle", "die", 0.2f);
+                    animationStateData.SetMix("idle", "smash_die", 0.2f);
+                    animationStateData.SetMix("idle", "attack", 0.2f);
+                    animationStateData.SetMix("idle", "walk", 0.2f);
+
+                    animationStateData.SetMix("walk", "die", 0.2f);
+                    animationStateData.SetMix("walk", "smash_die", 0.2f);
+                    animationStateData.SetMix("walk", "attack", 0.2f);
+                    animationStateData.SetMix("walk", "idle", 0.2f);
+                    break;
+                case "skullmonkey":
+                    animationStateData.SetMix("attack", "dying", 0.2f);
+                    animationStateData.SetMix("attack", "sitting", 0.2f);
+                    animationStateData.SetMix("attack", "walking", 0.2f);
+
+                    animationStateData.SetMix("sitting", "dying", 0.2f);
+                    animationStateData.SetMix("sitting", "attack", 0.2f);
+                    animationStateData.SetMix("sitting", "walking", 0.2f);
+
+                    animationStateData.SetMix("walking", "dying", 0.2f);
+                    animationStateData.SetMix("walking", "attack", 0.2f);
+                    animationStateData.SetMix("walking", "sitting", 0.2f);
+                    break;
+                case "sweetcheeks":
+                    animationStateData.SetMix("attack", "die", 0.2f);
+                    animationStateData.SetMix("attack", "hit", 0.2f);
+                    animationStateData.SetMix("attack", "idle", 0.2f);
+                    animationStateData.SetMix("attack", "jump", 0.2f);
+                    animationStateData.SetMix("attack", "run", 0.2f);
+                    animationStateData.SetMix("attack", "scream", 0.2f);
+
+                    animationStateData.SetMix("hit", "die", 0.2f);
+                    animationStateData.SetMix("hit", "attack", 0.2f);
+                    animationStateData.SetMix("hit", "idle", 0.2f);
+                    animationStateData.SetMix("hit", "jump", 0.2f);
+                    animationStateData.SetMix("hit", "run", 0.2f);
+                    animationStateData.SetMix("hit", "scream", 0.2f);
+
+                    animationStateData.SetMix("idle", "die", 0.2f);
+                    animationStateData.SetMix("idle", "attack", 0.2f);
+                    animationStateData.SetMix("idle", "hit", 0.2f);
+                    animationStateData.SetMix("idle", "jump", 0.2f);
+                    animationStateData.SetMix("idle", "run", 0.2f);
+                    animationStateData.SetMix("idle", "scream", 0.2f);
+
+                    animationStateData.SetMix("jump", "die", 0.2f);
+                    animationStateData.SetMix("jump", "attack", 0.2f);
+                    animationStateData.SetMix("jump", "hit", 0.2f);
+                    animationStateData.SetMix("jump", "idle", 0.2f);
+                    animationStateData.SetMix("jump", "run", 0.2f);
+                    animationStateData.SetMix("jump", "scream", 0.2f);
+
+                    animationStateData.SetMix("run", "die", 0.2f);
+                    animationStateData.SetMix("run", "attack", 0.2f);
+                    animationStateData.SetMix("run", "hit", 0.2f);
+                    animationStateData.SetMix("run", "idle", 0.2f);
+                    animationStateData.SetMix("run", "jump", 0.2f);
+                    animationStateData.SetMix("run", "scream", 0.2f);
+
+                    animationStateData.SetMix("scream", "die", 0.2f);
+                    animationStateData.SetMix("scream", "attack", 0.2f);
+                    animationStateData.SetMix("scream", "hit", 0.2f);
+                    animationStateData.SetMix("scream", "idle", 0.2f);
+                    animationStateData.SetMix("scream", "jump", 0.2f);
+                    animationStateData.SetMix("scream", "run", 0.2f);
+                    break;
             }
             animationState = new AnimationState(animationStateData);
 
