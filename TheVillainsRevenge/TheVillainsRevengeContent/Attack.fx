@@ -13,18 +13,18 @@ float4 attack(float2 coords: TEXCOORD) : COLOR
 	float space = 100;
 	float waves = fmod(dist - fmod(radius, space) + space, space) / space;
 
+	
 	//Kegel
 	float2 playerPos = float2(heroX, heroY);
-	if (flipped)
-	{
-		playerPos.x = -playerPos.x;
-		position.x = -position.x;
-	}
 	float deltaViewX = position.x - playerPos.x;
-	float deltaY = (radius - deltaViewX) * .1;
+	float deltaY = (abs(radius) - deltaViewX) * 0.3;
 	if (position.x > playerPos.x && position.y > playerPos.y - deltaY && position.y < playerPos.y + deltaY && dist < radius)
 	{
-		color = waves;
+		color.rgb = waves;
+	}
+	else if (raidus < 0)
+	{
+
 	}
 
 

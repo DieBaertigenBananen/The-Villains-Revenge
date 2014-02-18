@@ -434,10 +434,9 @@ namespace TheVillainsRevenge
             if (hero.waveRolling)
             {
                 attack.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
-                attack.Parameters["radius"].SetValue(Math.Abs(hero.wavefront.X - herox));
+                attack.Parameters["radius"].SetValue(hero.wavefront.X - herox);
                 attack.Parameters["heroX"].SetValue(herox - camera.viewport.X);
                 attack.Parameters["heroY"].SetValue(heroy - camera.viewport.Y);
-                attack.Parameters["flipped"].SetValue(!hero.notFlipped);
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, attack, camera.viewportTransform);
             }
             else
