@@ -117,14 +117,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="203264">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="204800">
       <assemblyIdentity name="TheVillainsRevenge" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>tO/NhKNzDGJC6Teu6BPCbQTnNLU=</dsig:DigestValue>
+        <dsig:DigestValue>H5Yn6EeYaI+j2Jm1U4JujcTC+xw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -215,7 +215,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>s7HZqydKb91HhVLYSpOXR8VAvss=</dsig:DigestValue>
+      <dsig:DigestValue>bCO+LUYJBheQfXe8/y76A+elekk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Smash.xnb" size="3308">
