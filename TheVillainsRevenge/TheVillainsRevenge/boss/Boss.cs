@@ -11,12 +11,15 @@ namespace TheVillainsRevenge
     {
         
         public double animeTime = 0;
-        public double wellencooldown = 8;
-        public bool welleladen = false;
+        public double waveCooldown = 8;
+        public bool waveRolling = false;
         public bool richtung;
         public bool schlagbar = false;
         public bool hits = false; // 
         public bool screamhit = true;
+        public float wellenposition;
+        public Rectangle wavefront = new Rectangle(0, 0, 1, 100);
+
         public Boss(int x, int y): base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -46,16 +49,16 @@ namespace TheVillainsRevenge
         {
             Sound.Play("ashbrett_attack");
             attacktimer = 1;
-            spine.anim("attack", 3, false);
+            spine.anim("attack", 0, false);
         }
         public void Update(GameTime gameTime, Map map, Rectangle spieler,bool sirenscream)
         {
             Rectangle Player = spieler;
 
             //Welle Laden Start
-            if (wellencooldown > 0)
-                wellencooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
-            else if (!welleladen && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height&&!fall&&!jump&&animeTime <= 0)
+            if (waveCooldown > 0)
+                waveCooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
+            else if (!waveRolling && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height&&!fall&&!jump&&animeTime <= 0)
             {
                 hits = false;
                 if (spieler.X < position.X)
@@ -69,7 +72,9 @@ namespace TheVillainsRevenge
                     spine.anim("super_attack", 1, false);
                 }
                 schlagbar = false;
-                welleladen = true;
+                waveRolling = true;
+                wavefront.X = cbox.box.X + (cbox.box.Width / 2);
+                wavefront.Y = cbox.box.Y + (cbox.box.Height / 2) - (wavefront.Height / 2);
                 animeTime = 1.2;
                 attacktimer = 0;
             }
@@ -173,22 +178,23 @@ namespace TheVillainsRevenge
             }
             else if (animeTime > 0)
             {
-                if (welleladen)
+                if (waveRolling)
                     Console.WriteLine(animeTime + " a:" + gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
                 animeTime -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
             }
-            else if (welleladen)
+            else if (waveRolling)
             {
                 int x = cbox.box.X;
                 if (richtung)
                     x += 96;
                 else
                     x -= 96;
-                map.objects.Add(new Welle(new Vector2(x, cbox.box.Y + cbox.box.Height - 48), 4, richtung));
-                welleladen = false;
-                wellencooldown = 10;
-                animeTime = 1.0f;
+                //map.objects.Add(new Welle(new Vector2(x, cbox.box.Y + cbox.box.Height - 48), 4, richtung));
+                if (richtung)
+                    wavefront.X += 1;
+                else
+                    wavefront.X -= 1;
             }
             else if(screamhit)
             {

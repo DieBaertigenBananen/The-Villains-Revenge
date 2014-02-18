@@ -26,7 +26,7 @@ namespace TheVillainsRevenge
         public static int bossleben = 100;
         int bosslebenshow = 100;
         public bool paused = false;
-        Effect pause,scream;
+        Effect pause,scream, attack;
         public static double spriteTimer;
         public static int spriteDelay = 120;
         public static bool changeSprite = false;
@@ -102,6 +102,7 @@ namespace TheVillainsRevenge
             fg_texture = Content.Load<Texture2D>("sprites/level_5/planes/foreground");
             pause = Content.Load<Effect>("Pause");
             scream = Content.Load<Effect>("Scream");
+            attack = Content.Load<Effect>("Attack");
             renderSpine = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderGame = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
@@ -132,21 +133,38 @@ namespace TheVillainsRevenge
                 //--------------------Map--------------------
                 karte.Update(gameTime, spieler.cbox.box, hero.cbox.box);
                 //Objekte updaten
-                for (int i = 0; i < karte.objects.Count(); i++)
+                //for (int i = 0; i < karte.objects.Count(); i++)
+                //{
+                //    Obj obj = karte.objects.ElementAt(i);
+                //    obj.Update(gameTime, karte);
+                //    if (obj.type == 4)
+                //    {
+                //        if (obj.box.Intersects(spieler.cbox.box))
+                //        {
+                //            spieler.getHit(gameTime, karte, hero.position, "");
+                //            karte.objects.Remove(obj);
+                //        }
+                //        else if (obj.position.X < 0 || obj.position.X > karte.size.X)
+                //            karte.objects.Remove(obj);
+                //    }
+                //}
+                if (hero.waveRolling)
                 {
-                    Obj obj = karte.objects.ElementAt(i);
-                    obj.Update(gameTime, karte);
-                    if (obj.type == 4)
+                    if (hero.wavefront.Intersects(spieler.cbox.box))
                     {
-                        if (obj.box.Intersects(spieler.cbox.box))
-                        {
-                            spieler.getHit(gameTime, karte, hero.position, "");
-                            karte.objects.Remove(obj);
-                        }
-                        else if (obj.position.X < 0 || obj.position.X > karte.size.X)
-                            karte.objects.Remove(obj);
+                        spieler.getHit(gameTime, karte, hero.position, "");
+                        hero.waveRolling = false;
                     }
+                    else if (hero.wavefront.X < 0 || hero.wavefront.X > karte.size.X)
+                        hero.waveRolling = false;
+                    if (!hero.waveRolling)
+                    {
+                        hero.waveRolling = false;
+                        hero.waveCooldown = 10;
+                        hero.animeTime = 1.0f;
+                    } 
                 }
+
                 //--------------------Spieler--------------------
                 spieler.Update(gameTime, karte, hero.cbox.box);
 
@@ -188,7 +206,7 @@ namespace TheVillainsRevenge
                     herohit.X += 64;
                 herohit.Y = herohit.Y + herohit.Height - 64;
                 herohit.Height = 64;
-                if (spieler.cbox.box.Intersects(herohit) && hero.start && hero.attacktimer <= 0 && hero.animeTime <= 0 && !hero.welleladen)
+                if (spieler.cbox.box.Intersects(herohit) && hero.start && hero.attacktimer <= 0 && hero.animeTime <= 0 && !hero.waveRolling)
                 {
                     hero.attack();
                 }
@@ -341,8 +359,8 @@ namespace TheVillainsRevenge
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderSpine);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
-            spieler.Draw(gameTime, camera);
-            hero.Draw(gameTime, camera);
+                spieler.Draw(gameTime, camera);
+                hero.Draw(gameTime, camera);
 
             //----------------------------------------------------------------------
             //----------------------------------------Draw to RenderGame
@@ -353,12 +371,15 @@ namespace TheVillainsRevenge
             karte.Draw(spriteBatch, gameTime, camera); //Plattformen & Co
             int x = spieler.cbox.box.X + (spieler.cbox.box.Width/2);
             int y = spieler.cbox.box.Y + (spieler.cbox.box.Height/2);
+            int herox = hero.cbox.box.X + (hero.cbox.box.Width / 2);
+            int heroy = hero.cbox.box.Y + (hero.cbox.box.Height / 2);
             //Ursprünglich hier ScreamCircles gedrawed
             spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
             if (Game1.debug) //Boundingboxen
             {
                 spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
                 spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);
+                spriteBatch.Draw(texture, hero.wavefront, null, Color.White);
             }
             GUI.Draw(spriteBatch, spieler.lifes, bosslebenshow);
             spriteBatch.End();
@@ -374,13 +395,13 @@ namespace TheVillainsRevenge
             
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderBG);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
-            background.Draw(gameTime, camera, new Vector2(karte.size.X / 2, karte.size.Y));
+                background.Draw(gameTime, camera, new Vector2(karte.size.X / 2, karte.size.Y));
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-            spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
             spriteBatch.End();
 
             //----------------------------------------------------------------------
-            //----------------------------------------Draw to Screen
+            //----------------------------------------Draw to renderScreen
             //----------------------------------------------------------------------
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
             Game1.graphics.GraphicsDevice.Clear(Color.Black);
@@ -397,9 +418,20 @@ namespace TheVillainsRevenge
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             }
             
-            spriteBatch.Draw(renderBG, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderBG, Vector2.Zero, Color.White);
             spriteBatch.End();
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            if (hero.hits)
+            {
+                attack.Parameters["gameTime"].SetValue((float)gameTime.TotalGameTime.TotalMilliseconds);
+                attack.Parameters["radius"].SetValue(hero.wavefront.X - herox);
+                attack.Parameters["heroX"].SetValue(herox - camera.viewport.X);
+                attack.Parameters["heroY"].SetValue(heroy - camera.viewport.Y);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, scream, camera.viewportTransform);
+            }
+            else
+            {
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+            }
                 DrawScreamCircles(spriteBatch, x, y);    
                 spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);    
             spriteBatch.End();
