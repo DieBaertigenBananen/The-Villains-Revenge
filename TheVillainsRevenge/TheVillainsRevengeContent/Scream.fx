@@ -14,7 +14,7 @@ float4 scream(float2 coords: TEXCOORD) : COLOR
 	float speed = 0.5;
 	float time = (gameTime + 30000.0);
 	float screamPattern = fmod(dist - (radius * 0.1) - fmod(time * speed, space) + space, space) * 0.01;
-	float3 newColor = lerp(color.rgb + 0.9, color.rgb + 0.1, abs(screamPattern));
+	float3 newColor = lerp(color.rgb + 0.6, color.rgb + 0.1, abs(screamPattern));
 
 	float fallOff = 1. - dist/radius;
 	if (dist > radius)
