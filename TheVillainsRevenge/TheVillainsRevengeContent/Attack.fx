@@ -22,10 +22,6 @@ float4 attack(float2 coords: TEXCOORD) : COLOR
 	{
 		color.rgb = waves;
 	}
-	else if (raidus < 0)
-	{
-
-	}
 
 
 	
