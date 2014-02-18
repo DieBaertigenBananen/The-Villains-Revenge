@@ -15,16 +15,16 @@
       </applicationRequestMinimum>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
         <!--
-          UAC Manifest Options
-          If you want to change the Windows User Account Control level replace the 
-          requestedExecutionLevel node with one of the following.
+          UAC-Manifestoptionen
+          Wenn Sie die Zugangsebene für das Windows-Benutzerkonto ändern möchten, ersetzen Sie den 
+          requestedExecutionLevel-Knoten durch eines der folgenden Elemente.
 
         <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
         <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
         <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
 
-         If you want to utilize File and Registry Virtualization for backward 
-         compatibility then delete the requestedExecutionLevel node.
+         Löschen Sie den requestedExecutionLevel-Knoten, wenn Sie 
+         zum Gewährleisten der Abwärtskompatibilität die Datei- und Registrierungsvirtualisierung verwenden möchten.
     -->
         <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>
@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>3OhS+H7074X48IRBWE9fNtkq7RE=</dsig:DigestValue>
+        <dsig:DigestValue>tO/NhKNzDGJC6Teu6BPCbQTnNLU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -209,13 +209,13 @@
       <dsig:DigestValue>EH9rGn8zYXO1pQxk94SMTW5SHRk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\Scream.xnb" size="2912">
+  <file name="Content\Scream.xnb" size="3248">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>6hT1C7IKJDOyPq9oX2YpM4qhA+s=</dsig:DigestValue>
+      <dsig:DigestValue>ud/Xne0/r4UFUnjNeLmyDrnZFOE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Smash.xnb" size="3308">
@@ -668,7 +668,7 @@
       <dsig:DigestValue>y2bJyLErcSUp80YnX+wL5narxpY=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\map.xnb" size="73787">
+  <file name="Content\sprites\level_1\map.xnb" size="73787">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -677,7 +677,7 @@
       <dsig:DigestValue>OuyiKvOmzgOJJ/23I3PJ+wcXd4s=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_0_1.xnb" size="30720187">
+  <file name="Content\sprites\level_1\planes\background_0_1.xnb" size="30720187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -686,7 +686,7 @@
       <dsig:DigestValue>1jv+vk3Mbn2zAVEMwwi/vclCGcw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_0_2.xnb" size="30720187">
+  <file name="Content\sprites\level_1\planes\background_0_2.xnb" size="30720187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -695,7 +695,7 @@
       <dsig:DigestValue>A1QNyhuyhM+sYflJQ8QK3YN76Vs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_0_3.xnb" size="30720187">
+  <file name="Content\sprites\level_1\planes\background_0_3.xnb" size="30720187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -704,7 +704,7 @@
       <dsig:DigestValue>fy0fLF5t+wKlN6pVJpKie5ADjLo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_0_4.xnb" size="30720187">
+  <file name="Content\sprites\level_1\planes\background_0_4.xnb" size="30720187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -713,7 +713,7 @@
       <dsig:DigestValue>fVKtco1UIswc6Z5/fPt1iRFTPQo=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_1_1.xnb" size="21504187">
+  <file name="Content\sprites\level_1\planes\background_1_1.xnb" size="21504187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -722,7 +722,7 @@
       <dsig:DigestValue>DdVB8jb33gFj0+Ikj4sz+VrXdsA=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_1_2.xnb" size="21504187">
+  <file name="Content\sprites\level_1\planes\background_1_2.xnb" size="21504187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -740,7 +740,7 @@
       <dsig:DigestValue>Qwrnw5rIjc4MZ6J2HgpPfQX/kb4=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_2_1.xnb" size="19200187">
+  <file name="Content\sprites\level_1\planes\background_2_1.xnb" size="19200187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -749,7 +749,7 @@
       <dsig:DigestValue>pwXvf/3LktHei38j5rkVGCtN83w=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_2_2.xnb" size="19200187">
+  <file name="Content\sprites\level_1\planes\background_2_2.xnb" size="19200187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
@@ -758,7 +758,7 @@
       <dsig:DigestValue>YzT58deFSTt/HcSpBd55tEdIkRQ=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\Level_1\Planes\background_3_1.xnb" size="21504187">
+  <file name="Content\sprites\level_1\planes\background_3_1.xnb" size="21504187">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
