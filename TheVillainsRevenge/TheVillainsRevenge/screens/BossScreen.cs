@@ -13,6 +13,7 @@ namespace TheVillainsRevenge
 {
     class BossScreen
     {
+        SpriteFont font;
         Texture2D texture;
         public PrincessSpieler spieler = new PrincessSpieler(40, 1000);
         Map karte = new Map();
@@ -110,10 +111,13 @@ namespace TheVillainsRevenge
             spieler.lifes = 4;
             hero.Load(Content, Game1.graphics);
             hero.start = true;
+            hero.spine.anim("idle", 0, false);
+            hero.animeTime = 1.0f;
             karte.Load(Content);
             GUI.Load(Content);
             karte.Generate(spieler, hero);
             Sound.Load(Content);
+            font = Content.Load<SpriteFont>("fonts/schrift");
             if (Game1.sound)
             {
                 Sound.bgMusicInstance.Play();
@@ -163,10 +167,10 @@ namespace TheVillainsRevenge
                         }
                     }
                     else if (spieler.smash)
-                    {            
-                        int x = spieler.cbox.box.X + (spieler.cbox.box.Width/2);
-                        int y = spieler.cbox.box.Y + (spieler.cbox.box.Height/2);
-                        if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box)&&hero.screamhit)
+                    {
+                        int x = spieler.cbox.box.X + (spieler.cbox.box.Width / 2);
+                        int y = spieler.cbox.box.Y + (spieler.cbox.box.Height / 2);
+                        if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box) && hero.screamhit)
                         {
                             bossleben -= 20;
                             if (bossleben < 20)
@@ -175,8 +179,15 @@ namespace TheVillainsRevenge
                             hero.screamhit = false;
                         }
                     }
-                    else if(!hero.screamhit)
+                    else if (!hero.screamhit)
                         hero.screamhit = true;
+                    if (!hero.schlagbar&&spieler.hit)
+                    {
+                        if (spieler.spine.BoundingBoxCollision(hero.cbox.box))
+                        {
+                            hero.defend();
+                        }
+                    }
                 }
 
                 //--------------------Hero--------------------
@@ -396,8 +407,18 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             }
-            
+
             spriteBatch.Draw(renderBG, Vector2.Zero, Color.White);
+            for (int i = 0; i < spieler.kicheck.Count(); i++)
+            {
+                KICheck kicheck = spieler.kicheck.ElementAt(i);
+                spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(10, 400 + i * 20), Color.White);
+            }
+            for (int i = 0; i < hero.kicheck.Count(); i++)
+            {
+                KICheck kicheck = hero.kicheck.ElementAt(i);
+                spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 400 + i * 20), Color.White);
+            }
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 DrawScreamCircles(spriteBatch, x, y);    

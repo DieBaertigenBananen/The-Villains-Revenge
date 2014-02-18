@@ -14,7 +14,7 @@ namespace TheVillainsRevenge
     class GameScreen
     {
         Random bloodrand;
-        Vector2 bloodpos;
+        Vector2 bloodpos = new Vector2(-2000,0);
         Spine blood = new Spine();
         Texture2D texture;
         public Player spieler = new Player(40, 1000);
@@ -445,6 +445,7 @@ namespace TheVillainsRevenge
                                 int anim = bloodrand.Next(1, 3);
                                 bloodpos.X = bloodrand.Next(0, 1920);
                                 bloodpos.Y = bloodrand.Next(0, 1080);
+                                blood.Clear(0);
                                 blood.anim("splat" + anim, 0, false);
                                 enemy.anim("die", 0);
                             }
@@ -456,6 +457,7 @@ namespace TheVillainsRevenge
                             {
                                 bloodpos.X = bloodrand.Next(0, 1920);
                                 bloodpos.Y = bloodrand.Next(0, 1080);
+                                blood.Clear(0);
                                 blood.anim("splat_full", 0, false);
                                 enemy.anim("smash_die", 0);
                             }
@@ -475,6 +477,7 @@ namespace TheVillainsRevenge
                                 {
                                     bloodpos.X = bloodrand.Next(0, 1920);
                                     bloodpos.Y = bloodrand.Next(0, 1080);
+                                    blood.Clear(0);
                                     blood.anim("splat_full", 0, false);
                                     enemy.anim("smash_die", 0);
                                 }
@@ -483,6 +486,7 @@ namespace TheVillainsRevenge
                                     int anim = bloodrand.Next(1, 3);
                                     bloodpos.X = bloodrand.Next(0, 1920);
                                     bloodpos.Y = bloodrand.Next(0, 1080);
+                                    blood.Clear(0);
                                     blood.anim("splat" + anim, 0, false);
                                     enemy.anim("die", 0);
                                 }
@@ -494,6 +498,7 @@ namespace TheVillainsRevenge
                                 int anim = bloodrand.Next(1, 3);
                                 bloodpos.X = bloodrand.Next(0, 1920);
                                 bloodpos.Y = bloodrand.Next(0, 1080);
+                                blood.Clear(0);
                                 blood.anim("splat" + anim, 0, false);
                                 if (spieler.position.X > enemy.position.X)
                                 {

@@ -15,7 +15,7 @@ namespace TheVillainsRevenge
         public bool welleladen = false;
         public bool richtung;
         public bool schlagbar = false;
-        public bool hits = false; // 
+        public bool hits = false;
         public bool screamhit = true;
         public Boss(int x, int y): base(x,y) //Konstruktor, setzt Anfangsposition
         {
@@ -23,12 +23,22 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             cbox = new CollisionBox(Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetX"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionOffsetY"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionWidth"]), Convert.ToInt32((double)Game1.luaInstance["heroCollisionHeight"]));
-            heroStartTime = Convert.ToInt32((double)Game1.luaInstance["heroStartTime"]);
+            heroStartTime = 3;
             spine = new Spine();
+        }
+        public void defend()
+        {
+            if (animeTime <= 0 && attacktimer <= 0)
+            {
+                spine.Clear(0);
+                animeTime = 0.7;
+                spine.anim("defend", 3, false);
+            }
         }
         public void gethit()
         {
             schlagbar = false;
+            spine.Clear(0);
             if (BossScreen.bossleben == 0)
             {
                 Sound.Play("ashbrett_dying");
@@ -51,7 +61,6 @@ namespace TheVillainsRevenge
         public void Update(GameTime gameTime, Map map, Rectangle spieler,bool sirenscream)
         {
             Rectangle Player = spieler;
-
             //Welle Laden Start
             if (wellencooldown > 0)
                 wellencooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
@@ -98,12 +107,18 @@ namespace TheVillainsRevenge
                 actualspeed = airspeed;
             }
             int sx = spieler.X;
-            if (spieler.X < position.X)
+            int px = cbox.box.X;
+            if (sx < px)
             {
                 sx += spieler.Width;
             }
-            float spielerdistanz = sx - position.X;
+            else
+            {
+                px += cbox.box.Width;
+            }
+            float spielerdistanz = sx - px;
             bool isspieler = true;
+            kicollide = cbox.box;
             if (Math.Abs(spielerdistanz) < 120 && cbox.box.Y >= spieler.Y && cbox.box.Y - 480 <= spieler.Y + spieler.Height && !jump && !fall)
             {
                 bool geht = true;
@@ -192,6 +207,7 @@ namespace TheVillainsRevenge
             }
             else if(screamhit)
             {
+                Console.WriteLine("A");
                 schlagbar = false;
                 //Wenn Spieler ist hinten bewege zurück
                 if (spieler.X < position.X)
@@ -221,10 +237,7 @@ namespace TheVillainsRevenge
                 {
                     GameScreen.test = 0;
                     bool geht = false;
-                    kicollide.X = cbox.box.X;
-                    kicollide.Y = cbox.box.Y;
-                    kicollide.Width = cbox.box.Width;
-                    kicollide.Height = cbox.box.Height;
+                    kicollide = cbox.box;
                     if (kistate == 0)
                     {
                         if (Math.Abs(spielerdistanz) < Convert.ToInt32((double)Game1.luaInstance["heroCloseWalkRange"]))
@@ -266,15 +279,16 @@ namespace TheVillainsRevenge
                         {
                             if (CollisionCheckedVector(actualspeed, 0, map.blocks, Player).X == actualspeed)
                             {
-                                Move(actualspeed, 0, map);
+                                if (Math.Abs(spielerdistanz) > actualspeed*2)
+                                {
+                                    Move(actualspeed, 0, map);
+                                }
                             }
                             else if(Math.Abs(spielerdistanz)-20 > Math.Abs(actualspeed))
                             {
                                 if (!fall && !jump)
                                 {
                                     Sound.Play("ashbrett_jumping");
-                                    Console.WriteLine("S:"+spielerdistanz+" A:"+actualspeed);
-                                    Console.WriteLine("kA1");
                                     spine.anim("jump", 3, false);
                                     Jump(gameTime, map); //Springen!
                                     kistate = 3;
@@ -378,8 +392,11 @@ namespace TheVillainsRevenge
                                 }
                                 if (!geht)
                                 {
-                                    if(Math.Abs(spielerdistanz) > actualspeed)
+                                    if (Math.Abs(spielerdistanz) > actualspeed*2)
+                                    {
+                                        Console.WriteLine(spielerdistanz+" "+actualspeed);
                                         Move(actualspeed, 0, map);
+                                    }
                                 }
                             }
                         }

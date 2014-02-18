@@ -6,6 +6,7 @@
 	{ "name": "dust", "parent": "root", "x": 524.28, "y": 160.85, "rotation": -88.64 },
 	{ "name": "dust2", "parent": "root", "x": 524.28, "y": 160.85, "rotation": -88.64 },
 	{ "name": "hip", "parent": "root", "length": 44.94, "x": 3.76, "y": 80.45, "rotation": -90.9 },
+	{ "name": "sweat", "parent": "root", "length": 29.29, "x": 271.46, "y": 383.8, "rotation": 41.91 },
 	{ "name": "sweetcheeks", "parent": "root", "x": 128.08, "y": 384.18, "scaleX": 0.775, "scaleY": 0.775, "rotation": -99.58 },
 	{ "name": "body", "parent": "hip", "x": -57.56, "y": 12.49, "rotation": 90.9 },
 	{ "name": "foot_left", "parent": "hip", "length": 42.32, "x": 32.26, "y": 28.22, "rotation": 19.49 },
@@ -101,7 +102,8 @@
 	{ "name": "splat2", "bone": "splat2", "attachment": "stuff/splatter" },
 	{ "name": "splat22", "bone": "splat3", "attachment": "stuff/splatter" },
 	{ "name": "blood", "bone": "lache", "attachment": "stuff/blood" },
-	{ "name": "blood2", "bone": "lache2", "attachment": "stuff/blood" }
+	{ "name": "blood2", "bone": "lache2", "attachment": "stuff/blood" },
+	{ "name": "sweat", "bone": "sweat", "attachment": "stuff/sweat" }
 ],
 "skins": {
 	"default": {
@@ -118,7 +120,11 @@
 			}
 		},
 		"beard": {
-			"beard": { "x": 60.58, "y": -17, "rotation": 91.71, "width": 127, "height": 128 }
+			"beard": { "x": 60.58, "y": -17, "rotation": 91.71, "width": 127, "height": 128 },
+			"face/escape_beard": { "x": 60.58, "y": -17, "rotation": 91.71, "width": 136, "height": 131 },
+			"face/menu_beard": { "x": 53.36, "y": -14.15, "rotation": 91.71, "width": 132, "height": 128 },
+			"face/run_beard": { "x": 60.58, "y": -17, "rotation": 91.71, "width": 136, "height": 137 },
+			"face/smash_beard": { "x": 58.19, "y": -18.9, "rotation": 91.71, "width": 130, "height": 129 }
 		},
 		"blood": {
 			"stuff/blood": { "width": 198, "height": 59 }
@@ -174,6 +180,15 @@
 			"hat": { "x": 64.7, "y": 35.98, "rotation": -78.34, "width": 151, "height": 113 }
 		},
 		"head": {
+			"face/attack": { "x": 54.04, "y": 9.01, "rotation": -25.93, "width": 121, "height": 173 },
+			"face/die": { "x": 60.69, "y": 12.12, "rotation": -25.93, "width": 126, "height": 180 },
+			"face/die2": { "x": 60.69, "y": 12.12, "rotation": -25.93, "width": 126, "height": 179 },
+			"face/escpae": { "x": 60.69, "y": 12.12, "rotation": -25.93, "width": 132, "height": 179 },
+			"face/idle": { "x": 60.69, "y": 12.12, "rotation": -25.93, "width": 129, "height": 175 },
+			"face/jump": { "x": 60.69, "y": 12.12, "rotation": -25.93, "width": 125, "height": 170 },
+			"face/menu": { "x": 60.69, "y": 12.12, "rotation": -25.93, "width": 126, "height": 182 },
+			"face/run": { "x": 60.69, "y": 12.12, "rotation": -25.93, "width": 125, "height": 176 },
+			"face/smash": { "x": 60.69, "y": 12.12, "rotation": -25.93, "width": 128, "height": 179 },
 			"head": { "x": 55.99, "y": 7.34, "rotation": -25.93, "width": 131, "height": 181 }
 		},
 		"hip": {
@@ -201,7 +216,7 @@
 			"sc/sc_arm_right": { "x": 31.68, "y": 3.59, "rotation": 93.64, "width": 45, "height": 82 }
 		},
 		"sc_body": {
-			"sc/sc_body": { "x": 94.35, "y": -0.27, "rotation": 96.66, "width": 137, "height": 193 }
+			"sc/sc_body": { "x": 94.35, "y": -0.27, "rotation": 96.66, "width": 143, "height": 194 }
 		},
 		"sc_chest": {
 			"sc/sc_chest": { "x": 27.59, "y": 8.35, "rotation": 101.66, "width": 110, "height": 66 }
@@ -219,7 +234,7 @@
 			"sc/sc_hand_left": { "x": 19.01, "y": -2, "rotation": 89.83, "width": 40, "height": 52 }
 		},
 		"sc_hand_right": {
-			"sc/sc_hand_right": { "x": 15.91, "y": -2.08, "rotation": 109.5, "width": 44, "height": 53 }
+			"sc/sc_hand_right": { "x": 15.91, "y": -2.08, "rotation": 109.5, "width": 44, "height": 47 }
 		},
 		"sc_head": {
 			"sc/sc_head": { "x": 85.77, "y": 3, "rotation": -81.93, "width": 164, "height": 175 }
@@ -234,7 +249,7 @@
 			"sc/sc_shoulder_right": { "x": 36.81, "y": 7.1, "rotation": 99.93, "width": 53, "height": 106 }
 		},
 		"sc_skirt": {
-			"sc/sc_skirt": { "x": 57.46, "y": 9.42, "rotation": 85.13, "width": 183, "height": 200 }
+			"sc/sc_skirt": { "x": 57.46, "y": 9.42, "rotation": 85.13, "width": 183, "height": 201 }
 		},
 		"shoulder_left": {
 			"shoulder_left": { "x": 49.69, "y": -10.37, "rotation": 87.57, "width": 122, "height": 174 }
@@ -250,6 +265,9 @@
 		},
 		"splat22": {
 			"stuff/splatter": { "x": 7.32, "y": 2.92, "width": 102, "height": 148 }
+		},
+		"sweat": {
+			"stuff/sweat": { "x": 11.57, "y": -5.64, "scaleX": 0.513, "scaleY": 0.513, "rotation": -41.91, "width": 96, "height": 90 }
 		},
 		"weapon": {
 			"weapon": { "x": 54.04, "y": 155.91, "rotation": 88.64, "width": 500, "height": 145 }
@@ -742,7 +760,9 @@
 			"head": {
 				"rotate": [
 					{ "time": 0, "angle": 0 },
+					{ "time": 0.1666, "angle": 2.3 },
 					{ "time": 0.2, "angle": 23.99 },
+					{ "time": 0.4, "angle": -1.48 },
 					{ "time": 0.6, "angle": 0 }
 				],
 				"translate": [
@@ -999,6 +1019,13 @@
 					{ "time": 0.6, "color": "ffffff00" }
 				]
 			},
+			"head": {
+				"attachment": [
+					{ "time": 0, "name": "head" },
+					{ "time": 0.0333, "name": "face/attack" },
+					{ "time": 0.5666, "name": "head" }
+				]
+			},
 			"punch1": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -1031,6 +1058,11 @@
 				]
 			},
 			"splat22": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"sweat": {
 				"attachment": [
 					{ "time": 0, "name": null }
 				]
@@ -1701,6 +1733,11 @@
 					{ "time": 1.3333, "color": "ffffff00" }
 				]
 			},
+			"head": {
+				"attachment": [
+					{ "time": 0, "name": "face/die" }
+				]
+			},
 			"punch1": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -1737,6 +1774,11 @@
 				]
 			},
 			"splat22": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"sweat": {
 				"attachment": [
 					{ "time": 0, "name": null }
 				]
@@ -2355,6 +2397,13 @@
 					{ "time": 0, "name": null }
 				]
 			},
+			"head": {
+				"attachment": [
+					{ "time": 0, "name": "face/die" },
+					{ "time": 0.4333, "name": "face/die2" },
+					{ "time": 1.1, "name": "face/die" }
+				]
+			},
 			"punch1": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -2410,6 +2459,11 @@
 				"color": [
 					{ "time": 0.9, "color": "ffffffff" },
 					{ "time": 1, "color": "ffffff00" }
+				]
+			},
+			"sweat": {
+				"attachment": [
+					{ "time": 0, "name": null }
 				]
 			}
 		},
@@ -3176,6 +3230,11 @@
 				"attachment": [
 					{ "time": 0, "name": null }
 				]
+			},
+			"sweat": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
 			}
 		}
 	},
@@ -3836,6 +3895,13 @@
 					{ "time": 1.2666, "color": "ffffff00" }
 				]
 			},
+			"head": {
+				"attachment": [
+					{ "time": 0, "name": "head" },
+					{ "time": 0.1666, "name": "face/jump" },
+					{ "time": 1, "name": "head" }
+				]
+			},
 			"punch1": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -3870,6 +3936,11 @@
 				"attachment": [
 					{ "time": 0, "name": null }
 				]
+			},
+			"sweat": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
 			}
 		}
 	},
@@ -3899,7 +3970,7 @@
 			"shoulder_left": {
 				"rotate": [
 					{ "time": 0, "angle": 2.05 },
-					{ "time": 0.6333, "angle": 66.57 },
+					{ "time": 0.6333, "angle": 23.48 },
 					{ "time": 1.2666, "angle": 2.05 }
 				],
 				"translate": [
@@ -3910,7 +3981,7 @@
 			"arm_left": {
 				"rotate": [
 					{ "time": 0, "angle": 5.3 },
-					{ "time": 0.6333, "angle": -51.07 },
+					{ "time": 0.6333, "angle": -69 },
 					{ "time": 1.2666, "angle": 5.3 }
 				]
 			},
@@ -3947,6 +4018,11 @@
 			}
 		},
 		"slots": {
+			"beard": {
+				"attachment": [
+					{ "time": 0, "name": "face/menu_beard" }
+				]
+			},
 			"blood": {
 				"attachment": [
 					{ "time": 0, "name": null },
@@ -4011,6 +4087,11 @@
 				"attachment": [
 					{ "time": 0, "name": "devil_horns" },
 					{ "time": 1.2666, "name": "hand_left" }
+				]
+			},
+			"head": {
+				"attachment": [
+					{ "time": 0, "name": "face/menu" }
 				]
 			},
 			"punch1": {
@@ -4133,6 +4214,11 @@
 				"attachment": [
 					{ "time": 0, "name": null },
 					{ "time": 1.2666, "name": null }
+				]
+			},
+			"sweat": {
+				"attachment": [
+					{ "time": 0, "name": null }
 				]
 			},
 			"weapon": {
@@ -5048,6 +5134,12 @@
 			}
 		},
 		"slots": {
+			"beard": {
+				"attachment": [
+					{ "time": 0.7333, "name": "face/run_beard" },
+					{ "time": 0.9333, "name": "beard" }
+				]
+			},
 			"blood": {
 				"attachment": [
 					{ "time": 0, "name": null },
@@ -5086,6 +5178,13 @@
 					{ "time": 0, "name": null }
 				]
 			},
+			"head": {
+				"attachment": [
+					{ "time": 0, "name": "head" },
+					{ "time": 0.7333, "name": "face/run" },
+					{ "time": 0.9333, "name": "head" }
+				]
+			},
 			"punch1": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -5119,6 +5218,11 @@
 				]
 			},
 			"splat22": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"sweat": {
 				"attachment": [
 					{ "time": 0, "name": null }
 				]
@@ -5597,6 +5701,11 @@
 					{ "time": 0, "name": null },
 					{ "time": 2, "name": null }
 				]
+			},
+			"sweat": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
 			}
 		}
 	},
@@ -6011,6 +6120,11 @@
 				"attachment": [
 					{ "time": 0, "name": null }
 				]
+			},
+			"sweat": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
 			}
 		},
 		"draworder": [
@@ -6165,6 +6279,11 @@
 				]
 			},
 			"splat22": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"sweat": {
 				"attachment": [
 					{ "time": 0, "name": null }
 				]
@@ -6516,9 +6635,56 @@
 				"scale": [
 					{ "time": 0, "x": 1, "y": 1 }
 				]
+			},
+			"sweat": {
+				"rotate": [
+					{ "time": 0.1666, "angle": 0 },
+					{ "time": 0.2333, "angle": 10.66 },
+					{ "time": 0.4, "angle": -6.18 },
+					{ "time": 0.5333, "angle": -21.33 },
+					{ "time": 1.0333, "angle": -13.37 },
+					{ "time": 1.0666, "angle": -9.92 },
+					{ "time": 1.1333, "angle": -26.65 },
+					{ "time": 1.2, "angle": -61.93 },
+					{ "time": 1.3, "angle": -12.15 },
+					{ "time": 1.8666, "angle": -43.97 },
+					{ "time": 1.9666, "angle": -27.04 },
+					{ "time": 2.1, "angle": -18.77 }
+				],
+				"translate": [
+					{ "time": 0, "x": 0, "y": 75.48, "curve": "stepped" },
+					{ "time": 0.1666, "x": 0, "y": 75.48 },
+					{ "time": 0.4, "x": 6.97, "y": 82.46 },
+					{ "time": 0.5333, "x": 25.57, "y": 17.36 },
+					{ "time": 1.0333, "x": 15.49, "y": 66.18 },
+					{ "time": 1.0666, "x": 9.29, "y": 74.71 },
+					{ "time": 1.1333, "x": 35.64, "y": 29.76 },
+					{ "time": 1.2, "x": 41.07, "y": -34.56 },
+					{ "time": 1.3, "x": 27.12, "y": 54.56 },
+					{ "time": 1.8666, "x": 45.22, "y": 9.31 },
+					{ "time": 1.9666, "x": 22.59, "y": 53.65 },
+					{ "time": 2.1, "x": 18.97, "y": 65.42 }
+				],
+				"scale": [
+					{ "time": 0.1666, "x": 1, "y": 1 },
+					{ "time": 0.2333, "x": 1.172, "y": 1.172 },
+					{ "time": 0.4, "x": 1.317, "y": 1.317 },
+					{ "time": 0.5333, "x": 0.938, "y": 0.938 },
+					{ "time": 1.0333, "x": 1.328, "y": 1.328 },
+					{ "time": 1.1333, "x": 1.655, "y": 1.655 },
+					{ "time": 1.3, "x": 0.946, "y": 0.946 },
+					{ "time": 1.7333, "x": 1.424, "y": 1.424 },
+					{ "time": 1.8666, "x": 1.728, "y": 1.728 },
+					{ "time": 1.9666, "x": 1.257, "y": 1.257 }
+				]
 			}
 		},
 		"slots": {
+			"beard": {
+				"attachment": [
+					{ "time": 0.4666, "name": "face/escape_beard" }
+				]
+			},
 			"blood": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -6537,6 +6703,11 @@
 			"dust2": {
 				"attachment": [
 					{ "time": 0, "name": null }
+				]
+			},
+			"head": {
+				"attachment": [
+					{ "time": 0.4666, "name": "face/escpae" }
 				]
 			},
 			"punch1": {
@@ -6572,6 +6743,17 @@
 			"splat22": {
 				"attachment": [
 					{ "time": 0, "name": null }
+				]
+			},
+			"sweat": {
+				"attachment": [
+					{ "time": 0, "name": null },
+					{ "time": 0.1666, "name": "stuff/sweat" },
+					{ "time": 0.5333, "name": null },
+					{ "time": 1.0333, "name": "stuff/sweat" },
+					{ "time": 1.3666, "name": null },
+					{ "time": 1.7333, "name": "stuff/sweat" },
+					{ "time": 2.1333, "name": null }
 				]
 			}
 		}
@@ -7350,6 +7532,12 @@
 			}
 		},
 		"slots": {
+			"beard": {
+				"attachment": [
+					{ "time": 0.0666, "name": "face/smash_beard" },
+					{ "time": 0.4, "name": "beard" }
+				]
+			},
 			"blood": {
 				"attachment": [
 					{ "time": 0, "name": null },
@@ -7374,6 +7562,12 @@
 			"dust2": {
 				"attachment": [
 					{ "time": 0, "name": null }
+				]
+			},
+			"head": {
+				"attachment": [
+					{ "time": 0.0666, "name": "face/smash" },
+					{ "time": 0.4, "name": "head" }
 				]
 			},
 			"punch1": {

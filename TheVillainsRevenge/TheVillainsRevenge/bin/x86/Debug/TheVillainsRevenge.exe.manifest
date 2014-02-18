@@ -15,16 +15,16 @@
       </applicationRequestMinimum>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
         <!--
-          UAC-Manifestoptionen
-          Wenn Sie die Zugangsebene für das Windows-Benutzerkonto ändern möchten, ersetzen Sie den 
-          requestedExecutionLevel-Knoten durch eines der folgenden Elemente.
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
 
         <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
         <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
         <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
 
-         Löschen Sie den requestedExecutionLevel-Knoten, wenn Sie 
-         zum Gewährleisten der Abwärtskompatibilität die Datei- und Registrierungsvirtualisierung verwenden möchten.
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
     -->
         <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>
@@ -117,14 +117,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="204288">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="204800">
       <assemblyIdentity name="TheVillainsRevenge" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>TXAy99K40nnjJ+ANSGlp0JL+k9g=</dsig:DigestValue>
+        <dsig:DigestValue>2F5hlEdbZZQbQzmzOVLZGqB/5KU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -209,13 +209,13 @@
       <dsig:DigestValue>EH9rGn8zYXO1pQxk94SMTW5SHRk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\Scream.xnb" size="3416">
+  <file name="Content\Scream.xnb" size="3440">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>qd8b8Ya3W9MEZ1GF1WBUsrrEnAE=</dsig:DigestValue>
+      <dsig:DigestValue>kW8/OTofTXlieA0z7vZooRdG8cg=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Smash.xnb" size="3308">
@@ -1973,22 +1973,22 @@
       <dsig:DigestValue>KChflKkGNoalXwJiKJh/LxlYC8E=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\blood.atlas" size="550">
+  <file name="spine\sprites\blood.atlas" size="590">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>uA9uUt0DnTXeRMoBpdU/hiEwXUQ=</dsig:DigestValue>
+      <dsig:DigestValue>l1QMaP7R+3EeFPDoK080X1UB1eU=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\blood.json" size="6672">
+  <file name="spine\sprites\blood.json" size="6971">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>ZIsymo1NGo9leHMJluZsLPl37j0=</dsig:DigestValue>
+      <dsig:DigestValue>1MuytQod7w9Nta1bNXriDSvRSVU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\blood-1.png" size="102964">
