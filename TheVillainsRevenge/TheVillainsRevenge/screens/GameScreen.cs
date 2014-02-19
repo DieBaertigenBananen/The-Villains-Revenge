@@ -892,10 +892,6 @@ namespace TheVillainsRevenge
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderHud);
             Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-                if (levelend)
-                {
-                    spriteBatch.DrawString(font, "Finished level!", new Vector2((Game1.resolution.X / 2) - 200, (Game1.resolution.Y / 2) - 200), Color.Black, 0.0f, Vector2.Zero, 4.0f, SpriteEffects.None, 0f);
-                }
                 if (Game1.debug)
                 {
                     spriteBatch.DrawString(font, "Tex" + background_1.texture[0].IsDisposed + background_1.texture[1].IsDisposed, new Vector2(Game1.resolution.X - 300, 170), Color.White);
