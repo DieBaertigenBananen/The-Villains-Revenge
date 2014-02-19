@@ -218,7 +218,6 @@ namespace TheVillainsRevenge
                 if (spieler.X < position.X)
                 {
                     spine.anim("", 2, false);
-                    richtung = false;
                     notFlipped = false;
                     actualspeed = -actualspeed;
                     realspeed = -realspeed;
@@ -226,7 +225,6 @@ namespace TheVillainsRevenge
                 else
                 {
                     spine.anim("", 1, false);
-                    richtung = true;
                     notFlipped = true;
                 }
                 if (sirenscream)
