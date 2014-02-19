@@ -48,6 +48,8 @@ namespace TheVillainsRevenge
                 Sound.Play("ashbrett_dying");
                 animeTime = 2000;
                 spine.anim("die", 3, false);
+                if (Game1.sound)
+                    Sound.bgMusicInstance.Stop();
             }
             else
             {

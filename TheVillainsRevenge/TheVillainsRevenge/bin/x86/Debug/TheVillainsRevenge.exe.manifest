@@ -117,14 +117,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="208896">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="209920">
       <assemblyIdentity name="TheVillainsRevenge" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>H2IzM/BytYU9UZQUclpduWQVqNQ=</dsig:DigestValue>
+        <dsig:DigestValue>QxdITzQ1CO0g/DzPRIrfG8MvCAg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -134,7 +134,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>xZ9Vp13gvLRV1WbP+0Rkjf4vwfY=</dsig:DigestValue>
+      <dsig:DigestValue>epdEm61S8VSJ7rKDzMXNjN2dohA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Clear.xnb" size="860">
@@ -200,13 +200,13 @@
       <dsig:DigestValue>SiPuBMR7LAjefPGUzsdm7mLQH2s=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\scenes\bossfight.wmv" size="13338429">
+  <file name="Content\scenes\bossfight.wmv" size="13498429">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>jZG7IbrKyy5wrrQEs5yABuaSlDM=</dsig:DigestValue>
+      <dsig:DigestValue>aOOsQP60QB231BM1P1lvNJu/hwI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\scenes\bossfight.xnb" size="346">
@@ -216,6 +216,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>d+3muZmESNW6Mwystkk5o3mbq6w=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\scenes\credits.wmv" size="13618525">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>OoXqG5awfyrBZibLRvvfin9L9yI=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\scenes\credits.xnb" size="344">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>OQxVIJhEVs8Kp8sHDObCpoTDJ8k=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\scenes\start.wmv" size="1858213">
@@ -242,7 +260,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>OwBLnPKyv2MOi2QYNceqkTqA1aA=</dsig:DigestValue>
+      <dsig:DigestValue>suvxMeq5Hgcfafas8KcQ9YCRnQU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Smash.xnb" size="3308">
@@ -297,6 +315,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>nsXr2+FhK9eMe+UWzxi6+Qbarq8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\sounds\ashbrett\super_attack.xnb" size="364137">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>WLiGqFKz9C/po7B9xrTGxmldcW0=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sounds\ashbrett\win.xnb" size="87657">
