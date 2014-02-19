@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>XTMCLyPZJN/c6/35lDXnudYEWyk=</dsig:DigestValue>
+        <dsig:DigestValue>mqk5MJkuFO/39j5eq4WFQVL4Ukc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -134,7 +134,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>2YXro79g1jDi90V0lF+79TrxnYk=</dsig:DigestValue>
+      <dsig:DigestValue>epdEm61S8VSJ7rKDzMXNjN2dohA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Clear.xnb" size="860">
@@ -605,13 +605,22 @@
       <dsig:DigestValue>C47nsZ6IiZ+xaoDhDgu36PRvtaI=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sprites\bossbar.xnb" size="200187">
+  <file name="Content\sprites\boss_health.xnb" size="194591">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>hHPdp/GXdAPnBkr2sDNl2wZFhVQ=</dsig:DigestValue>
+      <dsig:DigestValue>0CC92u+1sIpRY+CGQbn98FvRPJg=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\sprites\boss_healthbar.xnb" size="860187">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>2xnay+bMNwcFCklrQV1g1H9WzoU=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\bunny.xnb" size="16571">
@@ -1818,6 +1827,15 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>k7oyJuTbAqrM60pNPuApDD+YZj8=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\sprites\screenRage.xnb" size="8294587">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>rr8CF6zSphertIpD+VSsMw5tDvQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\tiles.xnb" size="27835">
