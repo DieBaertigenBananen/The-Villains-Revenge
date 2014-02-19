@@ -88,12 +88,10 @@ namespace TheVillainsRevenge
             optionMenu.buttons.Add(new Button("sound", new Rectangle(0, 207, 122, 135), 3));
             optionMenu.buttons.Add(new Button("exit", new Rectangle(0, 346, 122, 90), 3));
             mainMenu.visible = true;
-            Sound.Load(Content);
             if (Game1.sound && startScreen)
             {
                 Sound.startMusicInstance.Play();
             }
-            Cutscene.Load(Content);
             if (startScreen)
             {
                 Cutscene.Play("start");
@@ -111,7 +109,7 @@ namespace TheVillainsRevenge
                 {
                     startScreen = false;
                 }
-                else if (Game1.input.sprung||Game1.input.skip)
+                else if (Game1.input.skip)
                 {
                     startScreen = false;
                     if (Game1.sound)
