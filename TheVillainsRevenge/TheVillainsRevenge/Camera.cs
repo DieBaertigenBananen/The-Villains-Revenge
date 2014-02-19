@@ -29,13 +29,23 @@ namespace TheVillainsRevenge
             int topspace = Convert.ToInt32((double)Game1.luaInstance["cameraTopspace"]);
             int maxbewegung = Convert.ToInt32((double)Game1.luaInstance["cameraMaxBewegung"]);
             int bewegungsteps = Convert.ToInt32((double)Game1.luaInstance["cameraBewegungSteps"]);
-            if (Game1.input.cameraDynR > 0.0f)
+            if (Game1.input.camR)
             {
-                camerabewegung = (int)((float)maxbewegung * Game1.input.cameraDynR * Game1.input.cameraDynR);
+                if (camerabewegung < maxbewegung)
+                    camerabewegung += bewegungsteps;
             }
-            else if (Game1.input.cameraDynL > 0.0f)
+            else if (Game1.input.camL)
             {
-                camerabewegung = (int)((float)-maxbewegung * Game1.input.cameraDynL * Game1.input.cameraDynL);
+                if (camerabewegung > -maxbewegung)
+                    camerabewegung -= bewegungsteps;
+            }
+            else if(camerabewegung != 0)
+            {
+                if (camerabewegung > 0)
+                    camerabewegung -= bewegungsteps;
+                else
+                    camerabewegung += bewegungsteps;
+
             }
 
             if (viewport.X + leftspace > spieler.position.X) //Scrolling nach links
