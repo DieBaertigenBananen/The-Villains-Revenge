@@ -54,6 +54,7 @@ namespace TheVillainsRevenge
             ashbrett[3] = Content.Load<SoundEffect>("sounds/ashbrett/hit");
             ashbrett[4] = Content.Load<SoundEffect>("sounds/ashbrett/jumping");
             ashbrett[5] = Content.Load<SoundEffect>("sounds/ashbrett/win");
+            ashbrett[6] = Content.Load<SoundEffect>("sounds/ashbrett/super_attack");
             bonepuker[0] = Content.Load<SoundEffect>("sounds/bonepuker/attack");
             bonepuker[1] = Content.Load<SoundEffect>("sounds/bonepuker/dying");
             bonepuker[2] = Content.Load<SoundEffect>("sounds/bonepuker/jump");
@@ -164,6 +165,9 @@ namespace TheVillainsRevenge
                         break;
                     case "ashbrett_win":
                         ashbrett[5].Play();
+                        break;
+                    case "ashbrett_superattack":
+                        ashbrett[6].Play();
                         break;
 
                     // ---- FX ---- //
