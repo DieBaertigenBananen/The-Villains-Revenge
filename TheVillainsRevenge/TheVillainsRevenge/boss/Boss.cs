@@ -33,7 +33,7 @@ namespace TheVillainsRevenge
             if (animeTime <= 0 && attacktimer <= 0)
             {
                 spine.Clear(0);
-                animeTime = 0.7;
+                animeTime = 0.8;
                 spine.anim("defend", 3, false);
             }
         }
@@ -218,7 +218,6 @@ namespace TheVillainsRevenge
                 if (spieler.X < position.X)
                 {
                     spine.anim("", 2, false);
-                    richtung = false;
                     notFlipped = false;
                     actualspeed = -actualspeed;
                     realspeed = -realspeed;
@@ -226,7 +225,6 @@ namespace TheVillainsRevenge
                 else
                 {
                     spine.anim("", 1, false);
-                    richtung = true;
                     notFlipped = true;
                 }
                 if (sirenscream)
