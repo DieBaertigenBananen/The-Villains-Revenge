@@ -32,7 +32,7 @@ namespace TheVillainsRevenge
         }
         public void defend()
         {
-            if (animeTime <= 0 && attacktimer <= 0)
+            if (animeTime <= 0 && attacktimer <= 0&& !wavestart)
             {
                 spine.Clear(0);
                 animeTime = 0.8;

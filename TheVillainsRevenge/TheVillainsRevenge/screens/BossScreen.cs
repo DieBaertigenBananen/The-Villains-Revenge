@@ -214,7 +214,7 @@ namespace TheVillainsRevenge
                         herohit.X += 64;
                     herohit.Y = herohit.Y + herohit.Height - 64;
                     herohit.Height = 64;
-                    if (spieler.cbox.box.Intersects(herohit) && hero.start && hero.attacktimer <= 0 && hero.animeTime <= 0 && !hero.emittingWaves&&!hero.wavestart)
+                    if (spieler.cbox.box.Intersects(herohit) && hero.start && hero.attacktimer <= 0 && hero.animeTime <= 0 && !hero.wavestart)
                     {
                         hero.attack();
                     }
