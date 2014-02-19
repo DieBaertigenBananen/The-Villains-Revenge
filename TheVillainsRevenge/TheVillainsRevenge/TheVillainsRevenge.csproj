@@ -161,7 +161,7 @@
     <Compile Include="game\Player.cs" />
     <Compile Include="game\Princess.cs" />
     <Compile Include="Sound.cs" />
-    <Compile Include="game\Spine.cs" />
+    <Compile Include="Spine.cs" />
     <Compile Include="game\Trigger.cs" />
     <Compile Include="game\CloudPlane.cs" />
     <Compile Include="Input.cs" />

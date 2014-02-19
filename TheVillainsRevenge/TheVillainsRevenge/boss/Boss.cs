@@ -11,12 +11,14 @@ namespace TheVillainsRevenge
     {
         
         public double animeTime = 0;
-        public double wellencooldown = 8;
-        public bool welleladen = false;
-        public bool richtung;
+        public double waveCooldown = 0;
+        public bool waveRolling = false;
+        public bool notFlipped;
         public bool schlagbar = false;
         public bool hits = false;
         public bool screamhit = true;
+        public Rectangle wavefront = new Rectangle(0, 0, 1, 100);
+
         public Boss(int x, int y): base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -56,29 +58,31 @@ namespace TheVillainsRevenge
         {
             Sound.Play("ashbrett_attack");
             attacktimer = 1;
-            spine.anim("attack", 3, false);
+            spine.anim("attack", 0, false);
         }
         public void Update(GameTime gameTime, Map map, Rectangle spieler,bool sirenscream)
         {
             Rectangle Player = spieler;
             //Welle Laden Start
-            if (wellencooldown > 0)
-                wellencooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
-            else if (!welleladen && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height&&!fall&&!jump&&animeTime <= 0)
+            if (waveCooldown > 0)
+                waveCooldown -= gameTime.ElapsedGameTime.TotalMilliseconds/1000;
+            else if (!waveRolling && cbox.box.Y >= spieler.Y && cbox.box.Y - 48 <= spieler.Y + spieler.Height&&!fall&&!jump&&animeTime <= 0)
             {
                 hits = false;
                 if (spieler.X < position.X)
                 {
-                    richtung = false;
+                    notFlipped = false;
                     spine.anim("super_attack", 2, false);
                 }
                 else
                 {
-                    richtung = true;
+                    notFlipped = true;
                     spine.anim("super_attack", 1, false);
                 }
                 schlagbar = false;
-                welleladen = true;
+                waveRolling = true;
+                wavefront.X = cbox.box.X + (cbox.box.Width / 2);
+                wavefront.Y = cbox.box.Y + (cbox.box.Height / 2) - (wavefront.Height / 2);
                 animeTime = 1.2;
                 attacktimer = 0;
             }
@@ -188,22 +192,23 @@ namespace TheVillainsRevenge
             }
             else if (animeTime > 0)
             {
-                if (welleladen)
+                if (waveRolling)
                     Console.WriteLine(animeTime + " a:" + gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
                 animeTime -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
             }
-            else if (welleladen)
+            else if (waveRolling)
             {
-                int x = cbox.box.X;
-                if (richtung)
-                    x += 96;
+                //int x = cbox.box.X;
+                //if (richtung)
+                //    x += 96;
+                //else
+                //    x -= 96;
+                //map.objects.Add(new Welle(new Vector2(x, cbox.box.Y + cbox.box.Height - 48), 4, richtung));
+                if (notFlipped)
+                    wavefront.X += 5;
                 else
-                    x -= 96;
-                map.objects.Add(new Welle(new Vector2(x, cbox.box.Y + cbox.box.Height - 48), 4, richtung));
-                welleladen = false;
-                wellencooldown = 10;
-                animeTime = 1.0f;
+                    wavefront.X -= 5;
             }
             else if(screamhit)
             {
@@ -214,6 +219,7 @@ namespace TheVillainsRevenge
                 {
                     spine.anim("", 2, false);
                     richtung = false;
+                    notFlipped = false;
                     actualspeed = -actualspeed;
                     realspeed = -realspeed;
                 }
@@ -221,18 +227,19 @@ namespace TheVillainsRevenge
                 {
                     spine.anim("", 1, false);
                     richtung = true;
+                    notFlipped = true;
                 }
                 if (sirenscream)
                 {
                     actualspeed = -actualspeed;
                     realspeed = -realspeed;
-                    if (richtung)
+                    if (notFlipped)
                     {
-                        richtung = false;
+                        notFlipped = false;
                     }
                     else
                     {
-                        richtung = true;
+                        notFlipped = true;
                     }
                 }
                 if (!cbox.box.Intersects(spieler))
