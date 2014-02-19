@@ -33,6 +33,10 @@ namespace TheVillainsRevenge
         public static bool changeSprite = false;
         Texture2D circle;
         bool cutscene = false;
+        bool endscene = false;
+        bool fadeout = false;
+        float fading = 255.0f;
+        Color fadeColor;
         List<Rectangle> waves = new List<Rectangle>();
 
         Spine background = new Spine();
@@ -127,17 +131,43 @@ namespace TheVillainsRevenge
             pauseMenu.Load(Content);
             pauseMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 150, 175), 4));
             pauseMenu.buttons.Add(new Button("exit", new Rectangle(0, 390, 150, 250), 4));
+            fadeColor = new Color(0, 0, 0, 0);
             Sound.Load(Content);
             Cutscene.Load(Content);
             if (cutscene)
             {
                 Cutscene.Play("final");
             }
+            bossleben = 1;
         }
 
         public int Update(GameTime gameTime, ContentManager Content)
         {
-            if (cutscene)
+            if (fadeout)
+            {
+                fading -= 1f;
+                if (fading < 0)
+                {
+                    fadeout = false;
+                    Cutscene.Play("credits");
+                    endscene = true;
+                }
+            }
+            else if (endscene)
+            {
+                if (Cutscene.player.State == MediaState.Stopped)
+                {
+                    endscene = false;
+                    return 4;
+                }
+                else if (Game1.input.skip)
+                {
+                    endscene = false;
+                    Cutscene.player.Stop();
+                    return 4;
+                }
+            }
+            else if (cutscene)
             {
                 if (Cutscene.player.State == MediaState.Stopped)
                 {
@@ -159,6 +189,10 @@ namespace TheVillainsRevenge
             }
             else
             {
+                if (bossleben == 0 && Game1.time.TotalMilliseconds > (float)hero.spine.animationTimer + 3000)
+                {
+                    fadeout = true;
+                }
                 if (!paused)
                 {
                     Game1.time += gameTime.ElapsedGameTime;
@@ -404,8 +438,9 @@ namespace TheVillainsRevenge
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (cutscene)
+            if (cutscene || endscene)
             {
+                fadeColor = Color.White;
                 //--------------------Draw to renderScreen--------------------
                 Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
@@ -416,6 +451,16 @@ namespace TheVillainsRevenge
             }
             else
             {
+                if (fadeout)
+                {
+                    fadeColor.R = (byte)fading;
+                    fadeColor.G = (byte)fading;
+                    fadeColor.B = (byte)fading;
+                }
+                else
+                {
+                    fadeColor = Color.White;
+                }
                 //----------------------------------------------------------------------
                 //----------------------------------------Draw to renderSpine
                 //----------------------------------------------------------------------
@@ -430,7 +475,7 @@ namespace TheVillainsRevenge
                 Game1.graphics.GraphicsDevice.SetRenderTarget(renderGame);
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                karte.Draw(spriteBatch, gameTime, camera); //Plattformen & Co
+                karte.Draw(spriteBatch, gameTime, camera, fadeColor); //Plattformen & Co
                 int x = spieler.cbox.box.X + (spieler.cbox.box.Width / 2);
                 int y = spieler.cbox.box.Y + (spieler.cbox.box.Height / 2);
                 int herox = hero.cbox.box.X + (hero.cbox.box.Width / 2);
@@ -439,14 +484,14 @@ namespace TheVillainsRevenge
                 spriteBatch.Draw(renderSpine, new Vector2(camera.viewport.X, camera.viewport.Y), Color.White); //Bonepuker
                 if (Game1.debug) //Boundingboxen
                 {
-                    spriteBatch.Draw(texture, spieler.cbox.box, null, Color.White);
-                    spriteBatch.Draw(texture, hero.cbox.box, null, Color.White);   
+                    spriteBatch.Draw(texture, spieler.cbox.box, null, fadeColor);
+                    spriteBatch.Draw(texture, hero.cbox.box, null, fadeColor);   
                 }
                 foreach (Rectangle wave in waves)
                 {
                     spriteBatch.Draw(texture, wave, null, new Color(80,130,240));
                 }
-                GUI.Draw(spriteBatch, spieler.lifes, bosslebenshow);
+                GUI.Draw(spriteBatch, spieler.lifes, bosslebenshow, fadeColor);
                 spriteBatch.End();
 
 
@@ -462,7 +507,7 @@ namespace TheVillainsRevenge
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 background.Draw(gameTime, camera, new Vector2(karte.size.X / 2, karte.size.Y));
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                spriteBatch.Draw(fg_texture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(fg_texture, Vector2.Zero, fadeColor);
                 spriteBatch.End();
 
                 //----------------------------------------------------------------------
@@ -482,24 +527,24 @@ namespace TheVillainsRevenge
                 {
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 }
-                spriteBatch.Draw(renderBG, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderBG, Vector2.Zero, fadeColor);
                 if (Game1.debug)
                 {
                     for (int i = 0; i < spieler.kicheck.Count(); i++)
                     {
                         KICheck kicheck = spieler.kicheck.ElementAt(i);
-                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(10, 400 + i * 20), Color.White);
+                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(10, 400 + i * 20), fadeColor);
                     }
                     for (int i = 0; i < hero.kicheck.Count(); i++)
                     {
                         KICheck kicheck = hero.kicheck.ElementAt(i);
-                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 400 + i * 20), Color.White);
+                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 400 + i * 20), fadeColor);
                     }
                 }
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 DrawScreamCircles(spriteBatch, x, y);
-                spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
+                spriteBatch.Draw(renderGame, Vector2.Zero, fadeColor);
                 spriteBatch.End();
 
                 //----------------------------------------------------------------------
@@ -508,7 +553,7 @@ namespace TheVillainsRevenge
                 Game1.graphics.GraphicsDevice.SetRenderTarget(renderScreen);
                 Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
-                    spriteBatch.Draw(renderShader, Vector2.Zero, Color.White);
+                    spriteBatch.Draw(renderShader, Vector2.Zero, fadeColor);
                 spriteBatch.End();
             }
             //----------------------------------------------------------------------
@@ -525,7 +570,7 @@ namespace TheVillainsRevenge
             {
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
             }
-                spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
+                spriteBatch.Draw(renderScreen, new Vector2(), fadeColor);
             spriteBatch.End();
         }
     }

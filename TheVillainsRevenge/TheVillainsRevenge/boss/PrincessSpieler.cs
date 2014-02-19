@@ -19,6 +19,8 @@ namespace TheVillainsRevenge
         public double flytime = 0;
         public double flymaxtime = 1.0;
         public bool hitrichtung;
+        public double dietime;
+
         public PrincessSpieler(int x, int y) : base(x,y) //Konstruktor, setzt Anfangsposition
         {
             checkpoint = new Vector2(x, y);
@@ -57,6 +59,7 @@ namespace TheVillainsRevenge
                 spine.Clear(0);
                 Sound.Play("sweetcheeks_dying");
                 spine.anim("die", 3, false);
+                dietime = 2;
             }
         }
 
