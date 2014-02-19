@@ -15,16 +15,16 @@
       </applicationRequestMinimum>
       <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
         <!--
-          UAC-Manifestoptionen
-          Wenn Sie die Zugangsebene für das Windows-Benutzerkonto ändern möchten, ersetzen Sie den 
-          requestedExecutionLevel-Knoten durch eines der folgenden Elemente.
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
 
         <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
         <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
         <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
 
-         Löschen Sie den requestedExecutionLevel-Knoten, wenn Sie 
-         zum Gewährleisten der Abwärtskompatibilität die Datei- und Registrierungsvirtualisierung verwenden möchten.
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
     -->
         <requestedExecutionLevel level="asInvoker" uiAccess="false" />
       </requestedPrivileges>
@@ -124,17 +124,17 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>J+GmtfCRb0fmszG2VrBUsmuwGMA=</dsig:DigestValue>
+        <dsig:DigestValue>Ia5WBYz52tOUOVeJfYcTnvoJ8iA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Content\Attack.xnb" size="3232">
+  <file name="Content\Attack.xnb" size="3236">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>r6MLv5IMDfSGBsYhOIaAUyL0/34=</dsig:DigestValue>
+      <dsig:DigestValue>dmXaCoU7LmJ9KktvlURKEC8eOMY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Clear.xnb" size="860">
@@ -218,13 +218,13 @@
       <dsig:DigestValue>EH9rGn8zYXO1pQxk94SMTW5SHRk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\Scream.xnb" size="3248">
+  <file name="Content\Scream.xnb" size="3272">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>bCO+LUYJBheQfXe8/y76A+elekk=</dsig:DigestValue>
+      <dsig:DigestValue>c9lHdj9GDzibcNslcziPluAmm8w=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Smash.xnb" size="3308">
