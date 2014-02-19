@@ -190,8 +190,6 @@ namespace TheVillainsRevenge
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Load();
-            Sound.Load(Content);
-            Cutscene.Load(Content);
             menu.Load(Content);
             //game.load(Content);
         }

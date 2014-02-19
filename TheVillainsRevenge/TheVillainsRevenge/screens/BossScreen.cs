@@ -122,12 +122,13 @@ namespace TheVillainsRevenge
             karte.Load(Content);
             GUI.Load(Content);
             karte.Generate(spieler, hero);
-            Sound.Load(Content);
             font = Content.Load<SpriteFont>("fonts/schrift");
             pauseMenu = new SubMenu(2, "pause", new Vector2(-60, -100), 200);
             pauseMenu.Load(Content);
             pauseMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 150, 175), 4));
             pauseMenu.buttons.Add(new Button("exit", new Rectangle(0, 390, 150, 250), 4));
+            Sound.Load(Content);
+            Cutscene.Load(Content);
             if (cutscene)
             {
                 Cutscene.Play("final");
