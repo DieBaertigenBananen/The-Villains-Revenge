@@ -331,15 +331,15 @@ namespace TheVillainsRevenge
         void UpdateWaves(GameTime gameTime)
         {
             bool tempCollisionCheck = false;
-            if (hero.emittingWaves && Game1.time.TotalMilliseconds > hero.waveTimer + 200)
+            if (hero.emittingWaves && Game1.time.TotalMilliseconds > hero.waveTimer + 100)
             {
-                waves.Add(new Rectangle(hero.cbox.box.X + (hero.cbox.box.Width / 2), hero.cbox.box.Y + (hero.cbox.box.Height / 2) - 50, 10, 100));
+                waves.Add(new Rectangle(hero.cbox.box.X + (hero.cbox.box.Width / 2), hero.cbox.box.Y + (hero.cbox.box.Height / 2) - 40, 10, 80));
                 hero.waveTimer = Game1.time.TotalMilliseconds;
             }
-            int waveSpeed = 20;
+            int waveSpeed = 40;
             if (!hero.waveRichtung)
                 waveSpeed = -waveSpeed;
-            int waveGrowth = 2;
+            int waveGrowth = 10;
             for (int i = 0; i < waves.Count; i++)
             {
                 Rectangle wave = waves[i];
@@ -444,7 +444,7 @@ namespace TheVillainsRevenge
                 }
                 foreach (Rectangle wave in waves)
                 {
-                    spriteBatch.Draw(texture, wave, null, Color.White);
+                    spriteBatch.Draw(texture, wave, null, new Color(80,130,240));
                 }
                 GUI.Draw(spriteBatch, spieler.lifes, bosslebenshow);
                 spriteBatch.End();
@@ -483,15 +483,18 @@ namespace TheVillainsRevenge
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 }
                 spriteBatch.Draw(renderBG, Vector2.Zero, Color.White);
-                for (int i = 0; i < spieler.kicheck.Count(); i++)
+                if (Game1.debug)
                 {
-                    KICheck kicheck = spieler.kicheck.ElementAt(i);
-                    spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(10, 400 + i * 20), Color.White);
-                }
-                for (int i = 0; i < hero.kicheck.Count(); i++)
-                {
-                    KICheck kicheck = hero.kicheck.ElementAt(i);
-                    spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 400 + i * 20), Color.White);
+                    for (int i = 0; i < spieler.kicheck.Count(); i++)
+                    {
+                        KICheck kicheck = spieler.kicheck.ElementAt(i);
+                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(10, 400 + i * 20), Color.White);
+                    }
+                    for (int i = 0; i < hero.kicheck.Count(); i++)
+                    {
+                        KICheck kicheck = hero.kicheck.ElementAt(i);
+                        spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(100, 400 + i * 20), Color.White);
+                    }
                 }
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
