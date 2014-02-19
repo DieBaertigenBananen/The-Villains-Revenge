@@ -35,7 +35,7 @@ namespace TheVillainsRevenge
         public bool sprung;
         public bool sprungp;
         public bool links, rechts, end;
-        public float cameraDynR, cameraDynL;
+        public bool camL,camR;
         public bool leftM;
         bool leftMp;
         public bool rightM;
@@ -57,7 +57,7 @@ namespace TheVillainsRevenge
             //Sprung
             if (!skipp)
             {
-                if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftStick) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.RightStick))
+                if (GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.LeftStick) || GamePad.GetState(PlayerIndex.One).IsButtonDown(Buttons.RightStick) || keyState.IsKeyDown(Keys.F7) == true)
                 {
                     skip = true;
                     skipp = true;
@@ -66,7 +66,7 @@ namespace TheVillainsRevenge
             else
             {
                 skip = false;
-                if (GamePad.GetState(PlayerIndex.One).IsButtonUp(Buttons.LeftStick) && GamePad.GetState(PlayerIndex.One).IsButtonUp(Buttons.RightStick))
+                if (GamePad.GetState(PlayerIndex.One).IsButtonUp(Buttons.LeftStick) && GamePad.GetState(PlayerIndex.One).IsButtonUp(Buttons.RightStick) && keyState.IsKeyUp(Keys.F7) == true)
                 {
                     skipp = false;
                 }
@@ -149,11 +149,23 @@ namespace TheVillainsRevenge
                     smashp = false;
                 }
             }
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Right != 0 || keyState.IsKeyDown(Keys.H))
+            {
+                camR = true;
+            }
+            else
+            {
+                camR = false;
+            }
+            if (GamePad.GetState(PlayerIndex.One).Triggers.Left != 0 || keyState.IsKeyDown(Keys.G))
+            {
+                camL = true;
+            }
+            else
+            {
+                camL = false;
+            }
 
-            //Dynamische Camera Rechtsbewegung
-            cameraDynR = GamePad.GetState(PlayerIndex.One).Triggers.Right;
-            //Dynamische Camera Linksbewegung
-            cameraDynL = GamePad.GetState(PlayerIndex.One).Triggers.Left;
 
 
             //itembenutzung

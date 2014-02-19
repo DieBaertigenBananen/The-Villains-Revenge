@@ -25,7 +25,7 @@ namespace TheVillainsRevenge
             position.X = x;
             position.Y = y;
             lastPosition = position;
-            cbox = new CollisionBox(-50, -150, 100, 140);
+            cbox = new CollisionBox(-25, -150, 50, 140);
             lifes = Game1.leben;
             spine = new Spine();
             initAcceleration = (float)Convert.ToInt32((double)Game1.luaInstance["playerAcceleration"]) / 100;
