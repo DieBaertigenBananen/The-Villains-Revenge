@@ -1,0 +1,40 @@
+
+blood-1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+drips
+  rotate: false
+  xy: 481, 421
+  size: 334, 588
+  orig: 335, 588
+  offset: 1, 0
+  index: -1
+drips2
+  rotate: false
+  xy: 2, 2
+  size: 215, 510
+  orig: 215, 510
+  offset: 0, 0
+  index: -1
+splat
+  rotate: false
+  xy: 219, 93
+  size: 370, 326
+  orig: 370, 326
+  offset: 0, 0
+  index: -1
+splat1
+  rotate: false
+  xy: 2, 514
+  size: 477, 495
+  orig: 478, 495
+  offset: 1, 0
+  index: -1
+splat2
+  rotate: false
+  xy: 591, 25
+  size: 300, 394
+  orig: 300, 394
+  offset: 0, 0
+  index: -1

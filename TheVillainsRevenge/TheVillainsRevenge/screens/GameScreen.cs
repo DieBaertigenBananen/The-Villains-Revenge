@@ -68,6 +68,7 @@ namespace TheVillainsRevenge
         public static int spriteDelay = 120;
         public static bool changeSprite = false;
         int blockhit = 0;
+        Blood blood = new Blood();
 
         //KIDaten
         //Dies sind Luafunktionen für den netten GD
@@ -159,6 +160,7 @@ namespace TheVillainsRevenge
                     foreground_0.Load(Content, 5, Convert.ToInt32((double)Game1.luaInstance["planeForeground0HeightOffset"]));
                     break;
                 case 2:
+                    blood.Load();
                     background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]), 0);
                     break;
                 case 3:
@@ -437,6 +439,7 @@ namespace TheVillainsRevenge
                         {
                             if (enemy.type == 1 && spieler.spine.BoundingBoxCollision(enemy.cbox.box)) //Töte Kanninchen
                             {
+                                blood.Splash();
                                 enemy.anim("die", 0);
                             }
                         }
@@ -445,6 +448,7 @@ namespace TheVillainsRevenge
                         {
                             if (enemy.type == 1 && spieler.hitCbox.Intersects(enemy.cbox.box)) //Töte Kanninchen
                             {
+                                blood.voll();
                                 enemy.anim("smash_die", 0);
                             }
                         }
@@ -461,10 +465,12 @@ namespace TheVillainsRevenge
                                 //Falls Megaschlag
                                 if (spieler.smash)
                                 {
+                                    blood.voll();
                                     enemy.anim("smash_die", 0);
                                 }
                                 else
                                 {
+                                    blood.Splash();
                                     enemy.anim("die", 0);
                                 }
 
@@ -472,6 +478,7 @@ namespace TheVillainsRevenge
                             else
                             {
                                 //Kein Megaschlag, Spieler stirbt
+                                blood.Splash();
                                 if (spieler.position.X > enemy.position.X)
                                 {
                                     enemy.anim("attack", 1);
@@ -846,6 +853,7 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
             foreground_1.Draw(spriteBatch, spieler); //Ebene
             spriteBatch.End();
+            blood.Draw(gameTime, camera);
             //----------------------------------------------------------------------
             //----------------------------------------Draw to RenderGame
             //----------------------------------------------------------------------

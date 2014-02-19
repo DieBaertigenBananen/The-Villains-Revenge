@@ -400,18 +400,18 @@ namespace TheVillainsRevenge
              {
                  Obj obj = objects.ElementAt(i);
                  if (obj.type == 1)
-                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(0, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(0, 0, 96, 96), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else if (obj.type == 2)
-                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(64, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(96, 0, 96, 96), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  else if (obj.type == 3)
                  {  
                      if(obj.stone)
-                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(128, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(96 * 2, 0, 96, 96), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                      else
-                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(192, 0, 64, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                         spriteBatch.Draw(objectTexture, obj.position, new Rectangle(96 * 3, 0, 96, 96), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
                  }
                  else if (obj.type == 4)
-                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(192, 0, 144, 64), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
+                     spriteBatch.Draw(objectTexture, obj.position, new Rectangle(93*3, 0, 144, 96), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0f);
              }
              for (int i = 0; i < mblocks.Count(); ++i)
              {
@@ -549,19 +549,19 @@ namespace TheVillainsRevenge
                                  break;
                              case "255,255,0":
                                  type = "zeit";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 -96 +48), type));
                                  break;
                              case "180,150,140":
                                  type = "bag";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 -96+48), type));
                                  break;
                              case "171,140,188":
                                  type = "herz";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 - 96 + 48), type));
                                  break;
                              case "255,200,200":
                                  type = "monkey";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 - 96 + 48), type));
                                  break;
                              case "50,50,50":
                                  type = "monkey";
@@ -569,7 +569,7 @@ namespace TheVillainsRevenge
                                  break;
                              case "255,255,100":
                                  type = "banana";
-                                 items.Add(new Item(new Vector2(i * 48, t * 48), type));
+                                 items.Add(new Item(new Vector2(i * 48, t * 48 - 96 + 48), type));
                                  break;
                              case "255,0,0":
                                  type = "trigger";

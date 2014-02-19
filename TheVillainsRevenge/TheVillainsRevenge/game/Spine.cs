@@ -43,7 +43,7 @@ namespace TheVillainsRevenge
             {
                 animationState.SetAnimation(2, newanim, loop);
             }
-            else
+            else if(newanim != "")
             {
                 if (animation != newanim || newanim == "die")
                 {

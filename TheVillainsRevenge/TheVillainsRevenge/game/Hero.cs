@@ -168,6 +168,7 @@ namespace TheVillainsRevenge
                     actualspeed = airspeed;
                 }
                 float spielerdistanz = spieler.X - position.X;
+                kicollide = cbox.box;
                 if (Math.Abs(spielerdistanz) < 240 && cbox.box.Y >= spieler.Y && cbox.box.Y - 480 <= spieler.Y + spieler.Height && !jump && !fall)
                 {
                     if (breathtimer < 0)
@@ -244,10 +245,7 @@ namespace TheVillainsRevenge
                     {
                         GameScreen.test = 0;
                         bool geht = false;
-                        kicollide.X = cbox.box.X;
-                        kicollide.Y = cbox.box.Y;
-                        kicollide.Width = cbox.box.Width;
-                        kicollide.Height = cbox.box.Height;
+                        kicollide = cbox.box;
                         if (kistate == 0)
                         {
                             if (Math.Abs(spielerdistanz) < Convert.ToInt32((double)Game1.luaInstance["heroCloseWalkRange"]))
@@ -289,7 +287,10 @@ namespace TheVillainsRevenge
                             {
                                 if (CollisionCheckedVector(actualspeed, 0, map.blocks).X == actualspeed)
                                 {
-                                    Move(actualspeed, 0, map);
+                                    if (Math.Abs(spielerdistanz) > actualspeed * 2)
+                                    {
+                                        Move(actualspeed, 0, map);
+                                    }
                                 }
                                 else
                                 {
@@ -449,8 +450,10 @@ namespace TheVillainsRevenge
                                     }
                                     if (!geht)
                                     {
-                                        if (Math.Abs(spielerdistanz) > actualspeed)
+                                        if (Math.Abs(spielerdistanz) > actualspeed * 2)
+                                        {
                                             Move(actualspeed, 0, map);
+                                        }
                                     }
                                 }
 

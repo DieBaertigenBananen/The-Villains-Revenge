@@ -137,6 +137,7 @@
     <Compile Include="Cutscene.cs" />
     <Compile Include="game\Block.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="game\Blood.cs" />
     <Compile Include="game\Breakable.cs" />
     <Compile Include="game\Checkpoint.cs" />
     <Compile Include="game\Cloud.cs" />
@@ -241,6 +242,9 @@
     <Content Include="spine\sprites\background-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="spine\sprites\blood-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="spine\sprites\bonepuker-1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -338,6 +342,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="spine\sprites\background.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="spine\sprites\blood.atlas">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="spine\sprites\blood.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="TheVillainsRevenge_TemporaryKey.pfx" />

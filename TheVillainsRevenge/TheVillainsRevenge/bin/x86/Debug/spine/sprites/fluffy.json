@@ -1542,8 +1542,7 @@
 					{ "time": 0, "name": "blood" },
 					{ "time": 0.1, "name": null },
 					{ "time": 0.1333, "name": "blood" },
-					{ "time": 0.5666, "name": "blood" },
-					{ "time": 0.8666, "name": null }
+					{ "time": 0.5666, "name": "blood" }
 				],
 				"color": [
 					{ "time": 0, "color": "ffffff00", "curve": "stepped" },

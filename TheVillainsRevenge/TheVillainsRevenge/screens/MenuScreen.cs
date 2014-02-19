@@ -294,7 +294,7 @@ namespace TheVillainsRevenge
                 }
                 else if (controlScreen)
                 {
-                    spriteBatch.Draw(controls_texture, Vector2.Zero, new Rectangle(0,0,0,0), Color.White, 0f, Vector2.Zero, 1920f/controls_texture.Width, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(controls_texture, Vector2.Zero, new Rectangle(0,0,1920,1080), Color.White, 0f, Vector2.Zero, 1920f/controls_texture.Width, SpriteEffects.None, 0f);
                 }
                 else if (deadScreen)
                 {
