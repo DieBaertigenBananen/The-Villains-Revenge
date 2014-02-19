@@ -329,19 +329,21 @@ namespace TheVillainsRevenge
 
         void UpdateWaves(GameTime gameTime)
         {
-            if (hero.emittingWaves && waves.Count < 4)
+            if (hero.emittingWaves && gameTime.TotalGameTime.TotalMilliseconds > hero.waveTimer + 200)
             {
                 waves.Add(new Rectangle(hero.cbox.box.X + (hero.cbox.box.Width / 2), hero.cbox.box.Y + (hero.cbox.box.Height / 2) - 50, 10, 100));
+                hero.waveTimer = gameTime.TotalGameTime.TotalMilliseconds;
             }
             bool tempCollisionCheck = false;
-            int waveSpeed = 1;
+            int waveSpeed = 20;
             int waveGrowth = 2;
             for (int i = 0; i < waves.Count; i++)
             {
-                Rectangle wave = waves.ElementAt(i);
+                Rectangle wave = waves[i];
                 wave.X += waveSpeed;
                 wave.Y -= waveGrowth / 2;
                 wave.Height += waveGrowth;
+                waves[i] = wave;
                 if (wave.Intersects(spieler.cbox.box))
                 {
                     spieler.getHit(gameTime, karte, hero.position, "");
@@ -357,6 +359,9 @@ namespace TheVillainsRevenge
             if (tempCollisionCheck)
             {
                 waves.Clear();
+                hero.emittingWaves = false;
+                hero.waveCooldown = 8;
+                hero.animeTime = 1.0f;
             }
         }
 
