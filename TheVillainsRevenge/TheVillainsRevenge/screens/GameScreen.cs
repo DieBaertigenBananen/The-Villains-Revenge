@@ -13,7 +13,7 @@ namespace TheVillainsRevenge
 {
     class GameScreen
     {
-        Texture2D texture;
+        Texture2D texture,RageEffect;
         public Player spieler = new Player(40, 1000);
         Hero hero = new Hero(0, 0);
         Princess princess = new Princess();
@@ -164,6 +164,7 @@ namespace TheVillainsRevenge
                     background_0.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground0"]), 0);
                     break;
                 case 3:
+                    RageEffect = Content.Load<Texture2D>("sprites/screenRage");
                     background_1.Load(Content, Convert.ToInt32((double)Game1.luaInstance["planeTilesBackground1"]), 0);
                     break;
                 case 4:
@@ -976,6 +977,14 @@ namespace TheVillainsRevenge
             spriteBatch.Draw(renderForeground0, Vector2.Zero, Color.White);
             spriteBatch.Draw(renderGame, Vector2.Zero, Color.White);
             spriteBatch.Draw(renderForeground1, Vector2.Zero, Color.White);
+            if (princess.rageMode)
+            {
+                Console.WriteLine(princess.rageMeter + " RAGE "+princess.rageLimit);
+                float alpha = (princess.rageMeter / princess.rageLimit) * 1.0f;
+                Console.WriteLine("Alpha: "+alpha);
+                spriteBatch.Draw(RageEffect, Vector2.Zero, new Color(255, 255, 255, alpha));
+            }
+
             spriteBatch.End();
 
             //-----[Shader]-----GaussianBlur

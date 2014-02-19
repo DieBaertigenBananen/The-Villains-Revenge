@@ -33,7 +33,7 @@ namespace TheVillainsRevenge
             if (animeTime <= 0 && attacktimer <= 0)
             {
                 spine.Clear(0);
-                animeTime = 0.7;
+                animeTime = 0.8;
                 spine.anim("defend", 3, false);
             }
         }
