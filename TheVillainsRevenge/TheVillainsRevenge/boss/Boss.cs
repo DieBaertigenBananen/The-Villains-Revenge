@@ -81,6 +81,7 @@ namespace TheVillainsRevenge
                     notFlipped = true;
                     spine.anim("super_attack", 1, false);
                 }
+                Sound.Play("ashbrett_superattack");
                 waveRichtung = notFlipped;
                 schlagbar = false;
                 wavestart = true;
@@ -204,7 +205,6 @@ namespace TheVillainsRevenge
                     spine.anim("", 1, false);
                 else
                     spine.anim("", 2, false);
-                Sound.Play("ashbrett_superattack");
                 wavestart = false;
                 emittingWaves = true;
                 waveCooldown = 8;
