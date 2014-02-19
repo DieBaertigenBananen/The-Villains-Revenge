@@ -17,6 +17,7 @@ namespace TheVillainsRevenge
         public bool schlagbar = false;
         public bool hits = false;
         public bool screamhit = true;
+        public double waveTimer;
 
         public Boss(int x, int y): base(x,y) //Konstruktor, setzt Anfangsposition
         {
