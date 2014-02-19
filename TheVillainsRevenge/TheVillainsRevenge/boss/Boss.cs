@@ -212,12 +212,14 @@ namespace TheVillainsRevenge
                 //Wenn Spieler ist hinten bewege zurück
                 if (spieler.X < position.X)
                 {
+                    spine.anim("", 2, false);
                     richtung = false;
                     actualspeed = -actualspeed;
                     realspeed = -realspeed;
                 }
                 else
                 {
+                    spine.anim("", 1, false);
                     richtung = true;
                 }
                 if (sirenscream)

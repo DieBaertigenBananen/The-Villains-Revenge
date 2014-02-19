@@ -137,6 +137,7 @@
     <Compile Include="Cutscene.cs" />
     <Compile Include="game\Block.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="game\Blood.cs" />
     <Compile Include="game\Breakable.cs" />
     <Compile Include="game\Checkpoint.cs" />
     <Compile Include="game\Cloud.cs" />
