@@ -145,7 +145,7 @@ namespace TheVillainsRevenge
         {
             if (fadeout)
             {
-                fading -= 1f;
+                fading -= 0.75f;
                 if (fading < 0)
                 {
                     fadeout = false;
