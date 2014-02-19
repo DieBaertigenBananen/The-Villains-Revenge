@@ -204,6 +204,7 @@ namespace TheVillainsRevenge
                     spine.anim("", 1, false);
                 else
                     spine.anim("", 2, false);
+                Sound.Play("ashbrett_superattack");
                 wavestart = false;
                 emittingWaves = true;
                 waveCooldown = 8;

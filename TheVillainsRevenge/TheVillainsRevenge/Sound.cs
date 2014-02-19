@@ -17,7 +17,7 @@ namespace TheVillainsRevenge
         public static SoundEffectInstance startMusicInstance;
 
         static SoundEffect[] fx = new SoundEffect[10];
-        static SoundEffect[] ashbrett = new SoundEffect[6];
+        static SoundEffect[] ashbrett = new SoundEffect[7];
         static SoundEffect[] bonepuker = new SoundEffect[5];
         static SoundEffect[] sweetcheeks = new SoundEffect[6];
         static SoundEffectInstance[] fxInstance = new SoundEffectInstance[2];
