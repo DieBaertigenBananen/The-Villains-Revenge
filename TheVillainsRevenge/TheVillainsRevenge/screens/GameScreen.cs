@@ -479,7 +479,6 @@ namespace TheVillainsRevenge
                             else
                             {
                                 //Kein Megaschlag, Spieler stirbt
-                                blood.Splash();
                                 if (spieler.position.X > enemy.position.X)
                                 {
                                     enemy.anim("attack", 1);
@@ -497,6 +496,7 @@ namespace TheVillainsRevenge
                                 }
                                 else
                                 {
+                                    blood.Splash();
                                     spieler.getHit("die");
                                     dietime = 2;
                                     GUIFace = 1;
