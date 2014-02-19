@@ -13,7 +13,9 @@ namespace TheVillainsRevenge
         public double animeTime = 0;
         public double waveCooldown = 8;
         public bool emittingWaves = false;
+        public bool wavestart = false;
         public bool notFlipped;
+        public bool waveRichtung;
         public bool schlagbar = false;
         public bool hits = false;
         public bool screamhit = true;
@@ -79,8 +81,9 @@ namespace TheVillainsRevenge
                     notFlipped = true;
                     spine.anim("super_attack", 1, false);
                 }
+                waveRichtung = notFlipped;
                 schlagbar = false;
-                emittingWaves = true;
+                wavestart = true;
                 animeTime = 1.2;
                 attacktimer = 0;
             }
@@ -190,18 +193,25 @@ namespace TheVillainsRevenge
             }
             else if (animeTime > 0)
             {
-                if (emittingWaves)
+                if (wavestart)
                     Console.WriteLine(animeTime + " a:" + gameTime.ElapsedGameTime.TotalMilliseconds / 1000);
                 animeTime -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
             }
-            else if (emittingWaves && spine.animation != "super_attack")
+            else if (wavestart)
             {
-                emittingWaves = false;
+                if (waveRichtung)
+                    spine.anim("", 1, false);
+                else
+                    spine.anim("", 2, false);
+                wavestart = false;
+                emittingWaves = true;
                 waveCooldown = 8;
-                animeTime = 1.0f;
             }
-            else if(screamhit)
+            else if (emittingWaves)
+            {
+            }
+            else if (screamhit)
             {
                 Console.WriteLine("A");
                 schlagbar = false;
@@ -277,12 +287,12 @@ namespace TheVillainsRevenge
                         {
                             if (CollisionCheckedVector(actualspeed, 0, map.blocks, Player).X == actualspeed)
                             {
-                                if (Math.Abs(spielerdistanz) > actualspeed*2)
+                                if (Math.Abs(spielerdistanz) > actualspeed * 2)
                                 {
                                     Move(actualspeed, 0, map);
                                 }
                             }
-                            else if(Math.Abs(spielerdistanz)-20 > Math.Abs(actualspeed))
+                            else if (Math.Abs(spielerdistanz) - 20 > Math.Abs(actualspeed))
                             {
                                 if (!fall && !jump)
                                 {
@@ -311,7 +321,7 @@ namespace TheVillainsRevenge
                         }
                         else
                         {
-                            if (spieler.Y < position.Y - 20&&!isspieler)
+                            if (spieler.Y < position.Y - 20 && !isspieler)
                             {
                                 if (CollisionCheckedVector(realspeed, 0, map.blocks, Player).X == realspeed)
                                 {
@@ -390,9 +400,9 @@ namespace TheVillainsRevenge
                                 }
                                 if (!geht)
                                 {
-                                    if (Math.Abs(spielerdistanz) > actualspeed*2)
+                                    if (Math.Abs(spielerdistanz) > actualspeed * 2)
                                     {
-                                        Console.WriteLine(spielerdistanz+" "+actualspeed);
+                                        Console.WriteLine(spielerdistanz + " " + actualspeed);
                                         Move(actualspeed, 0, map);
                                     }
                                 }
