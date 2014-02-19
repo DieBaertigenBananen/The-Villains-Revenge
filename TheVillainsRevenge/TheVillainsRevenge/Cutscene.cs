@@ -22,7 +22,7 @@ namespace TheVillainsRevenge
         {
             start = Content.Load<Video>("scenes/start");
             //intro = Content.Load<Video>("scenes/intro");
-            //final = Content.Load<Video>("scenes/final");
+            final = Content.Load<Video>("scenes/bossfight");
             //credits = Content.Load<Video>("scenes/credits");
             player = new VideoPlayer();
         }

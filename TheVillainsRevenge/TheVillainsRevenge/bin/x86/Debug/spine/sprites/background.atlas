@@ -3,24 +3,115 @@ background-1.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
+images/alpha
+  rotate: false
+  xy: 1816, 811
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 images/background
   rotate: false
-  xy: 2, 317
+  xy: 2, 941
   size: 1920, 1104
   orig: 1920, 1104
   offset: 0, 0
   index: -1
 images/head
   rotate: false
-  xy: 2, 2
+  xy: 821, 626
   size: 253, 313
   orig: 253, 313
   offset: 0, 0
   index: -1
 images/kiefer
   rotate: true
-  xy: 1924, 1228
+  xy: 1924, 1223
   size: 193, 106
   orig: 193, 106
+  offset: 0, 0
+  index: -1
+images/left_1
+  rotate: false
+  xy: 413, 322
+  size: 406, 617
+  orig: 406, 617
+  offset: 0, 0
+  index: -1
+images/left_2
+  rotate: false
+  xy: 2, 319
+  size: 409, 620
+  orig: 409, 620
+  offset: 0, 0
+  index: -1
+images/left_3
+  rotate: true
+  xy: 1076, 778
+  size: 161, 394
+  orig: 161, 394
+  offset: 0, 0
+  index: -1
+images/left_4
+  rotate: false
+  xy: 821, 233
+  size: 178, 157
+  orig: 178, 157
+  offset: 0, 0
+  index: -1
+images/right_lava_1
+  rotate: false
+  xy: 821, 392
+  size: 186, 232
+  orig: 186, 232
+  offset: 0, 0
+  index: -1
+images/right_lava_2
+  rotate: true
+  xy: 2, 111
+  size: 206, 386
+  orig: 206, 386
+  offset: 0, 0
+  index: -1
+images/right_lava_3
+  rotate: false
+  xy: 1924, 1618
+  size: 103, 427
+  orig: 103, 427
+  offset: 0, 0
+  index: -1
+images/right_lava_4
+  rotate: false
+  xy: 1924, 1418
+  size: 120, 198
+  orig: 120, 199
+  offset: 0, 0
+  index: -1
+images/right_pool_1
+  rotate: false
+  xy: 1076, 664
+  size: 371, 112
+  orig: 371, 112
+  offset: 0, 0
+  index: -1
+images/right_pool_2
+  rotate: false
+  xy: 2, 2
+  size: 357, 107
+  orig: 357, 107
+  offset: 0, 0
+  index: -1
+images/right_pool_3
+  rotate: false
+  xy: 1472, 828
+  size: 342, 111
+  orig: 342, 111
+  offset: 0, 0
+  index: -1
+images/right_pool_4
+  rotate: true
+  xy: 1924, 1061
+  size: 160, 104
+  orig: 160, 104
   offset: 0, 0
   index: -1
