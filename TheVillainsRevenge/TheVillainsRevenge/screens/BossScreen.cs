@@ -559,7 +559,6 @@ namespace TheVillainsRevenge
                         spriteBatch.DrawString(font, "ID: " + kicheck.id + " Time: " + kicheck.time, new Vector2(110, 400 + i * 20), fadeColor);
                     }
                 }
-                spriteBatch.DrawString(font, "KISTATE "+hero.kistate, new Vector2(600, 500), fadeColor);
                 spriteBatch.End();
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
                 DrawScreamCircles(spriteBatch, x, y);

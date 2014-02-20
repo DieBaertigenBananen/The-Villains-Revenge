@@ -25,13 +25,17 @@ namespace TheVillainsRevenge
          public List<KIPoint> kipoints = new List<KIPoint>(); //Erstelle Blocks als List
          public List<Obj> objects = new List<Obj>(); //Erstelle Blocks als List
 
+         public List<Breakable> savebreakable = new List<Breakable>(); //Erstelle Blocks als List
          public List<Block> saveblocks = new List<Block>(); //Erstelle Blocks als List
          public List<Enemy> saveenemies = new List<Enemy>(); //Erstelle Blocks als List
          public List<Obj> saveobjects = new List<Obj>(); //Erstelle Blocks als List
+         public List<Item> saveitems = new List<Item>(); //Erstelle Blocks als List
 
+         public List<Breakable> startbreakable = new List<Breakable>(); //Erstelle Blocks als List
          public List<Block> startblocks = new List<Block>(); //Erstelle Blocks als List
          public List<Enemy> startenemies = new List<Enemy>(); //Erstelle Blocks als List
          public List<Obj> startobjects = new List<Obj>(); //Erstelle Blocks als List
+         public List<Item> startitems = new List<Item>(); //Erstelle Blocks als List
 
 
          public Map()
@@ -39,6 +43,12 @@ namespace TheVillainsRevenge
          }
          public void StartSave()
          {
+             startitems.Clear();
+             for (int i = 0; i < items.Count(); ++i)
+             {
+                 Item item = items.ElementAt(i);
+                 startitems.Add(new Item(item.position,item.type));
+             }
              startenemies.Clear();
              for (int i = 0; i < enemies.Count(); ++i)
              {
@@ -71,10 +81,22 @@ namespace TheVillainsRevenge
              {
                  mblock.StartSave();
              }
+             startbreakable.Clear();
+             for (int i = 0; i < breakblocks.Count(); ++i)
+             {
+                 Breakable breakblock = breakblocks.ElementAt(i);
+                 startbreakable.Add(new Breakable(blocks, breakblock.vertikal, breakblock.id));
+             }
          }
 
          public void StartReset()
          {
+             items.Clear();
+             for (int i = 0; i < startitems.Count(); ++i)
+             {
+                 Item item = startitems.ElementAt(i);
+                 items.Add(new Item(item.position, item.type));
+             }
              enemies.Clear();
              for (int i = 0; i < startenemies.Count(); ++i)
              {
@@ -84,10 +106,6 @@ namespace TheVillainsRevenge
                  if (enemy.type == 2)
                      enemies.Add(new Monkey(enemy.position, enemy.type, enemy.mover));
              }
-             int break_x_anzahl = 0;
-             int break_x = 0;
-             int break_y_anzahl = 0;
-             int break_y = 0;
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
@@ -98,34 +116,12 @@ namespace TheVillainsRevenge
              {
                  Block block = startblocks.ElementAt(i);
                  blocks.Add(new Block(block.position, block.type));
-                 if (block.type == "breakable")
-                 {
-                     if (break_x +48 != block.position.X)
-                     {
-                         break_x_anzahl++;
-                     }
-                     break_x = (int)block.position.X;
-                 }
-                 else if (block.type == "breakable_verticale")
-                 {
-                     if (break_y +48 != block.position.Y)
-                     {
-                         break_y_anzahl++;
-                     }
-                     break_y = (int)block.position.Y;
-                 }
              }
              breakblocks.Clear();
-             int id = 0;
-             for (int i = 0; i < break_x_anzahl; i++)
+             for (int i = 0; i < startbreakable.Count(); ++i)
              {
-                 breakblocks.Add(new Breakable(blocks, false,id));
-                 id++;
-             }
-             for (int i = 0; i < break_y_anzahl; i++)
-             {
-                 breakblocks.Add(new Breakable(blocks, true,id));
-                 id++;
+                 Breakable breakblock = startbreakable.ElementAt(i);
+                 breakblocks.Add(new Breakable(blocks, breakblock.vertikal, breakblock.id));
              }
              objects.Clear();
              for (int i = 0; i < startobjects.Count(); ++i)
@@ -149,6 +145,12 @@ namespace TheVillainsRevenge
          }
          public void Save()
          {
+             saveitems.Clear();
+             for (int i = 0; i < items.Count(); ++i)
+             {
+                 Item item = items.ElementAt(i);
+                 saveitems.Add(new Item(item.position, item.type));
+             }
              saveenemies.Clear();
              for (int i = 0; i < enemies.Count(); ++i)
              {
@@ -181,9 +183,21 @@ namespace TheVillainsRevenge
              {
                  mblock.Save();
              }
+             savebreakable.Clear();
+             for (int i = 0; i < breakblocks.Count(); ++i)
+             {
+                 Breakable breakblock = breakblocks.ElementAt(i);
+                 savebreakable.Add(new Breakable(blocks, breakblock.vertikal, breakblock.id));
+             }
          }
          public void Reset()
          {
+             items.Clear();
+             for (int i = 0; i < saveitems.Count(); ++i)
+             {
+                 Item item = saveitems.ElementAt(i);
+                 items.Add(new Item(item.position, item.type));
+             }
              enemies.Clear();
              for (int i = 0; i < saveenemies.Count(); ++i)
              {
@@ -193,10 +207,6 @@ namespace TheVillainsRevenge
                  if (enemy.type == 2)
                      enemies.Add(new Monkey(enemy.position, enemy.type,enemy.mover));
              }
-             int break_x_anzahl = 0;
-             int break_x = 0;
-             int break_y_anzahl = 0;
-             int break_y = 0;
              for (int i = 0; i < blocks.Count(); ++i)
              {
                  Block block = blocks.ElementAt(i);
@@ -207,34 +217,12 @@ namespace TheVillainsRevenge
              {
                  Block block = saveblocks.ElementAt(i);
                  blocks.Add(new Block(block.position, block.type));
-                 if (block.type == "breakable")
-                 {
-                     if (break_x + 48 != block.position.X)
-                     {
-                         break_x_anzahl++;
-                     }
-                     break_x = (int)block.position.X;
-                 }
-                 else if (block.type == "breakable_verticale")
-                 {
-                     if (break_y + 48 != block.position.Y)
-                     {
-                         break_y_anzahl++;
-                     }
-                     break_y = (int)block.position.Y;
-                 }
              }
              breakblocks.Clear();
-             int id = 0;
-             for (int i = 0; i < break_x_anzahl; i++)
+             for (int i = 0; i < savebreakable.Count(); ++i)
              {
-                 breakblocks.Add(new Breakable(blocks, false,id));
-                 id++;
-             }
-             for (int i = 0; i < break_y_anzahl; i++)
-             {
-                 breakblocks.Add(new Breakable(blocks, true,id));
-                 id++;
+                 Breakable breakblock = savebreakable.ElementAt(i);
+                 breakblocks.Add(new Breakable(blocks, breakblock.vertikal, breakblock.id));
              }
              objects.Clear();
              for (int i = 0; i < saveobjects.Count(); ++i)

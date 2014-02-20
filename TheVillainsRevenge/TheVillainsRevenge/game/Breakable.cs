@@ -12,6 +12,25 @@ namespace TheVillainsRevenge
         public Rectangle cbox = new Rectangle(0, 0, 48, 48);
         public bool vertikal;
         public int id;
+        //Checkpoint//
+        Rectangle checkcbox = new Rectangle(0, 0, 48, 48);
+        Rectangle startcbox = new Rectangle(0, 0, 48, 48);
+        public void Reset()
+        {
+            cbox = checkcbox;
+        }
+        public void Save()
+        {
+            checkcbox = cbox;
+        }
+        public void StartReset()
+        {
+            cbox = startcbox;
+        }
+        public void StartSave()
+        {
+            startcbox = cbox;
+        }
         public Breakable(List<Block> list,bool vertikal,int id)
         {
             this.vertikal = vertikal;
