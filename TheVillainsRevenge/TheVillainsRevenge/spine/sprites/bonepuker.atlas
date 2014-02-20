@@ -1,7 +1,7 @@
 
 bonepuker-1.png
 format: RGBA8888
-filter: Linear,Linear
+filter: MipMapLinearLinear,MipMapLinearLinear
 repeat: none
 arm_left
   rotate: false

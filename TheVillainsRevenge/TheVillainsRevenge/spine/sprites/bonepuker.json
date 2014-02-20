@@ -3187,7 +3187,7 @@
 			},
 			"dust2": {
 				"attachment": [
-					{ "time": 0, "name": "stuff/dust" }
+					{ "time": 0, "name": null }
 				],
 				"color": [
 					{ "time": 0, "color": "ffffffb0", "curve": "stepped" },
@@ -6730,6 +6730,76 @@
 					{ "time": 0, "name": null }
 				]
 			},
+			"sc_arm_left": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_arm_left" }
+				]
+			},
+			"sc_arm_right": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_arm_right" }
+				]
+			},
+			"sc_body": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_body" }
+				]
+			},
+			"sc_chest": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_chest" }
+				]
+			},
+			"sc_eyes_panic": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_eyes_panic" }
+				]
+			},
+			"sc_hair": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_hair" }
+				]
+			},
+			"sc_hair_front": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_hair_front" }
+				]
+			},
+			"sc_hand_left": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_hand_left" }
+				]
+			},
+			"sc_hand_right": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_hand_right" }
+				]
+			},
+			"sc_head": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_head" }
+				]
+			},
+			"sc_mouth_panic": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_mouth_panic" }
+				]
+			},
+			"sc_shoulder_left": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_shoulder_left" }
+				]
+			},
+			"sc_shoulder_right": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_shoulder_right" }
+				]
+			},
+			"sc_skirt": {
+				"attachment": [
+					{ "time": 0, "name": "sc/sc_skirt" }
+				]
+			},
 			"splat": {
 				"attachment": [
 					{ "time": 0, "name": null }
@@ -7326,7 +7396,7 @@
 					{ "time": 0, "angle": -8.57 },
 					{ "time": 0.1, "angle": 43.23 },
 					{ "time": 0.1666, "angle": 68.99 },
-					{ "time": 0.2666, "angle": 50.2 },
+					{ "time": 0.2666, "angle": 33.8 },
 					{ "time": 0.3, "angle": 38.73 },
 					{ "time": 0.3333, "angle": 21.31 },
 					{ "time": 0.3666, "angle": -12.78 },
@@ -7602,6 +7672,11 @@
 				]
 			},
 			"splat22": {
+				"attachment": [
+					{ "time": 0, "name": null }
+				]
+			},
+			"sweat": {
 				"attachment": [
 					{ "time": 0, "name": null }
 				]
