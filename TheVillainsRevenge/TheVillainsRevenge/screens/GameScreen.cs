@@ -935,10 +935,10 @@ namespace TheVillainsRevenge
             //-----Apply Shaders-----
             //if (Game1.debug) //-----[Shader]-----GaussianBlur
             //{
-                renderBackground3 = gaussBackground3.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3, BlendState.AlphaBlend);
-                renderBackground2 = gaussBackground2.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2, BlendState.AlphaBlend);
-                renderBackground1 = gaussBackground1.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1, BlendState.AlphaBlend);
-                renderBackground0 = gaussBackground0.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0, BlendState.AlphaBlend);
+                renderBackground3 = gaussBackground3.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground3);
+                renderBackground2 = gaussBackground2.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground2);
+                renderBackground1 = gaussBackground1.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground1);
+                renderBackground0 = gaussBackground0.PerformGaussianBlur(Game1.graphics, spriteBatch, renderBackground0);
             //}
             //-----Background-----
             Game1.graphics.GraphicsDevice.SetRenderTarget(renderShader);
@@ -988,7 +988,7 @@ namespace TheVillainsRevenge
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    renderShader = gaussShader.PerformGaussianBlur(Game1.graphics, spriteBatch, renderShader, BlendState.AlphaBlend);
+                    renderShader = gaussShader.PerformGaussianBlur(Game1.graphics, spriteBatch, renderShader);
                 }
             }
             if (paused)
@@ -1034,7 +1034,7 @@ namespace TheVillainsRevenge
             {
                 for (int i = 0; i < 1; i++)
                 {
-                    renderScreen = gaussScreen.PerformGaussianBlur(Game1.graphics, spriteBatch, renderScreen, BlendState.AlphaBlend);
+                    renderScreen = gaussScreen.PerformGaussianBlur(Game1.graphics, spriteBatch, renderScreen);
                 }
             }
 

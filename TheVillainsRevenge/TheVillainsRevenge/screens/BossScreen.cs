@@ -45,6 +45,9 @@ namespace TheVillainsRevenge
         RenderTarget2D renderScreen;
         RenderTarget2D renderBG;
         RenderTarget2D renderShader;
+        RenderTarget2D renderAttack;
+
+        GaussianBlur attackBlur;
 
         public int getPoints(string w)
         {
@@ -117,6 +120,7 @@ namespace TheVillainsRevenge
             renderScreen = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderBG = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             renderShader = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
+            renderAttack = new RenderTarget2D(Game1.graphics.GraphicsDevice, 1920, 1080);
             spieler.Load(Content, Game1.graphics);
             spieler.lifes = 4;
             hero.Load(Content, Game1.graphics);
@@ -132,6 +136,7 @@ namespace TheVillainsRevenge
             pauseMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 150, 175), 4));
             pauseMenu.buttons.Add(new Button("exit", new Rectangle(0, 390, 150, 250), 4));
             fadeColor = new Color(0, 0, 0, 0);
+            attackBlur = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 10f);
             Sound.Load(Content);
             Cutscene.Load(Content);
             if (cutscene)
@@ -470,6 +475,19 @@ namespace TheVillainsRevenge
                 hero.Draw(gameTime, camera);
 
                 //----------------------------------------------------------------------
+                //----------------------------------------Draw to RenderAttack
+                //----------------------------------------------------------------------
+                Game1.graphics.GraphicsDevice.SetRenderTarget(renderAttack);
+                Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.viewportTransform);
+                foreach (Rectangle wave in waves)
+                {
+                    spriteBatch.Draw(texture, wave, null, new Color(80,130,240));
+                }
+                spriteBatch.End();
+                renderAttack = attackBlur.PerformGaussianBlur(Game1.graphics, spriteBatch, renderAttack);
+
+                //----------------------------------------------------------------------
                 //----------------------------------------Draw to RenderGame
                 //----------------------------------------------------------------------
                 Game1.graphics.GraphicsDevice.SetRenderTarget(renderGame);
@@ -487,10 +505,7 @@ namespace TheVillainsRevenge
                     spriteBatch.Draw(texture, spieler.cbox.box, null, fadeColor);
                     spriteBatch.Draw(texture, hero.cbox.box, null, fadeColor);   
                 }
-                foreach (Rectangle wave in waves)
-                {
-                    spriteBatch.Draw(texture, wave, null, new Color(80,130,240));
-                }
+                spriteBatch.Draw(renderAttack, Vector2.Zero, Color.White);
                 GUI.Draw(spriteBatch, spieler.lifes, bosslebenshow, fadeColor);
                 spriteBatch.End();
 

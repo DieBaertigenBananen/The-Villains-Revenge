@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>QxdITzQ1CO0g/DzPRIrfG8MvCAg=</dsig:DigestValue>
+        <dsig:DigestValue>hq+5F/mRTYGQVKQdphehHWs9Izk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -317,13 +317,13 @@
       <dsig:DigestValue>nsXr2+FhK9eMe+UWzxi6+Qbarq8=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Content\sounds\ashbrett\super_attack.xnb" size="364137">
+  <file name="Content\sounds\ashbrett\super_attack.xnb" size="276585">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>WLiGqFKz9C/po7B9xrTGxmldcW0=</dsig:DigestValue>
+      <dsig:DigestValue>G5gSCiq2+R2U7o2/SRWnsmIMqgI=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sounds\ashbrett\win.xnb" size="87657">
