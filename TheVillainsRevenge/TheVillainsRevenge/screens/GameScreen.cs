@@ -295,6 +295,7 @@ namespace TheVillainsRevenge
                 }
                 if (!intro && Game1.sound)
                     Sound.bgMusicInstance.Play();
+                camera.UpdateTransformation(Game1.graphics);
             }
             #endregion
             #region MainUpdate

@@ -39,7 +39,7 @@ namespace TheVillainsRevenge
         float fading = 255.0f;
         Color fadeColor;
         List<Rectangle> waves = new List<Rectangle>();
-
+        double dieTimer = 2f;
         Spine background = new Spine();
         RenderTarget2D renderSpine;
         RenderTarget2D renderGame;
@@ -96,7 +96,7 @@ namespace TheVillainsRevenge
         }
         #endregion
 
-        public BossScreen()
+        public BossScreen(bool cut)
         {
             texture = new Texture2D(Game1.graphics.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             texture.SetData<Color>(new Color[] { Color.White });
@@ -106,7 +106,10 @@ namespace TheVillainsRevenge
             LuaKI.RegisterFunction("addPoint", this, this.GetType().GetMethod("addPoint"));
             LuaKI.RegisterFunction("removePoint", this, this.GetType().GetMethod("removePoint"));
             bossleben = 100;
-            cutscene = true;
+            if (cut)
+            {
+                cutscene = true;
+            }
         }
 
         public void Load(ContentManager Content)
@@ -147,6 +150,10 @@ namespace TheVillainsRevenge
             {
                 Cutscene.Play("final");
             }
+            else if (Game1.sound)
+            {
+                Sound.bgMusicInstance.Play();
+            }
         }
 
         public int Update(GameTime gameTime, ContentManager Content)
@@ -160,6 +167,7 @@ namespace TheVillainsRevenge
                     Cutscene.Play("credits");
                     endscene = true;
                 }
+                camera.UpdateTransformation(Game1.graphics);
             }
             else if (endscene)
             {
@@ -174,6 +182,7 @@ namespace TheVillainsRevenge
                     Cutscene.player.Stop();
                     return 4;
                 }
+                camera.UpdateTransformation(Game1.graphics);
             }
             else if (cutscene)
             {
@@ -194,6 +203,7 @@ namespace TheVillainsRevenge
                 {
                     Sound.bgMusicInstance.Play();
                 }
+                camera.UpdateTransformation(Game1.graphics);
             }
             else
             {
@@ -201,7 +211,7 @@ namespace TheVillainsRevenge
                 {
                     fadeout = true;
                 }
-                if (!paused)
+                if (!paused && dieTimer == 2.0f)
                 {
                     Game1.time += gameTime.ElapsedGameTime;
                     //--------------------Map--------------------
@@ -266,11 +276,18 @@ namespace TheVillainsRevenge
                         spieler.getHit(gameTime, karte, hero.position, "");
                     }
                     if (spieler.lifes == 0)
+                    {
                         GUI.GFace = 2;
+                        dieTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
+                    }
                     else if (spieler.ishit)
+                    {
                         GUI.GFace = 1;
+                    }
                     else
+                    {
                         GUI.GFace = 0;
+                    }
                     //KiPunkte
                     for (int i = 0; i < karte.kipoints.Count(); i++)
                     {
@@ -321,6 +338,15 @@ namespace TheVillainsRevenge
                         paused = true;
                     }
                     return 1;
+                }
+                else if (dieTimer < 2f)
+                {
+                    dieTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
+                    if (dieTimer <= 0)
+                    {
+                        return 5;
+                    }
+                    camera.UpdateTransformation(Game1.graphics);
                 }
                 else
                 {
