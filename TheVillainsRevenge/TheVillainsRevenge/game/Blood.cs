@@ -34,7 +34,7 @@ namespace TheVillainsRevenge
             bloodpos.X = bloodrand.Next(192, 1920 - 192);
             bloodpos.Y = bloodrand.Next(108, 1080 - 108);
             blood.Clear(0);
-            blood.anim("splat" + anim, 0, false);
+            blood.anim("splat" + anim, 0, true);
         }
     }
 }
