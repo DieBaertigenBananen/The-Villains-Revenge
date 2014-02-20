@@ -43,7 +43,7 @@ namespace TheVillainsRevenge
         {
             schlagbar = false;
             spine.Clear(0);
-            if (BossScreen.bossleben == 0)
+            if (BossScreen.bossleben <= 0)
             {
                 Sound.Play("ashbrett_dying");
                 animeTime = 2000;
