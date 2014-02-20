@@ -616,6 +616,8 @@ namespace TheVillainsRevenge
             }
                 spriteBatch.Draw(renderScreen, new Vector2(), fadeColor);
             spriteBatch.End();
+            if (Game1.input.screenshot && Game1.CanTakeScreenshots)
+                Game1.TakeScreenshot(renderScreen);
         }
     }
 }

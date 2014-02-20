@@ -31,6 +31,7 @@ namespace TheVillainsRevenge
         public static int level = 1;
         public static int leben = 4;
         public static TimeSpan time = new TimeSpan();
+        public static bool CanTakeScreenshots = true;
         public struct SaveData
         {
             public bool sound;
@@ -432,6 +433,14 @@ namespace TheVillainsRevenge
                 graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             }
             graphics.ApplyChanges();
+        }
+
+        public static void TakeScreenshot(RenderTarget2D renderScreen)
+        {
+            string filename = "Screenshots/TVR_" + System.DateTime.Now.Year.ToString() + System.DateTime.Now.Month.ToString() + System.DateTime.Now.Day.ToString() + "_" + System.DateTime.Now.Hour.ToString() + System.DateTime.Now.Second.ToString() + "_" + System.DateTime.Now.Millisecond.ToString() + ".png";
+            Stream st = new FileStream(filename, FileMode.Create);
+            renderScreen.SaveAsPng(st, 1920, 1080);
+            st.Close();
         }
     }
 }

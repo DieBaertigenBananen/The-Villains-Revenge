@@ -32,6 +32,8 @@ namespace TheVillainsRevenge
         bool smashp;
         public bool fullscreen;
         bool fullscreenp;
+        public bool screenshot;
+        bool screenshotp;
         public bool sprung;
         public bool sprungp;
         public bool links, rechts, end;
@@ -404,6 +406,22 @@ namespace TheVillainsRevenge
                 if (keyState.IsKeyUp(Keys.F11) == true)
                 {
                     fullscreenp = false;
+                }
+            }
+            if (!screenshotp)
+            {
+                if (keyState.IsKeyDown(Keys.F12) == true)
+                {
+                    screenshot = true;
+                    screenshotp = true;
+                }
+            }
+            else
+            {
+                screenshot = false;
+                if (keyState.IsKeyUp(Keys.F12) == true)
+                {
+                    screenshotp = false;
                 }
             }
             if (!leftMp)

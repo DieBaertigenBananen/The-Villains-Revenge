@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using LuaInterface;
+using System.IO;
 
 namespace TheVillainsRevenge
 {
@@ -1069,6 +1070,10 @@ namespace TheVillainsRevenge
                 spriteBatch.Draw(renderScreen, new Vector2(), Color.White);
             spriteBatch.End();
             #endregion
+            if (Game1.input.screenshot && Game1.CanTakeScreenshots)
+                Game1.TakeScreenshot(renderScreen);
         }
+
+         
     }
 }
