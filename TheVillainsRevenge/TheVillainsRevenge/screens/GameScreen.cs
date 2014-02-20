@@ -198,6 +198,7 @@ namespace TheVillainsRevenge
                     gaussBackground3 = new GaussianBlur(Content, Game1.graphics, 1920, 1080, 12f);
                     princess.ResetRage(gameTime);
                     StartSave();
+                    Save((int)spieler.position.X);
                     pauseMenu = new SubMenu(2, "pause", new Vector2(- 60, -100), 200);
                     pauseMenu.Load(Content);
                     pauseMenu.buttons.Add(new Button("start", new Rectangle(0, 0, 150, 175), 4));
