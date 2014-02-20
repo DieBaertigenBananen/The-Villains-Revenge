@@ -147,7 +147,6 @@ namespace TheVillainsRevenge
             {
                 Cutscene.Play("final");
             }
-            bossleben = 1;
         }
 
         public int Update(GameTime gameTime, ContentManager Content)
