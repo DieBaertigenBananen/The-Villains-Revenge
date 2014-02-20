@@ -360,6 +360,8 @@ namespace TheVillainsRevenge
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.screenTransform);
                 spriteBatch.Draw(renderScreen, Vector2.Zero, Color.White);
             spriteBatch.End();
+            if (Game1.input.screenshot && Game1.CanTakeScreenshots)
+                Game1.TakeScreenshot(renderScreen);
         }
     }
 }
