@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>wzD4u93jZZJroxGzLER6q61l6Uc=</dsig:DigestValue>
+        <dsig:DigestValue>/bvDRMlsrbEjSoYFdGM0vZjp1D8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -755,7 +755,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>OuyiKvOmzgOJJ/23I3PJ+wcXd4s=</dsig:DigestValue>
+      <dsig:DigestValue>m9MJMEPFw4W4yMKijdM2juX0dVM=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\level_1\planes\background_0_1.xnb" size="30720187">

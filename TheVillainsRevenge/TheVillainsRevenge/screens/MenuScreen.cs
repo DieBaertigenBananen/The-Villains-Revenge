@@ -117,7 +117,6 @@ namespace TheVillainsRevenge
                     if (Game1.sound)
                     {
                         Sound.startMusicInstance.Stop();
-                        Sound.menuMusicInstance.Play();
                     }
                 }
             }
@@ -208,7 +207,10 @@ namespace TheVillainsRevenge
                         {
                             if (Game1.sound)
                             {
-                                Sound.menuMusicInstance.Stop();
+                                if (Sound.startMusicInstance.State == SoundState.Playing)
+                                    Sound.startMusicInstance.Stop();
+                                else
+                                    Sound.menuMusicInstance.Stop();
                                 Game1.sound = false;
                             }
                             else
