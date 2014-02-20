@@ -47,11 +47,13 @@ namespace TheVillainsRevenge
         double checkSmashTimer = 0;
         bool checkjump;
         double checkjumpt;
+        float checkSmashCooldown;
         //Start Speicherng//
         public Vector2 startpoint;
         public double startSmashTimer = 0;
         public bool startjump;
         public double startjumpt;
+        public float startSmashCooldown;
         public Random randomNumber = new Random();
 
         public Player(int x, int y) //Konstruktor, setzt Anfangsposition
@@ -74,6 +76,7 @@ namespace TheVillainsRevenge
             startpoint.Y = position.Y;
             startjump = jump;
             startjumpt = jumptimer;
+            startSmashCooldown = smashCooldown;
         }
         public void StartReset()
         {
@@ -87,9 +90,11 @@ namespace TheVillainsRevenge
             cbox.Update(position);
             lastPosition = new Vector2(spine.skeleton.X, spine.skeleton.Y);
             kicheck.Clear();
+            smashCooldown = startSmashCooldown;
         }
         public void Save(int x)
         {
+            checkSmashCooldown = smashCooldown;
             checkSmashTimer = smashTimer;
             checkpoint.X = x;
             checkpoint.Y = position.Y;
@@ -103,6 +108,7 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
+            smashCooldown = checkSmashCooldown;
             smashTimer = checkSmashTimer;
             jump = checkjump;
             jumptimer = checkjumpt;

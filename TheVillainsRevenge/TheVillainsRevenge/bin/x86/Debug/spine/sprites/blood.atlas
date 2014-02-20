@@ -1,7 +1,7 @@
 
 blood-1.png
 format: RGBA8888
-filter: Linear,Linear
+filter: MipMapLinearLinear,MipMapLinearLinear
 repeat: none
 drips
   rotate: false

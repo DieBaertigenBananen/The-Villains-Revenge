@@ -117,14 +117,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="209920">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="210432">
       <assemblyIdentity name="TheVillainsRevenge" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>6SFV60RjOOZ4gOIcIKSMtcBLQ2E=</dsig:DigestValue>
+        <dsig:DigestValue>IfixOYRmVr1+amLdv9MZrf1mZlU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -2063,22 +2063,22 @@
       <dsig:DigestValue>ytpji84u3FOykSOiHDmVVPTaSdw=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\blood.atlas" size="590">
+  <file name="spine\sprites\blood.atlas" size="614">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>l1QMaP7R+3EeFPDoK080X1UB1eU=</dsig:DigestValue>
+      <dsig:DigestValue>JUJNv/9/zK0dIW2fvrgpgpb4U3Q=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\blood.json" size="6971">
+  <file name="spine\sprites\blood.json" size="8346">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>1MuytQod7w9Nta1bNXriDSvRSVU=</dsig:DigestValue>
+      <dsig:DigestValue>V5/cXxaN33mfvAfxkGB6kPQ2EtE=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\blood-1.png" size="102964">
