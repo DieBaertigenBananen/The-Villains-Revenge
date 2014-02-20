@@ -207,7 +207,7 @@ namespace TheVillainsRevenge
             }
             else
             {
-                if (bossleben == 0 && Game1.time.TotalMilliseconds > (float)hero.spine.animationTimer + 3000)
+                if (bossleben <= 0 && Game1.time.TotalMilliseconds > (float)hero.spine.animationTimer + 3000)
                 {
                     fadeout = true;
                 }
@@ -240,8 +240,6 @@ namespace TheVillainsRevenge
                             if (Circle.Intersects(new Vector2(x, y), spieler.screamradius, hero.cbox.box) && hero.screamhit)
                             {
                                 bossleben -= 20;
-                                if (bossleben < 20)
-                                    bossleben = 0;
                                 hero.gethit();
                                 hero.screamhit = false;
                             }

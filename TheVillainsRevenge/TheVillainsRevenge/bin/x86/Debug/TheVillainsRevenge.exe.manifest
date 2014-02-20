@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>UXNH0+QffE9AxgX9uVOe1DPRRls=</dsig:DigestValue>
+        <dsig:DigestValue>2OWmbCWrKIBJjIt7hGFBUYhebMA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -134,7 +134,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>epdEm61S8VSJ7rKDzMXNjN2dohA=</dsig:DigestValue>
+      <dsig:DigestValue>xZ9Vp13gvLRV1WbP+0Rkjf4vwfY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Clear.xnb" size="860">
@@ -278,7 +278,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>suvxMeq5Hgcfafas8KcQ9YCRnQU=</dsig:DigestValue>
+      <dsig:DigestValue>OwBLnPKyv2MOi2QYNceqkTqA1aA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\Smash.xnb" size="3308">
@@ -1655,7 +1655,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>aGE0qzYV3Bf2uInmkKLWmbVxZhs=</dsig:DigestValue>
+      <dsig:DigestValue>vAW5yoiBzht1cKIFtxggf7ShAuQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\sprites\level_5\planes\foreground.xnb" size="8478907">
@@ -1991,13 +1991,13 @@
       <dsig:DigestValue>J+ILkc6F2/dl61MWX6z+Jz4KbQs=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="Level_5\kiscript.txt" size="3554">
+  <file name="Level_5\kiscript.txt" size="3641">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>PUguw4RZ0mFQ9oIrfg4icz649Fo=</dsig:DigestValue>
+      <dsig:DigestValue>m+hEmI7H7oCp9jKbRkEDcxBFvxQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Level_5\luascript.txt" size="2809">

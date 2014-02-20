@@ -98,6 +98,9 @@ if p_id[p_points-1] == 11 and p_id[p_points] == 6 then
 end
 
 if p_id[p_points] == 3 or 
+   p_id[p_points] == 17 or 
+   p_id[p_points] == 18 or 
+   p_id[p_points] == 19 or 
    p_id[p_points] == 4 then
 	for i=0,h_points,1 do
           remove(h_points);
