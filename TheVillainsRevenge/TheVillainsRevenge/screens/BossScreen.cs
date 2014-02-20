@@ -13,6 +13,7 @@ namespace TheVillainsRevenge
 {
     class BossScreen
     {
+        #region Properties
         SpriteFont font;
         Texture2D texture;
         public PrincessSpieler spieler = new PrincessSpieler(40, 1000);
@@ -48,7 +49,9 @@ namespace TheVillainsRevenge
         RenderTarget2D renderAttack;
 
         GaussianBlur attackBlur;
+        #endregion
 
+        #region KI
         public int getPoints(string w)
         {
             if (w == "Spieler")
@@ -91,6 +94,7 @@ namespace TheVillainsRevenge
             if (geht)
                 hero.kicheck.Add(new KICheck(t, s));
         }
+        #endregion
 
         public BossScreen()
         {

@@ -124,7 +124,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>hq+5F/mRTYGQVKQdphehHWs9Izk=</dsig:DigestValue>
+        <dsig:DigestValue>K+jul+bg/wFzAxuiFY3RZ2Qcmmc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -234,6 +234,24 @@
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
       <dsig:DigestValue>OQxVIJhEVs8Kp8sHDObCpoTDJ8k=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\scenes\intro.wmv" size="14178309">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>9jCqvzFTrAJL4EcfDg5vBGby370=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Content\scenes\intro.xnb" size="342">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>3LwhbwI6UhEra/hJzPfvvWbdVpc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Content\scenes\start.wmv" size="1858213">
