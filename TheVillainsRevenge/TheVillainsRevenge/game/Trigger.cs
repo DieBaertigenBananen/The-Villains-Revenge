@@ -39,6 +39,7 @@ namespace TheVillainsRevenge
         public Trigger(Vector2 npos,Block b)
         {
             //Setze Position und Collisionsbox
+            b.block = false;
             this.b = b;
             position = npos;
             cbox.X = (int)position.X;
@@ -337,14 +338,12 @@ namespace TheVillainsRevenge
                     {
                         pushed = true;
                         active = true;
-                        b.block = false;
                     }
                 }
                 else if (typ == 2) //Wenn es eine Tür ist
                 {
                     pushed = true;
                     active = true;
-                    b.block = false;
                     doorframe = 0;
                 }
             }
@@ -571,7 +570,6 @@ namespace TheVillainsRevenge
                                     }
                                     cboxnew.Y -= 48;
                                 }
-                                b.block = true;
                                 active = false;
                                 time = 0;
                             }
@@ -609,7 +607,6 @@ namespace TheVillainsRevenge
                         if (blocks.Count() == 0)
                         {
                             blocks.Clear();
-                            b.block = true;
                             active = false;
                             time = 0;
                         }
