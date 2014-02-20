@@ -117,14 +117,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="210432">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TheVillainsRevenge.exe" size="210944">
       <assemblyIdentity name="TheVillainsRevenge" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>IfixOYRmVr1+amLdv9MZrf1mZlU=</dsig:DigestValue>
+        <dsig:DigestValue>HgZnao794EnbyA1QbjRQThWSVcY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -2090,22 +2090,22 @@
       <dsig:DigestValue>nc3gNG89R2wc0rwSO5n+rV7SX6g=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\bonepuker.atlas" size="6522">
+  <file name="spine\sprites\bonepuker.atlas" size="6546">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>gxFlPRC9DyGmyGbaFqNzxWeFRMs=</dsig:DigestValue>
+      <dsig:DigestValue>qvLNlGOXVC+h+6VKYIj06Prw6g0=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="spine\sprites\bonepuker.json" size="216550">
+  <file name="spine\sprites\bonepuker.json" size="218062">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>KUZWiYSxjHWmQkQ8Po+5CizGZ9A=</dsig:DigestValue>
+      <dsig:DigestValue>Ee39uVZRiUQVGkwsAuOux3x7DPk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="spine\sprites\bonepuker-1.png" size="250922">

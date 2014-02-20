@@ -244,7 +244,7 @@ namespace TheVillainsRevenge
                     }
                     else
                     {
-                        boss = new BossScreen(); //lädt das Game
+                        boss = new BossScreen(true); //lädt das Game
                         boss.Load(Content); // lädt die Game Bilder
                     }
                 }
@@ -276,6 +276,7 @@ namespace TheVillainsRevenge
                 {
                     game = null;
                     Content.Unload();
+                    GC.Collect();
                     Load();
                     menu = new MenuScreen(0);
                     menu.Load(Content);
@@ -288,6 +289,7 @@ namespace TheVillainsRevenge
                 {
                     boss = null;
                     Content.Unload();
+                    GC.Collect();
                     Load();
                     menu = new MenuScreen(0);
                     menu.Load(Content);
@@ -300,6 +302,7 @@ namespace TheVillainsRevenge
                     {
                         boss = null;
                         Content.Unload();
+                        GC.Collect();
                         Load();
                         menu = new MenuScreen(1);
                         menu.Load(Content);
@@ -308,6 +311,7 @@ namespace TheVillainsRevenge
                     {
                         boss = null;
                         Content.Unload();
+                        GC.Collect();
                         menu = new MenuScreen(2);
                         menu.Load(Content);
                     }
@@ -315,10 +319,21 @@ namespace TheVillainsRevenge
                     {
                         boss = null;
                         Content.Unload();
+                        GC.Collect();
                         Load();
                         menu = new MenuScreen(0);
                         menu.Load(Content);
                         menuOption = 1;
+                    }
+                    else if (menuOption == 5)
+                    {
+
+                        boss = null;
+                        Content.Unload();
+                        GC.Collect();
+                        Load();
+                        boss = new BossScreen(false); //lädt das Game
+                        boss.Load(Content); // lädt die Game Bilder
                     }
                 }
             }
