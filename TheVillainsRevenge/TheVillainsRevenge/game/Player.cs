@@ -48,6 +48,7 @@ namespace TheVillainsRevenge
         bool checkjump;
         double checkjumpt;
         float checkSmashCooldown;
+        int citem1, citem2;
         //Start Speicherng//
         public Vector2 startpoint;
         public double startSmashTimer = 0;
@@ -80,6 +81,8 @@ namespace TheVillainsRevenge
         }
         public void StartReset()
         {
+            item1 = 0;
+            item2 = 0;
             smashTimer = startSmashTimer;
             jump = startjump;
             jumptimer = startjumpt;
@@ -94,6 +97,8 @@ namespace TheVillainsRevenge
         }
         public void Save(int x)
         {
+            citem1 = item1;
+            citem2 = item2;
             checkSmashCooldown = smashCooldown;
             checkSmashTimer = smashTimer;
             checkpoint.X = x;
@@ -108,6 +113,8 @@ namespace TheVillainsRevenge
         }
         public void Reset()
         {
+            item1 = citem1;
+            item2 = citem2;
             smashCooldown = checkSmashCooldown;
             smashTimer = checkSmashTimer;
             jump = checkjump;
